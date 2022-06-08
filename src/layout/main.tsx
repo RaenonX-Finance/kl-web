@@ -6,9 +6,6 @@ import Row from 'react-bootstrap/Row';
 import {ErrorPopup} from '../components/error/main';
 import {useSocketInit} from '../hooks/socket/init';
 import {useCustomSrSelector} from '../state/customSr/selector';
-import {useExecutionSelector} from '../state/execution/selector';
-import {useOpenOrderSelector} from '../state/openOrder/selector';
-import {usePositionSelector} from '../state/position/selector';
 import {usePxDataSelector} from '../state/pxData/selector';
 import {PxData} from '../types/pxData';
 import {getPxDataTitle} from '../utils/pxData';
@@ -20,34 +17,27 @@ import styles from './main.module.scss';
 
 export const PxDataMain = () => {
   const pxData = usePxDataSelector();
-  const position = usePositionSelector();
-  const openOrderState = useOpenOrderSelector();
-  const execution = useExecutionSelector();
   const customSrLevels = useCustomSrSelector();
 
   useSocketInit();
 
-  const {openOrders} = openOrderState;
-
   const getIndividualProps = (data: PxData): PxDataIndividualProps => ({
     pxData: data,
-    title: getPxDataTitle(data, !data.isMajor),
+    title: getPxDataTitle(data, true),
     payload: {
-      position: position[data.contract.identifier],
-      openOrder: openOrders[data.contract.identifier],
-      execution: execution[data.contract.identifier],
-      customSrLevels: customSrLevels[data.contract.identifier],
+      customSrLevels: customSrLevels[data.contract.symbol],
     },
   });
 
   const sortedPxData = Object.values(pxData)
     .sort((a, b) => (
-      a.contract.identifier - b.contract.identifier ||
+      a.contract.symbol.localeCompare(b.contract.symbol) ||
       a.periodSec - b.periodSec
     ));
 
-  const majorPxData = sortedPxData.filter(({isMajor}) => isMajor);
-  const minorPxData = sortedPxData.filter(({isMajor}) => !isMajor);
+  // TODO: Temporary change
+  const majorPxData = sortedPxData.filter(() => true);
+  const minorPxData = sortedPxData.filter(() => false);
 
   return (
     <>

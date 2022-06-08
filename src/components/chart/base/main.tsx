@@ -5,13 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
-import {useSocket} from '../../../hooks/socket/main';
-import {openOrderDispatchers} from '../../../state/openOrder/dispatchers';
-import {OpenOrderDispatcherName} from '../../../state/openOrder/types';
-import {useDispatch} from '../../../state/store';
-import {SecurityIdentifier} from '../../../types/common';
-import {OrderPanel} from '../../orderPanel/main';
-import {OrderPanelState} from '../../orderPanel/type';
 import {PeriodTimer} from '../../periodTimer/main';
 import {TimeAgo} from '../../timeAgo/main';
 import {useTradingViewChart} from './hook';
@@ -28,8 +21,6 @@ export type TradingViewChartProps<T, P, R, L, A> = {
   calcObjects: ChartCalcObjects<T, L>,
   renderObjects: ChartRenderObjects<T, L>,
   renderLayoutConfig: (config: A, setConfig: (newConfig: A) => void) => React.ReactNode,
-  getIdentifier: (data: T) => SecurityIdentifier,
-  getPnLMultiplier: (data: T) => number,
   getPeriodSec: (data: T) => number,
   getInitialLayoutConfig: (data: T) => A,
   getDataLastUpdate: (data: T) => number,
@@ -44,8 +35,6 @@ export const TradingViewChart = <T, P, R, L, A>({
   onDataUpdated,
   renderObjects,
   renderLayoutConfig,
-  getIdentifier,
-  getPnLMultiplier,
   getPeriodSec,
   getInitialLayoutConfig,
   getDataLastUpdate,
@@ -57,16 +46,12 @@ export const TradingViewChart = <T, P, R, L, A>({
   });
   const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
-  const [order, setOrder] = React.useState<OrderPanelState>(calcObjects.order(chartData));
   const [layoutConfig, setLayoutConfig] = React.useState<A>(getInitialLayoutConfig(chartData));
-  const dispatch = useDispatch();
-  const socket = useSocket();
 
   const periodSec = getPeriodSec(chartData);
 
   const setObject = {
     legend: setLegend,
-    order: setOrder,
   };
 
   const onDataUpdatedInternal = (forceUpdate: boolean) => () => {
@@ -77,7 +62,7 @@ export const TradingViewChart = <T, P, R, L, A>({
       return;
     }
 
-    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, order, layoutConfig});
+    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig});
     lastUpdated.current = dataLastUpdated;
   };
 
@@ -96,11 +81,6 @@ export const TradingViewChart = <T, P, R, L, A>({
     });
   };
 
-  const onOrderPanelShowChanged = () => {
-    dispatch(openOrderDispatchers[OpenOrderDispatcherName.SET_POLL](!order.show));
-    socket.emit('openOrder', ''); // Ensure the open order data is up-to-date
-  };
-
   const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, A, P>({
     initChart,
     onDataUpdated: onDataUpdatedInternal(true),
@@ -109,26 +89,15 @@ export const TradingViewChart = <T, P, R, L, A>({
   React.useEffect(onLoad, []);
   React.useEffect(
     onDataUpdatedInternal(true),
-    [chartObjectRef.current?.initData, payload, order, layoutConfig],
+    [chartObjectRef.current?.initData, payload, layoutConfig],
   );
   React.useEffect(
     onDataUpdatedInternal(false),
     [getDataLastUpdate(chartData)],
   );
-  React.useEffect(onOrderPanelShowChanged, [order.show]);
 
   return (
     <>
-      {
-        order.show &&
-        <OrderPanel
-          state={order}
-          setState={setOrder}
-          identifier={getIdentifier(chartData)}
-          multiplier={getPnLMultiplier(chartData)}
-          periodSec={periodSec}
-        />
-      }
       <div className="mb-2" style={{height}} ref={chartContainerRef}>
         <div className={styles['legend']}>
           {renderObjects.legend(chartData, legend)}

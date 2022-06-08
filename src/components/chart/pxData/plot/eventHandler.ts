@@ -30,16 +30,7 @@ export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
       high: hovered?.high || last?.high || NaN,
       low: hovered?.low || last?.low || NaN,
       close: hovered?.close || last?.close || NaN,
-      amplitudeHL: hovered?.amplitudeHL || last?.amplitudeHL || NaN,
-      amplitudeOC: hovered?.amplitudeOC || last?.amplitudeOC || NaN,
-      extremaMin: hovered?.extremaMin || last?.extremaMin || false,
-      extremaMax: hovered?.extremaMax || last?.extremaMax || false,
-      ema120: hovered?.ema120 || last?.ema120 || NaN,
-      ema120Trend: hovered?.ema120Trend || last?.ema120Trend || NaN,
-      ema120TrendChange: hovered?.ema120TrendChange || last?.ema120TrendChange || NaN,
       diff: hovered?.diff || last?.diff || NaN,
-      diffSma: hovered?.diffSma || last?.diffSma || NaN,
-      diffSmaTrend: hovered?.diffSmaTrend || last?.diffSmaTrend || NaN,
       decimals,
       ...Object.fromEntries(chartDataRef.current.smaPeriods
         .map((period) => {

@@ -19,16 +19,13 @@ export type PxChartLegendProps = {
 export const PxChartLegend = (props: PxChartLegendProps) => {
   const {legend} = props;
   const {
-    ema120Trend,
-    ema120TrendChange,
     open,
     high,
     low,
     close,
-    diffSma,
-    diffSmaTrend,
     decimals,
     epochSec,
+    vwap,
   } = legend;
 
   // Not using diff from PxData because it is slightly lagged
@@ -36,10 +33,10 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
   const diff = close - open;
 
   let diffClassName: LegendDataCellProps['useValueClass'] = 'neutral';
-  if (ema120Trend) {
-    if (ema120Trend > 0) {
+  if (vwap) {
+    if (vwap > 0) {
       diffClassName = 'up';
-    } else if (ema120Trend < 0) {
+    } else if (vwap < 0) {
       diffClassName = 'down';
     }
   }
@@ -49,22 +46,6 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
       <Row>
         <Col className="d-inline">
           <LegendDataCell value={epochSecToFormattedString(epochSec)} decimals={decimals} large/>
-          <LegendDataCell
-            title={<i className="bi bi-arrows-expand"/>}
-            value={ema120Trend} decimals={decimals} useValueClass
-          />
-          <LegendDataCell
-            title={<i className="bi bi-plus-slash-minus"/>}
-            value={ema120TrendChange} decimals={decimals} useValueClass
-          />
-          <LegendDataCell
-            title={<i className="bi bi-activity"/>}
-            value={diffSma} decimals={decimals}
-          />
-          <LegendDataCell
-            title={<i className="bi bi-plus-slash-minus"/>}
-            value={diffSmaTrend} decimals={decimals} useValueClass
-          />
           <LegendSmaPositions {...props}/>
         </Col>
       </Row>

@@ -1,4 +1,4 @@
 export type PxDataMarket = {
-  contractId: number,
+  symbol: string,
   px: number,
 };

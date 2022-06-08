@@ -52,30 +52,10 @@ export const PxDataChart = (props: Props) => {
             low: NaN,
             close: NaN,
             vwap: NaN,
-            amplitudeHL: NaN,
-            amplitudeOC: NaN,
-            extremaMin: false,
-            extremaMax: false,
-            ema120: NaN,
-            ema120Trend: NaN,
-            ema120TrendChange: NaN,
             diff: NaN,
-            diffSma: NaN,
-            diffSmaTrend: NaN,
             ...last,
           };
         },
-        order: ({contract, periodSec}) => ({
-          show: false,
-          order: {
-            orderId: null,
-            quantity: 1,
-            px: NaN,
-            identifier: NaN,
-            periodSec,
-          },
-          pxTick: contract.minTick,
-        }),
       }}
       renderObjects={{
         legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend}/>,
@@ -83,18 +63,11 @@ export const PxDataChart = (props: Props) => {
       renderLayoutConfig={(config, setConfig) => (
         <PxChartLayoutConfigPanel title={title} config={config} setConfig={setConfig}/>
       )}
-      getIdentifier={(data) => data.contract.identifier}
-      getPnLMultiplier={(data) => data.contract.multiplier}
       getPeriodSec={(data) => data.periodSec}
-      getInitialLayoutConfig={({periodSec}) => ({
+      getInitialLayoutConfig={() => ({
         vwap: {
           title: 'VWAP',
           enable: false,
-          group: 'Indicator',
-        },
-        ema120: {
-          title: 'EMA 120',
-          enable: true,
           group: 'Indicator',
         },
         sma: {
@@ -111,16 +84,6 @@ export const PxDataChart = (props: Props) => {
           title: 'Show Weak',
           enable: false,
           group: 'S/R Levels',
-        },
-        extrema: {
-          title: 'Local Extrema',
-          enable: false,
-          group: 'Markers',
-        },
-        marker: {
-          title: 'Trade Markers',
-          enable: periodSec <= 60,
-          group: 'Markers',
         },
       })}
       getDataLastUpdate={({lastUpdated}) => lastUpdated}

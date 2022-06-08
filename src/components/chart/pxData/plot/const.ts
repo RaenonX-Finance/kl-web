@@ -1,8 +1,6 @@
 import chroma from 'chroma-js';
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
-import {OrderSide, PriceActionSide} from '../../../../types/common';
-
 
 export const avgCostColor = 'rgba(240, 240, 240, 0.7)';
 
@@ -20,17 +18,6 @@ export const bearishColor = '#ff4b4b';
 
 export const pxLineColors = {
   vwap: '#5fa9ff',
-  ema120: '#dcdcdc',
-};
-
-export const orderSideColor: {[side in OrderSide]: string} = {
-  BUY: longColor,
-  SELL: shortColor,
-};
-
-export const actionSideColor: {[side in PriceActionSide]: string} = {
-  LONG: longLighterColor,
-  SHORT: shortLighterColor,
 };
 
 const srLevelColorWeak = 'rgba(255, 0, 221, 0.8)';

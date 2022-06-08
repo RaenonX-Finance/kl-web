@@ -1,9 +1,6 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
-import {ExecutionGroup} from '../../../types/execution';
 import {CustomSrLevel} from '../../../types/init';
-import {OpenOrderData} from '../../../types/openOrder';
-import {PositionData} from '../../../types/position';
 import {PxData, PxDataBar} from '../../../types/pxData';
 import {Optional} from '../../../utils/types';
 import {
@@ -18,28 +15,21 @@ export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
   vwap: ISeriesApi<'Line'>,
   sma: Record<number, ISeriesApi<'Line'>>,
-  ema120: ISeriesApi<'Line'>,
-  avgCost: IPriceLine | null,
-  orderEntry: IPriceLine | null,
 };
 
 export type PxChartLines = {
   srLevelLines: Record<number, IPriceLine>,
-  openOrders: Record<number, IPriceLine>,
 };
 
-export type PxChartLegendData = Optional<PxDataBar, 'ema120' | 'vwap'> & {
+export type PxChartLegendData = Optional<PxDataBar, 'vwap'> & {
   decimals: number,
 };
 
 export type PxChartLayoutConfigKeys =
   'vwap' |
-  'ema120' |
   'sma' |
   'srLevel' |
-  'srLevelWeak' |
-  'extrema' |
-  'marker';
+  'srLevelWeak';
 
 export type PxChartLayoutConfigEntry = {
   title: string,
@@ -52,13 +42,9 @@ export type PxChartLayoutConfig = {[key in PxChartLayoutConfigKeys]: PxChartLayo
 export type PxChartInitData = {
   series: PxChartSeries,
   lines: PxChartLines,
-  position: PositionData | null,
 };
 
 export type PxChartPayload = {
-  position: PositionData | undefined,
-  openOrder: Record<number, OpenOrderData> | undefined,
-  execution: ExecutionGroup[] | undefined,
   customSrLevels: CustomSrLevel[] | undefined,
 };
 

@@ -49,10 +49,10 @@ const slice = createSlice({
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
       (state: PxDataState, {payload}: {payload: PxDataMarket}) => {
-        const {contractId, px} = payload;
+        const {symbol, px} = payload;
 
         Object.entries(state).forEach(([_, pxData]) => {
-          if (pxData.contract.identifier !== contractId) {
+          if (pxData.contract.symbol !== symbol) {
             return;
           }
 
