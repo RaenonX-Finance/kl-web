@@ -1,0 +1,16 @@
+tr.order-entry-row > td, tr.order-entry-row > td > input {
+  padding: 0.25rem 0.5rem !important;
+}
+
+td.buy {
+  background-color: rgba(25, 74, 179, 0.7) !important;
+}
+td.sell {
+  background-color: rgba(179, 53, 25, 0.7) !important;
+}
+
+button.order-px-button {
+  width: 2.4rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */

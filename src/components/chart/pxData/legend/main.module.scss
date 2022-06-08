@@ -1,0 +1,45 @@
+@use "../../../../styles/colors";
+
+div, span {
+  &.data-cell {
+    display: inline;
+    padding: 0.1rem 0.75rem 0.1rem 0;
+    white-space: nowrap;
+  }
+
+  &.legend {
+    @mixin diff-styling($name, $color) {
+      &.diff-#{$name} {
+        border: 1px solid $color;
+        box-shadow: inset 0 0 0.5rem $color;
+      }
+    }
+
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    margin: 0.3rem;
+    border-radius: 0.5rem;
+    background-color: rgba(17 17 17 / 0.65);
+    width: 28vw;
+
+    @include diff-styling(neutral, colors.$color-neutral);
+    @include diff-styling(up, colors.$color-up);
+    @include diff-styling(down, colors.$color-down);
+  }
+
+  &.val-neutral {
+    color: colors.$color-neutral;
+  }
+
+  &.val-up {
+    color: colors.$color-up;
+  }
+
+  &.val-down {
+    color: colors.$color-down;
+  }
+
+  &.price-lg {
+    font-size: 1.1rem;
+  }
+}

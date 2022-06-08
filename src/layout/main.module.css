@@ -1,0 +1,25 @@
+button.collapsible-button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+button.collapsible-button:hover {
+  color: white;
+}
+button.collapsible-button:not(:hover) {
+  animation: 1s update-light;
+}
+@keyframes update-light {
+  from {
+    background-color: #505050;
+  }
+  to {
+    background: unset;
+  }
+}
+
+div.sub-px-data-bar {
+  padding: 0.5rem;
+  background-color: #141414;
+  border-radius: 0.5rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */
