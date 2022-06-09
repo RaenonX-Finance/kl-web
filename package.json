@@ -1,6 +1,6 @@
 {
-  "name": "rx-trade-ib-ui",
-  "version": "1.4.0",
+  "name": "kl-site-front",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
