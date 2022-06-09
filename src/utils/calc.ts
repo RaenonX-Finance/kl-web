@@ -24,6 +24,16 @@ export const updatePxDataBar = (bar: PxDataBar, nextPx: number): PxDataBar => {
   };
 };
 
+export const getNewBarOfPx = (px: number, epochSec: number): PxDataBar => ({
+  epochSec,
+  open: px,
+  high: px,
+  low: px,
+  close: px,
+  vwap: NaN,
+  diff: 0,
+});
+
 export const forceMinTick = (val: number, tick: number): number => {
   return val - val % tick;
 };

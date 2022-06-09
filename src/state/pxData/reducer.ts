@@ -2,8 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import {PxData, PxDataSocket} from '../../types/pxData';
 import {PxDataMarket} from '../../types/pxDataMarket';
-import {updatePxDataBar} from '../../utils/calc';
-import {updateEpochSecToLocal} from '../../utils/time';
+import {getNewBarOfPx, updatePxDataBar} from '../../utils/calc';
+import {getCurrentLocalEpochOfPeriod, updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
@@ -66,7 +66,14 @@ const slice = createSlice({
             return;
           }
 
-          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, px);
+          const currentEpochOfPeriod = getCurrentLocalEpochOfPeriod(pxData.periodSec);
+
+          if (lastBar.epochSec === currentEpochOfPeriod) {
+            pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, px);
+          } else {
+            pxData.data.push(getNewBarOfPx(px, currentEpochOfPeriod));
+          }
+
           pxData.lastUpdated = Date.now();
         });
 
