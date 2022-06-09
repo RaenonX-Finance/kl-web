@@ -68,22 +68,22 @@ export const PxDataChart = (props: Props) => {
         vwap: {
           title: 'VWAP',
           enable: false,
-          group: 'Indicator',
+          group: '指標',
         },
         sma: {
           title: 'SMAs',
           enable: true,
-          group: 'Indicator',
+          group: '指標',
         },
         srLevel: {
-          title: 'Show All',
+          title: '顯示全部',
           enable: true,
-          group: 'S/R Levels',
+          group: '撐壓',
         },
         srLevelWeak: {
-          title: 'Show Weak',
+          title: '顯示弱撐壓',
           enable: false,
-          group: 'S/R Levels',
+          group: '撐壓',
         },
       })}
       getDataLastUpdate={({lastUpdated}) => lastUpdated}

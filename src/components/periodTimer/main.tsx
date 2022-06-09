@@ -37,7 +37,7 @@ export const PeriodTimer = ({periodSec}: Props) => {
       className={`${styles['period-timer']} ${getAnimationClassName(secLeft)}`}
       ref={secLeftElemRef}
     >
-      {secLeft.toFixed(0)}&nbsp;s&nbsp;until&nbsp;reset
+      {secLeft.toFixed(0)}&nbsp;秒後新 K
     </span>
   );
 };

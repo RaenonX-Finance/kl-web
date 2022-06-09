@@ -51,10 +51,10 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
       </Row>
       <Row>
         <Col>
-          <LegendDataCell title="O" value={open} decimals={decimals}/>
-          <LegendDataCell title="H" value={high} decimals={decimals}/>
-          <LegendDataCell title="L" value={low} decimals={decimals}/>
-          <LegendDataCell title="C" value={close} decimals={decimals} large/>
+          <LegendDataCell title="開" value={open} decimals={decimals}/>
+          <LegendDataCell title="高" value={high} decimals={decimals}/>
+          <LegendDataCell title="低" value={low} decimals={decimals}/>
+          <LegendDataCell title="收" value={close} decimals={decimals} large/>
           <LegendDataCell
             title={<i className="bi bi-plus-slash-minus"/>}
             value={diff} decimals={decimals} useValueClass

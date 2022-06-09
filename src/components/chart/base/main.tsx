@@ -109,13 +109,13 @@ export const TradingViewChart = <T, P, R, L, A>({
           <Button size="sm" variant="outline-success" className="me-2" onClick={() => {
             chartRef.current?.timeScale().scrollToRealTime();
           }}>
-            To Realtime
+            移到目前
           </Button>
           <Button size="sm" variant="outline-warning" onClick={() => {
             chartRef.current?.timeScale().resetTimeScale();
             chartRef.current?.priceScale().applyOptions({autoScale: true});
           }}>
-            Reset Scales
+            重設比例
           </Button>
         </Col>
         <Col xs="auto">
@@ -125,7 +125,7 @@ export const TradingViewChart = <T, P, R, L, A>({
           <TimeAgo
             ref={updateIndicatorRef}
             epochSec={lastUpdated.current}
-            format={(secDiffMs) => `Last updated ${secDiffMs.toFixed(0)} secs ago`}
+            format={(secDiffMs) => `最後更新於 ${secDiffMs.toFixed(0)} 秒前`}
             updateMs={100}
             className={styles['update-animation']}
           />

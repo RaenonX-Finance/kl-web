@@ -10,7 +10,7 @@ export const LegendSmaPositions = ({data, legend}: PxChartLegendProps) => {
 
   return (
     <span className={styles['data-cell']}>
-      SMA:&nbsp;S
+      均線位置:&nbsp;短
       {data.smaPeriods.map((period) => {
         const sma = legend[`sma${period}`];
 
@@ -37,7 +37,7 @@ export const LegendSmaPositions = ({data, legend}: PxChartLegendProps) => {
           </span>
         );
       })}
-      &nbsp;L
+      &nbsp;長
     </span>
   );
 };

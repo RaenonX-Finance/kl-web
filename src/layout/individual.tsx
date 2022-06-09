@@ -27,8 +27,8 @@ export const PxDataIndividual = ({pxData, payload, title}: PxDataIndividualProps
         <Col>
           <Row className="g-2 text-end align-items-center">
             <Col>
-              <PxLastDayDiff data={pxData} dataKey="lastDayClose" prefix="LC"/>
-              <PxLastDayDiff data={pxData} dataKey="todayOpen" prefix="CO"/>
+              <PxLastDayDiff data={pxData} dataKey="lastDayClose" prefix="前日收"/>
+              <PxLastDayDiff data={pxData} dataKey="todayOpen" prefix="今日開"/>
             </Col>
           </Row>
         </Col>
