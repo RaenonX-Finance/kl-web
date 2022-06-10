@@ -6,6 +6,7 @@ import {io} from 'socket.io-client';
 import {PopupAlert} from '../components/alert/main';
 import {SocketContext} from '../types/socket/socket';
 import {DataSocket} from '../types/socket/type';
+import {getDataUrl} from '../utils/socket';
 import {PxDataMain} from './main';
 
 
@@ -13,7 +14,7 @@ export const App = () => {
   const [socket, setSocket] = React.useState<DataSocket>();
 
   React.useEffect(() => {
-    const newSocket = io('ws://localhost:8000', {path: '/ws/socket.io/'});
+    const newSocket = io(getDataUrl(), {path: '/ws/socket.io/'});
 
     setSocket(newSocket);
 
