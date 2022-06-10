@@ -1,4 +1,9 @@
+span {
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+}
 @keyframes last-day-diff-up-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
   from {
     box-shadow: inset 0 0 1rem #26a69a;
   }
@@ -15,6 +20,7 @@ span.last-day-diff-up {
   animation: 1s last-day-diff-up-animation;
 }
 @keyframes last-day-diff-down-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
   from {
     box-shadow: inset 0 0 1rem #ef5350;
   }

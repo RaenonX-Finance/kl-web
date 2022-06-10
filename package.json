@@ -5,7 +5,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prod": "serve -s build"
+    "prod": "serve -s build",
+    "test": "echo 'jest --config jest.config.ts --maxWorkers=50% --colors'",
+    "test:ci": "echo 'node --max-old-space-size=8192 ./node_modules/.bin/jest --config jest.config.ts --maxWorkers=50% --colors --ci --reporters=default --reporters=jest-junit --coverage'",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:css": "stylelint **/*.scss"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
@@ -36,7 +40,11 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-react": "^7.29.4",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "stylelint": "^14.9.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^4.0.0",
+    "stylelint-scss": "^4.2.0"
   },
   "browserslist": {
     "production": [

@@ -53,8 +53,7 @@ rules:
     - off
 
   linebreak-style:
-    - error
-    - unix
+    - off
 
   max-len:
     - error

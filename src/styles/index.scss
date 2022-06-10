@@ -4,18 +4,18 @@ html,
 body {
   padding: 0;
   font-family:
-    'Trebuchet MS',
+    "Trebuchet MS",
     Calibri,
     -apple-system,
     BlinkMacSystemFont,
-    Segoe UI,
+    "Segoe UI",
     Roboto,
     Oxygen,
     Ubuntu,
     Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
   background: #212626;
   color: #fafafa;
@@ -41,4 +41,3 @@ input::-webkit-inner-spin-button:not(:disabled) {
 * {
   box-sizing: border-box;
 }
-
