@@ -1,0 +1,17 @@
+apps:
+  - name: 'kl-site-front'
+    # Entry point
+    script: 'serve'
+    # Execution configs
+    exec_mode: 'cluster'
+    instances: 5
+    # Environments
+    env:
+      PM2_SERVE_PATH: './build'
+      PM2_SERVE_PORT: 3000
+      NODE_ENV: 'development'
+    env_production:
+      NODE_ENV: 'production'
+    # Others
+    cron_restart: '0 0 */3 * *'  # Restart every 3 days
+    time: true  # Log timestamp in logs

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prod": "serve -s build",
+    "prod:run": "pm2 start pm2.yml --env production",
+    "prod:reload": "pm2 reload kl-site-front",
     "test": "echo 'jest --config jest.config.ts --maxWorkers=50% --colors'",
     "test:ci": "echo 'node --max-old-space-size=8192 ./node_modules/.bin/jest --config jest.config.ts --maxWorkers=50% --colors --ci --reporters=default --reporters=jest-junit --coverage'",
     "lint": "eslint src --ext .ts,.tsx",
@@ -16,6 +17,7 @@
     "bootstrap": "^5.1.3",
     "chroma-js": "^2.4.2",
     "lightweight-charts": "^3.8.0",
+    "pm2": "^5.2.0",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
     "react-bootstrap": "^2.2.2",
@@ -25,7 +27,6 @@
     "recharts": "^2.1.10",
     "typescript": "^4.5.5",
     "sass": "^1.49.9",
-    "serve": "^13.0.2",
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
