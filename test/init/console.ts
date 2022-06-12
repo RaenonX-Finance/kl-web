@@ -2,7 +2,7 @@ import {isCi} from '../../src/utils/env';
 
 
 export const initMockConsoleBehavior = () => {
-  if (isCi()) {
+  if (!isCi()) {
     // Use default console behavior if not in CI mode
     return;
   }

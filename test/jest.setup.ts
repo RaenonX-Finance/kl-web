@@ -29,5 +29,3 @@ initMockSocket();
 global.TextEncoder = TextEncoder;
 // @ts-ignore
 global.TextDecoder = TextDecoder;
-// Fix `setImmediate` issue when generating `jest` coverage report
-global.setImmediate = jest.useRealTimers as unknown as typeof setImmediate;

@@ -15,7 +15,7 @@ const config: Config.InitialOptions = {
   },
   transformIgnorePatterns: [
     // https://github.com/tradingview/lightweight-charts/issues/488
-    'node_modules/(?!(lightweight-charts|fancy-canvas)/)',
+    './node_modules/(?!(lightweight-charts|fancy-canvas)/)',
   ],
   resetMocks: true,
   testMatch: [
@@ -27,10 +27,10 @@ const config: Config.InitialOptions = {
   // Avoid some long-running test giving false-positive
   testTimeout: 20000,
   // Setup / Teardown
-  // setupFiles: [
-  //   'dotenv/config',
-  //   'react-app-polyfill/jsdom',
-  // ],
+  setupFiles: [
+    'dotenv/config',
+    'react-app-polyfill/jsdom',
+  ],
   setupFilesAfterEnv: [
     './test/jest.setup.ts',
   ],
