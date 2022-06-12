@@ -2,11 +2,15 @@
   "name": "kl-site-front",
   "version": "0.2.0",
   "private": true,
+  "engines": {
+    "node": "16.x",
+    "npm": "^8.3.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "echo 'jest --config jest.config.ts --maxWorkers=50% --colors'",
-    "test:ci": "echo 'node --max-old-space-size=8192 ./node_modules/.bin/jest --config jest.config.ts --maxWorkers=50% --colors --ci --reporters=default --reporters=jest-junit --coverage'",
+    "test:ci": "jest --config jest.config.ts --maxWorkers=50% --colors --ci --reporters=default --reporters=jest-junit --coverage",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:css": "stylelint **/*.scss"
   },
@@ -20,30 +24,46 @@
     "react-alert": "^7.0.3",
     "react-bootstrap": "^2.2.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.1",
     "react-redux": "^8.0.2",
+    "react-scripts": "^5.0.1",
     "recharts": "^2.1.10",
-    "typescript": "^4.5.5",
     "sass": "^1.49.9",
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^14.2.0",
     "@types/chroma-js": "^2.1.3",
+    "@types/jest": "^28.1.1",
     "@types/node": "^16.11.22",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
     "@types/react-alert": "^7.0.2",
+    "@types/react-dom": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
+    "babel-jest": "^28.1.1",
+    "babel-preset-react-app": "^10.0.1",
+    "camelcase": "^7.0.0",
+    "dotenv": "^16.0.1",
     "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-react": "^7.29.4",
-    "typescript": "^4.6.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^5.0.4",
+    "jest": "^28.1.1",
+    "jest-junit": "^13.2.0",
+    "jest-environment-jsdom": "^28.1.1",
+    "react-app-polyfill": "^3.0.0",
     "stylelint": "^14.9.0",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-config-standard-scss": "^4.0.0",
-    "stylelint-scss": "^4.2.0"
+    "stylelint-scss": "^4.2.0",
+    "typescript": "^4.7.3",
+    "ts-node": "^10.8.1"
   },
   "browserslist": {
     "production": [
@@ -56,5 +76,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest-junit": {
+    "suiteNameTemplate": "{filepath}",
+    "outputDirectory": ".",
+    "outputName": "junit.xml"
   }
 }

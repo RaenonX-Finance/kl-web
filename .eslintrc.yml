@@ -25,7 +25,10 @@ parserOptions:
 
 plugins:
   - "@typescript-eslint"
+  - jest-dom
   - react
+  - react-hooks
+  - testing-library
 
 ignorePatterns:
   - '*.d.ts'

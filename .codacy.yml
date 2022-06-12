@@ -1,0 +1,11 @@
+---
+engines:
+  duplication:
+    exclude_paths:
+      # Test files
+      - "**.test.ts"
+      - "**.test.tsx"
+
+exclude_paths:
+  # Official New Relic EUM js
+  - "public/js/newRelicEum.js"
