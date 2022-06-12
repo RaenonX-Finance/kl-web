@@ -11,6 +11,7 @@ dotenv.config();
 
 import {isCi} from '../src/utils/env';
 import {initMockConsoleBehavior} from './init/console';
+import {initMockSocket} from './init/socket';
 
 // Retry failing test at most 3 times if in CI
 if (isCi()) {
@@ -22,6 +23,7 @@ if (isCi()) {
 configure({asyncUtilTimeout: 5000});
 
 initMockConsoleBehavior();
+initMockSocket();
 
 // Polyfill for `import {ObjectId} from 'mongodb';` to work
 global.TextEncoder = TextEncoder;

@@ -1,12 +1,11 @@
 import React from 'react';
 
 import {Provider} from 'react-alert';
-import {io} from 'socket.io-client';
 
 import {PopupAlert} from '../components/alert/main';
 import {SocketContext} from '../types/socket/socket';
 import {DataSocket} from '../types/socket/type';
-import {getDataUrl} from '../utils/socket';
+import {generateSocketClient} from '../utils/socket';
 import {PxDataMain} from './main';
 
 
@@ -14,7 +13,7 @@ export const App = () => {
   const [socket, setSocket] = React.useState<DataSocket>();
 
   React.useEffect(() => {
-    const newSocket = io(getDataUrl(), {path: '/ws/socket.io/'});
+    const newSocket = generateSocketClient();
 
     setSocket(newSocket);
 
