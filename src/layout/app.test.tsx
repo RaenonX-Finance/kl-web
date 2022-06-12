@@ -6,7 +6,7 @@ import {renderReact} from '../../test/render/main';
 import {App} from './app';
 
 
-describe('Main app page', () => {
+describe('Main app', () => {
   it('renders the page', async () => {
     renderReact(() => <App/>);
 
