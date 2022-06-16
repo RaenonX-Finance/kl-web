@@ -2,8 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import {PxData, PxDataSocket} from '../../types/pxData';
 import {PxDataMarket} from '../../types/pxDataMarket';
-import {getNewBarOfPx, updatePxDataBar} from '../../utils/calc';
-import {getCurrentLocalEpochOfPeriod, updateEpochSecToLocal} from '../../utils/time';
+import {updatePxDataBar} from '../../utils/calc';
+import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
@@ -26,6 +26,8 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // New px bar to be added only from the backend
+    // > Always use history data to add new bar - only update the last bar on market Px updated
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.INIT],
       (state: PxDataState, {payload}: {payload: PxDataSocket[]}) => {
@@ -66,14 +68,7 @@ const slice = createSlice({
             return;
           }
 
-          const currentEpochOfPeriod = getCurrentLocalEpochOfPeriod(pxData.periodSec);
-
-          if (lastBar.epochSec === currentEpochOfPeriod) {
-            pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, px);
-          } else {
-            pxData.data.push(getNewBarOfPx(px, currentEpochOfPeriod));
-          }
-
+          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, px);
           pxData.lastUpdated = Date.now();
         });
 
