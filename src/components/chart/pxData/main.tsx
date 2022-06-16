@@ -46,13 +46,10 @@ export const PxDataChart = (props: Props) => {
 
           return {
             decimals: getDecimalPlaces(data.contract.minTick),
-            epochSec: NaN,
             open: NaN,
             high: NaN,
             low: NaN,
             close: NaN,
-            vwap: NaN,
-            diff: NaN,
             ...last,
           };
         },

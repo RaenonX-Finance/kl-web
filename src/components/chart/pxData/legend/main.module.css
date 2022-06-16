@@ -11,7 +11,7 @@ span.legend {
   margin: 0.3rem;
   border-radius: 0.5rem;
   background-color: rgba(17, 17, 17, 0.65);
-  width: 28vw;
+  width: 32vw;
 }
 div.legend.diff-neutral,
 span.legend.diff-neutral {

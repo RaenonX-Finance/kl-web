@@ -20,7 +20,7 @@ export type PxChartLines = {
   srLevelLines: Record<number, IPriceLine>,
 };
 
-export type PxChartLegendData = PxDataBar & {
+export type PxChartLegendData = Pick<PxDataBar, 'open' | 'high' | 'low' | 'close'> & {
   decimals: number,
 };
 

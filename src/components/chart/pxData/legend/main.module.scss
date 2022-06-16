@@ -21,7 +21,7 @@ span {
     margin: 0.3rem;
     border-radius: 0.5rem;
     background-color: rgba(17 17 17 / 65%);
-    width: 28vw;
+    width: 32vw;
 
     @include diff-styling(neutral, colors.$color-neutral);
     @include diff-styling(up, colors.$color-up);
