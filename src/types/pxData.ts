@@ -2,6 +2,7 @@ export type PxDataUniqueIdentifier = string;
 
 export type PxDataContract = {
   symbol: string,
+  name: string,
   minTick: number,
 };
 
