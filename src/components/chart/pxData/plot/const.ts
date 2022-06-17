@@ -2,6 +2,10 @@ import chroma from 'chroma-js';
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
 
+export const bullColor = '#ef5350';
+
+export const bearColor = '#26a69a';
+
 export const avgCostColor = 'rgba(240, 240, 240, 0.7)';
 
 export const longColor = 'rgba(28, 107, 255, 0.7)';

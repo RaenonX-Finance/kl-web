@@ -2,6 +2,7 @@ import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
 import {OnPxChartInitEvent} from '../../type';
 import {toBarData} from '../../utils';
+import {bearColor, bullColor} from '../const';
 
 
 export const handlePrice = ({chartRef, chartDataRef, setObject}: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
@@ -16,6 +17,12 @@ export const handlePrice = ({chartRef, chartDataRef, setObject}: OnPxChartInitEv
     },
     priceLineWidth: 1,
     priceLineStyle: LineStyle.Solid,
+    upColor: bullColor,
+    borderUpColor: bullColor,
+    wickUpColor: bullColor,
+    downColor: bearColor,
+    borderDownColor: bearColor,
+    wickDownColor: bearColor,
   });
   price.setData(chartDataRef.current.data.map(toBarData));
 
