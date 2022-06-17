@@ -1,0 +1,34 @@
+@use "sass:color";
+@use "../../styles/colors";
+
+span {
+  @mixin text-indicator-theme($suffix, $color) {
+    /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+    @keyframes text-indicator-#{$suffix}-animation {  /* stylelint-disable-line keyframes-name-pattern */
+      from {
+        box-shadow: inset 0 0 1rem $color;
+      }
+
+      to {
+        box-shadow: unset;
+      }
+    }
+
+    &.text-indicator-#{$suffix} {
+      border: 1px solid $color;
+      border-radius: 0.5rem;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      margin: 0 0.25rem;
+      animation: 1s text-indicator-#{$suffix}-animation;
+    }
+  }
+
+  @include text-indicator-theme(bull-3, color.mix(colors.$color-up, colors.$color-neutral, $weight: 100%));
+  @include text-indicator-theme(bull-2, color.mix(colors.$color-up, colors.$color-neutral, $weight: 66%));
+  @include text-indicator-theme(bull-1, color.mix(colors.$color-up, colors.$color-neutral, $weight: 33%));
+  @include text-indicator-theme(neutral, colors.$color-neutral);
+  @include text-indicator-theme(bear-1, color.mix(colors.$color-down, colors.$color-neutral, $weight: 33%));
+  @include text-indicator-theme(bear-2, color.mix(colors.$color-down, colors.$color-neutral, $weight: 66%));
+  @include text-indicator-theme(bear-3, color.mix(colors.$color-down, colors.$color-neutral, $weight: 100%));
+}

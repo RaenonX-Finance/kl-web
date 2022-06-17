@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 
 import {PxDataChart} from '../components/chart/pxData/main';
 import {PxChartPayload} from '../components/chart/pxData/type';
-import {PxLastDayDiff} from '../components/lastDayDiff/main';
+import {PxStrengthIndicator} from '../components/strengthIndicator/main';
 import {PxData} from '../types/pxData';
 
 
@@ -27,8 +27,13 @@ export const PxDataIndividual = ({pxData, payload, title}: PxDataIndividualProps
         <Col>
           <Row className="g-2 text-end align-items-center">
             <Col>
-              <PxLastDayDiff data={pxData} dataKey="lastDayClose" prefix="前日收"/>
-              <PxLastDayDiff data={pxData} dataKey="todayOpen" prefix="今日開"/>
+              <PxStrengthIndicator index={-3}/>
+              <PxStrengthIndicator index={-2}/>
+              <PxStrengthIndicator index={-1}/>
+              <PxStrengthIndicator index={0}/>
+              <PxStrengthIndicator index={1}/>
+              <PxStrengthIndicator index={2}/>
+              <PxStrengthIndicator index={3}/>
             </Col>
           </Row>
         </Col>

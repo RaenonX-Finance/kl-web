@@ -1,0 +1,130 @@
+span {
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+}
+@keyframes text-indicator-bull-3-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #ef5350;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bull-3 {
+  border: 1px solid #ef5350;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bull-3-animation;
+}
+@keyframes text-indicator-bull-2-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #f38c8a;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bull-2 {
+  border: 1px solid #f38c8a;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bull-2-animation;
+}
+@keyframes text-indicator-bull-1-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #f6c3c2;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bull-1 {
+  border: 1px solid #f6c3c2;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bull-1-animation;
+}
+@keyframes text-indicator-neutral-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #fafafa;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-neutral {
+  border: 1px solid #fafafa;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-neutral-animation;
+}
+@keyframes text-indicator-bear-1-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #b4deda;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bear-1 {
+  border: 1px solid #b4deda;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bear-1-animation;
+}
+@keyframes text-indicator-bear-2-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #6ec3bb;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bear-2 {
+  border: 1px solid #6ec3bb;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bear-2-animation;
+}
+@keyframes text-indicator-bear-3-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  from {
+    box-shadow: inset 0 0 1rem #26a69a;
+  }
+  to {
+    box-shadow: unset;
+  }
+}
+span.text-indicator-bear-3 {
+  border: 1px solid #26a69a;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  animation: 1s text-indicator-bear-3-animation;
+}
+
+/*# sourceMappingURL=main.module.css.map */
