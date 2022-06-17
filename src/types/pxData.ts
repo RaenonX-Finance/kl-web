@@ -32,8 +32,6 @@ export type PxDataSocket = {
   contract: PxDataContract,
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance[],
-  lastDayClose: number | null,
-  todayOpen: number | null,
   smaPeriods: number[],
 };
 
