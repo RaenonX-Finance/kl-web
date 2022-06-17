@@ -1,10 +1,3 @@
-import {BusinessDay} from 'lightweight-charts';
-
-
-export const businessDayToEpochSec = (day: BusinessDay): number => {
-  return new Date(day.year, day.month - 1, day.day).getTime();
-};
-
 export const epochSecToFormattedString = (epochSec: number): string => {
   const date = new Date(epochSec * 1000);
 

@@ -8,13 +8,13 @@ import {pxDataDispatchers} from '../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../state/pxData/types';
 import {useDispatch} from '../../state/store';
 import {InitData} from '../../types/init';
-import {SocketContext} from '../../types/socket/socket';
 import {DataSocket} from '../../types/socket/type';
+import {useSocket} from './main';
 import {useSocketEventHandler} from './utils';
 
 
 export const useSocketInit = (): DataSocket => {
-  const socket = React.useContext(SocketContext);
+  const socket = useSocket();
   const lastUpdate = React.useRef(0);
 
   if (!socket) {
