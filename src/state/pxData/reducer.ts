@@ -6,19 +6,25 @@ import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {pxDataDispatchers} from './dispatchers';
-import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
+import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataStateEntry} from './types';
 
 
 const initialState: PxDataState = {};
 
-const fixPxData = (pxData: PxData): PxData => {
+const fixPxDataStateEntry = (
+  pxData: PxData,
+  latestMarketData: PxDataStateEntry['latestMarketData'],
+): PxDataStateEntry => {
   pxData.data = pxData.data.map((item) => ({
     ...item,
     epochSec: updateEpochSecToLocal(item.epochSec),
     lastUpdated: Date.now(),
   }));
 
-  return pxData;
+  return {
+    ...pxData,
+    latestMarketData,
+  };
 };
 
 const slice = createSlice({
@@ -31,27 +37,33 @@ const slice = createSlice({
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.INIT],
       (state: PxDataState, {payload}: {payload: PxDataSocket[]}) => {
-        payload.forEach((pxData) => state[pxData.uniqueIdentifier] = fixPxData({
-          ...pxData,
-          lastUpdated: Date.now(),
-        }));
+        payload.forEach((pxData) => state[pxData.uniqueIdentifier] = fixPxDataStateEntry(
+          {
+            ...pxData,
+            lastUpdated: Date.now(),
+          },
+          null,
+        ));
         updateCurrentPxDataTitle(state);
       },
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE],
       (state: PxDataState, {payload}: {payload: PxDataSocket}) => {
-        state[payload.uniqueIdentifier] = fixPxData({
-          ...payload,
-          lastUpdated: Date.now(),
-        });
+        state[payload.uniqueIdentifier] = fixPxDataStateEntry(
+          {
+            ...payload,
+            lastUpdated: Date.now(),
+          },
+          state[payload.uniqueIdentifier].latestMarketData,
+        );
         updateCurrentPxDataTitle(state);
       },
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
       (state: PxDataState, {payload}: {payload: PxDataMarket}) => {
-        const {symbol, px} = payload;
+        const {symbol, close} = payload;
 
         Object.entries(state).forEach(([_, pxData]) => {
           if (pxData.contract.symbol !== symbol) {
@@ -68,7 +80,8 @@ const slice = createSlice({
             return;
           }
 
-          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, px);
+          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, close);
+          pxData.latestMarketData = payload;
           pxData.lastUpdated = Date.now();
         });
 

@@ -1,4 +1,5 @@
-import {PxDataCollection} from '../../types/pxData';
+import {PxData, PxDataUniqueIdentifier} from '../../types/pxData';
+import {PxDataMarket} from '../../types/pxDataMarket';
 import {StateBase} from '../types';
 
 
@@ -10,6 +11,12 @@ export enum PxDataDispatcherName {
   UPDATE_MARKET = 'updateMarketPx',
 }
 
-export type PxDataState = StateBase & PxDataCollection;
+export type PxDataStateEntry = PxData & {
+  latestMarketData: PxDataMarket | null,
+};
 
-export type PxDataSelectorReturn = PxDataCollection;
+export type PxDataState = StateBase & {
+  [identifier: PxDataUniqueIdentifier]: PxDataStateEntry,
+};
+
+export type PxDataSelectorReturn = PxDataState;
