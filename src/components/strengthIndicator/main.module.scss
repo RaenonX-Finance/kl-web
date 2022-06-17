@@ -36,11 +36,32 @@ span {
     }
   }
 
-  @include text-indicator-theme(bull-3, color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 100%));
-  @include text-indicator-theme(bull-2, color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 66%));
-  @include text-indicator-theme(bull-1, color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 33%));
-  @include text-indicator-theme(neutral, colors.$color-neutral-weak);
-  @include text-indicator-theme(bear-1, color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 33%));
-  @include text-indicator-theme(bear-2, color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 66%));
-  @include text-indicator-theme(bear-3, color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 100%));
+  @include text-indicator-theme(
+    bull-3,
+    color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 100%)
+  );
+  @include text-indicator-theme(
+    bull-2,
+    color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 66%)
+  );
+  @include text-indicator-theme(
+    bull-1,
+    color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 33%)
+  );
+  @include text-indicator-theme(
+    neutral,
+    colors.$color-neutral-weak
+  );
+  @include text-indicator-theme(
+    bear-1,
+    color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 33%)
+  );
+  @include text-indicator-theme(
+    bear-2,
+    color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 66%)
+  );
+  @include text-indicator-theme(
+    bear-3,
+    color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 100%)
+  );
 }
