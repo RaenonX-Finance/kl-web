@@ -59,16 +59,6 @@ export const PxDataChart = (props: Props) => {
       )}
       getPeriodSec={(data) => data.periodSec}
       getInitialLayoutConfig={() => ({
-        vwap: {
-          title: 'VWAP',
-          enable: false,
-          group: '指標',
-        },
-        sma: {
-          title: 'SMAs',
-          enable: true,
-          group: '指標',
-        },
         srLevel: {
           title: '顯示全部',
           enable: true,

@@ -12,8 +12,6 @@ import {
 
 export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
-  vwap: ISeriesApi<'Line'>,
-  sma: Record<number, ISeriesApi<'Line'>>,
 };
 
 export type PxChartLines = {
@@ -32,8 +30,6 @@ export type PxChartLegendData = {
 };
 
 export type PxChartLayoutConfigKeys =
-  'vwap' |
-  'sma' |
   'srLevel' |
   'srLevelWeak';
 

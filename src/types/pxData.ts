@@ -9,8 +9,6 @@ export type PxDataContract = {
   minTick: number,
 };
 
-export type PxDataBarSmaKey = `sma${number}`;
-
 export type PxDataBar = {
   epochSec: number,
   open: number,
@@ -19,8 +17,6 @@ export type PxDataBar = {
   close: number,
   vwap: number,
   diff: number,
-} & {
-  [smaKey in PxDataBarSmaKey]?: number
 };
 
 export type PxDataSupportResistance = {
@@ -36,7 +32,6 @@ export type PxDataSocket = {
   contract: PxDataContract,
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance[],
-  smaPeriods: number[],
   latestMarket: PxDataMarket,
 };
 
