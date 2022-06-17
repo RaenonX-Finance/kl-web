@@ -23,7 +23,7 @@ export const PxDataMain = () => {
 
   const getIndividualProps = (data: PxData): PxDataIndividualProps => ({
     pxData: data,
-    title: getPxDataTitle(data, true),
+    title: getPxDataTitle(data),
     payload: {
       customSrLevels: customSrLevels[data.contract.symbol],
     },
