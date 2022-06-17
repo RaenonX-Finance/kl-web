@@ -23,7 +23,7 @@ export const useSocketInit = (): DataSocket => {
 
   const dispatch = useDispatch();
 
-  const refreshStatus = React.useCallback((forceOpenOrderRefresh: boolean = false) => {
+  const refreshStatus = React.useCallback(() => {
     const now = Date.now();
 
     // Only refresh once per 3 secs
@@ -33,11 +33,6 @@ export const useSocketInit = (): DataSocket => {
     }
 
     lastUpdate.current = now;
-    socket.emit('position', '');
-    socket.emit('execution', '');
-    if (forceOpenOrderRefresh) {
-      socket.emit('openOrder', '');
-    }
   }, []);
 
   // Events
@@ -58,7 +53,7 @@ export const useSocketInit = (): DataSocket => {
   const onError = useSocketEventHandler(
     dispatch,
     errorDispatchers[ErrorDispatcherName.UPDATE],
-    () => refreshStatus(true),
+    () => refreshStatus(),
   );
 
   React.useEffect(() => {

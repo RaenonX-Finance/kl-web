@@ -12,8 +12,7 @@ export const onPxChartInit: PxChartInitEventHandler = (e) => {
   handleLegendUpdate(e);
 
   return {
-    series: {price, avgCost: null, orderEntry: null},
-    lines: {srLevelLines, openOrders: {}},
-    position: null,
+    series: {price},
+    lines: {srLevelLines},
   };
 };

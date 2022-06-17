@@ -9,13 +9,6 @@ export type SocketEventKeys =
   'pxUpdatedMarket' |
   'pxRequest' |
   'pxInit' |
-  'position' |
-  'openOrder' |
-  'execution' |
-  'orderPlace' |
-  'orderFilled' |
-  'orderCancel' |
-  'pnlUpdated' |
   'error';
 
 export type SocketEvent = {[key in SocketEventKeys]: SocketMessageHandler};
