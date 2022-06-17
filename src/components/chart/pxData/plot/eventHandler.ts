@@ -1,8 +1,4 @@
-import {isBusinessDay} from 'lightweight-charts';
-
-import {PxDataBarSmaKey} from '../../../../types/pxData';
-import {businessDayToEpochSec} from '../../../../utils/chart';
-import {OnPxChartInitEvent} from '../type';
+import {OnPxChartInitEvent, PxChartLegendData} from '../type';
 
 
 export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
@@ -14,37 +10,25 @@ export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
 
   chartRef.current.subscribeCrosshairMove(({time}) => {
     const pxData = chartDataRef.current.data;
+    const last = chartDataRef.current.latestMarket;
 
-    const last = pxData.at(-1);
     const hovered = pxData.find(({epochSec}) => epochSec === time);
 
     // Using `last` because moving out of chart makes `lastPrice` undefined
-    setObject.legend(({decimals}) => ({
-      epochSec: (
-        time ?
-          (isBusinessDay(time) ? businessDayToEpochSec(time) : time) :
-          (last ? last.epochSec : NaN)
-      ),
-      vwap: hovered?.vwap || last?.vwap || NaN,
-      open: hovered?.open || last?.open || NaN,
-      high: hovered?.high || last?.high || NaN,
-      low: hovered?.low || last?.low || NaN,
-      close: hovered?.close || last?.close || NaN,
-      diff: hovered?.diff || last?.diff || NaN,
-      decimals,
-      ...Object.fromEntries(chartDataRef.current.smaPeriods
-        .map((period) => {
-          const key: PxDataBarSmaKey = `sma${period}`;
+    setObject.legend(({decimals}) => {
+      const legend: PxChartLegendData = {
+        decimals,
+        open: hovered?.open ?? last?.open,
+        high: hovered?.high ?? last?.high,
+        low: hovered?.low ?? last?.low,
+        close: hovered?.close ?? last?.close,
+        // Diff / Change Val could be 0
+        changeVal: hovered?.diff ?? last?.changeVal,
+        changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? last?.changePct,
+        hovered: !!hovered,
+      };
 
-          if (hovered) {
-            return [key, hovered[key]];
-          } else if (last) {
-            return [key, last[key]];
-          }
-
-          return [key, NaN];
-        }),
-      ),
-    }));
+      return legend;
+    });
   });
 };

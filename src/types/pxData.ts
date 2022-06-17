@@ -1,3 +1,6 @@
+import {PxDataMarket} from './pxDataMarket';
+
+
 export type PxDataUniqueIdentifier = string;
 
 export type PxDataContract = {
@@ -34,6 +37,7 @@ export type PxDataSocket = {
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance[],
   smaPeriods: number[],
+  latestMarket: PxDataMarket,
 };
 
 export type PxData = PxDataSocket & {

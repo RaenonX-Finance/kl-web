@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {PxData} from '../../../../types/pxData';
+import {formatSignedNumber} from '../../../../utils/string';
 import {PxChartLegendData} from '../type';
 import {LegendDataCell, LegendDataCellProps} from './cell';
 import styles from './main.module.scss';
@@ -22,17 +23,15 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
     low,
     close,
     decimals,
+    changeVal,
+    changePct,
   } = legend;
 
-  // Not using diff from PxData because it is slightly lagged
-  // > PxData not updated when market data updated
-  const diff = close - open;
-
   let diffClassName: LegendDataCellProps['useValueClass'] = 'neutral';
-  if (diff) {
-    if (diff > 0) {
+  if (changeVal) {
+    if (changeVal > 0) {
       diffClassName = 'up';
-    } else if (diff < 0) {
+    } else if (changeVal < 0) {
       diffClassName = 'down';
     }
   }
@@ -47,7 +46,8 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
           <LegendDataCell title="收" value={close} decimals={decimals} large/>
           <LegendDataCell
             title={<i className="bi bi-plus-slash-minus"/>}
-            value={diff} decimals={decimals} useValueClass
+            value={`${formatSignedNumber(changeVal, decimals)} (${formatSignedNumber(changePct, 2)}%)`}
+            decimals={decimals} useValueClass={diffClassName}
           />
         </Col>
       </Row>

@@ -20,9 +20,12 @@ export const handlePrice = ({chartDataRef, chartObjectRef, setObject}: OnPxChart
 
   price.setData(chartDataRef.current.data.map(toBarData));
   price.applyOptions({title});
+
+  // Update legend
   setObject.legend((legend) => ({
     ...legend,
-    ...lastPrice,
-    latestBar: lastPrice,
+    // Only update the legend on Px changed if not hovered,
+    // So even if the latest bar is updated, the legend won't change
+    ...(legend.hovered ? {} : chartDataRef.current.latestMarket),
   }));
 };

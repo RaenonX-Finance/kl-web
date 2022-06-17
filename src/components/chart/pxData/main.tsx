@@ -42,16 +42,13 @@ export const PxDataChart = (props: Props) => {
       onDataUpdated={onPxChartUpdated}
       calcObjects={{
         legend: (data) => {
-          const last = data.data.at(-1);
-
-          return {
+          const legend: PxChartLegendData = {
             decimals: getDecimalPlaces(data.contract.minTick),
-            open: NaN,
-            high: NaN,
-            low: NaN,
-            close: NaN,
-            ...last,
+            hovered: false,
+            ...data.latestMarket,
           };
+
+          return legend;
         },
       }}
       renderObjects={{

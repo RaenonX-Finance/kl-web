@@ -125,7 +125,7 @@ export const TradingViewChart = <T, P, R, L, A>({
           <TimeAgo
             ref={updateIndicatorRef}
             epochSec={lastUpdated.current}
-            format={(secDiffMs) => `最後更新於 ${secDiffMs.toFixed(0)} 秒前`}
+            format={(secDiffMs) => `${secDiffMs.toFixed(0)} 秒前更新`}
             updateMs={100}
             className={styles['update-animation']}
           />

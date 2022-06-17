@@ -4,6 +4,6 @@ export type PxDataMarket = {
   high: number,
   low: number,
   close: number,
-  change_val: number,
-  change_pct: number,
+  changeVal: number,
+  changePct: number,
 };

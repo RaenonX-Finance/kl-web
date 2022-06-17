@@ -1,7 +1,7 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {CustomSrLevel} from '../../../types/init';
-import {PxData, PxDataBar} from '../../../types/pxData';
+import {PxData} from '../../../types/pxData';
 import {
   ChartDataUpdatedEventHandler,
   ChartInitEventHandler,
@@ -20,8 +20,15 @@ export type PxChartLines = {
   srLevelLines: Record<number, IPriceLine>,
 };
 
-export type PxChartLegendData = Pick<PxDataBar, 'open' | 'high' | 'low' | 'close'> & {
+export type PxChartLegendData = {
+  open: number,
+  high: number,
+  low: number,
+  close: number,
   decimals: number,
+  changeVal: number,
+  changePct: number,
+  hovered: boolean,
 };
 
 export type PxChartLayoutConfigKeys =
