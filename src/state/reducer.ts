@@ -6,9 +6,9 @@ import pxDataReducer from './pxData/reducer';
 
 
 const reducers = {
-  pxData: pxDataReducer,
   customSr: customSrReducer,
   error: errorReducer,
+  pxData: pxDataReducer,
 };
 
 export const rootReducer = combineReducers(reducers);

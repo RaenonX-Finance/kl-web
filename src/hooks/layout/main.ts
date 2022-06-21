@@ -10,6 +10,7 @@ const getWindowDimensions = (): Dimension => {
 
 export const useLayout = (): UseLayoutReturn => {
   const [dimension, setDimension] = React.useState(getWindowDimensions());
+  const {width, height} = dimension;
 
   React.useEffect(() => {
     const onResize = () => {
@@ -20,5 +21,5 @@ export const useLayout = (): UseLayoutReturn => {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  return {dimension};
+  return {dimension, isLandscape: width / height > 1};
 };

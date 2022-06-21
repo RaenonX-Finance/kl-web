@@ -1,6 +1,6 @@
 import {io} from 'socket.io-client';
 
-import {DataSocket} from '../types/socket/type';
+import {PxDataSocket} from '../types/socket/type';
 
 
 export const getDataUrl = (): string => {
@@ -9,6 +9,6 @@ export const getDataUrl = (): string => {
     'ws://localhost:8000';
 };
 
-export const generateSocketClient = (): DataSocket => {
+export const generateSocketClient = (): PxDataSocket => {
   return io(getDataUrl(), {path: '/ws/socket.io/'});
 };

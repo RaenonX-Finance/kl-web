@@ -3,12 +3,12 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import {ErrorPopup} from '../components/error/main';
-import {useSocketInit} from '../hooks/socket/init';
-import {useCustomSrSelector} from '../state/customSr/selector';
-import {usePxDataSelector} from '../state/pxData/selector';
-import {PxData} from '../types/pxData';
-import {getPxDataTitle} from '../utils/pxData';
+import {ErrorPopup} from '../../components/error/popup';
+import {PxDataSocketContext} from '../../hooks/socket/px/context';
+import {useCustomSrSelector} from '../../state/customSr/selector';
+import {usePxDataSelector} from '../../state/pxData/selector';
+import {PxData} from '../../types/pxData';
+import {getPxDataTitle} from '../../utils/pxData';
 import {PxDataAlwaysShow} from './alwaysShow';
 import {PxDataCollapsible} from './collapsible';
 import {PxDataIndividualProps} from './individual';
@@ -18,8 +18,6 @@ import styles from './main.module.scss';
 export const PxDataMain = () => {
   const pxData = usePxDataSelector();
   const customSrLevels = useCustomSrSelector();
-
-  useSocketInit();
 
   const getIndividualProps = (data: PxData): PxDataIndividualProps => ({
     pxData: data,
@@ -40,7 +38,7 @@ export const PxDataMain = () => {
   const minorPxData = sortedPxData.filter(() => false);
 
   return (
-    <>
+    <PxDataSocketContext>
       <ErrorPopup/>
       <Row className="fixed-top">
         <Col>
@@ -58,6 +56,6 @@ export const PxDataMain = () => {
           </Col>
         ))}
       </Row>
-    </>
+    </PxDataSocketContext>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {DataSocket} from './type';
+import {PxDataSocket} from './type';
 
 
-export const SocketContext = React.createContext<DataSocket | undefined>(undefined);
+export const SocketContext = React.createContext<PxDataSocket | undefined>(undefined);

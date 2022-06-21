@@ -5,4 +5,5 @@ export type Dimension = {
 
 export type UseLayoutReturn = {
   dimension: Dimension,
+  isLandscape: boolean,
 };

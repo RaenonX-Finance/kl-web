@@ -1,25 +1,21 @@
 import React from 'react';
 
-import {customSrDispatchers} from '../../state/customSr/dispatchers';
-import {SrCustomDispatcherName} from '../../state/customSr/types';
-import {errorDispatchers} from '../../state/error/dispatchers';
-import {ErrorDispatcherName} from '../../state/error/types';
-import {pxDataDispatchers} from '../../state/pxData/dispatchers';
-import {PxDataDispatcherName} from '../../state/pxData/types';
-import {useDispatch} from '../../state/store';
-import {InitData} from '../../types/init';
-import {DataSocket} from '../../types/socket/type';
-import {useSocket} from './main';
-import {useSocketEventHandler} from './utils';
+import {customSrDispatchers} from '../../../state/customSr/dispatchers';
+import {SrCustomDispatcherName} from '../../../state/customSr/types';
+import {errorDispatchers} from '../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../state/error/types';
+import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
+import {PxDataDispatcherName} from '../../../state/pxData/types';
+import {useDispatch} from '../../../state/store';
+import {InitData} from '../../../types/init';
+import {PxDataSocket} from '../../../types/socket/type';
+import {generateSocketClient} from '../../../utils/socket';
+import {useSocketEventHandler} from '../utils';
 
 
-export const useSocketInit = (): DataSocket => {
-  const socket = useSocket();
+export const usePxSocketInit = (): PxDataSocket | undefined => {
+  const [socket, setSocket] = React.useState<PxDataSocket>();
   const lastUpdate = React.useRef(0);
-
-  if (!socket) {
-    throw new Error('Socket not defined');
-  }
 
   const dispatch = useDispatch();
 
@@ -43,8 +39,15 @@ export const useSocketInit = (): DataSocket => {
     dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
   }, []);
 
-  const onPxInit = useSocketEventHandler(dispatch, pxDataDispatchers[PxDataDispatcherName.INIT], refreshStatus);
-  const onPxUpdated = useSocketEventHandler(dispatch, pxDataDispatchers[PxDataDispatcherName.UPDATE]);
+  const onPxInit = useSocketEventHandler(
+    dispatch,
+    pxDataDispatchers[PxDataDispatcherName.INIT],
+    refreshStatus,
+  );
+  const onPxUpdated = useSocketEventHandler(
+    dispatch,
+    pxDataDispatchers[PxDataDispatcherName.UPDATE],
+  );
   const onPxUpdatedMarket = useSocketEventHandler(
     dispatch,
     pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
@@ -53,10 +56,16 @@ export const useSocketInit = (): DataSocket => {
   const onError = useSocketEventHandler(
     dispatch,
     errorDispatchers[ErrorDispatcherName.UPDATE],
-    () => refreshStatus(),
+    refreshStatus,
   );
 
   React.useEffect(() => {
+    const socket = generateSocketClient();
+
+    // System events
+    socket.on('connect_error', console.error);
+
+    // Custom events
     socket.on('init', onInit);
     socket.on('pxUpdated', onPxUpdated);
     socket.on('pxUpdatedMarket', onPxUpdatedMarket);
@@ -66,12 +75,16 @@ export const useSocketInit = (): DataSocket => {
     socket.emit('init', '');
     socket.emit('pxInit', '');
 
+    setSocket(socket);
+
     return () => {
       socket.off('init', onInit);
       socket.off('pxUpdated', onPxUpdated);
       socket.off('pxUpdatedMarket', onPxUpdatedMarket);
       socket.off('pxInit', onPxInit);
       socket.off('error', onError);
+
+      socket.close();
     };
   }, []);
 

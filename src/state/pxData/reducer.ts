@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {PxData, PxDataSocket} from '../../types/pxData';
+import {PxData, PxDataFromSocket} from '../../types/pxData';
 import {PxDataMarket} from '../../types/pxDataMarket';
 import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
@@ -30,7 +30,7 @@ const slice = createSlice({
     // > Always use history data to add new bar - only update the last bar on market Px updated
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.INIT],
-      (state: PxDataState, {payload}: {payload: PxDataSocket[]}) => {
+      (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
         payload.forEach((pxData) => state[pxData.uniqueIdentifier] = fixPxData({
           ...pxData,
           lastUpdated: Date.now(),
@@ -40,7 +40,7 @@ const slice = createSlice({
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE],
-      (state: PxDataState, {payload}: {payload: PxDataSocket}) => {
+      (state: PxDataState, {payload}: {payload: PxDataFromSocket}) => {
         state[payload.uniqueIdentifier] = fixPxData({
           ...payload,
           lastUpdated: Date.now(),

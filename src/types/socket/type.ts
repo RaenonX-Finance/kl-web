@@ -13,4 +13,4 @@ export type SocketEventKeys =
 
 export type SocketEvent = {[key in SocketEventKeys]: SocketMessageHandler};
 
-export type DataSocket = Socket<SocketEvent>;
+export type PxDataSocket = Socket<SocketEvent>;

@@ -3,11 +3,11 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import {PxDataChart} from '../components/chart/pxData/main';
-import {PxChartPayload} from '../components/chart/pxData/type';
-import {PxStrengthIndicator} from '../components/strengthIndicator/main';
-import {StrengthIndex} from '../components/strengthIndicator/type';
-import {PxData} from '../types/pxData';
+import {PxDataChart} from '../../components/chart/pxData/main';
+import {PxChartPayload} from '../../components/chart/pxData/type';
+import {PxStrengthIndicator} from '../../components/strengthIndicator/main';
+import {StrengthIndex} from '../../components/strengthIndicator/type';
+import {PxData} from '../../types/pxData';
 
 
 export type PxDataIndividualProps = {

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {ButtonVariant} from 'react-bootstrap/types';
 
-import {useAnimation} from '../hooks/animation';
+import {useAnimation} from '../../hooks/animation';
 import {PxDataIndividual, PxDataIndividualProps} from './individual';
 import styles from './main.module.scss';
 
