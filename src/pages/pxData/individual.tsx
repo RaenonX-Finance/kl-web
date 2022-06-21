@@ -10,13 +10,13 @@ import {StrengthIndex} from '../../components/strengthIndicator/type';
 import {PxData} from '../../types/pxData';
 
 
-export type PxDataIndividualProps = {
+type Props = {
   pxData: PxData,
   payload: PxChartPayload,
   title: string
 };
 
-export const PxDataIndividual = ({pxData, payload, title}: PxDataIndividualProps) => {
+export const PxDataIndividual = ({pxData, payload, title}: Props) => {
   // TEMP: ------ Temp RSI Start
   const [idx, setIdx] = React.useState(Math.floor(Date.now() / 1000 % 7));
 

@@ -7,25 +7,13 @@ import {ErrorPopup} from '../../components/error/popup';
 import {PxDataSocketContext} from '../../hooks/socket/px/context';
 import {useCustomSrSelector} from '../../state/customSr/selector';
 import {usePxDataSelector} from '../../state/pxData/selector';
-import {PxData} from '../../types/pxData';
 import {getPxDataTitle} from '../../utils/pxData';
-import {PxDataAlwaysShow} from './alwaysShow';
-import {PxDataCollapsible} from './collapsible';
-import {PxDataIndividualProps} from './individual';
-import styles from './main.module.scss';
+import {PxDataIndividual} from './individual';
 
 
 export const PxDataMain = () => {
   const pxData = usePxDataSelector();
   const customSrLevels = useCustomSrSelector();
-
-  const getIndividualProps = (data: PxData): PxDataIndividualProps => ({
-    pxData: data,
-    title: getPxDataTitle(data),
-    payload: {
-      customSrLevels: customSrLevels[data.contract.symbol],
-    },
-  });
 
   const sortedPxData = Object.values(pxData)
     .sort((a, b) => (
@@ -33,26 +21,19 @@ export const PxDataMain = () => {
       a.periodSec - b.periodSec
     ));
 
-  // TODO: Temporary change
-  const majorPxData = sortedPxData.filter(() => true);
-  const minorPxData = sortedPxData.filter(() => false);
-
   return (
     <PxDataSocketContext>
       <ErrorPopup/>
-      <Row className="fixed-top">
-        <Col>
-          <div className={styles['sub-px-data-bar']}>
-            {minorPxData.map((data) => (
-              <PxDataCollapsible key={data.uniqueIdentifier} {...getIndividualProps(data)}/>
-            ))}
-          </div>
-        </Col>
-      </Row>
-      <Row className="mt-5 g-3">
-        {majorPxData.map((data) => (
+      <Row className="g-3">
+        {sortedPxData.map((data) => (
           <Col key={data.uniqueIdentifier} xs={6}>
-            <PxDataAlwaysShow {...getIndividualProps(data)}/>
+            <PxDataIndividual
+              pxData={data}
+              title={getPxDataTitle(data)}
+              payload={{
+                customSrLevels: customSrLevels[data.contract.symbol],
+              }}
+            />
           </Col>
         ))}
       </Row>
