@@ -15,6 +15,7 @@ $custom-theme-colors: (
   "dark-warning": colors.$color-dark-warning,
   "dark-orange": colors.$color-dark-orange,
   "dark-danger": colors.$color-dark-danger,
+  "theme-dark": colors.$color-theme-dark,
   // Overridden
   "secondary": colors.$color-secondary,
 );
@@ -43,6 +44,7 @@ $utilities: map.merge(
           "dark-warning": colors.$color-dark-warning,
           "dark-orange": colors.$color-dark-orange,
           "dark-danger": colors.$color-dark-danger,
+          "theme-dark": colors.$color-theme-dark,
         )
       )
     ),

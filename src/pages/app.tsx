@@ -4,6 +4,7 @@ import {Provider} from 'react-alert';
 import Container from 'react-bootstrap/Container';
 
 import {PopupAlert} from '../components/alert/main';
+import {Navigation} from '../components/nav/main';
 import {useLayout} from '../hooks/layout/main';
 import {PxDataMain} from './pxData/main';
 
@@ -13,6 +14,7 @@ export const App = () => {
 
   return (
     <Provider template={PopupAlert} timeout={3000} position="bottom center">
+      <Navigation/>
       <Container fluid={isLandscape}>
         <PxDataMain/>
       </Container>

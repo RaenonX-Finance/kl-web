@@ -26,7 +26,7 @@ export const PxDataMain = () => {
       <ErrorPopup/>
       <Row className="g-3">
         {sortedPxData.map((data) => (
-          <Col key={data.uniqueIdentifier} xs={6}>
+          <Col key={data.uniqueIdentifier} md={6}>
             <PxDataIndividual
               pxData={data}
               title={getPxDataTitle(data)}
