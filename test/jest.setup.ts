@@ -12,6 +12,7 @@ dotenv.config();
 import {isCi} from '../src/utils/env';
 import {initMockConsoleBehavior} from './init/console';
 import {initMockSocket} from './init/socket';
+import {initMockWindowMethods} from './init/window';
 
 // Retry failing test at most 3 times if in CI
 if (isCi()) {
@@ -22,6 +23,7 @@ if (isCi()) {
 // https://github.com/testing-library/react-testing-library/issues/899#issuecomment-819761678
 configure({asyncUtilTimeout: 5000});
 
+initMockWindowMethods();
 initMockConsoleBehavior();
 initMockSocket();
 
