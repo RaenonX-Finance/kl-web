@@ -60,10 +60,10 @@ div {
     // Path entry
     a.nav-item {
       @include nav-item(
-          $color-text: colors.$color-bw-240,
-          $color-active-bg: colors.$color-bw-215,
-          $color-active: colors.$color-bw-20,
-          $color-hovered-bg: color.change(colors.$color-theme-dark, $lightness: 30%),
+        $color-text: colors.$color-bw-240,
+        $color-active-bg: colors.$color-bw-215,
+        $color-active: colors.$color-bw-20,
+        $color-hovered-bg: color.change(colors.$color-theme-dark, $lightness: 30%),
       );
     }
 
