@@ -1,0 +1,13 @@
+div.layout-option {
+  display: inline-block;
+  padding: 0.5rem;
+}
+div.layout-option:not(:last-child) {
+  padding-right: 0;
+}
+
+span.layout-option-count {
+  font-size: 1.25rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */
