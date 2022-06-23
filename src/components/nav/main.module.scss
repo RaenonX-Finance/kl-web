@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "../../styles/colors";
+@use "../../../styles/colors";
 
 a {
   // Navigation brand
@@ -7,11 +7,6 @@ a {
     border: none;  // Remove link styling
     display: flex;
     align-items: center;
-
-    img.nav-logo {
-      width: 2rem;
-      display: inline-block;
-    }
   }
 }
 

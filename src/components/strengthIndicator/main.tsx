@@ -2,6 +2,7 @@ import React from 'react';
 
 import {useAnimation} from '../../hooks/animation';
 import {strengthStyleLookup, strengthTextLookup} from './const';
+import styles from './main.module.scss';
 import {StrengthIndex} from './type';
 
 
@@ -16,7 +17,7 @@ export const PxStrengthIndicator = ({index, animationDependencies}: Props) => {
   });
 
   return (
-    <span ref={elemRef} className={strengthStyleLookup[index]}>
+    <span ref={elemRef} className={`${styles['text-indicator']} ${strengthStyleLookup[index]}`}>
       {strengthTextLookup[index]}
     </span>
   );

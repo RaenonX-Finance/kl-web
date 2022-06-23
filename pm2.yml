@@ -1,7 +1,8 @@
 apps:
   - name: 'kl-site-front'
     # Entry point
-    script: 'serve'
+    script: 'npm'
+    args: 'start'
     # Execution configs
     exec_mode: 'cluster'
     instances: 5

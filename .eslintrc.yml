@@ -10,6 +10,7 @@ extends:
   - plugin:eslint-plugin-import/errors
   - plugin:eslint-plugin-import/warnings
   - plugin:eslint-plugin-import/typescript
+  - plugin:@next/next/recommended
 
 globals:
   Atomics: readonly

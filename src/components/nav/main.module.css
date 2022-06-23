@@ -3,10 +3,6 @@ a.nav-brand {
   display: flex;
   align-items: center;
 }
-a.nav-brand img.nav-logo {
-  width: 2rem;
-  display: inline-block;
-}
 
 div.nav-body div.text {
   padding: 0.5rem 1rem !important;
