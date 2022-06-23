@@ -1,11 +1,11 @@
 import React from 'react';
 
+import {useRouter} from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import {useNextRouter} from '../../mock/nextRouter';
 import {NavigationBrand} from './brand';
 import {navItems} from './const';
 import {NavComponent} from './elements/component';
@@ -15,7 +15,7 @@ import styles from './main.module.scss';
 
 
 export const Navigation = () => {
-  const {pathname} = useNextRouter();
+  const {pathname} = useRouter();
 
   return (
     <Navbar variant="dark" expand="md" className={styles['nav-main']}>
