@@ -1,15 +1,14 @@
 apps:
   - name: 'kl-site-front'
     # Entry point
-    script: 'npm'
+    # `npm start` won't work here - or additional work required
+    script: './node_modules/next/dist/bin/next'
     args: 'start'
     # Execution configs
     exec_mode: 'cluster'
     instances: 5
     # Environments
     env:
-      PM2_SERVE_PATH: './build'
-      PM2_SERVE_PORT: 3000
       NODE_ENV: 'development'
     env_production:
       NODE_ENV: 'production'
