@@ -3,9 +3,9 @@ engines:
   duplication:
     exclude_paths:
       # Test files
-      - "**.test.ts"
-      - "**.test.tsx"
+      - '**.test.ts'
+      - '**.test.tsx'
 
 exclude_paths:
-  # Official New Relic EUM js
-  - "public/js/newRelicEum.js"
+  # New Relic Browser monitoring js
+  - 'public/js/newRelicBrowser.js'
