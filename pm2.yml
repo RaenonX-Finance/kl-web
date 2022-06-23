@@ -13,6 +13,7 @@ apps:
       NODE_ENV: 'development'
     env_production:
       NODE_ENV: 'production'
+      NODE_OPTIONS: '-r @newrelic/next'
     # Others
     cron_restart: '0 0 */3 * *'  # Restart every 3 days
     time: true  # Log timestamp in logs
