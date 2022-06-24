@@ -39,7 +39,6 @@ export const initMockConsoleBehavior = () => {
     }
 
     // - `[react-timeago] Invalid Date provided`: doesn't matter during test
-    // - `The width(0) and height(0) of chart should be greater than 0`: 1st line of the `recharts` warning
     if (
       warningMessage.startsWith('[react-timeago] Invalid Date provided') ||
       warningMessage.startsWith('The width(0) and height(0) of chart should be greater than 0')

@@ -1,11 +1,15 @@
-import {PxDataCollection} from '../types/pxData';
+import {PxDataMap} from '../types/pxData';
 import {getDecimalPlaces} from './calc';
 
 
-export const updateCurrentPxDataTitle = (pxDataCollection: PxDataCollection) => {
+export const updateCurrentPxDataTitle = (pxDataMap: PxDataMap) => {
   const currentPx: {[symbol: string]: string} = {};
 
-  Object.entries(pxDataCollection).forEach(([_, pxData]) => {
+  Object.values(pxDataMap).forEach((pxData) => {
+    if (!pxData) {
+      return;
+    }
+
     const lastBar = pxData.data.at(-1);
 
     if (!lastBar) {

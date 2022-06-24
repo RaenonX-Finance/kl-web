@@ -4,3 +4,7 @@ export type SlicerLineProps = {
   x2: number,
   y2: number,
 };
+
+export type IconProps = {
+  onClick: () => void,
+};

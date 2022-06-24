@@ -19,7 +19,7 @@ export const ChartLayoutOptions = ({count, icons}: Props) => {
       </Col>
       <Col>
         {icons.map((icon, idx) => (
-          <div key={idx} className={styles['layout-option']}>{icon()}</div>
+          <React.Fragment key={idx}>{icon()}</React.Fragment>
         ))}
       </Col>
     </Row>

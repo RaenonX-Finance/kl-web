@@ -6,10 +6,23 @@ import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {pxDataDispatchers} from './dispatchers';
-import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
+import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataUpdateChartMap} from './types';
 
 
-const initialState: PxDataState = {};
+const initialState: PxDataState = {
+  data: {
+    'A': null,
+    'B': null,
+    'C': null,
+    'D': null,
+  },
+  map: {
+    'NQ@1': 'A',
+    'NQ@5': 'B',
+    'FITX@1': 'C',
+    'FITX@5': 'D',
+  },
+};
 
 const fixPxData = (pxData: PxData): PxData => {
   pxData.data = pxData.data.map((item) => ({
@@ -31,21 +44,37 @@ const slice = createSlice({
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.INIT],
       (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
-        payload.forEach((pxData) => state[pxData.uniqueIdentifier] = fixPxData({
-          ...pxData,
-          lastUpdated: Date.now(),
-        }));
-        updateCurrentPxDataTitle(state);
+        // TODO: To fix after data sending optimization
+        payload.forEach((pxData) => {
+          const slot = state.map[pxData.uniqueIdentifier];
+
+          if (!slot) {
+            return;
+          }
+
+          state.data[slot] = fixPxData({
+            ...pxData,
+            lastUpdated: Date.now(),
+          });
+        });
+
+        updateCurrentPxDataTitle(state.data);
       },
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE],
       (state: PxDataState, {payload}: {payload: PxDataFromSocket}) => {
-        state[payload.uniqueIdentifier] = fixPxData({
+        const slot = state.map[payload.uniqueIdentifier];
+
+        if (!slot) {
+          return;
+        }
+
+        state.data[slot] = fixPxData({
           ...payload,
           lastUpdated: Date.now(),
         });
-        updateCurrentPxDataTitle(state);
+        updateCurrentPxDataTitle(state.data);
       },
     );
     builder.addCase(
@@ -53,8 +82,8 @@ const slice = createSlice({
       (state: PxDataState, {payload}: {payload: PxDataMarket}) => {
         const {symbol, close} = payload;
 
-        Object.entries(state).forEach(([_, pxData]) => {
-          if (pxData.contract.symbol !== symbol) {
+        Object.values(state.data).map((pxData) => {
+          if (!pxData || pxData.contract.symbol !== symbol) {
             return;
           }
 
@@ -73,7 +102,16 @@ const slice = createSlice({
           pxData.lastUpdated = Date.now();
         });
 
-        updateCurrentPxDataTitle(state);
+        updateCurrentPxDataTitle(state.data);
+      },
+    );
+    builder.addCase(
+      pxDataDispatchers[PxDataDispatcherName.UPDATE_CHART_MAP],
+      (state: PxDataState, {payload}: {payload: PxDataUpdateChartMap}) => {
+        state.map = {
+          ...state.map,
+          ...Object.fromEntries(payload.map(({slot, uniqueIdentifier}) => [uniqueIdentifier, slot])),
+        };
       },
     );
   },

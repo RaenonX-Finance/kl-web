@@ -1,8 +1,6 @@
 import {PxDataMarket} from './pxDataMarket';
 
 
-export type PxDataUniqueIdentifier = string;
-
 export type PxDataContract = {
   symbol: string,
   name: string,
@@ -39,6 +37,6 @@ export type PxData = PxDataFromSocket & {
   lastUpdated: number,
 };
 
-export type PxDataCollection = {
-  [identifier: PxDataUniqueIdentifier]: PxData,
-};
+export type PxDataMapSlotNames = 'A' | 'B' | 'C' | 'D';
+
+export type PxDataMap = {[name in PxDataMapSlotNames]: PxData | null};

@@ -29,12 +29,15 @@ import {ChartLayoutOptions} from './optionRow';
 export const ChartLayoutSelector = () => {
   const [show, setShow] = React.useState(false);
 
+  const openModal = () => setShow(true);
+  const closeModal = () => setShow(false);
+
   return (
     <>
-      <Nav.Link onClick={() => setShow(true)}>
+      <Nav.Link onClick={openModal}>
         版面配置
       </Nav.Link>
-      <Modal show={show} size="lg" onHide={() => setShow(false)} centered>
+      <Modal show={show} size="lg" onHide={closeModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>選擇版面</Modal.Title>
         </Modal.Header>
@@ -42,41 +45,41 @@ export const ChartLayoutSelector = () => {
           <ChartLayoutOptions
             count={1}
             icons={[
-              () => <LayoutIcon1of1x1/>,
+              () => <LayoutIcon1of1x1 onClick={closeModal}/>,
             ]}
           />
           <ChartLayoutOptions
             count={2}
             icons={[
-              () => <LayoutIcon2of2x1/>,
-              () => <LayoutIcon2of1x2/>,
+              () => <LayoutIcon2of1x2 onClick={closeModal}/>,
+              () => <LayoutIcon2of2x1 onClick={closeModal}/>,
             ]}
           />
           <ChartLayoutOptions
             count={3}
             icons={[
-              () => <LayoutIcon3of3x1/>,
-              () => <LayoutIcon3of1x3/>,
-              () => <LayoutIcon3ofLF/>,
-              () => <LayoutIcon3ofRF/>,
-              () => <LayoutIcon3ofTF/>,
-              () => <LayoutIcon3ofBF/>,
+              () => <LayoutIcon3of1x3 onClick={closeModal}/>,
+              () => <LayoutIcon3of3x1 onClick={closeModal}/>,
+              () => <LayoutIcon3ofBF onClick={closeModal}/>,
+              () => <LayoutIcon3ofLF onClick={closeModal}/>,
+              () => <LayoutIcon3ofRF onClick={closeModal}/>,
+              () => <LayoutIcon3ofTF onClick={closeModal}/>,
             ]}
           />
           <ChartLayoutOptions
             count={4}
             icons={[
-              () => <LayoutIcon4of2x2/>,
-              () => <LayoutIcon4of4x1/>,
-              () => <LayoutIcon4of1x4/>,
-              () => <LayoutIcon4ofLF/>,
-              () => <LayoutIcon4ofRF/>,
-              () => <LayoutIcon4ofTF/>,
-              () => <LayoutIcon4ofBF/>,
-              () => <LayoutIcon4ofL2/>,
-              () => <LayoutIcon4ofR2/>,
-              () => <LayoutIcon4ofT2/>,
-              () => <LayoutIcon4ofB2/>,
+              () => <LayoutIcon4of1x4 onClick={closeModal}/>,
+              () => <LayoutIcon4of2x2 onClick={closeModal}/>,
+              () => <LayoutIcon4of4x1 onClick={closeModal}/>,
+              () => <LayoutIcon4ofB2 onClick={closeModal}/>,
+              () => <LayoutIcon4ofBF onClick={closeModal}/>,
+              () => <LayoutIcon4ofL2 onClick={closeModal}/>,
+              () => <LayoutIcon4ofLF onClick={closeModal}/>,
+              () => <LayoutIcon4ofR2 onClick={closeModal}/>,
+              () => <LayoutIcon4ofRF onClick={closeModal}/>,
+              () => <LayoutIcon4ofT2 onClick={closeModal}/>,
+              () => <LayoutIcon4ofTF onClick={closeModal}/>,
             ]}
           />
         </Modal.Body>
