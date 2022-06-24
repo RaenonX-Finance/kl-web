@@ -1,10 +1,11 @@
 import {io} from 'socket.io-client';
 
 import {PxDataSocket} from '../types/socket/type';
+import {isProduction, isUsingActualData} from './env';
 
 
 export const getDataUrl = (): string => {
-  return process.env.NODE_ENV === 'production' || !!process.env.NEXT_PUBLIC_DATA_SOURCE_ACTUAL ?
+  return isProduction() || isUsingActualData() ?
     'wss://data.kl-law.net' :
     'ws://localhost:8000';
 };

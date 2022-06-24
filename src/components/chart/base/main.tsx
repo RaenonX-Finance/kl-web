@@ -27,7 +27,6 @@ export type TradingViewChartProps<T, P, R, L, A> = {
 };
 
 export const TradingViewChart = <T, P, R, L, A>({
-  height,
   initChart,
   calcObjects,
   chartData,
@@ -98,7 +97,7 @@ export const TradingViewChart = <T, P, R, L, A>({
 
   return (
     <>
-      <div className="mb-2" style={{height}} ref={chartContainerRef}>
+      <div className="mb-2" ref={chartContainerRef}>
         <div className={styles['legend']}>
           {renderObjects.legend(chartData, legend)}
         </div>

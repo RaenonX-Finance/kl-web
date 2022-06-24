@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {Provider} from 'react-redux';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import {createStore} from './store';
 import {ReduxStore} from './types';
@@ -12,7 +14,7 @@ export type ReduxProviderProps = {
 };
 
 export const ReduxProvider = ({
-  children, reduxStore,
+  children, reduxStore, persist = true,
 }: React.PropsWithChildren<ReduxProviderProps>) => {
   if (!reduxStore) {
     reduxStore = createStore();
@@ -20,7 +22,11 @@ export const ReduxProvider = ({
 
   return (
     <Provider store={reduxStore}>
-      {children}
+      {
+        persist ?
+          <PersistGate persistor={persistStore(reduxStore)}>{children}</PersistGate> :
+          children
+      }
     </Provider>
   );
 };
