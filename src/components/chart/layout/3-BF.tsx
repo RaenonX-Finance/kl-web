@@ -14,7 +14,7 @@ export const Layout3ofBF = ({pxDataMap}: LayoutProps) => {
 
   return (
     <>
-      <Row>
+      <Row className="g-2 mb-2">
         <Col>
           <PxDataLayoutPane pxData={dataA}/>
         </Col>
@@ -22,7 +22,7 @@ export const Layout3ofBF = ({pxDataMap}: LayoutProps) => {
           <PxDataLayoutPane pxData={dataB}/>
         </Col>
       </Row>
-      <Row>
+      <Row className="g-2">
         <Col>
           <PxDataLayoutPane pxData={dataC}/>
         </Col>
