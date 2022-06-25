@@ -26,10 +26,10 @@ export const Layout4ofT2 = ({pxDataMap}: LayoutProps) => {
         </Col>
       </Row>
       <Row className="g-2">
-        <Col>
+        <Col xs={6}>
           <PxDataLayoutPane pxData={dataC}/>
         </Col>
-        <Col>
+        <Col xs={6}>
           <PxDataLayoutPane pxData={dataD}/>
         </Col>
       </Row>

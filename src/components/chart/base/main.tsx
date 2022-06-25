@@ -47,8 +47,6 @@ export const TradingViewChart = <T, P, R, L, A>({
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const [layoutConfig, setLayoutConfig] = React.useState<A>(getInitialLayoutConfig(chartData));
 
-  const periodSec = getPeriodSec(chartData);
-
   const setObject = {
     legend: setLegend,
   };
@@ -118,7 +116,7 @@ export const TradingViewChart = <T, P, R, L, A>({
           </Button>
         </Col>
         <Col xs="auto">
-          <PeriodTimer periodSec={periodSec}/>
+          <PeriodTimer periodSec={getPeriodSec(chartData)}/>
         </Col>
         <Col xs="auto" className="text-end">
           <TimeAgo

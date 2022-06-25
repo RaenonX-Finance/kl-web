@@ -15,7 +15,7 @@ export const Layout4ofR2 = ({pxDataMap}: LayoutProps) => {
 
   return (
     <Row className="g-2">
-      <Col>
+      <Col xs={4}>
         <Row className="g-2 mb-2">
           <Col>
             <PxDataLayoutPane pxData={dataA}/>
@@ -27,10 +27,10 @@ export const Layout4ofR2 = ({pxDataMap}: LayoutProps) => {
           </Col>
         </Row>
       </Col>
-      <Col>
+      <Col xs={4}>
         <PxDataLayoutPane pxData={dataC}/>
       </Col>
-      <Col>
+      <Col xs={4}>
         <PxDataLayoutPane pxData={dataD}/>
       </Col>
     </Row>
