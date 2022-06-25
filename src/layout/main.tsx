@@ -9,7 +9,7 @@ type Props = {
 
 export const MainApp = ({renderApp}: Props) => {
   return (
-    <Container fluid>
+    <Container fluid className="h-100">
       {renderApp()}
     </Container>
   );

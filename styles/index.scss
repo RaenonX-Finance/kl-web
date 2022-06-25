@@ -23,13 +23,26 @@ body {
   height: 100vh;
 }
 
-div#root {
-  color: #fafafa;
-}
-
 a {
   color: inherit;
   text-decoration: none;
+}
+
+div {
+  // Name of `__next` cannot be changed
+  &#__next {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  &#nav {
+    flex: 0 1 auto;
+  }
+
+  &#body {
+    flex: 1 1 auto;
+  }
 }
 
 input::-webkit-outer-spin-button:not(:disabled),
@@ -39,4 +52,8 @@ input::-webkit-inner-spin-button:not(:disabled) {
 
 * {
   box-sizing: border-box;
+
+  &.h-33 {
+    height: calc(100% / 3) !important;
+  }
 }

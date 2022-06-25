@@ -14,25 +14,25 @@ export const Layout4ofRF = ({pxDataMap}: LayoutProps) => {
   const dataD = pxDataMap['D'];
 
   return (
-    <Row className="g-2">
+    <Row className="h-100 g-2">
       <Col xs={6}>
-        <Row className="g-2 mb-2">
+        <Row className="h-33 g-2 mb-2">
           <Col>
             <PxDataLayoutPane pxData={dataA}/>
           </Col>
         </Row>
-        <Row className="g-2 mb-2">
+        <Row className="h-33 g-2 mb-2">
           <Col>
             <PxDataLayoutPane pxData={dataB}/>
           </Col>
         </Row>
-        <Row className="g-2">
+        <Row className="h-33 g-2">
           <Col>
             <PxDataLayoutPane pxData={dataC}/>
           </Col>
         </Row>
       </Col>
-      <Col xs={6}>
+      <Col xs={6} className="pb-2">
         <PxDataLayoutPane pxData={dataD}/>
       </Col>
     </Row>

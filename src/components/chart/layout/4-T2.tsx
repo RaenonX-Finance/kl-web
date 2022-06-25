@@ -15,17 +15,17 @@ export const Layout4ofT2 = ({pxDataMap}: LayoutProps) => {
 
   return (
     <>
-      <Row className="g-2 mb-2">
+      <Row className="h-33 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataA}/>
         </Col>
       </Row>
-      <Row className="g-2 mb-2">
+      <Row className="h-33 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataB}/>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="h-33 g-2">
         <Col xs={6}>
           <PxDataLayoutPane pxData={dataC}/>
         </Col>

@@ -6,6 +6,17 @@ div.tooltip {
   position: absolute;
   z-index: 1000;
 }
+div.px-data-box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+div.px-data-fixed-height {
+  flex: 0 1 auto;
+}
+div.px-data-chart {
+  flex: 1 1 auto;
+}
 
 span.update-animation {
   border: 1px solid #325bc2;

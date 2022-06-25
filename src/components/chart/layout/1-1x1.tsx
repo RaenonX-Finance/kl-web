@@ -11,7 +11,7 @@ export const Layout1of1x1 = ({pxDataMap}: LayoutProps) => {
   const dataA = pxDataMap['A'];
 
   return (
-    <Row>
+    <Row className="h-100 pb-3">
       <Col>
         <PxDataLayoutPane pxData={dataA}/>
       </Col>

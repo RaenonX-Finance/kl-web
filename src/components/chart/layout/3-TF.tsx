@@ -14,12 +14,12 @@ export const Layout3ofTF = ({pxDataMap}: LayoutProps) => {
 
   return (
     <>
-      <Row className="g-2 mb-2">
+      <Row className="h-50 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataA}/>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="h-50 g-2">
         <Col xs={6}>
           <PxDataLayoutPane pxData={dataB}/>
         </Col>

@@ -11,6 +11,20 @@ div {
   &.tooltip {
     @include overlay;
   }
+
+  &.px-data-box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  &.px-data-fixed-height {
+    flex: 0 1 auto;
+  }
+
+  &.px-data-chart {
+    flex: 1 1 auto;
+  }
 }
 
 span.update-animation {

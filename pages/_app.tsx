@@ -26,7 +26,9 @@ const NextApp = ({Component, pageProps}: AppProps) => {
         <ReduxProvider>
           <Provider template={PopupAlert} timeout={3000} position="bottom center">
             <Navigation/>
-            <MainApp renderApp={() => <Component {...pageProps}/>}/>
+            <div id="body">
+              <MainApp renderApp={() => <Component {...pageProps}/>}/>
+            </div>
           </Provider>
         </ReduxProvider>
       </React.StrictMode>

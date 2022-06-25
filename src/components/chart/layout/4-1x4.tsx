@@ -15,22 +15,22 @@ export const Layout4of1x4 = ({pxDataMap}: LayoutProps) => {
 
   return (
     <>
-      <Row className="g-2 mb-2">
+      <Row className="h-25 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataA}/>
         </Col>
       </Row>
-      <Row className="g-2 mb-2">
+      <Row className="h-25 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataB}/>
         </Col>
       </Row>
-      <Row className="g-2 mb-2">
+      <Row className="h-25 g-2 pb-3">
         <Col>
           <PxDataLayoutPane pxData={dataC}/>
         </Col>
       </Row>
-      <Row className="g-2">
+      <Row className="h-25 g-2">
         <Col>
           <PxDataLayoutPane pxData={dataD}/>
         </Col>

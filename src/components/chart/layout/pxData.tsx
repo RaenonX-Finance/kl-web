@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {PxDataIndividual} from '../../../layout/pxData/individual';
 import {useCustomSrSelector} from '../../../state/customSr/selector';
 import {PxData} from '../../../types/pxData';
 import {getPxDataTitle} from '../../../utils/pxData';
 import {Loading} from '../../common/loading';
+import {PxDataChart} from '../pxData/main';
 
 
 type Props = {
@@ -19,9 +19,9 @@ export const PxDataLayoutPane = ({pxData}: Props) => {
   }
 
   return (
-    <PxDataIndividual
-      pxData={pxData}
+    <PxDataChart
       title={getPxDataTitle(pxData)}
+      chartData={pxData}
       payload={{
         customSrLevels: customSrLevels[pxData.contract.symbol],
       }}

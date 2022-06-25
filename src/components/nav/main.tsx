@@ -18,7 +18,7 @@ export const Navigation = () => {
   const {pathname} = useRouter();
 
   return (
-    <Navbar variant="dark" expand="md" className={styles['nav-main']}>
+    <Navbar variant="dark" expand="md" id="nav" className={styles['nav-main']}>
       <Container fluid>
         <NavigationBrand/>
         <Navbar.Toggle/>
