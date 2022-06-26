@@ -113,6 +113,11 @@ export const TradingViewChart = <T, P, R, L, A>({
               重設比例
             </Button>
           </Col>
+        </Row>
+      </div>
+      <div className={styles['status']}>
+        <Row className="g-2">
+          <Col/>
           <Col xs="auto">
             <PeriodTimer periodSec={getPeriodSec(chartData)}/>
           </Col>
@@ -120,7 +125,9 @@ export const TradingViewChart = <T, P, R, L, A>({
             <TimeAgo
               ref={updateIndicatorRef}
               epochSec={lastUpdated.current}
-              format={(secDiffMs) => `${secDiffMs.toFixed(0)} 秒前更新`}
+              format={(secDiffMs) => (
+                <><i className="bi bi-activity"/>&nbsp;{secDiffMs.toFixed(0)}</>
+              )}
               updateMs={100}
               className={styles['update-animation']}
             />

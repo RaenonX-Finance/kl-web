@@ -14,6 +14,13 @@ div.toolbar {
   bottom: 2rem;
   margin: 0.5rem;
 }
+div.status {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  bottom: 0.1rem;
+  right: 0.2rem;
+}
 
 span.update-animation {
   border: 1px solid #325bc2;

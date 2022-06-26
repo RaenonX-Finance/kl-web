@@ -22,6 +22,14 @@ div {
     bottom: 2rem;
     margin: 0.5rem;
   }
+
+  &.status {
+    @include overlay;
+
+    width: 100%;
+    bottom: 0.1rem;
+    right: 0.2rem;
+  }
 }
 
 span.update-animation {

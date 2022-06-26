@@ -3,7 +3,7 @@ import React from 'react';
 
 type Props = {
   epochSec: number,
-  format: (secDiffMs: number) => string,
+  format: (secDiffMs: number) => React.ReactNode,
   updateMs: number,
   className?: string,
 };
