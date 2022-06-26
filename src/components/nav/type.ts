@@ -37,4 +37,4 @@ export type NavItemEntry =
   NavItemText |
   NavItemReactComponent;
 
-export type NavItems = NavItemEntry[];
+export type NavItemCollection = NavItemEntry[];

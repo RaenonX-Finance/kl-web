@@ -2,10 +2,10 @@ import React from 'react';
 
 import {GeneralPath} from '../../const/path';
 import {ChartLayoutSelector} from '../chart/layoutSelector/main';
-import {NavItems} from './type';
+import {NavItemCollection} from './type';
 
 
-export const navItems: NavItems = [
+export const navItemsAtLeft: NavItemCollection = [
   {
     type: 'path',
     path: GeneralPath.CHART,
@@ -22,6 +22,9 @@ export const navItems: NavItems = [
     href: 'https://kl-law.mystrikingly.com/',
     text: '官網',
   },
+];
+
+export const navItemsAtRight: NavItemCollection = [
   {
     type: 'component',
     renderComponent: () => <ChartLayoutSelector/>,

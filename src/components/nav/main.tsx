@@ -7,10 +7,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import {NavigationBrand} from './brand';
-import {navItems} from './const';
-import {NavComponent} from './elements/component';
-import {NavPath} from './elements/path';
-import {NavText} from './elements/text';
+import {navItemsAtLeft, navItemsAtRight} from './const';
+import {NavItems} from './items';
 import styles from './main.module.scss';
 
 
@@ -29,20 +27,11 @@ export const Navigation = () => {
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
+            <Nav className={`${styles['nav-body']} ${styles['nav-body-left']}`}>
+              <NavItems navItems={navItemsAtLeft} pathname={pathname}/>
+            </Nav>
             <Nav className={styles['nav-body']}>
-              {navItems.map((navItem, idx) => {
-                const {type} = navItem;
-
-                if (type === 'path') {
-                  return <NavPath key={idx} pathname={pathname} {...navItem}/>;
-                }
-                if (type === 'text') {
-                  return <NavText key={idx} pathname={pathname} {...navItem}/>;
-                }
-                if (type === 'component') {
-                  return <NavComponent key={idx} pathname={pathname} {...navItem}/>;
-                }
-              })}
+              <NavItems navItems={navItemsAtRight} pathname={pathname}/>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

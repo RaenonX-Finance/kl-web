@@ -44,6 +44,11 @@ div {
       @include nav-item-hovered($color: $color-hovered-bg);
     }
 
+    &.nav-body-left {
+      // Push things to the right
+      margin-right: auto;
+    }
+
     // Text entry
     div.text {
       @include nav-item-base;

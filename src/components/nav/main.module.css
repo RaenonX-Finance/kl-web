@@ -4,6 +4,9 @@ a.nav-brand {
   align-items: center;
 }
 
+div.nav-body.nav-body-left {
+  margin-right: auto;
+}
 div.nav-body div.text {
   padding: 0.5rem 1rem !important;
   background-color: #141414;
