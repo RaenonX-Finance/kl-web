@@ -52,7 +52,7 @@ export const PxDataChart = (props: Props) => {
         },
       }}
       renderObjects={{
-        legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend}/>,
+        legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} title={title}/>,
       }}
       renderLayoutConfig={(config, setConfig) => (
         <PxChartLayoutConfigPanel title={title} config={config} setConfig={setConfig}/>

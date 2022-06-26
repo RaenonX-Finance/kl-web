@@ -1,21 +1,18 @@
+div.chart {
+  position: relative;
+  height: 100%;
+}
 div.legend {
   position: absolute;
   z-index: 1000;
+  width: 100%;
 }
-div.tooltip {
+div.toolbar {
   position: absolute;
   z-index: 1000;
-}
-div.px-data-box {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-}
-div.px-data-fixed-height {
-  flex: 0 1 auto;
-}
-div.px-data-chart {
-  flex: 1 1 auto;
+  width: 100%;
+  bottom: 2rem;
+  margin: 0.5rem;
 }
 
 span.update-animation {

@@ -6,8 +6,6 @@ import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
 import {PeriodTimer} from '../../periodTimer/main';
-import {PxStrengthIndicator} from '../../strengthIndicator/main';
-import {StrengthIndex} from '../../strengthIndicator/type';
 import {TimeAgo} from '../../timeAgo/main';
 import {useTradingViewChart} from './hook';
 import styles from './main.module.scss';
@@ -15,7 +13,6 @@ import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, C
 
 
 export type TradingViewChartProps<T, P, R, L, A> = {
-  title: string,
   initChart: ChartInitEventHandler<T, R, L, A, P>,
   chartData: T,
   payload: P,
@@ -29,7 +26,6 @@ export type TradingViewChartProps<T, P, R, L, A> = {
 };
 
 export const TradingViewChart = <T, P, R, L, A>({
-  title,
   initChart,
   calcObjects,
   chartData,
@@ -49,20 +45,6 @@ export const TradingViewChart = <T, P, R, L, A>({
   const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const [layoutConfig, setLayoutConfig] = React.useState<A>(getInitialLayoutConfig(chartData));
-
-  // TEMP: ------ Temp RSI Start
-  const [idx, setIdx] = React.useState(Math.floor(Date.now() / 1000 % 7));
-
-  React.useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIdx(Math.floor(Date.now() / 2000 % 7));
-    }, 500);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const actualIndex = idx - 3 as StrengthIndex;
-  // TEMP: ------ Temp RSI End
 
   const setObject = {
     legend: setLegend,
@@ -111,53 +93,40 @@ export const TradingViewChart = <T, P, R, L, A>({
   );
 
   return (
-    <div className={styles['px-data-box']}>
-      <Row className={`g-0 mb-2 ${styles['px-data-fixed-height']}`}>
-        <Col>
-          <h4 className="mb-0">
-            {title}
-          </h4>
-        </Col>
-        <Col xs="auto" className="text-end">
-          <PxStrengthIndicator index={actualIndex}/>
-        </Col>
-      </Row>
-      <hr className="my-2"/>
-      <Row className={`g-0 mb-2 ${styles['px-data-chart']}`} ref={chartContainerRef}>
-        <Col>
-          <div className={styles['legend']}>
-            {renderObjects.legend(chartData, legend)}
-          </div>
-        </Col>
-      </Row>
-      <Row className={`g-2 align-items-center ${styles['px-data-fixed-height']}`}>
-        <Col>
-          {renderLayoutConfig(layoutConfig, setLayoutConfig)}
-          <Button size="sm" variant="outline-success" className="me-2" onClick={() => {
-            chartRef.current?.timeScale().scrollToRealTime();
-          }}>
-            移到目前
-          </Button>
-          <Button size="sm" variant="outline-warning" onClick={() => {
-            chartRef.current?.timeScale().resetTimeScale();
-            chartRef.current?.priceScale().applyOptions({autoScale: true});
-          }}>
-            重設比例
-          </Button>
-        </Col>
-        <Col xs="auto">
-          <PeriodTimer periodSec={getPeriodSec(chartData)}/>
-        </Col>
-        <Col xs="auto" className="text-end">
-          <TimeAgo
-            ref={updateIndicatorRef}
-            epochSec={lastUpdated.current}
-            format={(secDiffMs) => `${secDiffMs.toFixed(0)} 秒前更新`}
-            updateMs={100}
-            className={styles['update-animation']}
-          />
-        </Col>
-      </Row>
+    <div className={styles['chart']} ref={chartContainerRef}>
+      <div className={styles['legend']}>
+        {renderObjects.legend(chartData, legend)}
+      </div>
+      <div className={styles['toolbar']}>
+        <Row className="g-2 align-items-center">
+          <Col>
+            {renderLayoutConfig(layoutConfig, setLayoutConfig)}
+            <Button size="sm" variant="outline-success" className="me-2" onClick={() => {
+              chartRef.current?.timeScale().scrollToRealTime();
+            }}>
+              移到目前
+            </Button>
+            <Button size="sm" variant="outline-warning" onClick={() => {
+              chartRef.current?.timeScale().resetTimeScale();
+              chartRef.current?.priceScale().applyOptions({autoScale: true});
+            }}>
+              重設比例
+            </Button>
+          </Col>
+          <Col xs="auto">
+            <PeriodTimer periodSec={getPeriodSec(chartData)}/>
+          </Col>
+          <Col xs="auto" className="text-end">
+            <TimeAgo
+              ref={updateIndicatorRef}
+              epochSec={lastUpdated.current}
+              format={(secDiffMs) => `${secDiffMs.toFixed(0)} 秒前更新`}
+              updateMs={100}
+              className={styles['update-animation']}
+            />
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

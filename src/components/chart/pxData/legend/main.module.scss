@@ -1,4 +1,13 @@
+@use "sass:color";
 @use "../../../../../styles/colors";
+
+$color-bull-3: color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 100%);
+$color-bull-2: color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 66%);
+$color-bull-1: color.mix(colors.$color-up-strong, colors.$color-neutral-weak, $weight: 33%);
+$color-neutral: colors.$color-neutral-weak;
+$color-bear-1: color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 33%);
+$color-bear-2: color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 66%);
+$color-bear-3: color.mix(colors.$color-down-strong, colors.$color-neutral-weak, $weight: 100%);
 
 div,
 span {
@@ -16,16 +25,30 @@ span {
       }
     }
 
-    font-size: 0.9rem;
-    padding: 0.4rem;
-    margin: 0.3rem;
-    border-radius: 0.5rem;
-    background-color: rgba(17 17 17 / 65%);
-    width: 32vw;
+    @mixin strength-indicator-theme($suffix, $color) {
+      &.strength-indicator-#{$suffix} {
+        border: 1px solid $color;
+      }
+    }
+
+    font-size: 0.95rem;
+    background-color: rgba(17 17 17 / 75%);
 
     @include diff-styling(neutral, colors.$color-neutral);
     @include diff-styling(up, colors.$color-up);
     @include diff-styling(down, colors.$color-down);
+
+    @include strength-indicator-theme(bull-3, $color-bull-3);
+    @include strength-indicator-theme(bull-2, $color-bull-2);
+    @include strength-indicator-theme(bull-1, $color-bull-1);
+    @include strength-indicator-theme(neutral, $color-neutral);
+    @include strength-indicator-theme(bear-1, $color-bear-1);
+    @include strength-indicator-theme(bear-2, $color-bear-2);
+    @include strength-indicator-theme(bear-3, $color-bear-3);
+  }
+
+  &.main-content {
+    padding: 0.25rem 0.5rem;
   }
 
   &.val-neutral {
@@ -42,5 +65,59 @@ span {
 
   &.price-lg {
     font-size: 1.2rem;
+  }
+
+  &.title {
+    font-size: 1.2rem;
+  }
+
+  &.strength-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Consolas, monospace;
+    font-size: 1.8rem;
+    text-align: center;
+    width: 3.5rem;
+
+    @mixin strength-indicator-theme($suffix, $color) {
+      /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+      @keyframes strength-indicator-#{$suffix}-animation {  /* stylelint-disable-line keyframes-name-pattern */
+        0% {
+          color: black;
+        }
+
+        25% {
+          color: white;
+        }
+
+        50% {
+          color: black;
+        }
+
+        75% {
+          color: white;
+        }
+
+        100% {
+          color: black;
+        }
+      }
+
+      &.strength-indicator-#{$suffix} {
+        background-color: $color;
+        color: black;
+        padding: 0.25rem 0.5rem;
+        animation: 750ms strength-indicator-#{$suffix}-animation;
+      }
+    }
+
+    @include strength-indicator-theme(bull-3, $color-bull-3);
+    @include strength-indicator-theme(bull-2, $color-bull-2);
+    @include strength-indicator-theme(bull-1, $color-bull-1);
+    @include strength-indicator-theme(neutral, $color-neutral);
+    @include strength-indicator-theme(bear-1, $color-bear-1);
+    @include strength-indicator-theme(bear-2, $color-bear-2);
+    @include strength-indicator-theme(bear-3, $color-bear-3);
   }
 }
