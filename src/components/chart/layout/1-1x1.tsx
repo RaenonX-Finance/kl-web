@@ -1,20 +1,24 @@
 import React from 'react';
 
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import useResizeObserver from 'use-resize-observer';
 
+import {LayoutBase} from './base';
 import {PxDataLayoutPane} from './pxData';
 import {LayoutProps} from './type';
 
 
 export const Layout1of1x1 = ({pxDataMap}: LayoutProps) => {
+  const {ref, width, height} = useResizeObserver<HTMLDivElement>();
+
   const dataA = pxDataMap['A'];
 
   return (
-    <Row className="h-100 pb-3">
-      <Col>
-        <PxDataLayoutPane pxData={dataA}/>
-      </Col>
-    </Row>
+    <LayoutBase refCallback={ref}>
+      {!!width && !!height && (
+        <>
+          <PxDataLayoutPane pxData={dataA} x={0} y={0} width={width} height={height}/>
+        </>
+      )}
+    </LayoutBase>
   );
 };

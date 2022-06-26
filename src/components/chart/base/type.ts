@@ -38,6 +38,8 @@ export type InitChartPayload<T, L, A> = {
 export type UseChartPayload<T, R, L, A, P> = {
   initChart: ChartInitEventHandler<T, R, L, A, P>,
   onDataUpdated: () => void,
+  height: number,
+  width: number,
 };
 
 export type UseChartReturn<T, R, L, A, P> = {

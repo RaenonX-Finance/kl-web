@@ -1,38 +1,30 @@
 import React from 'react';
 
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import useResizeObserver from 'use-resize-observer';
 
+import {LayoutBase} from './base';
 import {PxDataLayoutPane} from './pxData';
 import {LayoutProps} from './type';
 
 
 export const Layout4ofT2 = ({pxDataMap}: LayoutProps) => {
+  const {ref, width, height} = useResizeObserver<HTMLDivElement>();
+
   const dataA = pxDataMap['A'];
   const dataB = pxDataMap['B'];
   const dataC = pxDataMap['C'];
   const dataD = pxDataMap['D'];
 
   return (
-    <>
-      <Row className="h-33 g-2 pb-3">
-        <Col>
-          <PxDataLayoutPane pxData={dataA}/>
-        </Col>
-      </Row>
-      <Row className="h-33 g-2 pb-3">
-        <Col>
-          <PxDataLayoutPane pxData={dataB}/>
-        </Col>
-      </Row>
-      <Row className="h-33 g-2">
-        <Col xs={6}>
-          <PxDataLayoutPane pxData={dataC}/>
-        </Col>
-        <Col xs={6}>
-          <PxDataLayoutPane pxData={dataD}/>
-        </Col>
-      </Row>
-    </>
+    <LayoutBase refCallback={ref}>
+      {!!width && !!height && (
+        <>
+          <PxDataLayoutPane pxData={dataA} x={0} y={0} width={width} height={height / 3}/>
+          <PxDataLayoutPane pxData={dataB} x={0} y={height * (1 / 3)} width={width} height={height / 3}/>
+          <PxDataLayoutPane pxData={dataC} x={0} y={height * (2 / 3)} width={width / 2} height={height / 3}/>
+          <PxDataLayoutPane pxData={dataD} x={width / 2} y={height * (2 / 3)} width={width / 2} height={height / 3}/>
+        </>
+      )}
+    </LayoutBase>
   );
 };

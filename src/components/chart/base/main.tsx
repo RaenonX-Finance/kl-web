@@ -13,6 +13,8 @@ import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, C
 
 
 export type TradingViewChartProps<T, P, R, L, A> = {
+  width: number,
+  height: number,
   initChart: ChartInitEventHandler<T, R, L, A, P>,
   chartData: T,
   payload: P,
@@ -26,6 +28,8 @@ export type TradingViewChartProps<T, P, R, L, A> = {
 };
 
 export const TradingViewChart = <T, P, R, L, A>({
+  width,
+  height,
   initChart,
   calcObjects,
   chartData,
@@ -73,6 +77,8 @@ export const TradingViewChart = <T, P, R, L, A>({
       setObject,
       layoutConfig,
       chartContainer: chartContainerRef.current,
+      width,
+      height,
       ...payload,
     });
   };
@@ -80,6 +86,8 @@ export const TradingViewChart = <T, P, R, L, A>({
   const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, A, P>({
     initChart,
     onDataUpdated: onDataUpdatedInternal(true),
+    width,
+    height,
   });
 
   React.useEffect(onLoad, []);
