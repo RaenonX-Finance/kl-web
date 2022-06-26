@@ -3,6 +3,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 import {configDispatchers} from '../../../../state/config/dispatchers';
+import {useConfigSelector} from '../../../../state/config/selector';
 import {ConfigDispatcherName} from '../../../../state/config/types';
 import {useDispatch} from '../../../../state/store';
 import {LayoutType} from '../type';
@@ -19,6 +20,7 @@ type Props = {
 
 export const LayoutIconBase = ({lines, layoutType, onClick, size = 32}: Props) => {
   const dispatch = useDispatch();
+  const {layoutType: configLayoutType} = useConfigSelector();
 
   const onButtonClick = () => {
     onClick();
@@ -26,7 +28,11 @@ export const LayoutIconBase = ({lines, layoutType, onClick, size = 32}: Props) =
   };
 
   return (
-    <Button className={styles['layout-option']} variant="dark-info" onClick={onButtonClick}>
+    <Button
+      className={styles['layout-option']}
+      variant={layoutType === configLayoutType ? 'dark-info' : 'secondary'}
+      onClick={onButtonClick}
+    >
       <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg" version="1.1">
         <g stroke="white">
           {lines.map(({x1, y1, x2, y2}, idx) => (
