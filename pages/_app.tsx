@@ -8,7 +8,6 @@ import {MainApp} from '../src/layout/main';
 import {ReduxProvider} from '../src/state/provider';
 
 import '../styles/bootstrap.css';
-import '../styles/bsIcons.css';
 import '../styles/index.css';
 import '../styles/scrollbar.scss';
 
