@@ -32,11 +32,12 @@ span {
     }
 
     font-size: 0.95rem;
-    background: linear-gradient(
+    background:
+      linear-gradient(
         to right,
         rgba(17 17 17 / 75%) 0% 50%,
         transparent
-    );
+      );
 
     @include diff-styling(neutral, colors.$color-neutral);
     @include diff-styling(up, colors.$color-up);
