@@ -13,7 +13,6 @@ export type PxDataBar = {
   high: number,
   low: number,
   close: number,
-  vwap: number,
   diff: number,
 };
 

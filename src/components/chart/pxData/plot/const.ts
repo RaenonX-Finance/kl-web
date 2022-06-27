@@ -16,10 +16,6 @@ export const longLighterColor = 'rgb(92, 149, 255)';
 
 export const shortLighterColor = 'rgb(255, 119, 92)';
 
-export const pxLineColors = {
-  vwap: '#5fa9ff',
-};
-
 const srLevelColorWeak = 'rgba(255, 0, 221, 0.8)';
 
 const srLevelColorStrong = 'rgba(255, 255, 0, 0.6)';
