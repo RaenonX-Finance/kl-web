@@ -31,7 +31,7 @@ a {
 
 div {
   // Name of `__next` cannot be changed
-  &#__next {
+  &#__next {  /* stylelint-disable-line selector-id-pattern */
     display: flex;
     flex-flow: column;
     height: 100%;

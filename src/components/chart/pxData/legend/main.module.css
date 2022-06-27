@@ -24,32 +24,32 @@ span.legend.diff-down {
   border: 1px solid #26a69a;
   box-shadow: inset 0 0 0.5rem #26a69a;
 }
-div.legend.strength-indicator-bull-3,
-span.legend.strength-indicator-bull-3 {
+div.legend.strength-border-bull-3,
+span.legend.strength-border-bull-3 {
   border: 1px solid #ff4b4b;
 }
-div.legend.strength-indicator-bull-2,
-span.legend.strength-indicator-bull-2 {
+div.legend.strength-border-bull-2,
+span.legend.strength-border-bull-2 {
   border: 1px solid #ed7777;
 }
-div.legend.strength-indicator-bull-1,
-span.legend.strength-indicator-bull-1 {
+div.legend.strength-border-bull-1,
+span.legend.strength-border-bull-1 {
   border: 1px solid #dca1a1;
 }
-div.legend.strength-indicator-neutral,
-span.legend.strength-indicator-neutral {
+div.legend.strength-border-neutral,
+span.legend.strength-border-neutral {
   border: 1px solid #cbcbcb;
 }
-div.legend.strength-indicator-bear-1,
-span.legend.strength-indicator-bear-1 {
+div.legend.strength-border-bear-1,
+span.legend.strength-border-bear-1 {
   border: 1px solid #88d2ad;
 }
-div.legend.strength-indicator-bear-2,
-span.legend.strength-indicator-bear-2 {
+div.legend.strength-border-bear-2,
+span.legend.strength-border-bear-2 {
   border: 1px solid #45d990;
 }
-div.legend.strength-indicator-bear-3,
-span.legend.strength-indicator-bear-3 {
+div.legend.strength-border-bear-3,
+span.legend.strength-border-bear-3 {
   border: 1px solid #00e071;
 }
 div.main-content,

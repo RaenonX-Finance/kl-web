@@ -8,7 +8,7 @@ import {PxData} from '../../../../types/pxData';
 import {formatSignedNumber} from '../../../../utils/string';
 import {PxChartLegendData} from '../type';
 import {LegendDataCell, LegendDataCellProps} from './cell';
-import {strengthStyleLookup} from './const';
+import {strengthBorderStyleLookup, strengthIndicatorStyleLookup} from './const';
 import styles from './main.module.scss';
 import {useMockStrengthIdxGenerator} from './mock';
 
@@ -46,9 +46,9 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
   }
 
   return (
-    <div className={`${styles['legend']} ${strengthStyleLookup[actualIndex]}`}>
+    <div className={`${styles['legend']} ${strengthBorderStyleLookup[actualIndex]}`}>
       <Row className="g-0">
-        <Col xs="auto" className={`${styles['strength-indicator']} ${strengthStyleLookup[actualIndex]}`}>
+        <Col xs="auto" className={`${styles['strength-indicator']} ${strengthIndicatorStyleLookup[actualIndex]}`}>
           <span ref={elemRef}>
             {formatSignedNumber(actualIndex, 0)}
           </span>

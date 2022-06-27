@@ -15,6 +15,7 @@ a {
 }
 
 div#__next {
+  /* stylelint-disable-line selector-id-pattern */
   display: flex;
   flex-flow: column;
   height: 100%;

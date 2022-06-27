@@ -25,8 +25,8 @@ span {
       }
     }
 
-    @mixin strength-indicator-theme($suffix, $color) {
-      &.strength-indicator-#{$suffix} {
+    @mixin strength-border-theme($suffix, $color) {
+      &.strength-border-#{$suffix} {
         border: 1px solid $color;
       }
     }
@@ -37,14 +37,13 @@ span {
     @include diff-styling(neutral, colors.$color-neutral);
     @include diff-styling(up, colors.$color-up);
     @include diff-styling(down, colors.$color-down);
-
-    @include strength-indicator-theme(bull-3, $color-bull-3);
-    @include strength-indicator-theme(bull-2, $color-bull-2);
-    @include strength-indicator-theme(bull-1, $color-bull-1);
-    @include strength-indicator-theme(neutral, $color-neutral);
-    @include strength-indicator-theme(bear-1, $color-bear-1);
-    @include strength-indicator-theme(bear-2, $color-bear-2);
-    @include strength-indicator-theme(bear-3, $color-bear-3);
+    @include strength-border-theme(bull-3, $color-bull-3);
+    @include strength-border-theme(bull-2, $color-bull-2);
+    @include strength-border-theme(bull-1, $color-bull-1);
+    @include strength-border-theme(neutral, $color-neutral);
+    @include strength-border-theme(bear-1, $color-bear-1);
+    @include strength-border-theme(bear-2, $color-bear-2);
+    @include strength-border-theme(bear-3, $color-bear-3);
   }
 
   &.main-content {
