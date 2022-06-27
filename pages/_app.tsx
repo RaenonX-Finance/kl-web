@@ -2,9 +2,7 @@ import React from 'react';
 
 import {AppProps} from 'next/app';
 import Head from 'next/head';
-import {Provider} from 'react-alert';
 
-import {PopupAlert} from '../src/components/alert/main';
 import {Navigation} from '../src/components/nav/main';
 import {MainApp} from '../src/layout/main';
 import {ReduxProvider} from '../src/state/provider';
@@ -24,12 +22,10 @@ const NextApp = ({Component, pageProps}: AppProps) => {
       </Head>
       <React.StrictMode>
         <ReduxProvider>
-          <Provider template={PopupAlert} timeout={3000} position="bottom center">
-            <Navigation/>
-            <div id="body">
-              <MainApp renderApp={() => <Component {...pageProps}/>}/>
-            </div>
-          </Provider>
+          <Navigation/>
+          <div id="body">
+            <MainApp renderApp={() => <Component {...pageProps}/>}/>
+          </div>
         </ReduxProvider>
       </React.StrictMode>
     </>
