@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 
+import styles from '../../nav/main.module.scss';
 import {LayoutIcon1of1x1} from './icon/1-1x1';
 import {LayoutIcon2of1x2} from './icon/2-1x2';
 import {LayoutIcon2of2x1} from './icon/2-2x1';
@@ -34,7 +35,7 @@ export const ChartLayoutSelector = () => {
 
   return (
     <>
-      <Nav.Link onClick={openModal}>
+      <Nav.Link className={styles['nav-item']} onClick={openModal}>
         版面配置
       </Nav.Link>
       <Modal show={show} size="lg" onHide={closeModal} centered>
