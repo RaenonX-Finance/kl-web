@@ -7,7 +7,7 @@ span.data-cell {
 div.legend,
 span.legend {
   font-size: 0.95rem;
-  background-color: rgba(17, 17, 17, 0.75);
+  background: linear-gradient(to right, rgba(17, 17, 17, 0.75) 0% 50%, transparent);
 }
 div.legend.diff-neutral,
 span.legend.diff-neutral {
