@@ -7,6 +7,7 @@ span.data-cell {
 div.legend,
 span.legend {
   font-size: 0.95rem;
+  padding: 0.5rem;
 }
 div.main-content,
 span.main-content {
