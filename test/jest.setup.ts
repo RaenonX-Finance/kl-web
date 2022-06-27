@@ -10,6 +10,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import {isCi} from '../src/utils/env';
+import {initMockBrowserApis} from './init/browser';
 import {initMockConsoleBehavior} from './init/console';
 import {initMockSocket} from './init/socket';
 import {initMockWindowMethods} from './init/window';
@@ -26,6 +27,7 @@ configure({asyncUtilTimeout: 5000});
 initMockWindowMethods();
 initMockConsoleBehavior();
 initMockSocket();
+initMockBrowserApis();
 
 // Polyfill for `import {ObjectId} from 'mongodb';` to work
 global.TextEncoder = TextEncoder;
