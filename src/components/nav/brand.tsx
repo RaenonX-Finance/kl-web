@@ -11,7 +11,7 @@ export const NavigationBrand = () => {
   return (
     <Navbar.Brand href={GeneralPath.CHART} className={styles['nav-brand']}>
       {/* size of 28px equals 2rem - this is automatically scaled with the browser */}
-      <Image alt="Logo" src="/logo192.png" width={28} height={28} quality={90}/>
+      <Image alt="Logo" src="/logo.svg" width={28} height={28}/>
       &nbsp;
       KL 看盤系統
     </Navbar.Brand>

@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "colors";
 
 html,
 body {
@@ -35,6 +36,10 @@ div {
     display: flex;
     flex-flow: column;
     height: 100%;
+  }
+
+  &.tv-lightweight-charts {
+    border: 1px solid colors.$color-bw-140;
   }
 
   &#nav {

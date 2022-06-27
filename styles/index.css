@@ -20,6 +20,9 @@ div#__next {
   flex-flow: column;
   height: 100%;
 }
+div.tv-lightweight-charts {
+  border: 1px solid #8c8c8c;
+}
 div#nav {
   flex: 0 1 auto;
 }

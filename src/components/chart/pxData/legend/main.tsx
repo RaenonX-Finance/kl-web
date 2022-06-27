@@ -2,13 +2,14 @@ import React from 'react';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import useResizeObserver from 'use-resize-observer';
 
 import {useAnimation} from '../../../../hooks/animation';
 import {PxData} from '../../../../types/pxData';
 import {formatSignedNumber} from '../../../../utils/string';
 import {PxChartLegendData} from '../type';
 import {LegendDataCell, LegendDataCellProps} from './cell';
-import {strengthBorderStyleLookup, strengthIndicatorStyleLookup} from './const';
+import {strengthIndicatorStyleLookup} from './const';
 import styles from './main.module.scss';
 import {useMockStrengthIdxGenerator} from './mock';
 
@@ -35,6 +36,7 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
   const elemRef = useAnimation({
     deps: [actualIndex],
   });
+  const {ref, height} = useResizeObserver<HTMLDivElement>();
 
   let diffClassName: LegendDataCellProps['useValueClass'] = 'neutral';
   if (changeVal) {
@@ -46,11 +48,16 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
   }
 
   return (
-    <div className={`${styles['legend']} ${strengthBorderStyleLookup[actualIndex]}`}>
+    <div className={styles['legend']}>
       <Row className="g-0">
-        <Col xs="auto" className={`${styles['strength-indicator']} ${strengthIndicatorStyleLookup[actualIndex]}`}>
+        <Col
+          xs="auto"
+          ref={ref}
+          className={`${styles['strength-indicator']} ${strengthIndicatorStyleLookup[actualIndex]}`}
+          style={{fontSize: !!height ? (height * 0.65) : '2rem'}}
+        >
           <span ref={elemRef}>
-            {formatSignedNumber(actualIndex, 0)}
+            {Math.abs(actualIndex)}
           </span>
         </Col>
         <Col className={styles['main-content']}>
@@ -66,7 +73,6 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
               <LegendDataCell title="低" value={low} decimals={decimals}/>
               <LegendDataCell title="收" value={close} decimals={decimals} large/>
               <LegendDataCell
-                title={<i className="bi bi-plus-slash-minus"/>}
                 value={`${formatSignedNumber(changeVal, decimals)} (${formatSignedNumber(changePct, 2)}%)`}
                 decimals={decimals} useValueClass={diffClassName}
               />
