@@ -52,19 +52,19 @@ span.strength-indicator {
 @keyframes strength-indicator-bull-3-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #f9b8c0;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #f9b8c0;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #f9b8c0;
   }
 }
 div.strength-indicator.strength-indicator-bull-3,
@@ -72,25 +72,25 @@ span.strength-indicator.strength-indicator-bull-3 {
   border: 2px solid #ed213a;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #ed213a;
-  color: white;
+  color: #f9b8c0;
   animation: 750ms strength-indicator-bull-3-animation;
 }
 @keyframes strength-indicator-bull-2-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #f9b8c0;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #f9b8c0;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #f9b8c0;
   }
 }
 div.strength-indicator.strength-indicator-bull-2,
@@ -98,25 +98,25 @@ span.strength-indicator.strength-indicator-bull-2 {
   border: 2px solid #ed213a;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #ed213a;
-  color: white;
+  color: #f9b8c0;
   animation: 750ms strength-indicator-bull-2-animation;
 }
 @keyframes strength-indicator-bull-1-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #f9b8c0;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #f9b8c0;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #f9b8c0;
   }
 }
 div.strength-indicator.strength-indicator-bull-1,
@@ -124,25 +124,25 @@ span.strength-indicator.strength-indicator-bull-1 {
   border: 2px solid #ed213a;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #ed213a;
-  color: white;
+  color: #f9b8c0;
   animation: 750ms strength-indicator-bull-1-animation;
 }
 @keyframes strength-indicator-neutral-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #fafafa;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #fafafa;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #fafafa;
   }
 }
 div.strength-indicator.strength-indicator-neutral,
@@ -150,25 +150,25 @@ span.strength-indicator.strength-indicator-neutral {
   border: 2px solid #fafafa;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #fafafa;
-  color: white;
+  color: #fafafa;
   animation: 750ms strength-indicator-neutral-animation;
 }
 @keyframes strength-indicator-bear-1-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #b3ffd9;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #b3ffd9;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #b3ffd9;
   }
 }
 div.strength-indicator.strength-indicator-bear-1,
@@ -176,25 +176,25 @@ span.strength-indicator.strength-indicator-bear-1 {
   border: 2px solid #00e071;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #00e071;
-  color: white;
+  color: #b3ffd9;
   animation: 750ms strength-indicator-bear-1-animation;
 }
 @keyframes strength-indicator-bear-2-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #b3ffd9;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #b3ffd9;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #b3ffd9;
   }
 }
 div.strength-indicator.strength-indicator-bear-2,
@@ -202,25 +202,25 @@ span.strength-indicator.strength-indicator-bear-2 {
   border: 2px solid #00e071;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #00e071;
-  color: white;
+  color: #b3ffd9;
   animation: 750ms strength-indicator-bear-2-animation;
 }
 @keyframes strength-indicator-bear-3-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: black;
+    color: #b3ffd9;
   }
   25% {
-    color: white;
+    color: transparent;
   }
   50% {
-    color: black;
+    color: #b3ffd9;
   }
   75% {
-    color: white;
+    color: transparent;
   }
   100% {
-    color: black;
+    color: #b3ffd9;
   }
 }
 div.strength-indicator.strength-indicator-bear-3,
@@ -228,7 +228,7 @@ span.strength-indicator.strength-indicator-bear-3 {
   border: 2px solid #00e071;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #00e071;
-  color: white;
+  color: #b3ffd9;
   animation: 750ms strength-indicator-bear-3-animation;
 }
 
