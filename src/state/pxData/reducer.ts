@@ -17,9 +17,9 @@ const initialState: PxDataState = {
     'D': null,
   },
   map: {
-    'NQ@1': 'A',
-    'NQ@5': 'B',
-    'FITX@1': 'C',
+    'FITX@1': 'A',
+    'NQ@1': 'B',
+    'YM@1': 'C',
     'FITX@5': 'D',
   },
 };
