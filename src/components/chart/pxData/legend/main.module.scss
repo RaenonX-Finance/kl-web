@@ -92,5 +92,6 @@ span {
     @include strength-indicator-theme(bear-1, colors.$color-down-strong);
     @include strength-indicator-theme(bear-2, colors.$color-down-strong);
     @include strength-indicator-theme(bear-3, colors.$color-down-strong);
+    @include strength-indicator-theme(na, colors.$color-neutral);
   }
 }

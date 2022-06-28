@@ -1,3 +1,4 @@
+import {StrengthIndex} from '../components/chart/pxData/legend/type';
 import {PxDataMarket} from './pxDataMarket';
 
 
@@ -14,6 +15,7 @@ export type PxDataBar = {
   low: number,
   close: number,
   diff: number,
+  strength: StrengthIndex | null,
 };
 
 export type PxDataSupportResistance = {

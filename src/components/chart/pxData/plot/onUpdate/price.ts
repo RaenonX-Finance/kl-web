@@ -2,7 +2,7 @@ import {OnPxChartUpdatedEvent} from '../../type';
 import {toBarData} from '../../utils';
 
 
-export const handlePrice = ({chartDataRef, chartObjectRef, setObject}: OnPxChartUpdatedEvent) => {
+export const handlePrice = ({chartDataRef, chartObjectRef}: OnPxChartUpdatedEvent) => {
   if (!chartObjectRef.current) {
     return;
   }
@@ -20,12 +20,4 @@ export const handlePrice = ({chartDataRef, chartObjectRef, setObject}: OnPxChart
 
   price.setData(chartDataRef.current.data.map(toBarData));
   price.applyOptions({title});
-
-  // Update legend
-  setObject.legend((legend) => ({
-    ...legend,
-    // Only update the legend on Px changed if not hovered,
-    // So even if the latest bar is updated, the legend won't change
-    ...(legend.hovered ? {} : chartDataRef.current.latestMarket),
-  }));
 };

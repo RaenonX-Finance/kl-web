@@ -10,7 +10,8 @@ export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
 
   chartRef.current.subscribeCrosshairMove(({time}) => {
     const pxData = chartDataRef.current.data;
-    const last = chartDataRef.current.latestMarket;
+    const latestMarket = chartDataRef.current.latestMarket;
+    const last = chartDataRef.current.data.at(-1);
 
     const hovered = pxData.find(({epochSec}) => epochSec === time);
 
@@ -18,13 +19,14 @@ export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
     setObject.legend(({decimals}) => {
       const legend: PxChartLegendData = {
         decimals,
-        open: hovered?.open ?? last?.open,
-        high: hovered?.high ?? last?.high,
-        low: hovered?.low ?? last?.low,
-        close: hovered?.close ?? last?.close,
+        open: hovered?.open ?? latestMarket?.open,
+        high: hovered?.high ?? latestMarket?.high,
+        low: hovered?.low ?? latestMarket?.low,
+        close: hovered?.close ?? latestMarket?.close,
         // Diff / Change Val could be 0
-        changeVal: hovered?.diff ?? last?.changeVal,
-        changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? last?.changePct,
+        changeVal: hovered?.diff ?? latestMarket?.changeVal,
+        changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? latestMarket?.changePct,
+        strength: last?.strength ?? null,
         hovered: !!hovered,
       };
 

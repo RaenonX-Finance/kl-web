@@ -11,7 +11,6 @@ import {PxChartLegendData} from '../type';
 import {LegendDataCell, LegendDataCellProps} from './cell';
 import {strengthIndicatorStyleLookup} from './const';
 import styles from './main.module.scss';
-import {useMockStrengthIdxGenerator} from './mock';
 
 
 export type PxChartLegendProps = {
@@ -30,11 +29,11 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
     decimals,
     changeVal,
     changePct,
+    strength,
   } = legend;
 
-  const actualIndex = useMockStrengthIdxGenerator();
   const elemRef = useAnimation({
-    deps: [actualIndex],
+    deps: [strength],
   });
   const {ref, height} = useResizeObserver<HTMLDivElement>();
 
@@ -53,11 +52,11 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
         <Col
           xs="auto"
           ref={ref}
-          className={`${styles['strength-indicator']} ${strengthIndicatorStyleLookup[actualIndex]}`}
+          className={`${styles['strength-indicator']} ${strengthIndicatorStyleLookup[strength]}`}
           style={{fontSize: !!height ? (height * 0.65) : '2rem'}}
         >
           <span ref={elemRef}>
-            {Math.abs(actualIndex)}
+            {strength === '?' ? '?' : Math.abs(strength)}
           </span>
         </Col>
         <Col className={styles['main-content']}>

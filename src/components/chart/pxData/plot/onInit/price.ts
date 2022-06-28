@@ -5,7 +5,7 @@ import {toBarData} from '../../utils';
 import {bearColor, bullColor} from '../const';
 
 
-export const handlePrice = ({chartRef, chartDataRef, setObject}: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
+export const handlePrice = ({chartRef, chartDataRef}: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
   if (!chartRef.current) {
     throw new Error('Adding price while the chart is not ready');
   }
@@ -25,11 +25,6 @@ export const handlePrice = ({chartRef, chartDataRef, setObject}: OnPxChartInitEv
     wickDownColor: bearColor,
   });
   price.setData(chartDataRef.current.data.map(toBarData));
-
-  setObject.legend((legend) => ({
-    ...legend,
-    close: chartDataRef.current.data.at(-1)?.close || legend.close,
-  }));
 
   return price;
 };

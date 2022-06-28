@@ -15,7 +15,7 @@ span.main-content {
 }
 div.val-neutral,
 span.val-neutral {
-  color: #fafafa;
+  color: #d7d7d7;
 }
 div.val-up,
 span.val-up {
@@ -41,6 +41,7 @@ span.strength-indicator {
   font-weight: 900;
   text-align: center;
   width: 3.5rem;
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
@@ -130,27 +131,27 @@ span.strength-indicator.strength-indicator-bull-1 {
 @keyframes strength-indicator-neutral-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
-    color: #fafafa;
+    color: #d7d7d7;
   }
   25% {
     color: transparent;
   }
   50% {
-    color: #fafafa;
+    color: #d7d7d7;
   }
   75% {
     color: transparent;
   }
   100% {
-    color: #fafafa;
+    color: #d7d7d7;
   }
 }
 div.strength-indicator.strength-indicator-neutral,
 span.strength-indicator.strength-indicator-neutral {
-  border: 2px solid #fafafa;
+  border: 2px solid #d7d7d7;
   border-radius: 0.5rem;
-  box-shadow: inset 0 0 1.25rem #fafafa;
-  color: #fafafa;
+  box-shadow: inset 0 0 1.25rem #d7d7d7;
+  color: #d7d7d7;
   animation: 750ms strength-indicator-neutral-animation;
 }
 @keyframes strength-indicator-bear-1-animation {
@@ -230,6 +231,32 @@ span.strength-indicator.strength-indicator-bear-3 {
   box-shadow: inset 0 0 1.25rem #00e071;
   color: #b3ffd9;
   animation: 750ms strength-indicator-bear-3-animation;
+}
+@keyframes strength-indicator-na-animation {
+  /* stylelint-disable-line keyframes-name-pattern */
+  0% {
+    color: #d7d7d7;
+  }
+  25% {
+    color: transparent;
+  }
+  50% {
+    color: #d7d7d7;
+  }
+  75% {
+    color: transparent;
+  }
+  100% {
+    color: #d7d7d7;
+  }
+}
+div.strength-indicator.strength-indicator-na,
+span.strength-indicator.strength-indicator-na {
+  border: 2px solid #d7d7d7;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 1.25rem #d7d7d7;
+  color: #d7d7d7;
+  animation: 750ms strength-indicator-na-animation;
 }
 
 /*# sourceMappingURL=main.module.css.map */

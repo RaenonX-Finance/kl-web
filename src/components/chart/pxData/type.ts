@@ -8,6 +8,7 @@ import {
   OnChartDataUpdatedEvent,
   OnChartInitEvent,
 } from '../base/type';
+import {StrengthIndexCanNA} from './legend/type';
 
 
 export type PxChartSeries = {
@@ -26,6 +27,7 @@ export type PxChartLegendData = {
   decimals: number,
   changeVal: number,
   changePct: number,
+  strength: StrengthIndexCanNA,
   hovered: boolean,
 };
 
