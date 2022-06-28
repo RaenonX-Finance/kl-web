@@ -26,7 +26,7 @@ export const handleLegendUpdate = (e: OnPxChartInitEvent) => {
         // Diff / Change Val could be 0
         changeVal: hovered?.diff ?? latestMarket?.changeVal,
         changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? latestMarket?.changePct,
-        strength: last?.strength ?? null,
+        strength: last?.strength ?? '?',
         hovered: !!hovered,
       };
 
