@@ -23,6 +23,9 @@ div#__next {
 div.tv-lightweight-charts {
   border: 1px solid #8c8c8c;
 }
+div.tv-lightweight-charts:not(:last-child) {
+  display: none;
+}
 div#nav {
   flex: 0 1 auto;
 }
