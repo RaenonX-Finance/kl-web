@@ -1,10 +1,17 @@
 import chroma from 'chroma-js';
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
+import {PxDataCandlestickDirection} from '../../../../types/pxData';
+
 
 export const bullColor = '#ef5350';
 
 export const bearColor = '#26a69a';
+
+export const colorOfCandlestickDirection: {[dir in PxDataCandlestickDirection]: string} = {
+  [1]: bullColor,
+  [-1]: bearColor,
+};
 
 export const avgCostColor = 'rgba(240, 240, 240, 0.7)';
 

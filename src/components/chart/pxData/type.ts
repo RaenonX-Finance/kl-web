@@ -33,7 +33,8 @@ export type PxChartLegendData = {
 
 export type PxChartLayoutConfigKeys =
   'srLevel' |
-  'srLevelWeak';
+  'srLevelWeak' |
+  'candlestickColor';
 
 export type PxChartLayoutConfigEntry = {
   title: string,

@@ -60,6 +60,11 @@ export const PxDataChart = (props: Props) => {
       )}
       getPeriodSec={(data) => data.periodSec}
       getInitialLayoutConfig={() => ({
+        candlestickColor: {
+          title: '紅綠 K 棒',
+          enable: true,
+          group: '圖表',
+        },
         srLevel: {
           title: '顯示全部',
           enable: true,

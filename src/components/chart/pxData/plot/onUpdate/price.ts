@@ -1,8 +1,8 @@
 import {OnPxChartUpdatedEvent} from '../../type';
-import {toBarData} from '../../utils';
+import {toCandlestick} from '../../utils';
 
 
-export const handlePrice = ({chartDataRef, chartObjectRef}: OnPxChartUpdatedEvent) => {
+export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxChartUpdatedEvent) => {
   if (!chartObjectRef.current) {
     return;
   }
@@ -18,6 +18,6 @@ export const handlePrice = ({chartDataRef, chartObjectRef}: OnPxChartUpdatedEven
   const {symbol} = chartDataRef.current.contract;
   const title = symbol;
 
-  price.setData(chartDataRef.current.data.map(toBarData));
+  price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor.enable)));
   price.applyOptions({title});
 };

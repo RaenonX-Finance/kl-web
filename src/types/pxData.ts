@@ -2,6 +2,8 @@ import {StrengthIndex} from '../components/chart/pxData/legend/type';
 import {PxDataMarket} from './pxDataMarket';
 
 
+export type PxDataCandlestickDirection = 1 | -1;
+
 export type PxDataContract = {
   symbol: string,
   name: string,
@@ -16,6 +18,7 @@ export type PxDataBar = {
   close: number,
   diff: number,
   strength: StrengthIndex | null,
+  candlestick: PxDataCandlestickDirection,
 };
 
 export type PxDataSupportResistance = {

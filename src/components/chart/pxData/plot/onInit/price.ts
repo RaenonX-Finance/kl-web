@@ -1,11 +1,13 @@
 import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
 import {OnPxChartInitEvent} from '../../type';
-import {toBarData} from '../../utils';
+import {toCandlestick} from '../../utils';
 import {bearColor, bullColor} from '../const';
 
 
-export const handlePrice = ({chartRef, chartDataRef}: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
+export const handlePrice = ({
+  chartRef, chartDataRef, layoutConfig,
+}: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
   if (!chartRef.current) {
     throw new Error('Adding price while the chart is not ready');
   }
@@ -24,7 +26,7 @@ export const handlePrice = ({chartRef, chartDataRef}: OnPxChartInitEvent): ISeri
     borderDownColor: bearColor,
     wickDownColor: bearColor,
   });
-  price.setData(chartDataRef.current.data.map(toBarData));
+  price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor.enable)));
 
   return price;
 };
