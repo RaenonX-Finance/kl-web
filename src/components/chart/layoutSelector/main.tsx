@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 
+import {useLayout} from '../../../hooks/layout/main';
 import styles from '../../nav/main.module.scss';
 import {LayoutIcon1of1x1} from './icon/1-1x1';
 import {LayoutIcon2of1x2} from './icon/2-1x2';
@@ -29,6 +30,7 @@ import {ChartLayoutOptions} from './optionRow';
 
 export const ChartLayoutSelector = () => {
   const [show, setShow] = React.useState(false);
+  const {isLandscape} = useLayout();
 
   const openModal = () => setShow(true);
   const closeModal = () => setShow(false);
@@ -56,33 +58,38 @@ export const ChartLayoutSelector = () => {
               () => <LayoutIcon2of2x1 onClick={closeModal}/>,
             ]}
           />
-          <ChartLayoutOptions
-            count={3}
-            icons={[
-              () => <LayoutIcon3of1x3 onClick={closeModal}/>,
-              () => <LayoutIcon3of3x1 onClick={closeModal}/>,
-              () => <LayoutIcon3ofBF onClick={closeModal}/>,
-              () => <LayoutIcon3ofLF onClick={closeModal}/>,
-              () => <LayoutIcon3ofRF onClick={closeModal}/>,
-              () => <LayoutIcon3ofTF onClick={closeModal}/>,
-            ]}
-          />
-          <ChartLayoutOptions
-            count={4}
-            icons={[
-              () => <LayoutIcon4of1x4 onClick={closeModal}/>,
-              () => <LayoutIcon4of2x2 onClick={closeModal}/>,
-              () => <LayoutIcon4of4x1 onClick={closeModal}/>,
-              () => <LayoutIcon4ofB2 onClick={closeModal}/>,
-              () => <LayoutIcon4ofBF onClick={closeModal}/>,
-              () => <LayoutIcon4ofL2 onClick={closeModal}/>,
-              () => <LayoutIcon4ofLF onClick={closeModal}/>,
-              () => <LayoutIcon4ofR2 onClick={closeModal}/>,
-              () => <LayoutIcon4ofRF onClick={closeModal}/>,
-              () => <LayoutIcon4ofT2 onClick={closeModal}/>,
-              () => <LayoutIcon4ofTF onClick={closeModal}/>,
-            ]}
-          />
+          {
+            isLandscape &&
+            <>
+              <ChartLayoutOptions
+                count={3}
+                icons={[
+                  () => <LayoutIcon3of1x3 onClick={closeModal}/>,
+                  () => <LayoutIcon3of3x1 onClick={closeModal}/>,
+                  () => <LayoutIcon3ofBF onClick={closeModal}/>,
+                  () => <LayoutIcon3ofLF onClick={closeModal}/>,
+                  () => <LayoutIcon3ofRF onClick={closeModal}/>,
+                  () => <LayoutIcon3ofTF onClick={closeModal}/>,
+                ]}
+              />
+              <ChartLayoutOptions
+                count={4}
+                icons={[
+                  () => <LayoutIcon4of1x4 onClick={closeModal}/>,
+                  () => <LayoutIcon4of2x2 onClick={closeModal}/>,
+                  () => <LayoutIcon4of4x1 onClick={closeModal}/>,
+                  () => <LayoutIcon4ofB2 onClick={closeModal}/>,
+                  () => <LayoutIcon4ofBF onClick={closeModal}/>,
+                  () => <LayoutIcon4ofL2 onClick={closeModal}/>,
+                  () => <LayoutIcon4ofLF onClick={closeModal}/>,
+                  () => <LayoutIcon4ofR2 onClick={closeModal}/>,
+                  () => <LayoutIcon4ofRF onClick={closeModal}/>,
+                  () => <LayoutIcon4ofT2 onClick={closeModal}/>,
+                  () => <LayoutIcon4ofTF onClick={closeModal}/>,
+                ]}
+              />
+            </>
+          }
         </Modal.Body>
       </Modal>
     </>

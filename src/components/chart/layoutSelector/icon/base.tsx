@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 
+import {useLayout} from '../../../../hooks/layout/main';
 import {configDispatchers} from '../../../../state/config/dispatchers';
 import {useConfigSelector} from '../../../../state/config/selector';
 import {ConfigDispatcherName} from '../../../../state/config/types';
@@ -16,16 +17,22 @@ type Props = {
   layoutType: LayoutType,
   onClick: () => void,
   size?: number,
+  hideOnPortrait?: boolean,
 };
 
-export const LayoutIconBase = ({lines, layoutType, onClick, size = 32}: Props) => {
+export const LayoutIconBase = ({lines, layoutType, onClick, size = 32, hideOnPortrait = true}: Props) => {
   const dispatch = useDispatch();
   const {layoutType: configLayoutType} = useConfigSelector();
+  const {isLandscape} = useLayout();
 
   const onButtonClick = () => {
     onClick();
     dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT](layoutType));
   };
+
+  if (hideOnPortrait && !isLandscape) {
+    return <></>;
+  }
 
   return (
     <Button
