@@ -42,10 +42,13 @@ export const PxDataChart = (props: Props) => {
       onDataUpdated={onPxChartUpdated}
       calcObjects={{
         legend: (data) => {
+          const lastHistory = data.data.at(-1);
+
           const legend: PxChartLegendData = {
             decimals: getDecimalPlaces(data.contract.minTick),
             hovered: false,
-            strength: data.data.at(-1)?.strength ?? '?',
+            strength: lastHistory?.strength ?? '?',
+            tiePoint: lastHistory?.tiePoint ?? NaN,
             ...data.latestMarket,
           };
 
@@ -64,6 +67,11 @@ export const PxDataChart = (props: Props) => {
           title: '紅綠 K 棒',
           enable: true,
           group: '圖表',
+        },
+        tiePoint: {
+          title: '多空線',
+          enable: true,
+          group: '指標',
         },
         srLevel: {
           title: '顯示全部',

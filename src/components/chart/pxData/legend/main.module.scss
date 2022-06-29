@@ -3,6 +3,12 @@
 
 div,
 span {
+  @mixin value-style($name, $color) {
+    &.val-#{$name} {
+      color: colors.$color-down;
+    }
+  }
+
   &.data-cell {
     display: inline;
     padding: 0.1rem 0.75rem 0.1rem 0;
@@ -18,17 +24,9 @@ span {
     padding: 0.25rem 0.5rem;
   }
 
-  &.val-neutral {
-    color: colors.$color-neutral;
-  }
-
-  &.val-up {
-    color: colors.$color-up;
-  }
-
-  &.val-down {
-    color: colors.$color-down;
-  }
+  @include value-style(neutral, colors.$color-neutral);
+  @include value-style(up, colors.$color-up);
+  @include value-style(down, colors.$color-down);
 
   &.price-lg {
     font-size: 1.2rem;
@@ -36,6 +34,11 @@ span {
 
   &.title {
     font-size: 1.2rem;
+  }
+
+  &.tie-point {
+    align-self: end;
+    color: #ff9141;
   }
 
   &.strength-indicator {
@@ -85,13 +88,9 @@ span {
       }
     }
 
-    @include strength-indicator-theme(bull-3, colors.$color-up-strong);
-    @include strength-indicator-theme(bull-2, colors.$color-up-strong);
-    @include strength-indicator-theme(bull-1, colors.$color-up-strong);
+    @include strength-indicator-theme(bull, colors.$color-up-strong);
     @include strength-indicator-theme(neutral, colors.$color-neutral);
-    @include strength-indicator-theme(bear-1, colors.$color-down-strong);
-    @include strength-indicator-theme(bear-2, colors.$color-down-strong);
-    @include strength-indicator-theme(bear-3, colors.$color-down-strong);
+    @include strength-indicator-theme(bear, colors.$color-down-strong);
     @include strength-indicator-theme(na, colors.$color-neutral);
   }
 }

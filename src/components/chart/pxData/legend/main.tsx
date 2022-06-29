@@ -30,6 +30,7 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
     changeVal,
     changePct,
     strength,
+    tiePoint,
   } = legend;
 
   const elemRef = useAnimation({
@@ -61,8 +62,11 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
         </Col>
         <Col className={styles['main-content']}>
           <Row className="g-2">
-            <Col className={styles['title']}>
+            <Col xs="auto" className={styles['title']}>
               {title}
+            </Col>
+            <Col xs="auto" className={styles['tie-point']}>
+              <LegendDataCell value={tiePoint} decimals={decimals} title="多空"/>
             </Col>
           </Row>
           <Row>

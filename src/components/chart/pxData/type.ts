@@ -13,6 +13,7 @@ import {StrengthIndexCanNA} from './legend/type';
 
 export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
+  tiePoint: ISeriesApi<'Line'>,
 };
 
 export type PxChartLines = {
@@ -28,13 +29,15 @@ export type PxChartLegendData = {
   changeVal: number,
   changePct: number,
   strength: StrengthIndexCanNA,
+  tiePoint: number | null,
   hovered: boolean,
 };
 
 export type PxChartLayoutConfigKeys =
   'srLevel' |
   'srLevelWeak' |
-  'candlestickColor';
+  'candlestickColor' |
+  'tiePoint';
 
 export type PxChartLayoutConfigEntry = {
   title: string,

@@ -15,11 +15,11 @@ span.main-content {
 }
 div.val-neutral,
 span.val-neutral {
-  color: #d7d7d7;
+  color: #26a69a;
 }
 div.val-up,
 span.val-up {
-  color: #ef5350;
+  color: #26a69a;
 }
 div.val-down,
 span.val-down {
@@ -33,6 +33,11 @@ div.title,
 span.title {
   font-size: 1.2rem;
 }
+div.tie-point,
+span.tie-point {
+  align-self: end;
+  color: #ff9141;
+}
 div.strength-indicator,
 span.strength-indicator {
   display: flex;
@@ -45,12 +50,8 @@ span.strength-indicator {
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
 }
-@keyframes strength-indicator-bull-3-animation {
+@keyframes strength-indicator-bull-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
     color: #f9b8c0;
@@ -68,65 +69,13 @@ span.strength-indicator {
     color: #f9b8c0;
   }
 }
-div.strength-indicator.strength-indicator-bull-3,
-span.strength-indicator.strength-indicator-bull-3 {
+div.strength-indicator.strength-indicator-bull,
+span.strength-indicator.strength-indicator-bull {
   border: 2px solid #ed213a;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #ed213a;
   color: #f9b8c0;
-  animation: 750ms strength-indicator-bull-3-animation;
-}
-@keyframes strength-indicator-bull-2-animation {
-  /* stylelint-disable-line keyframes-name-pattern */
-  0% {
-    color: #f9b8c0;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #f9b8c0;
-  }
-  75% {
-    color: transparent;
-  }
-  100% {
-    color: #f9b8c0;
-  }
-}
-div.strength-indicator.strength-indicator-bull-2,
-span.strength-indicator.strength-indicator-bull-2 {
-  border: 2px solid #ed213a;
-  border-radius: 0.5rem;
-  box-shadow: inset 0 0 1.25rem #ed213a;
-  color: #f9b8c0;
-  animation: 750ms strength-indicator-bull-2-animation;
-}
-@keyframes strength-indicator-bull-1-animation {
-  /* stylelint-disable-line keyframes-name-pattern */
-  0% {
-    color: #f9b8c0;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #f9b8c0;
-  }
-  75% {
-    color: transparent;
-  }
-  100% {
-    color: #f9b8c0;
-  }
-}
-div.strength-indicator.strength-indicator-bull-1,
-span.strength-indicator.strength-indicator-bull-1 {
-  border: 2px solid #ed213a;
-  border-radius: 0.5rem;
-  box-shadow: inset 0 0 1.25rem #ed213a;
-  color: #f9b8c0;
-  animation: 750ms strength-indicator-bull-1-animation;
+  animation: 750ms strength-indicator-bull-animation;
 }
 @keyframes strength-indicator-neutral-animation {
   /* stylelint-disable-line keyframes-name-pattern */
@@ -154,7 +103,7 @@ span.strength-indicator.strength-indicator-neutral {
   color: #d7d7d7;
   animation: 750ms strength-indicator-neutral-animation;
 }
-@keyframes strength-indicator-bear-1-animation {
+@keyframes strength-indicator-bear-animation {
   /* stylelint-disable-line keyframes-name-pattern */
   0% {
     color: #b3ffd9;
@@ -172,65 +121,13 @@ span.strength-indicator.strength-indicator-neutral {
     color: #b3ffd9;
   }
 }
-div.strength-indicator.strength-indicator-bear-1,
-span.strength-indicator.strength-indicator-bear-1 {
+div.strength-indicator.strength-indicator-bear,
+span.strength-indicator.strength-indicator-bear {
   border: 2px solid #00e071;
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #00e071;
   color: #b3ffd9;
-  animation: 750ms strength-indicator-bear-1-animation;
-}
-@keyframes strength-indicator-bear-2-animation {
-  /* stylelint-disable-line keyframes-name-pattern */
-  0% {
-    color: #b3ffd9;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #b3ffd9;
-  }
-  75% {
-    color: transparent;
-  }
-  100% {
-    color: #b3ffd9;
-  }
-}
-div.strength-indicator.strength-indicator-bear-2,
-span.strength-indicator.strength-indicator-bear-2 {
-  border: 2px solid #00e071;
-  border-radius: 0.5rem;
-  box-shadow: inset 0 0 1.25rem #00e071;
-  color: #b3ffd9;
-  animation: 750ms strength-indicator-bear-2-animation;
-}
-@keyframes strength-indicator-bear-3-animation {
-  /* stylelint-disable-line keyframes-name-pattern */
-  0% {
-    color: #b3ffd9;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #b3ffd9;
-  }
-  75% {
-    color: transparent;
-  }
-  100% {
-    color: #b3ffd9;
-  }
-}
-div.strength-indicator.strength-indicator-bear-3,
-span.strength-indicator.strength-indicator-bear-3 {
-  border: 2px solid #00e071;
-  border-radius: 0.5rem;
-  box-shadow: inset 0 0 1.25rem #00e071;
-  color: #b3ffd9;
-  animation: 750ms strength-indicator-bear-3-animation;
+  animation: 750ms strength-indicator-bear-animation;
 }
 @keyframes strength-indicator-na-animation {
   /* stylelint-disable-line keyframes-name-pattern */

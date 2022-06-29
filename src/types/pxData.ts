@@ -19,6 +19,7 @@ export type PxDataBar = {
   diff: number,
   strength: StrengthIndex | null,
   candlestick: PxDataCandlestickDirection,
+  tiePoint: number,
 };
 
 export type PxDataSupportResistance = {
