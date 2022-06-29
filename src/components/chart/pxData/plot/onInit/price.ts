@@ -1,7 +1,7 @@
 import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
+import {toCandlestick} from '../../dataConvert';
 import {OnPxChartInitEvent} from '../../type';
-import {toCandlestick} from '../../utils';
 import {bearColor, bullColor} from '../const';
 
 

@@ -4,11 +4,7 @@ import {PxDataMarket} from './pxDataMarket';
 
 export type PxDataCandlestickDirection = 1 | -1;
 
-export type PxDataContract = {
-  symbol: string,
-  name: string,
-  minTick: number,
-};
+export type PxDataBarEmaKey = `ema${number}`;
 
 export type PxDataBar = {
   epochSec: number,
@@ -20,6 +16,8 @@ export type PxDataBar = {
   strength: StrengthIndex | null,
   candlestick: PxDataCandlestickDirection,
   tiePoint: number,
+} & {
+  [emaKey in PxDataBarEmaKey]?: number
 };
 
 export type PxDataSupportResistance = {
@@ -29,6 +27,26 @@ export type PxDataSupportResistance = {
   strong: boolean,
 };
 
+export type PxDataContract = {
+  symbol: string,
+  name: string,
+  minTick: number,
+};
+
+export type PxDataEmaPeriodPair = {
+  fast: number,
+  slow: number,
+};
+
+export type PxDataEmaConfig = {
+  net: PxDataEmaPeriodPair,
+  colorChanging: PxDataEmaPeriodPair[],
+};
+
+export type PxDataIndicatorConfig = {
+  ema: PxDataEmaConfig,
+};
+
 export type PxDataFromSocket = {
   uniqueIdentifier: string,
   periodSec: number,
@@ -36,6 +54,7 @@ export type PxDataFromSocket = {
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance[],
   latestMarket: PxDataMarket,
+  indicator: PxDataIndicatorConfig,
 };
 
 export type PxData = PxDataFromSocket & {

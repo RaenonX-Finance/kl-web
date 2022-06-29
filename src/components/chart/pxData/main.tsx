@@ -3,6 +3,7 @@ import React from 'react';
 import {PxData} from '../../../types/pxData';
 import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
+import {generateInitialConfig} from './config';
 import {PxChartLayoutConfigPanel} from './layoutConfig/main';
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
@@ -62,28 +63,7 @@ export const PxDataChart = (props: Props) => {
         <PxChartLayoutConfigPanel title={title} config={config} setConfig={setConfig}/>
       )}
       getPeriodSec={(data) => data.periodSec}
-      getInitialLayoutConfig={() => ({
-        candlestickColor: {
-          title: '紅綠 K 棒',
-          enable: true,
-          group: '圖表',
-        },
-        tiePoint: {
-          title: '多空線',
-          enable: true,
-          group: '指標',
-        },
-        srLevel: {
-          title: '顯示全部',
-          enable: true,
-          group: '撐壓',
-        },
-        srLevelWeak: {
-          title: '顯示弱撐壓',
-          enable: false,
-          group: '撐壓',
-        },
-      })}
+      getInitialLayoutConfig={generateInitialConfig}
       getDataLastUpdate={({lastUpdated}) => lastUpdated}
       {...props}
     />

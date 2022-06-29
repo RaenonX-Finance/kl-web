@@ -11,9 +11,22 @@ import {
 import {StrengthIndexCanNA} from './legend/type';
 
 
+export type PxChartEmaLinePair = {
+  fast: ISeriesApi<'Line'>,
+  slow: ISeriesApi<'Line'>,
+};
+
+export type PxChartEmaPairFillable = {
+  lines: PxChartEmaLinePair,
+  fill: ISeriesApi<'Candlestick'>,
+};
+
 export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
   tiePoint: ISeriesApi<'Line'>,
+  emaNet: PxChartEmaPairFillable,
+} & {
+  [key in PxChartEmaColorChangeKey]?: PxChartEmaLinePair
 };
 
 export type PxChartLines = {
@@ -33,11 +46,16 @@ export type PxChartLegendData = {
   hovered: boolean,
 };
 
+export type PxChartEmaColorChangeKey = `emaColorChange${number}-${number}`;
+
 export type PxChartLayoutConfigKeys =
   'srLevel' |
   'srLevelWeak' |
   'candlestickColor' |
-  'tiePoint';
+  'tiePoint' |
+  'emaNetLine' |
+  'emaNet' |
+  PxChartEmaColorChangeKey;
 
 export type PxChartLayoutConfigEntry = {
   title: string,
@@ -45,7 +63,11 @@ export type PxChartLayoutConfigEntry = {
   group: string,
 };
 
-export type PxChartLayoutConfig = {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry};
+export type PxChartLayoutConfig = {
+  [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
+} & {
+  [key in PxChartEmaColorChangeKey]: PxChartLayoutConfigEntry[]
+};
 
 export type PxChartInitData = {
   series: PxChartSeries,

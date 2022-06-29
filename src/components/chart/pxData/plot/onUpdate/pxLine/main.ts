@@ -1,5 +1,6 @@
+import {toLineData} from '../../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../../type';
-import {toLineData} from '../../../utils';
+import {getAnimationMode} from '../../utils';
 import {HandlePxLineOptions} from './type';
 
 
@@ -21,8 +22,9 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
 
   const pxLine = toLineData(keyForLineData)(lastPrice);
 
+  const visible = layoutConfig[keyOfConfig].enable;
   series.update(pxLine);
-  series.applyOptions({visible: layoutConfig[keyOfConfig].enable});
+  series.applyOptions({visible, lastPriceAnimation: getAnimationMode(visible)});
 
   // Whitespace data does not have prop of `value`
   if ('value' in pxLine) {

@@ -49,7 +49,6 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
 
                     return (
                       <Button
-                        size="lg"
                         className="w-100 mb-3 bg-gradient"
                         key={key}
                         variant={enable ? 'outline-success' : 'outline-danger'}

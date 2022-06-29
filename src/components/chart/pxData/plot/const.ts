@@ -1,12 +1,16 @@
 import chroma from 'chroma-js';
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
-import {PxDataCandlestickDirection} from '../../../../types/pxData';
+import {PxDataCandlestickDirection, PxDataEmaPeriodPair} from '../../../../types/pxData';
 
 
 export const bullColor = '#ef5350';
 
 export const bearColor = '#26a69a';
+
+export const bullColorForFill = 'rgba(239,83,80,0.3)';
+
+export const bearColorForFill = 'rgba(38,166,154,0.3)';
 
 export const colorOfCandlestickDirection: {[dir in PxDataCandlestickDirection]: string} = {
   [1]: bullColor,
@@ -15,6 +19,11 @@ export const colorOfCandlestickDirection: {[dir in PxDataCandlestickDirection]: 
 
 export const pxLineColors = {
   tiePoint: '#fa7209',
+};
+
+export const emaLineColors: {[key in keyof PxDataEmaPeriodPair]: string} = {
+  fast: bullColor,
+  slow: bearColor,
 };
 
 const srLevelColorWeak = 'rgba(255, 0, 221, 0.8)';

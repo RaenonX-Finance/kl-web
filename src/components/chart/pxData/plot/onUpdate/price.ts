@@ -1,5 +1,5 @@
+import {toCandlestick} from '../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../type';
-import {toCandlestick} from '../../utils';
 
 
 export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxChartUpdatedEvent) => {

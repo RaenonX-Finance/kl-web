@@ -1,6 +1,6 @@
 import {ISeriesApi} from 'lightweight-charts';
 
-import {toLineData} from '../../../utils';
+import {toLineData} from '../../../dataConvert';
 import {AddPxLineOptions} from './type';
 
 

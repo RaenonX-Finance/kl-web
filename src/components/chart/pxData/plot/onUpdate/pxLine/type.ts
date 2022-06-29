@@ -1,8 +1,8 @@
 import {ISeriesApi} from 'lightweight-charts';
 
 import {KeysOfType} from '../../../../../../utils/types';
+import {ValidKeyForLineData} from '../../../dataConvert';
 import {PxChartLayoutConfigKeys, PxChartLegendData, PxChartSeries} from '../../../type';
-import {ValidKeyForLineData} from '../../../utils';
 
 
 export type HandlePxLineOptions = {
