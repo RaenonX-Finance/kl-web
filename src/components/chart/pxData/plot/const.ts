@@ -1,4 +1,3 @@
-import chroma from 'chroma-js';
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
 import {PxDataCandlestickDirection, PxDataEmaPeriodPair} from '../../../../types/pxData';
@@ -26,16 +25,18 @@ export const emaLineColors: {[key in keyof PxDataEmaPeriodPair]: string} = {
   slow: bearColor,
 };
 
-const srLevelColorWeak = 'rgba(255, 0, 221, 0.8)';
-
-const srLevelColorStrong = 'rgba(255, 255, 0, 0.6)';
-
 export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';
 
-const srLevelColorScale = chroma.scale([srLevelColorWeak, srLevelColorStrong]);
+export const srLevelGroupColors = [
+  '#f23645',
+  '#ffeb3b',
+  '#9c27b0',
+  '#4caf50',
+  '#00bcd4',
+];
 
-export const getSrLevelColor = (ratio: number): string => {
-  return srLevelColorScale(ratio).hex('rgba');
+export const getSrLevelGroupColor = (idx: number): string => {
+  return srLevelGroupColors[idx % srLevelGroupColors.length];
 };
 
 export const srLevelLineStyle: LineStyle = LineStyle.Dashed;
@@ -43,5 +44,3 @@ export const srLevelLineStyle: LineStyle = LineStyle.Dashed;
 export const srLevelLineWidth: LineWidth = 1;
 
 export const srLevelLineWidthStrong: LineWidth = 2;
-
-export const srLevelLineWidthSuperStrong: LineWidth = 3;

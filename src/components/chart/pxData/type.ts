@@ -26,7 +26,7 @@ export type PxChartSeries = {
 };
 
 export type PxChartLines = {
-  srLevelLines: Record<number, IPriceLine>,
+  srLevelLines: Record<number, Record<number, IPriceLine>>,
 };
 
 export type PxChartLegendData = {
@@ -44,7 +44,6 @@ export type PxChartLegendData = {
 
 export type PxChartLayoutConfigKeys =
   'srLevel' |
-  'srLevelWeak' |
   'candlestickColor' |
   'tiePoint' |
   'emaNet' |

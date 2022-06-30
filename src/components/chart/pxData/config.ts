@@ -23,13 +23,8 @@ export const generateInitialConfig = (): PxChartLayoutConfig => ({
     group: '指標',
   },
   srLevel: {
-    title: '顯示全部',
+    title: '撐壓',
     enable: true,
-    group: '撐壓',
-  },
-  srLevelWeak: {
-    title: '顯示弱撐壓',
-    enable: false,
-    group: '撐壓',
+    group: '指標',
   },
 });

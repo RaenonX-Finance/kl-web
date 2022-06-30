@@ -1,33 +1,32 @@
-import {IPriceLine, ISeriesApi} from 'lightweight-charts';
+import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
-import {OnPxChartInitEvent} from '../../type';
-import {getSrLevelColor, srLevelLineStyle, srLevelLineWidth, srLevelLineWidthStrong} from '../const';
+import {OnPxChartInitEvent, PxChartLines} from '../../type';
+import {getSrLevelGroupColor} from '../const';
 
 
-export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>): Record<number, IPriceLine> => {
+export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>): PxChartLines['srLevelLines'] => {
   const {chartDataRef, layoutConfig} = e;
 
-  const srLevelLines: Record<number, IPriceLine> = {};
+  const srLevelLines: PxChartLines['srLevelLines'] = {};
   const currentPx = chartDataRef.current.data.at(-1);
 
   if (!currentPx || !layoutConfig.srLevel.enable) {
     return {};
   }
 
-  chartDataRef.current.supportResistance.forEach(({
-    level,
-    strength,
-    strengthCount,
-    strong,
-  }) => {
-    srLevelLines[level] = price.createPriceLine({
-      price: level,
-      axisLabelVisible: strong,
-      title: strengthCount.toString(),
-      color: getSrLevelColor(strength),
-      lineWidth: strong ? srLevelLineWidthStrong : srLevelLineWidth,
-      lineStyle: srLevelLineStyle,
-      lineVisible: true,
+  chartDataRef.current.supportResistance.groups.forEach((group, idxGroup) => {
+    srLevelLines[idxGroup] = {};
+
+    group.forEach((level, idx) => {
+      srLevelLines[idxGroup][level] = price.createPriceLine({
+        title: '',
+        axisLabelVisible: false,
+        price: level,
+        color: getSrLevelGroupColor(idx),
+        lineVisible: true,
+        lineStyle: LineStyle.Dashed,
+        lineWidth: 1,
+      });
     });
   });
 

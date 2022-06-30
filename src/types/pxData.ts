@@ -21,10 +21,7 @@ export type PxDataBar = {
 };
 
 export type PxDataSupportResistance = {
-  level: number,
-  strength: number,
-  strengthCount: number,
-  strong: boolean,
+  groups: number[][],
 };
 
 export type PxDataContract = {
@@ -52,7 +49,7 @@ export type PxDataFromSocket = {
   periodSec: number,
   contract: PxDataContract,
   data: PxDataBar[],
-  supportResistance: PxDataSupportResistance[],
+  supportResistance: PxDataSupportResistance,
   latestMarket: PxDataMarket,
   indicator: PxDataIndicatorConfig,
 };
