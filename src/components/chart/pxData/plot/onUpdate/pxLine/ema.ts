@@ -13,6 +13,7 @@ type UpdateEmaOptions = {
   periodType: keyof PxDataEmaPeriodPair,
   periodPair: PxDataEmaPeriodPair,
   keyofConfig: PxChartLayoutConfigKeys,
+  keyOfConfigLabel: PxChartLayoutConfigKeys,
   lastPx: PxDataBar,
   colorOverride?: ColorOverridder,
 };
@@ -23,20 +24,20 @@ export const updateEma = ({
   periodType,
   periodPair,
   keyofConfig,
+  keyOfConfigLabel,
   lastPx,
   colorOverride,
 }: UpdateEmaOptions) => {
   const {layoutConfig} = e;
 
   const pxLine = toLineData(`ema${periodPair[periodType]}`, colorOverride)(lastPx);
-  const configBody = layoutConfig[keyofConfig];
-
-  if (!configBody) {
-    throw Error(`Config key [${keyofConfig}] not found`);
-  }
-
   const visible = layoutConfig[keyofConfig].enable;
+  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
 
   series.update(pxLine);
-  series.applyOptions({visible, lastPriceAnimation: getAnimationMode(visible)});
+  series.applyOptions({
+    visible,
+    lastValueVisible: visibleLabel,
+    lastPriceAnimation: getAnimationMode(visible),
+  });
 };

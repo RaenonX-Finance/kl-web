@@ -29,6 +29,7 @@ export const handleEmaStrongSr = (e: OnPxChartUpdatedEvent) => {
         periodType,
         periodPair,
         keyofConfig: 'emaStrongSr',
+        keyOfConfigLabel: 'emaStrongSrLabel',
         lastPx,
         colorOverride: getEmaColorOverridder(periodPair[periodType]),
       });

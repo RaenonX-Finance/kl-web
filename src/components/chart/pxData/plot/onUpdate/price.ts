@@ -19,5 +19,5 @@ export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxCh
   const title = symbol;
 
   price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor.enable)));
-  price.applyOptions({title});
+  price.applyOptions({title, priceLineVisible: layoutConfig.currentPxLine.enable});
 };

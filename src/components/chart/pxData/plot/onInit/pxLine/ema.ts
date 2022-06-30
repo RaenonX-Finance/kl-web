@@ -13,6 +13,7 @@ type CreateEmaLineOptions = {
   periodType: keyof PxDataEmaPeriodPair,
   periodPair: PxDataEmaPeriodPair,
   keyOfConfig: PxChartLayoutConfigKeys,
+  keyOfConfigLabel: PxChartLayoutConfigKeys,
   colorOverride?: ColorOverridder,
   specialStyleOnSlow?: boolean,
 };
@@ -27,6 +28,7 @@ export const createEmaLine = ({
   periodType,
   periodPair,
   keyOfConfig,
+  keyOfConfigLabel,
   colorOverride,
   specialStyleOnSlow = false,
 }: CreateEmaLineOptions): ISeriesApi<'Line'> => {
@@ -37,6 +39,8 @@ export const createEmaLine = ({
   }
 
   const visible = layoutConfig[keyOfConfig].enable;
+  const visiableLabel = layoutConfig[keyOfConfigLabel].enable;
+
   const emaLine = chartRef.current.addLineSeries({
     color: emaLineColors[periodType],
     title: '',
@@ -44,7 +48,7 @@ export const createEmaLine = ({
     lineStyle: specialStyleOnSlow ? lineStyleMap[periodType] : LineStyle.Solid,
     lastPriceAnimation: getAnimationMode(visible),
     priceLineVisible: false, // Disable vertical Px line
-    lastValueVisible: false, // Disable label
+    lastValueVisible: visiableLabel, // Disable label
     crosshairMarkerVisible: false,
     visible,
   });

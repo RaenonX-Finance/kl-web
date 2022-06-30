@@ -6,7 +6,7 @@ import {HandlePxLineOptions} from './type';
 
 export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions) => {
   const {chartDataRef, chartObjectRef, setObject, layoutConfig} = e;
-  const {keyOfConfig, keyOfSeries, keyOfLegendData, keyForLineData} = opts;
+  const {title, keyOfConfig, keyOfConfigLabel, keyOfSeries, keyOfLegendData, keyForLineData} = opts;
 
   if (!chartObjectRef.current) {
     return;
@@ -23,8 +23,15 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
   const pxLine = toLineData(keyForLineData)(lastPrice);
 
   const visible = layoutConfig[keyOfConfig].enable;
+  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
+
   series.update(pxLine);
-  series.applyOptions({visible, lastPriceAnimation: getAnimationMode(visible)});
+  series.applyOptions({
+    visible,
+    title: visibleLabel ? title : '',
+    lastValueVisible: visibleLabel,
+    lastPriceAnimation: getAnimationMode(visible),
+  });
 
   // Whitespace data does not have prop of `value`
   if ('value' in pxLine) {

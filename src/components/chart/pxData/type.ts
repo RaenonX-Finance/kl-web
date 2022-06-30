@@ -43,11 +43,16 @@ export type PxChartLegendData = {
 };
 
 export type PxChartLayoutConfigKeys =
-  'srLevel' |
+  'currentPxLine' |
+  'tiePointLabel' |
+  'emaNetLabel' |
+  'emaStrongSrLabel' |
+  'srLevelLabel' |
   'candlestickColor' |
   'tiePoint' |
   'emaNet' |
-  'emaStrongSr';
+  'emaStrongSr' |
+  'srLevel';
 
 export type PxChartLayoutConfigEntry = {
   title: string,

@@ -6,8 +6,10 @@ import {PxChartLayoutConfigKeys, PxChartLegendData, PxChartSeries} from '../../.
 
 
 export type HandlePxLineOptions = {
+  title: string,
   keyOfSeries: KeysOfType<PxChartSeries, ISeriesApi<'Line'> | null>,
   keyOfConfig: PxChartLayoutConfigKeys,
+  keyOfConfigLabel: PxChartLayoutConfigKeys,
   keyOfLegendData: keyof PxChartLegendData,
   keyForLineData: ValidKeyForLineData,
 };

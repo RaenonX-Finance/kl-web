@@ -10,5 +10,6 @@ export type AddPxLineOptions =
   AddPxLineOptionsFromInitEvent &
   LineSeriesPartialOptions & {
     keyOfConfig: PxChartLayoutConfigKeys,
+    keyOfConfigLabel: PxChartLayoutConfigKeys,
     keyForLineData: ValidKeyForLineData,
   };

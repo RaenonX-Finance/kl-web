@@ -9,6 +9,7 @@ export const addPxLine = ({
   chartDataRef,
   layoutConfig,
   keyOfConfig,
+  keyOfConfigLabel,
   keyForLineData,
   priceLineVisible,
   title,
@@ -18,11 +19,15 @@ export const addPxLine = ({
     throw new Error(`Adding ${title} while the chart is not ready`);
   }
 
+  const visibleLine = layoutConfig[keyOfConfig].enable;
+  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
+
   const series = chartRef.current.addLineSeries({
     ...props,
-    title,
+    title: visibleLabel ? title : '',
     priceLineVisible,
-    visible: layoutConfig[keyOfConfig].enable,
+    visible: visibleLine,
+    lastValueVisible: visibleLabel,
   });
   series.setData(chartDataRef.current.data.map(toLineData(keyForLineData)));
 

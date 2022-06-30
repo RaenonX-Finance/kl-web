@@ -46,3 +46,5 @@ export const srLevelLineStyle: LineStyle = LineStyle.Solid;
 export const srLevelLineWidth: LineWidth = 1;
 
 export const srLevelLineWidthStrong: LineWidth = 2;
+
+export const tiePointLabel = 'L/S';
