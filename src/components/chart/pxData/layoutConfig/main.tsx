@@ -29,7 +29,7 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
       <Button size="sm" variant="outline-info" className="me-2" onClick={() => setShow(true)}>
         版面設定
       </Button>
-      <Offcanvas show={show} onHide={() => setShow(false)} placement="end" style={{width: '25vw'}}>
+      <Offcanvas show={show} onHide={() => setShow(false)} placement="end" style={{width: '18rem'}}>
         <div className="mb-0"/>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>

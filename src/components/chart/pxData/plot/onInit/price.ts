@@ -2,7 +2,7 @@ import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
 import {toCandlestick} from '../../dataConvert';
 import {OnPxChartInitEvent} from '../../type';
-import {bearColor, bullColor} from '../const';
+import {bearColor, bullColor, currentPxColor} from '../const';
 
 
 export const handlePrice = ({
@@ -26,6 +26,7 @@ export const handlePrice = ({
     downColor: bearColor,
     borderDownColor: bearColor,
     wickDownColor: bearColor,
+    priceLineColor: currentPxColor,
   });
   price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor.enable)));
 

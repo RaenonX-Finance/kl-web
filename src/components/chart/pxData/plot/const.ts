@@ -11,6 +11,8 @@ export const bullColorForFill = 'rgba(239,83,80,0.3)';
 
 export const bearColorForFill = 'rgba(38,166,154,0.3)';
 
+export const currentPxColor = '#d7d7d7';
+
 export const colorOfCandlestickDirection: {[dir in PxDataCandlestickDirection]: string} = {
   [1]: bullColor,
   [-1]: bearColor,
