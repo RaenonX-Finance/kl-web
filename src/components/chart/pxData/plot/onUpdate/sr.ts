@@ -33,7 +33,7 @@ const removePxLines = (
 
       const pxLine = pxLineGroup[level];
 
-      delete chartObjectRef.current.initData.lines.srLevelLines[idx][level];
+      delete pxLineGroup[level];
 
       if (pxLine) {
         // Price line could be `undefined` if already removed
@@ -70,7 +70,7 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     const srLevelLinesGroup = chartObjectRef.current.initData.lines.srLevelLines[idxGroup];
 
     if (!srLevelLinesGroup) {
-      continue;
+      chartObjectRef.current.initData.lines.srLevelLines[idxGroup] = {};
     }
 
     for (const level of group) {
@@ -79,7 +79,7 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
       if (!priceLine) {
         chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
-          axisLabelVisible: false,
+          axisLabelVisible: layoutConfig.srLevelLabel.enable,
           lineVisible: true,
           title: '',
           color: getSrLevelGroupColor(idxGroup),
