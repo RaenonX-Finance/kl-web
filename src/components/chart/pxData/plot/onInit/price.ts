@@ -17,8 +17,9 @@ export const handlePrice = ({
     priceFormat: {
       minMove: chartDataRef.current.contract.minTick,
     },
+    priceLineVisible: true,
     priceLineWidth: 1,
-    priceLineStyle: LineStyle.Solid,
+    priceLineStyle: LineStyle.Dotted,
     upColor: bullColor,
     borderUpColor: bullColor,
     wickUpColor: bullColor,

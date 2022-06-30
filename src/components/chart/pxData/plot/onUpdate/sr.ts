@@ -20,12 +20,18 @@ const removePxLines = (
   }
 
   for (const [idx, group] of chartDataRef.current.supportResistance.groups.entries()) {
+    const pxLineGroup = chartObjectRef.current.initData.lines.srLevelLines[idx];
+
+    if (!pxLineGroup) {
+      continue;
+    }
+
     for (const level of group) {
       if (!pxLevelsToRemove.has(level.toString())) {
         continue;
       }
 
-      const pxLine = chartObjectRef.current.initData.lines.srLevelLines[idx][level];
+      const pxLine = pxLineGroup[level];
 
       delete chartObjectRef.current.initData.lines.srLevelLines[idx][level];
 
@@ -47,9 +53,7 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
   const {price: priceSeries} = chartObjectRef.current.initData.series;
 
   const srLevelSeries = chartObjectRef.current.initData.lines.srLevelLines;
-
   const leftoverLevels = new Set(Object.values(srLevelSeries).flatMap((block) => Object.keys(block)));
-
   const currentPx = chartDataRef.current.data.at(-1);
 
   if (!currentPx) {
@@ -62,17 +66,23 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     return;
   }
 
-  for (const [idx, group] of chartDataRef.current.supportResistance.groups.entries()) {
+  for (const [idxGroup, group] of chartDataRef.current.supportResistance.groups.entries()) {
+    const srLevelLinesGroup = chartObjectRef.current.initData.lines.srLevelLines[idxGroup];
+
+    if (!srLevelLinesGroup) {
+      continue;
+    }
+
     for (const level of group) {
-      const priceLine = chartObjectRef.current.initData.lines.srLevelLines[idx][level];
+      const priceLine = chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level];
 
       if (!priceLine) {
-        chartObjectRef.current.initData.lines.srLevelLines[idx][level] = priceSeries.createPriceLine({
+        chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
           axisLabelVisible: false,
           lineVisible: true,
           title: '',
-          color: getSrLevelGroupColor(idx),
+          color: getSrLevelGroupColor(idxGroup),
           lineWidth: srLevelLineWidth,
           lineStyle: srLevelLineStyle,
         });

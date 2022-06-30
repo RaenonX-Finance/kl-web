@@ -30,7 +30,7 @@ export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';
 export const srLevelGroupColors = [
   '#f23645',
   '#ffeb3b',
-  '#9c27b0',
+  '#d34dea',
   '#4caf50',
   '#00bcd4',
 ];
@@ -39,7 +39,7 @@ export const getSrLevelGroupColor = (idx: number): string => {
   return srLevelGroupColors[idx % srLevelGroupColors.length];
 };
 
-export const srLevelLineStyle: LineStyle = LineStyle.Dashed;
+export const srLevelLineStyle: LineStyle = LineStyle.Solid;
 
 export const srLevelLineWidth: LineWidth = 1;
 
