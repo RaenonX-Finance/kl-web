@@ -10,11 +10,11 @@ import {handleTiePoint} from './tiePoint';
 
 
 export const onPxChartInit: PxChartInitEventHandler = (e) => {
+  const emaNet = handleEmaNet(e);
+  const emaStrongSr = handleEmaStrongSr(e);
   const price = handlePrice(e);
   const tiePoint = handleTiePoint(e);
   const srLevelLines = handleSR(e, price);
-  const emaNet = handleEmaNet(e);
-  const emaStrongSr = handleEmaStrongSr(e);
   handleLegend(e);
   handleSrCustom(e, price);
   handleLegendUpdate(e);
