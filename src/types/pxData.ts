@@ -1,5 +1,5 @@
 import {StrengthIndex} from '../components/chart/pxData/legend/type';
-import {PxDataMarket} from './pxDataMarket';
+import {PxDataMarketSingle} from './pxDataMarket';
 
 
 export type PxDataCandlestickDirection = 1 | -1;
@@ -50,7 +50,7 @@ export type PxDataFromSocket = {
   contract: PxDataContract,
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance,
-  latestMarket: PxDataMarket,
+  latestMarket: PxDataMarketSingle,
   indicator: PxDataIndicatorConfig,
 };
 

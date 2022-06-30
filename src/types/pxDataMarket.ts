@@ -1,4 +1,4 @@
-export type PxDataMarket = {
+export type PxDataMarketSingle = {
   symbol: string,
   open: number,
   high: number,
@@ -7,3 +7,5 @@ export type PxDataMarket = {
   changeVal: number,
   changePct: number,
 };
+
+export type PxDataMarket = {[security in string]: PxDataMarketSingle};

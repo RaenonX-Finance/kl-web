@@ -80,10 +80,14 @@ const slice = createSlice({
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
       (state: PxDataState, {payload}: {payload: PxDataMarket}) => {
-        const {symbol, close} = payload;
-
         Object.values(state.data).map((pxData) => {
-          if (!pxData || pxData.contract.symbol !== symbol) {
+          if (!pxData) {
+            return;
+          }
+
+          const latestMarket = payload[pxData.contract.symbol];
+
+          if (!latestMarket) {
             return;
           }
 
@@ -97,8 +101,8 @@ const slice = createSlice({
             return;
           }
 
-          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, close);
-          pxData.latestMarket = payload;
+          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, latestMarket.close);
+          pxData.latestMarket = latestMarket;
           pxData.lastUpdated = Date.now();
         });
 
