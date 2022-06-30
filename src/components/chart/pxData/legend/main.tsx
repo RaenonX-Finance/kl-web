@@ -7,6 +7,7 @@ import useResizeObserver from 'use-resize-observer';
 import {useAnimation} from '../../../../hooks/animation';
 import {PxData} from '../../../../types/pxData';
 import {formatSignedNumber} from '../../../../utils/string';
+import {ProductSelector} from '../productSelector/main';
 import {PxChartLegendData} from '../type';
 import {LegendDataCell, LegendDataCellProps} from './cell';
 import {strengthIndicatorStyleLookup} from './const';
@@ -20,7 +21,7 @@ export type PxChartLegendProps = {
 };
 
 export const PxChartLegend = (props: PxChartLegendProps) => {
-  const {legend, title} = props;
+  const {data, legend, title} = props;
   const {
     open,
     high,
@@ -63,7 +64,7 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
         <Col className={styles['main-content']}>
           <Row className="g-2">
             <Col xs="auto" className={styles['title']}>
-              {title}
+              <ProductSelector title={title} pxData={data}/>
             </Col>
             <Col xs="auto" className={styles['tie-point']}>
               <LegendDataCell value={tiePoint} decimals={decimals} title="多空"/>
