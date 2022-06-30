@@ -1,10 +1,12 @@
-import {toCandlestickForFill, toLineData} from '../../dataConvert';
+import {PxDataEmaPeriodPair} from '../../../../../types/pxData';
+import {toCandlestickForFill} from '../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../type';
-import {getAnimationMode} from '../utils';
+import {updateEma} from './pxLine/ema';
 
 
-export const handleEmaNet = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxChartUpdatedEvent) => {
-  const periods = chartDataRef.current.indicator.ema.net;
+export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
+  const {chartDataRef, chartObjectRef, layoutConfig} = e;
+  const periodPair = chartDataRef.current.indicator.ema.net;
 
   if (!chartObjectRef.current) {
     return;
@@ -12,22 +14,23 @@ export const handleEmaNet = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxC
 
   const series = chartObjectRef.current.initData.series.emaNet;
 
-  const lastPrice = chartDataRef.current.data.at(-1);
+  const lastPx = chartDataRef.current.data.at(-1);
 
-  if (!lastPrice) {
+  if (!lastPx) {
     return;
   }
 
   Object.entries(series.lines).forEach(([key, chartSeries]) => {
-    const periodType = key as keyof typeof series.lines;
-
-    const pxLine = toLineData(`ema${periods[periodType]}`)(lastPrice);
-    const visible = layoutConfig.emaNetLine.enable;
-
-    chartSeries.update(pxLine);
-    chartSeries.applyOptions({visible, lastPriceAnimation: getAnimationMode(visible)});
+    updateEma({
+      e,
+      series: chartSeries,
+      periodType: key as keyof PxDataEmaPeriodPair,
+      periodPair,
+      keyofConfig: 'emaNetLine',
+      lastPx,
+    });
   });
 
-  series.fill.update(toCandlestickForFill(`ema${periods.slow}`, `ema${periods.fast}`)(lastPrice));
+  series.fill.update(toCandlestickForFill(`ema${periodPair.slow}`, `ema${periodPair.fast}`)(lastPx));
   series.fill.applyOptions({visible: layoutConfig.emaNet.enable});
 };

@@ -42,6 +42,7 @@ export type ValidKeyForLineData = KeysOfType<PxDataBar, number | null> | PxDataB
 
 export const toLineData = <K extends ValidKeyForLineData>(
   key: K,
+  colorOverride?: (bar: PxDataBar) => string,
 ) => (
   bar: PxDataBar,
 ): SeriesDataItemTypeMap['Line'] => {
@@ -55,6 +56,7 @@ export const toLineData = <K extends ValidKeyForLineData>(
 
   return {
     time: bar.epochSec as UTCTimestamp,
+    color: colorOverride ? colorOverride(bar) : undefined,
     value,
   };
 };

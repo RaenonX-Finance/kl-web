@@ -1,4 +1,5 @@
 import {PxChartUpdatedEventHandler} from '../../type';
+import {handleEmaColorChange} from './emaColorChange';
 import {handleEmaNet} from './emaNet';
 import {handleLegend} from './legend';
 import {handlePrice} from './price';
@@ -10,6 +11,7 @@ export const onPxChartUpdated: PxChartUpdatedEventHandler = (e) => {
   handlePrice(e);
   handleTiePoint(e);
   handleEmaNet(e);
+  handleEmaColorChange(e);
   handleLegend(e);
   handleSR(e);
 };

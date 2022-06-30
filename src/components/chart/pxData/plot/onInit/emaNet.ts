@@ -1,40 +1,18 @@
-import {PxDataEmaPeriodPair} from '../../../../../types/pxData';
-import {toCandlestickForFill, toLineData} from '../../dataConvert';
+import {toCandlestickForFill} from '../../dataConvert';
 import {OnPxChartInitEvent, PxChartEmaLinePair, PxChartSeries} from '../../type';
-import {bearColorForFill, bullColorForFill, emaLineColors} from '../const';
-import {getAnimationMode} from '../utils';
+import {bearColorForFill, bullColorForFill} from '../const';
+import {createEmaLine} from './pxLine/ema';
 
 
-export const handleEmaNet = ({
-  chartRef,
-  chartDataRef,
-  layoutConfig,
-}: OnPxChartInitEvent): PxChartSeries['emaNet'] => {
-  const periods = chartDataRef.current.indicator.ema.net;
+export const handleEmaNet = (e: OnPxChartInitEvent): PxChartSeries['emaNet'] => {
+  const {chartRef, chartDataRef} = e;
+  const periodPair = chartDataRef.current.indicator.ema.net;
 
   // ------- EMA lines
-  const lines = Object.fromEntries(Object.entries(periods).map(([type, period]) => {
-    if (!chartRef.current) {
-      throw new Error('Adding EMA net lines while the chart is not ready');
-    }
-
-    const periodType = type as keyof PxDataEmaPeriodPair;
-
-    const visible = layoutConfig.emaNetLine.enable;
-    const emaLine = chartRef.current.addLineSeries({
-      color: emaLineColors[periodType],
-      title: '',
-      lineWidth: 1,
-      lastPriceAnimation: getAnimationMode(visible),
-      priceLineVisible: false, // Disable vertical Px line
-      lastValueVisible: false, // Disable label
-      crosshairMarkerVisible: false,
-      visible,
-    });
-    emaLine.setData(chartDataRef.current.data.map(toLineData(`ema${period}`)));
-
-    return [periodType, emaLine];
-  })) as PxChartEmaLinePair;
+  const lines: PxChartEmaLinePair = {
+    fast: createEmaLine({e, periodType: 'fast', periodPair}),
+    slow: createEmaLine({e, periodType: 'slow', periodPair}),
+  };
 
   // ------- EMA fill
   if (!chartRef.current) {
@@ -54,7 +32,7 @@ export const handleEmaNet = ({
   });
   fill.setData(
     chartDataRef.current.data.map(
-      toCandlestickForFill(`ema${periods.slow}`, `ema${periods.fast}`),
+      toCandlestickForFill(`ema${periodPair.slow}`, `ema${periodPair.fast}`),
     ),
   );
 

@@ -1,7 +1,7 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {CustomSrLevel} from '../../../types/init';
-import {PxData} from '../../../types/pxData';
+import {PxData, PxDataEmaPeriodPair} from '../../../types/pxData';
 import {
   ChartDataUpdatedEventHandler,
   ChartInitEventHandler,
@@ -11,22 +11,21 @@ import {
 import {StrengthIndexCanNA} from './legend/type';
 
 
-export type PxChartEmaLinePair = {
-  fast: ISeriesApi<'Line'>,
-  slow: ISeriesApi<'Line'>,
-};
+export type PxChartEmaLinePair = {[key in keyof PxDataEmaPeriodPair]: ISeriesApi<'Line'>};
 
 export type PxChartEmaPairFillable = {
   lines: PxChartEmaLinePair,
   fill: ISeriesApi<'Candlestick'>,
 };
 
-export type PxChartSeries = {
+export type PxChartSeriesEmaColorChange = {
+  [key in PxChartEmaColorChangeKey]?: PxChartEmaLinePair
+};
+
+export type PxChartSeries = PxChartSeriesEmaColorChange & {
   price: ISeriesApi<'Candlestick'>,
   tiePoint: ISeriesApi<'Line'>,
   emaNet: PxChartEmaPairFillable,
-} & {
-  [key in PxChartEmaColorChangeKey]?: PxChartEmaLinePair
 };
 
 export type PxChartLines = {
@@ -46,7 +45,7 @@ export type PxChartLegendData = {
   hovered: boolean,
 };
 
-export type PxChartEmaColorChangeKey = `emaColorChange${number}-${number}`;
+export type PxChartEmaColorChangeKey = `emaColorChangeF${number}S${number}`;
 
 export type PxChartLayoutConfigKeys =
   'srLevel' |
@@ -66,7 +65,7 @@ export type PxChartLayoutConfigEntry = {
 export type PxChartLayoutConfig = {
   [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
 } & {
-  [key in PxChartEmaColorChangeKey]: PxChartLayoutConfigEntry[]
+  [key in PxChartEmaColorChangeKey]?: PxChartLayoutConfigEntry[]
 };
 
 export type PxChartInitData = {

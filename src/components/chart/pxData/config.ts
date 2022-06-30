@@ -1,5 +1,6 @@
 import {PxData} from '../../../types/pxData';
 import {PxChartLayoutConfig} from './type';
+import {makeEmaColorChangeKey} from './utils';
 
 
 export const generateInitialConfig = (data: PxData): PxChartLayoutConfig => ({
@@ -13,8 +14,8 @@ export const generateInitialConfig = (data: PxData): PxChartLayoutConfig => ({
     enable: true,
     group: '指標',
   },
-  ...Object.fromEntries(data.indicator.ema.colorChanging.map(({fast, slow}, idx) => [
-    `emaColorChange${fast}-${slow}`,
+  ...Object.fromEntries(data.indicator.ema.colorChange.map((periodPair, idx) => [
+    makeEmaColorChangeKey(periodPair),
     {
       title: `趨勢控盤 ${idx + 1}`,
       enable: false,
