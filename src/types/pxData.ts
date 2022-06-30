@@ -40,7 +40,7 @@ export type PxDataEmaPeriodPair = {
 
 export type PxDataEmaConfig = {
   net: PxDataEmaPeriodPair,
-  colorChange: PxDataEmaPeriodPair[],
+  strongSr: PxDataEmaPeriodPair[],
 };
 
 export type PxDataIndicatorConfig = {

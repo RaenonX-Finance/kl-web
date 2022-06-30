@@ -10,8 +10,8 @@ export const handleEmaNet = (e: OnPxChartInitEvent): PxChartSeries['emaNet'] => 
 
   // ------- EMA lines
   const lines: PxChartEmaLinePair = {
-    fast: createEmaLine({e, periodType: 'fast', periodPair}),
-    slow: createEmaLine({e, periodType: 'slow', periodPair}),
+    fast: createEmaLine({e, periodType: 'fast', periodPair, keyOfConfig: 'emaNet'}),
+    slow: createEmaLine({e, periodType: 'slow', periodPair, keyOfConfig: 'emaNet'}),
   };
 
   // ------- EMA fill

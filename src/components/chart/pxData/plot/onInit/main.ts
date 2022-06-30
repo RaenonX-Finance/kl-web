@@ -1,7 +1,7 @@
 import {PxChartInitEventHandler} from '../../type';
 import {handleLegendUpdate} from '../eventHandler';
-import {handleEmaColorChange} from './emaColorChange';
 import {handleEmaNet} from './emaNet';
+import {handleEmaStrongSr} from './emaStrongSr';
 import {handleLegend} from './legend';
 import {handlePrice} from './price';
 import {handleSR} from './sr';
@@ -14,13 +14,13 @@ export const onPxChartInit: PxChartInitEventHandler = (e) => {
   const tiePoint = handleTiePoint(e);
   const srLevelLines = handleSR(e, price);
   const emaNet = handleEmaNet(e);
-  const emaColorChange = handleEmaColorChange(e);
+  const emaStrongSr = handleEmaStrongSr(e);
   handleLegend(e);
   handleSrCustom(e, price);
   handleLegendUpdate(e);
 
   return {
-    series: {price, tiePoint, emaNet, ...emaColorChange},
+    series: {price, tiePoint, emaNet, emaStrongSr},
     lines: {srLevelLines},
   };
 };

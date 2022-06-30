@@ -67,7 +67,7 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
               <ProductSelector title={title} pxData={data}/>
             </Col>
             <Col xs="auto" className={styles['tie-point']}>
-              <LegendDataCell value={tiePoint} decimals={decimals} title="多空"/>
+              <LegendDataCell value={tiePoint} decimals={decimals} title="多空" large/>
             </Col>
           </Row>
           <Row>

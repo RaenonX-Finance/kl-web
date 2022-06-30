@@ -26,7 +26,7 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
       series: chartSeries,
       periodType: key as keyof PxDataEmaPeriodPair,
       periodPair,
-      keyofConfig: 'emaNetLine',
+      keyofConfig: 'emaNet',
       lastPx,
     });
   });

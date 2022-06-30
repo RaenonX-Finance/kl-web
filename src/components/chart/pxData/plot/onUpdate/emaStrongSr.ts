@@ -1,26 +1,18 @@
 import {PxDataEmaPeriodPair} from '../../../../../types/pxData';
 import {OnPxChartUpdatedEvent} from '../../type';
-import {makeEmaColorChangeKey} from '../../utils';
 import {getEmaColorOverridder} from '../utils';
 import {updateEma} from './pxLine/ema';
 
 
-export const handleEmaColorChange = (e: OnPxChartUpdatedEvent) => {
+export const handleEmaStrongSr = (e: OnPxChartUpdatedEvent) => {
   const {chartDataRef, chartObjectRef} = e;
-  const periods = chartDataRef.current.indicator.ema.colorChange;
 
-  periods.forEach((periodPair) => {
-    const emaColorChangeKey = makeEmaColorChangeKey(periodPair);
-
+  chartDataRef.current.indicator.ema.strongSr.forEach((periodPair, idx) => {
     if (!chartObjectRef.current) {
       return;
     }
 
-    const series = chartObjectRef.current.initData.series[emaColorChangeKey];
-
-    if (!series) {
-      throw Error(`Color changing EMA of key [${emaColorChangeKey}] does not have corresponding series`);
-    }
+    const seriesCollection = chartObjectRef.current.initData.series.emaStrongSr;
 
     const lastPx = chartDataRef.current.data.at(-1);
 
@@ -28,15 +20,15 @@ export const handleEmaColorChange = (e: OnPxChartUpdatedEvent) => {
       return;
     }
 
-    Object.entries(series).forEach(([key, chartSeries]) => {
+    Object.entries(seriesCollection[idx]).map(([key, series]) => {
       const periodType = key as keyof PxDataEmaPeriodPair;
 
       updateEma({
         e,
-        series: chartSeries,
+        series,
         periodType,
         periodPair,
-        keyofConfig: emaColorChangeKey,
+        keyofConfig: 'emaStrongSr',
         lastPx,
         colorOverride: getEmaColorOverridder(periodPair[periodType]),
       });

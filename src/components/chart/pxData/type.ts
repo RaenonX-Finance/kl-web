@@ -18,14 +18,11 @@ export type PxChartEmaPairFillable = {
   fill: ISeriesApi<'Candlestick'>,
 };
 
-export type PxChartSeriesEmaColorChange = {
-  [key in PxChartEmaColorChangeKey]?: PxChartEmaLinePair
-};
-
-export type PxChartSeries = PxChartSeriesEmaColorChange & {
+export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
   tiePoint: ISeriesApi<'Line'>,
   emaNet: PxChartEmaPairFillable,
+  emaStrongSr: PxChartEmaLinePair[],
 };
 
 export type PxChartLines = {
@@ -45,16 +42,13 @@ export type PxChartLegendData = {
   hovered: boolean,
 };
 
-export type PxChartEmaColorChangeKey = `emaColorChangeF${number}S${number}`;
-
 export type PxChartLayoutConfigKeys =
   'srLevel' |
   'srLevelWeak' |
   'candlestickColor' |
   'tiePoint' |
-  'emaNetLine' |
   'emaNet' |
-  PxChartEmaColorChangeKey;
+  'emaStrongSr';
 
 export type PxChartLayoutConfigEntry = {
   title: string,
@@ -64,8 +58,6 @@ export type PxChartLayoutConfigEntry = {
 
 export type PxChartLayoutConfig = {
   [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
-} & {
-  [key in PxChartEmaColorChangeKey]?: PxChartLayoutConfigEntry[]
 };
 
 export type PxChartInitData = {

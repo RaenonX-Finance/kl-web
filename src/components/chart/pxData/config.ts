@@ -1,9 +1,7 @@
-import {PxData} from '../../../types/pxData';
 import {PxChartLayoutConfig} from './type';
-import {makeEmaColorChangeKey} from './utils';
 
 
-export const generateInitialConfig = (data: PxData): PxChartLayoutConfig => ({
+export const generateInitialConfig = (): PxChartLayoutConfig => ({
   candlestickColor: {
     title: '紅綠量能',
     enable: true,
@@ -14,21 +12,13 @@ export const generateInitialConfig = (data: PxData): PxChartLayoutConfig => ({
     enable: true,
     group: '指標',
   },
-  ...Object.fromEntries(data.indicator.ema.colorChange.map((periodPair, idx) => [
-    makeEmaColorChangeKey(periodPair),
-    {
-      title: `趨勢控盤 ${idx + 1}`,
-      enable: false,
-      group: '指標',
-    },
-  ])),
-  emaNetLine: {
-    title: '趨勢濾網 (線條)',
+  emaNet: {
+    title: '趨勢濾網',
     enable: true,
     group: '指標',
   },
-  emaNet: {
-    title: '趨勢濾網 (色塊)',
+  emaStrongSr: {
+    title: '趨勢控盤',
     enable: true,
     group: '指標',
   },

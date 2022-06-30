@@ -12,7 +12,7 @@ export const handleTiePoint = (e: OnPxChartInitEvent): ISeriesApi<'Line'> => {
     keyForLineData: 'tiePoint',
     title: 'L/S',
     color: pxLineColors.tiePoint,
-    lineWidth: 1,
+    lineWidth: 2,
     lastPriceAnimation: LastPriceAnimationMode.OnDataUpdate,
     priceLineVisible: false,
   });
