@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Document, {Head, Html, Main, NextScript} from 'next/document';
-import Script from 'next/script';
 
 
 type Props = {};
@@ -53,11 +52,9 @@ class NextDocument extends Document<Props> {
             crossOrigin="anonymous"
             src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
           />
-          <Script
-            strategy="beforeInteractive"
-            type="text/javascript"
-            src="/js/newRelicBrowser.js"
-          />
+
+          {/* New Relic Browser monitoring */}
+          <script async type="text/javascript" src="/js/newRelicBrowser.js"/>
 
           {/* NOTE: Bootstrap CSS already imported via `bootstrap.css` in `_app.tsx` */}
           {/* Bootstrap Icons */}
