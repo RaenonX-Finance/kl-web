@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {useCustomSrSelector} from '../../../state/customSr/selector';
-import {PxData} from '../../../types/pxData';
+import {PxData, PxDataMapSlotNames} from '../../../types/pxData';
 import {getPxDataTitle} from '../../../utils/pxData';
 import {Loading} from '../../common/loading';
 import {PxDataChart} from '../pxData/main';
@@ -9,13 +9,14 @@ import {PxDataChart} from '../pxData/main';
 
 type Props = {
   pxData: PxData | null,
+  slot: PxDataMapSlotNames,
   width: number,
   height: number,
   x: number,
   y: number,
 };
 
-export const PxDataLayoutPane = ({pxData, width, height, x, y}: Props) => {
+export const PxDataLayoutPane = ({pxData, slot, width, height, x, y}: Props) => {
   const customSrLevels = useCustomSrSelector();
 
   const containerCss: React.CSSProperties = {
@@ -39,6 +40,7 @@ export const PxDataLayoutPane = ({pxData, width, height, x, y}: Props) => {
           <React.Suspense fallback={<Loading/>}>
             <PxDataChart
               title={getPxDataTitle(pxData)}
+              slot={slot}
               chartData={pxData}
               payload={{
                 customSrLevels: customSrLevels[pxData.contract.symbol],

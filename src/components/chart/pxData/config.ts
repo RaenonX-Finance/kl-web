@@ -1,59 +1,49 @@
-import {PxChartLayoutConfig} from './type';
+import {PxChartLayoutConfigUI} from './type';
 
 
-export const generateInitialConfig = (): PxChartLayoutConfig => ({
+export const configEntriesUI: PxChartLayoutConfigUI = {
   currentPxLine: {
     title: '現價水平線',
-    enable: true,
     group: '圖表',
   },
   tiePointLabel: {
     title: '多空線',
-    enable: true,
     group: '標籤',
-    isDisabled: ({tiePoint}) => !tiePoint.enable,
+    isDisabled: ({tiePoint}) => !tiePoint,
   },
   emaNetLabel: {
     title: '趨勢濾網',
-    enable: false,
     group: '標籤',
-    isDisabled: ({emaNet}) => !emaNet.enable,
+    isDisabled: ({emaNet}) => !emaNet,
   },
   emaStrongSrLabel: {
     title: '趨勢控盤',
-    enable: false,
     group: '標籤',
-    isDisabled: ({emaStrongSr}) => !emaStrongSr.enable,
+    isDisabled: ({emaStrongSr}) => !emaStrongSr,
   },
   srLevelLabel: {
     title: '黃金撐壓線',
-    enable: true,
     group: '標籤',
-    isDisabled: ({srLevel}) => !srLevel.enable,
+    isDisabled: ({srLevel}) => !srLevel,
   },
   candlestickColor: {
     title: '紅綠量能',
-    enable: false,
     group: '指標',
   },
   tiePoint: {
     title: '多空線',
-    enable: false,
     group: '指標',
   },
   emaNet: {
     title: '趨勢濾網',
-    enable: false,
     group: '指標',
   },
   emaStrongSr: {
     title: '趨勢控盤',
-    enable: false,
     group: '指標',
   },
   srLevel: {
     title: '黃金撐壓線',
-    enable: false,
     group: '指標',
   },
-});
+};

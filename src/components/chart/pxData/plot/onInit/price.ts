@@ -17,7 +17,7 @@ export const handlePrice = ({
     priceFormat: {
       minMove: chartDataRef.current.contract.minTick,
     },
-    priceLineVisible: layoutConfig.currentPxLine.enable,
+    priceLineVisible: layoutConfig.currentPxLine,
     priceLineWidth: 1,
     priceLineStyle: LineStyle.Dotted,
     upColor: bullColor,
@@ -28,7 +28,7 @@ export const handlePrice = ({
     wickDownColor: bearColor,
     priceLineColor: currentPxColor,
   });
-  price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor.enable)));
+  price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor)));
 
   return price;
 };

@@ -22,8 +22,8 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
 
   const pxLine = toLineData(keyForLineData)(lastPrice);
 
-  const visible = layoutConfig[keyOfConfig].enable;
-  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
+  const visible = layoutConfig[keyOfConfig];
+  const visibleLabel = layoutConfig[keyOfConfigLabel];
 
   series.update(pxLine);
   series.applyOptions({

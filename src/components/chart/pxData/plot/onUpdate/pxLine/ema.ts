@@ -31,8 +31,8 @@ export const updateEma = ({
   const {layoutConfig} = e;
 
   const pxLine = toLineData(`ema${periodPair[periodType]}`, colorOverride)(lastPx);
-  const visible = layoutConfig[keyofConfig].enable;
-  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
+  const visible = layoutConfig[keyofConfig];
+  const visibleLabel = layoutConfig[keyOfConfigLabel];
 
   series.update(pxLine);
   series.applyOptions({

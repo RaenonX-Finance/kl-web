@@ -4,22 +4,26 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import {PxChartLayoutConfig, PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
+import {LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../../state/config/types';
+import {PxDataMapSlotNames} from '../../../../types/pxData';
+import {configEntriesUI} from '../config';
+import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
 
 
 type Props = {
   title: string,
-  config: PxChartLayoutConfig,
-  setConfig: (newConfig: PxChartLayoutConfig) => void
+  slot: PxDataMapSlotNames,
+  config: PxChartLayoutConfigState,
+  setConfig: (payload: LayoutConfigUpdatePayload) => void,
 };
 
-export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
+export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props) => {
   const [show, setShow] = React.useState(false);
 
-  const configGroups: {[group in string]: {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry}} = {};
-  Object.entries(config).forEach(([key, entry]) => {
-    configGroups[entry.group] = {
-      ...(configGroups[entry.group] || {}),
+  const configEntriesUiGroup: {[group in string]: {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry}} = {};
+  Object.entries(configEntriesUI).forEach(([key, entry]) => {
+    configEntriesUiGroup[entry.group] = {
+      ...(configEntriesUiGroup[entry.group] || {}),
       [key]: entry,
     };
   });
@@ -39,13 +43,14 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
         <hr className="my-0"/>
         <Offcanvas.Body>
           <Form>
-            {Object.entries(configGroups)
+            {Object.entries(configEntriesUiGroup)
               .map(([groupName, entryObj]) => (
                 <React.Fragment key={groupName}>
                   <h5>{groupName}</h5>
                   {Object.entries(entryObj).map(([key, entry]) => {
                     const configKey = key as PxChartLayoutConfigKeys;
-                    const {title, enable, isDisabled} = entry;
+                    const {title, isDisabled} = entry;
+                    const enable = config[configKey];
 
                     return (
                       <Button
@@ -53,8 +58,9 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
                         key={key}
                         variant="outline-info"
                         onClick={() => setConfig({
-                          ...config,
-                          [configKey]: {...entry, enable: !enable},
+                          slot,
+                          configKey,
+                          value: !enable,
                         })}
                         disabled={isDisabled ? isDisabled(config) : false}
                         active={enable}

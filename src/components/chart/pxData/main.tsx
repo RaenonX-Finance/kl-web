@@ -1,14 +1,14 @@
 import React from 'react';
 
+import {PxChartLayoutConfigState} from '../../../state/config/types';
 import {PxData} from '../../../types/pxData';
 import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
-import {generateInitialConfig} from './config';
 import {PxChartLayoutConfigPanel} from './layoutConfig/main';
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
-import {PxChartInitData, PxChartLayoutConfig, PxChartLegendData, PxChartPayload} from './type';
+import {PxChartInitData, PxChartLegendData, PxChartPayload} from './type';
 
 
 type Props = Omit<
@@ -17,7 +17,7 @@ type Props = Omit<
     PxChartPayload,
     PxChartInitData,
     PxChartLegendData,
-    PxChartLayoutConfig
+    PxChartLayoutConfigState
   >,
   'initChart' |
   'calcObjects' |
@@ -27,7 +27,6 @@ type Props = Omit<
   'getIdentifier' |
   'getPnLMultiplier' |
   'getPeriodSec' |
-  'getInitialLayoutConfig' |
   'getDataLastUpdate'
 > & {
   title: string,
@@ -35,7 +34,7 @@ type Props = Omit<
 
 
 export const PxDataChart = (props: Props) => {
-  const {title} = props;
+  const {slot, title} = props;
 
   return (
     <TradingViewChart
@@ -60,10 +59,9 @@ export const PxDataChart = (props: Props) => {
         legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} title={title}/>,
       }}
       renderLayoutConfig={(config, setConfig) => (
-        <PxChartLayoutConfigPanel title={title} config={config} setConfig={setConfig}/>
+        <PxChartLayoutConfigPanel title={title} slot={slot} config={config} setConfig={setConfig}/>
       )}
       getPeriodSec={(data) => data.periodSec}
-      getInitialLayoutConfig={generateInitialConfig}
       getDataLastUpdate={({lastUpdated}) => lastUpdated}
       {...props}
     />

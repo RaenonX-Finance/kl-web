@@ -10,7 +10,7 @@ export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>
   const srLevelLines: PxChartLines['srLevelLines'] = {};
   const currentPx = chartDataRef.current.data.at(-1);
 
-  if (!currentPx || !layoutConfig.srLevel.enable) {
+  if (!currentPx || !layoutConfig.srLevel) {
     return {};
   }
 

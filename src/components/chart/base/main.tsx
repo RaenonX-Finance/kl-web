@@ -5,6 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
+import {configDispatchers} from '../../../state/config/dispatchers';
+import {useConfigSelector} from '../../../state/config/selector';
+import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../state/config/types';
+import {useDispatch} from '../../../state/store';
+import {PxDataMapSlotNames} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
 import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import {useTradingViewChart} from './hook';
@@ -15,21 +20,22 @@ import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, C
 export type TradingViewChartProps<T, P, R, L, A> = {
   width: number,
   height: number,
+  slot: PxDataMapSlotNames,
   initChart: ChartInitEventHandler<T, R, L, A, P>,
   chartData: T,
   payload: P,
   onDataUpdated: ChartDataUpdatedEventHandler<T, P, R, L, A>,
   calcObjects: ChartCalcObjects<T, L>,
   renderObjects: ChartRenderObjects<T, L>,
-  renderLayoutConfig: (config: A, setConfig: (newConfig: A) => void) => React.ReactNode,
+  renderLayoutConfig: (config: A, setConfig: (newConfig: LayoutConfigUpdatePayload) => void) => React.ReactNode,
   getPeriodSec: (data: T) => number,
-  getInitialLayoutConfig: (data: T) => A,
   getDataLastUpdate: (data: T) => number,
 };
 
-export const TradingViewChart = <T, P, R, L, A>({
+export const TradingViewChart = <T, P, R, L>({
   width,
   height,
+  slot,
   initChart,
   calcObjects,
   chartData,
@@ -38,9 +44,8 @@ export const TradingViewChart = <T, P, R, L, A>({
   renderObjects,
   renderLayoutConfig,
   getPeriodSec,
-  getInitialLayoutConfig,
   getDataLastUpdate,
-}: TradingViewChartProps<T, P, R, L, A>) => {
+}: TradingViewChartProps<T, P, R, L, PxChartLayoutConfigState>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
   const chartDataRef = React.useRef<T>(chartData);
   const updateIndicatorRef = useAnimation({
@@ -48,10 +53,15 @@ export const TradingViewChart = <T, P, R, L, A>({
   });
   const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
-  const [layoutConfig, setLayoutConfig] = React.useState<A>(getInitialLayoutConfig(chartData));
+  const layoutConfig = useConfigSelector().layoutConfig[slot];
+  const dispatch = useDispatch();
 
   const setObject = {
     legend: setLegend,
+  };
+
+  const setLayoutConfig = (payload: LayoutConfigUpdatePayload) => {
+    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG](payload));
   };
 
   const onDataUpdatedInternal = (forceUpdate: boolean) => () => {
@@ -83,7 +93,7 @@ export const TradingViewChart = <T, P, R, L, A>({
     });
   };
 
-  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, A, P>({
+  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxChartLayoutConfigState, P>({
     initChart,
     onDataUpdated: onDataUpdatedInternal(true),
     width,

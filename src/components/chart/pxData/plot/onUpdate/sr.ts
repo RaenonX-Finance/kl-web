@@ -60,7 +60,7 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     return;
   }
 
-  if (!layoutConfig.srLevel.enable) {
+  if (!layoutConfig.srLevel) {
     // No data available / layout config not enabled, remove all Px lines
     removePxLines(e, leftoverLevels, priceSeries);
     return;
@@ -77,11 +77,11 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
       const priceLine = chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level];
 
       if (priceLine) {
-        priceLine.applyOptions({axisLabelVisible: layoutConfig.srLevelLabel.enable});
+        priceLine.applyOptions({axisLabelVisible: layoutConfig.srLevelLabel});
       } else {
         chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
-          axisLabelVisible: layoutConfig.srLevelLabel.enable,
+          axisLabelVisible: layoutConfig.srLevelLabel,
           lineVisible: true,
           title: '',
           color: getSrLevelGroupColor(idxGroup),

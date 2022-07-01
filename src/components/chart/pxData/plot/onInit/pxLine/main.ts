@@ -19,8 +19,8 @@ export const addPxLine = ({
     throw new Error(`Adding ${title} while the chart is not ready`);
   }
 
-  const visibleLine = layoutConfig[keyOfConfig].enable;
-  const visibleLabel = layoutConfig[keyOfConfigLabel].enable;
+  const visibleLine = layoutConfig[keyOfConfig];
+  const visibleLabel = layoutConfig[keyOfConfigLabel];
 
   const series = chartRef.current.addLineSeries({
     ...props,

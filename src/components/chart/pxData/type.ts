@@ -1,5 +1,6 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
+import {PxChartLayoutConfigState} from '../../../state/config/types';
 import {CustomSrLevel} from '../../../types/init';
 import {PxData, PxDataEmaPeriodPair} from '../../../types/pxData';
 import {
@@ -56,12 +57,11 @@ export type PxChartLayoutConfigKeys =
 
 export type PxChartLayoutConfigEntry = {
   title: string,
-  enable: boolean,
   group: string,
-  isDisabled?: (config: PxChartLayoutConfig) => boolean,
+  isDisabled?: (config: PxChartLayoutConfigState) => boolean,
 };
 
-export type PxChartLayoutConfig = {
+export type PxChartLayoutConfigUI = {
   [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
 };
 
@@ -78,7 +78,7 @@ export type OnPxChartInitEvent = OnChartInitEvent<
   PxData,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfig,
+  PxChartLayoutConfigState,
   PxChartPayload
 >;
 
@@ -86,7 +86,7 @@ export type PxChartInitEventHandler = ChartInitEventHandler<
   PxData,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfig,
+  PxChartLayoutConfigState,
   PxChartPayload
 >;
 
@@ -95,7 +95,7 @@ export type OnPxChartUpdatedEvent = OnChartDataUpdatedEvent<
   PxChartPayload,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfig
+  PxChartLayoutConfigState
 >;
 
 export type PxChartUpdatedEventHandler = ChartDataUpdatedEventHandler<
@@ -103,5 +103,5 @@ export type PxChartUpdatedEventHandler = ChartDataUpdatedEventHandler<
   PxChartPayload,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfig
+  PxChartLayoutConfigState
 >;

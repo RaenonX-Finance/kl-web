@@ -19,10 +19,26 @@ export const Layout4ofR2 = ({pxDataMap}: LayoutProps) => {
     <LayoutBase refCallback={ref}>
       {!!width && !!height && (
         <>
-          <PxDataLayoutPane pxData={dataA} x={0} y={0} width={width / 3} height={height / 2}/>
-          <PxDataLayoutPane pxData={dataB} x={0} y={height / 2} width={width / 3} height={height / 2}/>
-          <PxDataLayoutPane pxData={dataC} x={width * (1 / 3)} y={0} width={width / 3} height={height}/>
-          <PxDataLayoutPane pxData={dataD} x={width * (2 / 3)} y={0} width={width / 3} height={height}/>
+          <PxDataLayoutPane
+            slot="A" pxData={dataA}
+            x={0} y={0}
+            width={width / 3} height={height / 2}
+          />
+          <PxDataLayoutPane
+            slot="B" pxData={dataB}
+            x={0} y={height / 2}
+            width={width / 3} height={height / 2}
+          />
+          <PxDataLayoutPane
+            slot="C" pxData={dataC}
+            x={width * (1 / 3)} y={0}
+            width={width / 3} height={height}
+          />
+          <PxDataLayoutPane
+            slot="D" pxData={dataD}
+            x={width * (2 / 3)} y={0}
+            width={width / 3} height={height}
+          />
         </>
       )}
     </LayoutBase>

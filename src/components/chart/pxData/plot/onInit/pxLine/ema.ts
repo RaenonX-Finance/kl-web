@@ -38,8 +38,8 @@ export const createEmaLine = ({
     throw new Error('Adding EMA net lines while the chart is not ready');
   }
 
-  const visible = layoutConfig[keyOfConfig].enable;
-  const visiableLabel = layoutConfig[keyOfConfigLabel].enable;
+  const visible = layoutConfig[keyOfConfig];
+  const visiableLabel = layoutConfig[keyOfConfigLabel];
 
   const emaLine = chartRef.current.addLineSeries({
     color: emaLineColors[periodType],

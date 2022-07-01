@@ -33,5 +33,5 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
   });
 
   series.fill.update(toCandlestickForFill(`ema${periodPair.slow}`, `ema${periodPair.fast}`)(lastPx));
-  series.fill.applyOptions({visible: layoutConfig.emaNet.enable});
+  series.fill.applyOptions({visible: layoutConfig.emaNet});
 };
