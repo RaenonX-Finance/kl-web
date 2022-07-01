@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 import {PxData, PxDataFromSocket} from '../../types/pxData';
-import {PxDataMarket} from '../../types/pxDataMarket';
 import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
@@ -34,6 +33,24 @@ const fixPxData = (pxData: PxData): PxData => {
   return pxData;
 };
 
+const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
+  // TODO: To fix after data sending optimization
+  payload.forEach((pxData) => {
+    const slot = state.map[pxData.uniqueIdentifier];
+
+    if (!slot) {
+      return;
+    }
+
+    state.data[slot] = fixPxData({
+      ...pxData,
+      lastUpdated: Date.now(),
+    });
+  });
+
+  updateCurrentPxDataTitle(state.data);
+};
+
 const slice = createSlice({
   name: PX_DATA_STATE_NAME,
   initialState,
@@ -41,45 +58,11 @@ const slice = createSlice({
   extraReducers: (builder) => {
     // New px bar to be added only from the backend
     // > Always use history data to add new bar - only update the last bar on market Px updated
-    builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.INIT],
-      (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
-        // TODO: To fix after data sending optimization
-        payload.forEach((pxData) => {
-          const slot = state.map[pxData.uniqueIdentifier];
-
-          if (!slot) {
-            return;
-          }
-
-          state.data[slot] = fixPxData({
-            ...pxData,
-            lastUpdated: Date.now(),
-          });
-        });
-
-        updateCurrentPxDataTitle(state.data);
-      },
-    );
-    builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE],
-      (state: PxDataState, {payload}: {payload: PxDataFromSocket}) => {
-        const slot = state.map[payload.uniqueIdentifier];
-
-        if (!slot) {
-          return;
-        }
-
-        state.data[slot] = fixPxData({
-          ...payload,
-          lastUpdated: Date.now(),
-        });
-        updateCurrentPxDataTitle(state.data);
-      },
-    );
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE], pxDataFillingReducer);
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-      (state: PxDataState, {payload}: {payload: PxDataMarket}) => {
+      (state: PxDataState, {payload}) => {
         Object.values(state.data).map((pxData) => {
           if (!pxData) {
             return;
