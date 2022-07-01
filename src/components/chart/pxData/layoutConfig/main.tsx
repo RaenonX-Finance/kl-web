@@ -45,7 +45,7 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
                   <h5>{groupName}</h5>
                   {Object.entries(entryObj).map(([key, entry]) => {
                     const configKey = key as PxChartLayoutConfigKeys;
-                    const {title, enable} = entry;
+                    const {title, enable, isDisabled} = entry;
 
                     return (
                       <Button
@@ -56,6 +56,7 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
                           ...config,
                           [configKey]: {...entry, enable: !enable},
                         })}
+                        disabled={isDisabled ? isDisabled(config) : false}
                       >
                         {title}
                       </Button>

@@ -9,23 +9,27 @@ export const generateInitialConfig = (): PxChartLayoutConfig => ({
   },
   tiePointLabel: {
     title: '多空線',
-    enable: false,
+    enable: true,
     group: '標籤',
+    isDisabled: ({tiePoint}) => !tiePoint.enable,
   },
   emaNetLabel: {
     title: '趨勢濾網',
     enable: false,
     group: '標籤',
+    isDisabled: ({emaNet}) => !emaNet.enable,
   },
   emaStrongSrLabel: {
     title: '趨勢控盤',
     enable: false,
     group: '標籤',
+    isDisabled: ({emaStrongSr}) => !emaStrongSr.enable,
   },
   srLevelLabel: {
     title: '黃金撐壓線',
-    enable: false,
+    enable: true,
     group: '標籤',
+    isDisabled: ({srLevel}) => !srLevel.enable,
   },
   candlestickColor: {
     title: '紅綠量能',

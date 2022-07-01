@@ -31,10 +31,10 @@ export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';
 
 export const srLevelGroupColors = [
   '#f23645',
-  '#ffeb3b',
-  '#d34dea',
-  '#4caf50',
-  '#00bcd4',
+  '#f5d52f',
+  '#ad49c0',
+  '#3aa13e',
+  '#1ca8b6',
 ];
 
 export const getSrLevelGroupColor = (idx: number): string => {

@@ -58,6 +58,7 @@ export type PxChartLayoutConfigEntry = {
   title: string,
   enable: boolean,
   group: string,
+  isDisabled?: (config: PxChartLayoutConfig) => boolean,
 };
 
 export type PxChartLayoutConfig = {

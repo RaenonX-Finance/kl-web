@@ -76,7 +76,9 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     for (const level of group) {
       const priceLine = chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level];
 
-      if (!priceLine) {
+      if (priceLine) {
+        priceLine.applyOptions({axisLabelVisible: layoutConfig.srLevelLabel.enable});
+      } else {
         chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
           axisLabelVisible: layoutConfig.srLevelLabel.enable,
