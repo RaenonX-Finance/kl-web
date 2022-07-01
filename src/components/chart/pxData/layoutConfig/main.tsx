@@ -51,12 +51,13 @@ export const PxChartLayoutConfigPanel = ({title, config, setConfig}: Props) => {
                       <Button
                         className="w-100 mb-3 bg-gradient"
                         key={key}
-                        variant={enable ? 'outline-success' : 'outline-danger'}
+                        variant="outline-info"
                         onClick={() => setConfig({
                           ...config,
                           [configKey]: {...entry, enable: !enable},
                         })}
                         disabled={isDisabled ? isDisabled(config) : false}
+                        active={enable}
                       >
                         {title}
                       </Button>
