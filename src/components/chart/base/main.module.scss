@@ -46,6 +46,7 @@ span.update-animation {
   }
 
   border: 1px solid $update-theme;
+  cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
   animation: 1s update-light;

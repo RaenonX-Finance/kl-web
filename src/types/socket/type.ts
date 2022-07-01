@@ -9,7 +9,8 @@ export type SocketEventKeys =
   'pxUpdatedMarket' |
   'pxRequest' |
   'pxInit' |
-  'error';
+  'error' |
+  'ping';
 
 export type SocketEvent = {[key in SocketEventKeys]: SocketMessageHandler};
 

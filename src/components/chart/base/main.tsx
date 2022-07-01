@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
 import {PeriodTimer} from '../../periodTimer/main';
-import {TimeAgo} from '../../timeAgo/main';
+import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import {useTradingViewChart} from './hook';
 import styles from './main.module.scss';
 import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, ChartRenderObjects} from './type';
@@ -130,7 +130,7 @@ export const TradingViewChart = <T, P, R, L, A>({
             <PeriodTimer periodSec={getPeriodSec(chartData)}/>
           </Col>
           <Col xs="auto" className="text-end">
-            <TimeAgo
+            <SocketPingableTimeAgo
               ref={updateIndicatorRef}
               epochSec={lastUpdated.current}
               format={(secDiffMs) => (

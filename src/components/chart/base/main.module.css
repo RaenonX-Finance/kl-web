@@ -24,6 +24,7 @@ div.status {
 
 span.update-animation {
   border: 1px solid #325bc2;
+  cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
   animation: 1s update-light;
