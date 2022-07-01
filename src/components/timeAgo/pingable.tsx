@@ -45,7 +45,8 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
   const onOpen = () => {
     setShow(true);
     socket.emit('ping', '');
-    pingStart.current =Date.now();
+    pingStart.current = Date.now();
+    pingDuration.current = 0;
   };
 
   const onClose = () => {
