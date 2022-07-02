@@ -1,7 +1,7 @@
 import {ISeriesApi} from 'lightweight-charts';
 
 import {OnPxChartUpdatedEvent} from '../../type';
-import {getSrLevelGroupColor, srLevelLineStyle, srLevelLineWidth} from '../const';
+import {getSrLevelGroupColor, srLevelCommonOptions} from '../const';
 
 
 const removePxLines = (
@@ -82,11 +82,8 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
         chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
           axisLabelVisible: layoutConfig.srLevelLabel,
-          lineVisible: true,
-          title: '',
           color: getSrLevelGroupColor(idxGroup),
-          lineWidth: srLevelLineWidth,
-          lineStyle: srLevelLineStyle,
+          ...srLevelCommonOptions,
         });
       }
 

@@ -1,6 +1,7 @@
 import {LineStyle, LineWidth} from 'lightweight-charts';
 
 import {PxDataCandlestickDirection, PxDataEmaPeriodPair} from '../../../../types/pxData';
+import {SrLevelCommonOptions} from './type';
 
 
 export const bullColor = '#ef5350';
@@ -27,8 +28,6 @@ export const emaLineColors: {[key in keyof PxDataEmaPeriodPair]: string} = {
   slow: bearColor,
 };
 
-export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';
-
 export const srLevelGroupColors = [
   '#f23645',
   '#f5d52f',
@@ -41,9 +40,14 @@ export const getSrLevelGroupColor = (idx: number): string => {
   return srLevelGroupColors[idx % srLevelGroupColors.length];
 };
 
-export const srLevelLineStyle: LineStyle = LineStyle.Solid;
+export const srLevelCommonOptions: SrLevelCommonOptions = {
+  title: '',
+  lineStyle: LineStyle.Solid,
+  lineWidth: 1,
+  lineVisible: true,
+};
 
-export const srLevelLineWidth: LineWidth = 1;
+export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';
 
 export const srLevelLineWidthStrong: LineWidth = 2;
 

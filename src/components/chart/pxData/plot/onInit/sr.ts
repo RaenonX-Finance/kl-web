@@ -1,7 +1,7 @@
 import {ISeriesApi} from 'lightweight-charts';
 
 import {OnPxChartInitEvent, PxChartLines} from '../../type';
-import {getSrLevelGroupColor, srLevelLineStyle, srLevelLineWidth} from '../const';
+import {getSrLevelGroupColor, srLevelCommonOptions} from '../const';
 
 
 export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>): PxChartLines['srLevelLines'] => {
@@ -19,13 +19,10 @@ export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>
 
     group.forEach((level) => {
       srLevelLines[idxGroup][level] = price.createPriceLine({
-        title: '',
-        axisLabelVisible: true,
+        axisLabelVisible: layoutConfig.srLevelLabel,
         price: level,
         color: getSrLevelGroupColor(idxGroup),
-        lineVisible: true,
-        lineStyle: srLevelLineStyle,
-        lineWidth: srLevelLineWidth,
+        ...srLevelCommonOptions,
       });
     });
   });
