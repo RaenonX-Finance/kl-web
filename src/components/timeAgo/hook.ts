@@ -8,7 +8,7 @@ type UsePingSocketOptions = {
 };
 
 type UsePingSocketReturn = {
-  completed: boolean,
+  pingCount: number,
   start: () => void,
   clear: () => void,
   pingMs: number[],
@@ -18,15 +18,17 @@ type UsePingSocketReturn = {
 export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketReturn => {
   const socket = React.useContext(SocketContext);
   const [inUse, setInUse] = React.useState(false);
-  const pingCountLeft = React.useRef(0);
+  const pingCountInternal = React.useRef(0);
+  // Use state to intentionally trigger re-render on complete
+  // > Separating `ref` (actual) and `state` (for UI)
+  // > because the output will be incorrect in case the server responds faster than UI re-render
+  const [pingCount, setPingCount] = React.useState(count);
   const pingStart = React.useRef(0);
   const pingDuration = React.useRef<number[]>([]);
-  // Use state to intentionally trigger re-render on complete
-  const [completed, setCompleted] = React.useState(false);
 
   if (!socket) {
     return {
-      completed: false,
+      pingCount: 0,
       start: () => console.error('Socket unavailable for testing ping (start)'),
       clear: () => console.error('Socket unavailable for testing ping (clear)'),
       setInUse: () => console.error('Socket unavailable for testing ping (setInUse)'),
@@ -35,15 +37,15 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
   }
 
   const onPong = () => {
-    pingCountLeft.current -= 1;
+    pingCountInternal.current += 1;
+    setPingCount(pingCountInternal.current);
 
-    if (pingCountLeft.current > 0) {
-      ping();
-    } else {
-      setCompleted(true);
-    }
-
+    // This needs to place before `ping()` because `pingStart` resets in `ping()`
     pingDuration.current.push(Date.now() - pingStart.current);
+
+    if (pingCountInternal.current < count) {
+      ping();
+    }
   };
 
   const ping = () => {
@@ -57,10 +59,10 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
   };
 
   const clear = () => {
-    pingCountLeft.current = count;
+    pingCountInternal.current = 0;
     pingDuration.current = [];
     pingStart.current = 0;
-    setCompleted(false);
+    setPingCount(0);
   };
 
   const socketUnsubscribe = () => {
@@ -81,8 +83,8 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
   return {
     start,
     clear,
-    completed,
+    pingCount,
     setInUse,
-    pingMs: completed ? pingDuration.current : [],
+    pingMs: pingDuration.current,
   };
 };

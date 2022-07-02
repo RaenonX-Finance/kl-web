@@ -9,13 +9,12 @@ export const toCandlestick = (useCandlestickDirection: boolean) => (bar: PxDataB
   time: bar.epochSec as UTCTimestamp,
   ...bar,
   ...(
-    useCandlestickDirection ?
-      {
-        color: colorOfCandlestickDirection[bar.candlestick],
-        borderColor: colorOfCandlestickDirection[bar.candlestick],
-        wickColor: colorOfCandlestickDirection[bar.candlestick],
-      } :
-      {}
+    useCandlestickDirection &&
+    {
+      color: colorOfCandlestickDirection[bar.candlestick],
+      borderColor: colorOfCandlestickDirection[bar.candlestick],
+      wickColor: colorOfCandlestickDirection[bar.candlestick],
+    }
   ),
 });
 
@@ -56,7 +55,7 @@ export const toLineData = <K extends ValidKeyForLineData>(
 
   return {
     time: bar.epochSec as UTCTimestamp,
-    color: colorOverride ? colorOverride(bar) : undefined,
+    color: colorOverride && colorOverride(bar),
     value,
   };
 };

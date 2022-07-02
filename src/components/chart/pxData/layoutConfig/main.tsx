@@ -62,7 +62,7 @@ export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props
                           configKey,
                           value: !enable,
                         })}
-                        disabled={isDisabled ? isDisabled(config) : false}
+                        disabled={isDisabled && isDisabled(config)}
                         active={enable}
                       >
                         {title}

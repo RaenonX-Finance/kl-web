@@ -12,14 +12,13 @@ export const CustomErrorPage = ({statusCode, title}: ErrorProps) => {
         {`HTTP 錯誤碼: ${statusCode}`}
       </p>
       {
-        title ?
-          <>
-            <hr/>
-            <p className="mb-0">
-              {`訊息: ${title}`}
-            </p>
-          </> :
-          <></>
+        title &&
+        <>
+          <hr/>
+          <p className="mb-0">
+            {`訊息: ${title}`}
+          </p>
+        </>
       }
     </Alert>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
 
+import {PING_TEST_COUNT} from './const';
 import {usePingSocket} from './hook';
 import {TimeAgo} from './main';
-import {SocketPingResultTable} from './pingResult';
+import {SocketPingResult} from './pingResult';
 import {TimeAgoProps} from './type';
 
 
@@ -14,7 +14,7 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
   ref,
 ) => {
   const [show, setShow] = React.useState(false);
-  const {completed, start, clear, setInUse, pingMs} = usePingSocket({count: 5});
+  const {pingCount, start, clear, setInUse, pingMs} = usePingSocket({count: PING_TEST_COUNT});
 
   const onOpen = () => {
     setShow(true);
@@ -36,11 +36,7 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
           <Modal.Title>延遲測試</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {
-            !completed ?
-              <div className="text-center"><Spinner animation="border"/></div> :
-              <SocketPingResultTable pingMs={pingMs}/>
-          }
+          <SocketPingResult pingCount={pingCount} pingMs={pingMs}/>
         </Modal.Body>
       </Modal>
     </>
