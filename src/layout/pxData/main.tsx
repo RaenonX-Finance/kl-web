@@ -11,10 +11,12 @@ export const PxDataMain = () => {
   const {data} = usePxDataSelector();
   const {layoutType} = useConfigSelector();
 
+  const LayoutComponent = pxDataLayout[layoutType];
+
   return (
     <PxDataSocketContext>
       <ErrorPopup/>
-      {pxDataLayout[layoutType](data)}
+      <LayoutComponent pxDataMap={data}/>
     </PxDataSocketContext>
   );
 };
