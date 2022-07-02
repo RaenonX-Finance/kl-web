@@ -21,6 +21,8 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
   const pingCountLeft = React.useRef(0);
   const pingStart = React.useRef(0);
   const pingDuration = React.useRef<number[]>([]);
+  // Use state to intentionally trigger re-render on complete
+  const [completed, setCompleted] = React.useState(false);
 
   if (!socket) {
     return {
@@ -37,6 +39,8 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
 
     if (pingCountLeft.current > 0) {
       ping();
+    } else {
+      setCompleted(true);
     }
 
     pingDuration.current.push(Date.now() - pingStart.current);
@@ -56,6 +60,7 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
     pingCountLeft.current = count;
     pingDuration.current = [];
     pingStart.current = 0;
+    setCompleted(false);
   };
 
   const socketUnsubscribe = () => {
@@ -72,8 +77,6 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
 
     return socketUnsubscribe;
   }, [socket, inUse]);
-
-  const completed = pingDuration.current.length === count;
 
   return {
     start,
