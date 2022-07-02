@@ -16,8 +16,6 @@ export type PxDataState = StateBase & {
   map: {[uniqueIdentifier in string]?: PxDataMapSlotNames},
 };
 
-export type PxDataSelectorReturn = PxDataState;
-
 export type PxDataUpdateChartMapEntry = {
   slot: PxDataMapSlotNames,
   uniqueIdentifier: string

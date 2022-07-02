@@ -1,9 +1,9 @@
 import {useSelector} from 'react-redux';
 
+import {PxData, PxDataMapSlotNames} from '../../types/pxData';
 import {ReduxState} from '../types';
-import {PxDataSelectorReturn} from './types';
 
 
-export const usePxDataSelector = (): PxDataSelectorReturn => {
-  return useSelector((state: ReduxState) => state.pxData);
+export const usePxDataSelector = (slot: PxDataMapSlotNames): PxData | null => {
+  return useSelector((state: ReduxState) => state.pxData.data[slot]);
 };

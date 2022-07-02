@@ -7,16 +7,14 @@ import {PxDataLayoutPane} from './pxData';
 import {LayoutProps} from './type';
 
 
-export const Layout1of1x1 = ({pxDataMap}: LayoutProps) => {
+export const Layout1of1x1 = ({}: LayoutProps) => {
   const {ref, width, height} = useResizeObserver<HTMLDivElement>();
-
-  const dataA = pxDataMap['A'];
 
   return (
     <LayoutBase refCallback={ref}>
       {!!width && !!height && (
         <>
-          <PxDataLayoutPane slot="A" pxData={dataA} x={0} y={0} width={width} height={height}/>
+          <PxDataLayoutPane slot="A" x={0} y={0} width={width} height={height}/>
         </>
       )}
     </LayoutBase>

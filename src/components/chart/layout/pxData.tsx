@@ -1,14 +1,14 @@
 import React from 'react';
 
 import {useCustomSrSelector} from '../../../state/customSr/selector';
-import {PxData, PxDataMapSlotNames} from '../../../types/pxData';
+import {usePxDataSelector} from '../../../state/pxData/selector';
+import {PxDataMapSlotNames} from '../../../types/pxData';
 import {getPxDataTitle} from '../../../utils/pxData';
 import {Loading} from '../../common/loading';
 import {PxDataChart} from '../pxData/main';
 
 
 type Props = {
-  pxData: PxData | null,
   slot: PxDataMapSlotNames,
   width: number,
   height: number,
@@ -16,7 +16,8 @@ type Props = {
   y: number,
 };
 
-export const PxDataLayoutPane = ({pxData, slot, width, height, x, y}: Props) => {
+export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
+  const pxData = usePxDataSelector(slot);
   const customSrLevels = useCustomSrSelector();
 
   const containerCss: React.CSSProperties = {

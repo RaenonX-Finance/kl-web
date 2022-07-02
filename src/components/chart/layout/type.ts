@@ -1,6 +1,1 @@
-import {PxDataMap} from '../../../types/pxData';
-
-
-export type LayoutProps = {
-  pxDataMap: PxDataMap
-};
+export type LayoutProps = {};
