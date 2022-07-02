@@ -1,7 +1,8 @@
-import {LastPriceAnimationMode} from 'lightweight-charts';
+import {BarsInfo, LastPriceAnimationMode} from 'lightweight-charts';
 
+import {PxDataBar} from '../../../../types/pxData';
 import {bearColor, bullColor} from './const';
-import {ColorOverridder} from './type';
+import {ColorOverridder, ExtremaPx, GetCurrentExtremaPxOptions} from './type';
 
 
 export const getAnimationMode = (enabled: boolean): LastPriceAnimationMode => (
@@ -18,4 +19,38 @@ export const getEmaColorOverridder = (emaPeriod: number): ColorOverridder => (ba
   }
 
   return bar.close > barEmaValue ? bullColor : bearColor;
+};
+
+export const getCurrentChartExtremaPx = ({chart, price, data}: GetCurrentExtremaPxOptions): ExtremaPx => {
+  const visibleRange = chart.timeScale().getVisibleLogicalRange();
+
+  if (!visibleRange) {
+    throw Error('No data in chart');
+  }
+
+  const barsInfo = price.barsInLogicalRange(visibleRange);
+
+  if (!barsInfo) {
+    throw Error(
+      'No available series data found in the requested range, ' +
+      'check https://tradingview.github.io/lightweight-charts/docs/api/interfaces/ISeriesApi#barsinlogicalrange',
+    );
+  }
+
+  return getExtremaPxOfRange(barsInfo, data);
+};
+
+export const getExtremaPxOfRange = (barsInfo: BarsInfo, data: PxDataBar[]): ExtremaPx => {
+  const {from, to} = barsInfo;
+
+  if (!from || !to) {
+    throw Error('Bars info does not include timestamps');
+  }
+
+  const bars = data.filter(({epochSec}) => epochSec >= from && epochSec <= to);
+
+  const maxPx = Math.max(...bars.map(({high}) => high));
+  const minPx = Math.min(...bars.map(({low}) => low));
+
+  return {minPx, maxPx};
 };

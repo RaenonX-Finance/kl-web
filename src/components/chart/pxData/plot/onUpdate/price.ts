@@ -8,7 +8,6 @@ export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxCh
   }
 
   const {price} = chartObjectRef.current.initData.series;
-
   const lastPrice = chartDataRef.current.data.at(-1);
 
   if (!lastPrice) {

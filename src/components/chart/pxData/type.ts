@@ -26,8 +26,14 @@ export type PxChartSeries = {
   emaStrongSr: PxChartEmaLinePair[],
 };
 
+export type PxChartExtremaSeries = {
+  min: IPriceLine,
+  max: IPriceLine,
+};
+
 export type PxChartLines = {
   srLevelLines: Record<number, Record<number, IPriceLine>>,
+  extrema: PxChartExtremaSeries,
 };
 
 export type PxChartLegendData = {
