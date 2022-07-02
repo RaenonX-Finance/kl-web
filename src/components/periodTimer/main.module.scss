@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "../../../styles/colors";
 
 span {
   $theme-running: #ababab;
@@ -11,7 +12,7 @@ span {
     }
 
     to {
-      background: unset;
+      background: colors.$color-chart-status-bg;
     }
   }
 
@@ -21,11 +22,12 @@ span {
     }
 
     to {
-      background: unset;
+      background: colors.$color-chart-status-bg;
     }
   }
 
   &.period-timer {
+    background-color: colors.$color-chart-status-bg;
     border-radius: 0.5rem;
     padding: 0 0.5rem;
     display: inline;

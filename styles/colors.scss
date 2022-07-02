@@ -60,4 +60,6 @@ $color-hr: color.change($color-bw-170, $alpha: 0.5);
 $color-section: color.adjust($color-body-bg, $lightness: 3%);
 $color-section-border: color.adjust($color-body-bg, $lightness: 15%);
 
+$color-chart-status-bg: rgba(5 5 5 / 77%);
+
 // endregion

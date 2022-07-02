@@ -3,7 +3,7 @@
     background: #c20000;
   }
   to {
-    background: unset;
+    background: rgba(5, 5, 5, 0.77);
   }
 }
 @keyframes warning-light {
@@ -11,10 +11,11 @@
     box-shadow: inset 0 0 1rem #9ca62b;
   }
   to {
-    background: unset;
+    background: rgba(5, 5, 5, 0.77);
   }
 }
 span.period-timer {
+  background-color: rgba(5, 5, 5, 0.77);
   border-radius: 0.5rem;
   padding: 0 0.5rem;
   display: inline;

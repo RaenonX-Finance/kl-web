@@ -1,3 +1,5 @@
+@use "../../../../styles/colors";
+
 @mixin overlay {
   position: absolute;
   z-index: 1000;
@@ -41,10 +43,11 @@ span.update-animation {
     }
 
     to {
-      background: unset;
+      background: colors.$color-chart-status-bg;
     }
   }
 
+  background-color: colors.$color-chart-status-bg;
   border: 1px solid $update-theme;
   cursor: pointer;
   padding: 0 0.5rem;

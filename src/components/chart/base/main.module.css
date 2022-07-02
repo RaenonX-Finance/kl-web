@@ -23,6 +23,7 @@ div.status {
 }
 
 span.update-animation {
+  background-color: rgba(5, 5, 5, 0.77);
   border: 1px solid #325bc2;
   cursor: pointer;
   padding: 0 0.5rem;
@@ -34,7 +35,7 @@ span.update-animation {
     background: #325bc2;
   }
   to {
-    background: unset;
+    background: rgba(5, 5, 5, 0.77);
   }
 }
 
