@@ -18,8 +18,6 @@ export type ConfigState = StateBase & {
   layoutConfig: {[name in PxDataMapSlotNames]: PxChartLayoutConfigState},
 };
 
-export type ConfigSelectorReturn = ConfigState;
-
 export type LayoutConfigUpdatePayload = {
   slot: PxDataMapSlotNames,
   configKey: PxChartLayoutConfigKeys,

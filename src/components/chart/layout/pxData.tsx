@@ -18,7 +18,7 @@ type Props = {
 
 export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
   const pxData = usePxDataSelector(slot);
-  const customSrLevels = useCustomSrSelector();
+  const customSrLevels = useCustomSrSelector(pxData?.contract.symbol) || [];
 
   const containerCss: React.CSSProperties = {
     position: 'absolute',
@@ -43,9 +43,7 @@ export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
               title={getPxDataTitle(pxData)}
               slot={slot}
               chartData={pxData}
-              payload={{
-                customSrLevels: customSrLevels[pxData.contract.symbol],
-              }}
+              payload={{customSrLevels}}
               height={height}
               width={width}
             />

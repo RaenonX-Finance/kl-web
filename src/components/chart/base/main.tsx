@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
 import {configDispatchers} from '../../../state/config/dispatchers';
-import {useConfigSelector} from '../../../state/config/selector';
+import {useLayoutSingleConfigSelector} from '../../../state/config/selector';
 import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../state/config/types';
 import {useDispatch} from '../../../state/store';
 import {PxDataMapSlotNames} from '../../../types/pxData';
@@ -53,7 +53,7 @@ export const TradingViewChart = <T, P, R, L>({
   });
   const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
-  const layoutConfig = useConfigSelector().layoutConfig[slot];
+  const layoutConfig = useLayoutSingleConfigSelector(slot);
   const dispatch = useDispatch();
 
   const setObject = {
