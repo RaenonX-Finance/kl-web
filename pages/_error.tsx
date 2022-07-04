@@ -3,7 +3,7 @@ import React from 'react';
 import {NextPageContext} from 'next';
 import {ErrorProps} from 'next/error';
 
-import {CustomErrorPage} from '../src/layout/error/main';
+import {CustomErrorPage} from '../src/pages/error/main';
 
 
 const ErrorPage = (props: ErrorProps) => {
@@ -21,5 +21,4 @@ ErrorPage.getInitialProps = ({res, err}: NextPageContext) => {
   return {statusCode};
 };
 
-// noinspection JSUnusedGlobalSymbols
 export default ErrorPage;

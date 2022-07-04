@@ -1,11 +1,11 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 
 import {isPagePath} from '../../../const/path';
-import {useSession} from '../../../mock/authSession';
 import styles from '../main.module.scss';
 import {NavItemPath} from '../type';
 

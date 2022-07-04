@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {GeneralPath} from '../../const/path';
+import {LogoutNavButton} from '../auth/logout/main';
 import {ChartLayoutSelector} from '../chart/layoutSelector/main';
 import {NavItemCollection} from './type';
 
@@ -28,5 +29,9 @@ export const navItemsAtRight: NavItemCollection = [
   {
     type: 'component',
     renderComponent: () => <ChartLayoutSelector/>,
+  },
+  {
+    type: 'component',
+    renderComponent: () => <LogoutNavButton/>,
   },
 ];

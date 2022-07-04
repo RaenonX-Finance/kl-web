@@ -52,5 +52,4 @@ const config: Config.InitialOptions = {
   ],
 };
 
-// noinspection JSUnusedGlobalSymbols
 export default config;

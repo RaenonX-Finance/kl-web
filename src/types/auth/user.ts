@@ -1,8 +1,44 @@
+export type ISOTimestampWithTimezone =
+  `${number}-${number}-${number}T${number}:${number}:${number}.${number}+${number}:${number}`;
+
+/**
+ * Permission names.
+ *
+ * This should have the same definition as `Permission` in the backend.
+ */
+export type Permission =
+  'chart:view' |
+  'manager:add' |
+  'manager:remove' |
+  'account:new' |
+  'account:block' |
+  'account:delete';
+
+/**
+ * User data model returned by calling the `userinfo` URL defined in `next-auth` custom OAuth provider config.
+ *
+ * This should have the same schema as `UserDataModel` in the backend.
+ */
+export type UserModelOriginal = {
+  _id: string,
+  account_id: string,
+  email: `${string}@${string}.${string}` | null,
+  expiry: ISOTimestampWithTimezone | null,
+  blocked: boolean,
+  admin: boolean,
+  permissions: Permission[],
+};
+
+/**
+ * User data model being used when `useSession()` from `next-auth/react` is called.
+ *
+ * This does not necessarily have the same structure as {@link UserModelOriginal}.
+*/
 export type UserModel = {
   id: string,
-  name: string,
-  email: string,
-  image: string
-  isAdmin: boolean,
-  memberExpiry: Date,
+  accountId: UserModelOriginal['account_id'],
+  email: UserModelOriginal['email'],
+  isAdmin: UserModelOriginal['admin'],
+  expiry: Date | null,
+  permissions: UserModelOriginal['permissions'],
 };

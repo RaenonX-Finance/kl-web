@@ -4,7 +4,7 @@ export enum GeneralPath {
 }
 
 export enum AuthPath {
-  SIGN_IN = '/auth/signin',
+  LOGIN = '/auth/login',
 }
 
 export type PagePath = GeneralPath | AuthPath;

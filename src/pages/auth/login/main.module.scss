@@ -1,0 +1,21 @@
+@use "sass:color";
+@use "../../../../styles/colors";
+@use "../../../../styles/utils";
+
+$button-bg-color: color.adjust(colors.$color-bw-50, $lightness: -5%);
+$button-distance: 0.85vw;
+
+div {
+  &.provider-frame {
+    @extend %flex-center;
+  }
+}
+
+button {
+  &.provider-button {
+    border: 0;
+    background-color: $button-bg-color;
+    font-size: 2rem;
+    margin: 0 $button-distance;
+  }
+}
