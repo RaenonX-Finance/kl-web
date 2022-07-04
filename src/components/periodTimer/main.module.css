@@ -2,34 +2,39 @@
   from {
     background: #c20000;
   }
+
   to {
-    background: rgba(5, 5, 5, 0.77);
+    background: rgb(5 5 5 / 77%);
   }
 }
+
 @keyframes warning-light {
   from {
     box-shadow: inset 0 0 1rem #9ca62b;
   }
+
   to {
-    background: rgba(5, 5, 5, 0.77);
+    background: rgb(5 5 5 / 77%);
   }
 }
+
 span.period-timer {
-  background-color: rgba(5, 5, 5, 0.77);
+  background-color: rgb(5 5 5 / 77%);
   border-radius: 0.5rem;
   padding: 0 0.5rem;
   display: inline;
 }
+
 span.period-timer.period-timer-running {
   border: 1px solid #ababab;
 }
+
 span.period-timer.period-timer-warning {
   border: 1px solid #9ca62b;
   animation: 1s warning-light;
 }
+
 span.period-timer.period-timer-closing {
   border: 1px solid #c20000;
   animation: 1s closing-light;
 }
-
-/*# sourceMappingURL=main.module.css.map */

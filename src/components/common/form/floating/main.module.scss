@@ -41,18 +41,15 @@ div {
 input,
 select {
   // Fix auto-complete bad styling
-  &.override-autofill {
-    &:-webkit-autofill,
-    &:-webkit-autofill {
-      &,
-      &:hover,
-      &:focus,
-      &:active, {
-        -webkit-text-fill-color: white !important;
-        caret-color: white;
-        transition: background-color 2147483647s ease-in-out 0s;
-        transition-delay: 2147483647s;
-      }
+  &.override-autofill:-webkit-autofill {
+    &,
+    &:hover,
+    &:focus,
+    &:active, {
+      -webkit-text-fill-color: white !important;
+      caret-color: white;
+      transition: background-color 2147483647s ease-in-out 0s;
+      transition-delay: 2147483647s;
     }
   }
 }
