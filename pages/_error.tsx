@@ -17,7 +17,7 @@ ErrorPage.getInitialProps = ({res, err}: NextPageContext): ErrorProps => {
     window.newrelic.noticeError(err);
   }
 
-  const statusCode = (res ? res.statusCode : err ? err.statusCode : 404) || 404;
+  const statusCode = (res ? res.statusCode : err ? err.statusCode : 500) || 404;
   return {statusCode, title: err?.message};
 };
 
