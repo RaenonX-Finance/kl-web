@@ -43,7 +43,7 @@ export default NextAuth({
   },
   // UI customizations
   pages: {
-    signIn: AuthPath.LOGIN,
+    signIn: AuthPath.LOGIN_REDIRECT,
   },
   // Needed for custom user object as stated in the link below
   // https://github.com/nextauthjs/next-auth/discussions/2762#discussioncomment-1332952

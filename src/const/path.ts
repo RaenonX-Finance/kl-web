@@ -1,10 +1,11 @@
 export enum GeneralPath {
-  CHART = '/chart',
+  CHART = '/',
   ACCOUNT_INFO = '/info',
 }
 
 export enum AuthPath {
   LOGIN = '/auth/login',
+  LOGIN_REDIRECT = '/auth/login-redirect',
 }
 
 export type PagePath = GeneralPath | AuthPath;
