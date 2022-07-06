@@ -1,3 +1,4 @@
+import {getConfig} from '../../../../../../state/config/utils';
 import {toLineData} from '../../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../../type';
 import {getAnimationMode} from '../../utils';
@@ -22,8 +23,8 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
 
   const pxLine = toLineData(keyForLineData)(lastPrice);
 
-  const visible = layoutConfig[keyOfConfig];
-  const visibleLabel = layoutConfig[keyOfConfigLabel];
+  const visible = getConfig(layoutConfig, keyOfConfig);
+  const visibleLabel = getConfig(layoutConfig, keyOfConfigLabel);
 
   series.update(pxLine);
   series.applyOptions({

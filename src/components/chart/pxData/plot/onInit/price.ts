@@ -1,5 +1,6 @@
 import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
+import {getConfig} from '../../../../../state/config/utils';
 import {toCandlestick} from '../../dataConvert';
 import {OnPxChartInitEvent} from '../../type';
 import {bearColor, bullColor, currentPxColor} from '../const';
@@ -17,7 +18,7 @@ export const handlePrice = ({
     priceFormat: {
       minMove: chartDataRef.current.contract.minTick,
     },
-    priceLineVisible: layoutConfig.currentPxLine,
+    priceLineVisible: getConfig(layoutConfig, 'currentPxLine'),
     priceLineWidth: 1,
     priceLineStyle: LineStyle.Dotted,
     upColor: bullColor,
@@ -28,7 +29,7 @@ export const handlePrice = ({
     wickDownColor: bearColor,
     priceLineColor: currentPxColor,
   });
-  price.setData(chartDataRef.current.data.map(toCandlestick(layoutConfig.candlestickColor)));
+  price.setData(chartDataRef.current.data.map(toCandlestick(getConfig(layoutConfig, 'candlestickColor'))));
 
   return price;
 };

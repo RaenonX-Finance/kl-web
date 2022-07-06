@@ -1,5 +1,6 @@
 import {ISeriesApi} from 'lightweight-charts';
 
+import {getConfig} from '../../../../../state/config/utils';
 import {OnPxChartUpdatedEvent} from '../../type';
 import {getSrLevelGroupColor, srLevelCommonOptions} from '../const';
 
@@ -60,7 +61,7 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     return;
   }
 
-  if (!layoutConfig.srLevel) {
+  if (!getConfig(layoutConfig, 'srLevel')) {
     // No data available / layout config not enabled, remove all Px lines
     removePxLines(e, leftoverLevels, priceSeries);
     return;
@@ -75,13 +76,14 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
 
     for (const level of group) {
       const priceLine = chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level];
+      const axisLabelVisible = getConfig(layoutConfig, 'srLevelLabel');
 
       if (priceLine) {
-        priceLine.applyOptions({axisLabelVisible: layoutConfig.srLevelLabel});
+        priceLine.applyOptions({axisLabelVisible});
       } else {
         chartObjectRef.current.initData.lines.srLevelLines[idxGroup][level] = priceSeries.createPriceLine({
           price: level,
-          axisLabelVisible: layoutConfig.srLevelLabel,
+          axisLabelVisible,
           color: getSrLevelGroupColor(idxGroup),
           ...srLevelCommonOptions,
         });

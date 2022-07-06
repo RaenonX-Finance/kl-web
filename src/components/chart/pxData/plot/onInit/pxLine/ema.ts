@@ -1,5 +1,6 @@
 import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
+import {getConfig} from '../../../../../../state/config/utils';
 import {PxDataEmaPeriodPair} from '../../../../../../types/pxData';
 import {toLineData} from '../../../dataConvert';
 import {OnPxChartInitEvent, PxChartLayoutConfigKeys} from '../../../type';
@@ -38,8 +39,8 @@ export const createEmaLine = ({
     throw new Error('Adding EMA net lines while the chart is not ready');
   }
 
-  const visible = layoutConfig[keyOfConfig];
-  const visiableLabel = layoutConfig[keyOfConfigLabel];
+  const visible = getConfig(layoutConfig, keyOfConfig);
+  const visibleLabel = getConfig(layoutConfig, keyOfConfigLabel);
 
   const emaLine = chartRef.current.addLineSeries({
     color: emaLineColors[periodType],
@@ -48,7 +49,7 @@ export const createEmaLine = ({
     lineStyle: specialStyleOnSlow ? lineStyleMap[periodType] : LineStyle.Solid,
     lastPriceAnimation: getAnimationMode(visible),
     priceLineVisible: false, // Disable vertical Px line
-    lastValueVisible: visiableLabel, // Disable label
+    lastValueVisible: visibleLabel, // Disable label
     crosshairMarkerVisible: false,
     visible,
   });

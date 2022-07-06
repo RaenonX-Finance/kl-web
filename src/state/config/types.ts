@@ -11,7 +11,7 @@ export enum ConfigDispatcherName {
   UPDATE_LAYOUT_CONFIG = 'updateLayoutConfig',
 }
 
-export type PxChartLayoutConfigState = {[key in PxChartLayoutConfigKeys]: boolean};
+export type PxChartLayoutConfigState = {[key in PxChartLayoutConfigKeys]?: boolean};
 
 export type ConfigState = StateBase & {
   layoutType: LayoutType,

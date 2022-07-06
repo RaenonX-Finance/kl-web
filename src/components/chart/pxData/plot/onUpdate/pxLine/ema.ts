@@ -1,5 +1,6 @@
 import {ISeriesApi} from 'lightweight-charts';
 
+import {getConfig} from '../../../../../../state/config/utils';
 import {PxDataBar, PxDataEmaPeriodPair} from '../../../../../../types/pxData';
 import {toLineData} from '../../../dataConvert';
 import {OnPxChartUpdatedEvent, PxChartLayoutConfigKeys} from '../../../type';
@@ -31,8 +32,8 @@ export const updateEma = ({
   const {layoutConfig} = e;
 
   const pxLine = toLineData(`ema${periodPair[periodType]}`, colorOverride)(lastPx);
-  const visible = layoutConfig[keyofConfig];
-  const visibleLabel = layoutConfig[keyOfConfigLabel];
+  const visible = getConfig(layoutConfig, keyofConfig);
+  const visibleLabel = getConfig(layoutConfig, keyOfConfigLabel);
 
   series.update(pxLine);
   series.applyOptions({
