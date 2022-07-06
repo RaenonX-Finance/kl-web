@@ -1,8 +1,9 @@
+import {getConfig} from '../../../../../state/config/utils';
 import {OnPxChartUpdatedEvent} from '../../type';
 import {getCurrentChartExtremaPx} from '../utils';
 
 
-export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef}: OnPxChartUpdatedEvent) => {
+export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef, layoutConfig}: OnPxChartUpdatedEvent) => {
   if (!chartRef.current || !chartObjectRef.current) {
     return;
   }
@@ -14,6 +15,17 @@ export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef}: OnPxChar
     price: chartObjectRef.current.initData.series.price,
   });
 
-  min.applyOptions({price: minPx});
-  max.applyOptions({price: maxPx});
+  const inChartExtrema = getConfig(layoutConfig, 'inChartExtrema');
+  const inChartExtremaLabel = inChartExtrema && getConfig(layoutConfig, 'inChartExtremaLabel');
+
+  min.applyOptions({
+    price: minPx,
+    lineVisible: inChartExtrema,
+    axisLabelVisible: inChartExtremaLabel,
+  });
+  max.applyOptions({
+    price: maxPx,
+    lineVisible: inChartExtrema,
+    axisLabelVisible: inChartExtremaLabel,
+  });
 };

@@ -6,6 +6,10 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     title: '現價水平線',
     group: '圖表',
   },
+  inChartExtrema: {
+    title: '圖內高低點',
+    group: '圖表',
+  },
   tiePointLabel: {
     title: '多空線',
     group: '標籤',
@@ -25,6 +29,11 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     title: '黃金撐壓線',
     group: '標籤',
     isDisabled: ({srLevel}) => !srLevel,
+  },
+  inChartExtremaLabel: {
+    title: '圖內高低點',
+    group: '標籤',
+    isDisabled: ({inChartExtrema}) => !inChartExtrema,
   },
   candlestickColor: {
     title: '紅綠量能',

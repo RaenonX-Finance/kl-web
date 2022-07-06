@@ -59,7 +59,9 @@ export type PxChartLayoutConfigKeys =
   'tiePoint' |
   'emaNet' |
   'emaStrongSr' |
-  'srLevel';
+  'srLevel' |
+  'inChartExtrema' |
+  'inChartExtremaLabel';
 
 export type PxChartLayoutConfigEntry = {
   title: string,

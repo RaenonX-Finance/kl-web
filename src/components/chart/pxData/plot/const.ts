@@ -55,8 +55,6 @@ export const tiePointLabel = 'L/S';
 
 export const extremaCommonOptions: ExtremaCommonOptions = {
   color: '#606569',
-  axisLabelVisible: true,
   lineStyle: LineStyle.Dotted,
   lineWidth: 2,
-  lineVisible: true,
 };
