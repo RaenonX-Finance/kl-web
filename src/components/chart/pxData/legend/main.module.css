@@ -15,11 +15,11 @@ span.main-content {
 }
 div.val-neutral,
 span.val-neutral {
-  color: #26a69a;
+  color: #d7d7d7;
 }
 div.val-up,
 span.val-up {
-  color: #26a69a;
+  color: #ef5350;
 }
 div.val-down,
 span.val-down {

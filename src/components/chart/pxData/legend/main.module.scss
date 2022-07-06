@@ -5,7 +5,7 @@ div,
 span {
   @mixin value-style($name, $color) {
     &.val-#{$name} {
-      color: colors.$color-down;
+      color: $color;
     }
   }
 
