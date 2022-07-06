@@ -8,5 +8,5 @@ export const getInitialConfigSingle = () : PxChartLayoutConfigState => ({
 });
 
 export const getConfig = (config: PxChartLayoutConfigState, key: PxChartLayoutConfigKeys): boolean => {
-  return config[key] || initialConfig[key];
+  return config[key] ?? initialConfig[key];
 };
