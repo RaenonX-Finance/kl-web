@@ -1,0 +1,7 @@
+@use "../../../styles/colors";
+
+div {
+  &.error-modal {
+    background-color: colors.$color-dark-red;
+  }
+}
