@@ -4,6 +4,18 @@ div.provider-frame {
   align-items: center;
 }
 
+div.login-error {
+  animation: 750ms login-error-animation;
+}
+@keyframes login-error-animation {
+  0% {
+    color: white;
+  }
+  100% {
+    color: #ff4457;
+  }
+}
+
 button.provider-button {
   border: 0;
   background-color: #252525;

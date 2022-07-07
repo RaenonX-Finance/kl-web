@@ -4,8 +4,8 @@ import {getProviders} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import {AuthCustomLoginForm} from './custom';
 import {AuthLoginError} from './error';
+import {AuthCustomLoginForm} from './form/main';
 import {AuthLoginLogo} from './logo';
 import {AuthLoginProviders} from './providers';
 

@@ -5,15 +5,22 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
+import {errorDispatchers} from '../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../state/error/types';
+import {useDispatch} from '../../../state/store';
 import {CUSTOM_PROVIDER_ID} from '../../../types/auth/const';
 
 
 export const LoginRequired = () => {
   const [disabled, setDisabled] = React.useState(false);
+  const dispatch = useDispatch();
 
   const onClick = async () => {
     setDisabled(true);
-    signIn(CUSTOM_PROVIDER_ID).catch(console.error);
+    signIn(CUSTOM_PROVIDER_ID).catch((error) => {
+      console.error(error);
+      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: JSON.stringify(error)}));
+    });
   };
 
   return (

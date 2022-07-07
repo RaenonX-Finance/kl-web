@@ -9,6 +9,20 @@ div {
   &.provider-frame {
     @extend %flex-center;
   }
+
+  &.login-error {
+    @keyframes login-error-animation {
+      0% {
+        color: white;
+      }
+
+      100% {
+        color: colors.$color-danger;
+      }
+    }
+
+    animation: 750ms login-error-animation;
+  }
 }
 
 button {

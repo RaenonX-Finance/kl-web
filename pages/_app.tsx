@@ -5,6 +5,7 @@ import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Container from 'react-bootstrap/Container';
 
+import {ErrorPopup} from '../src/components/error/popup';
 import {Navigation} from '../src/components/nav/main';
 import {ReduxProvider} from '../src/state/provider';
 
@@ -25,6 +26,7 @@ const NextApp = ({
     <React.StrictMode>
       <ReduxProvider>
         <SessionProvider session={session}>
+          <ErrorPopup/>
           <Navigation/>
           <div id="body">
             <Container fluid className="h-100 p-0 position-relative">

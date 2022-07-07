@@ -6,12 +6,16 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
-export const AuthLoginError = () => {
+type Props = {
+  errorMessage?: string,
+};
+
+export const AuthLoginError = ({errorMessage}: Props) => {
   const {query} = useRouter();
 
-  const errorCode = query.error as string;
+  const error = query.error as string || errorMessage;
 
-  if (!errorCode) {
+  if (!error) {
     return <></>;
   }
 
@@ -19,7 +23,7 @@ export const AuthLoginError = () => {
     <Row>
       <Col>
         <Alert variant="danger">
-          登入失敗: &nbsp;{errorCode}
+          登入失敗: &nbsp;{error}
         </Alert>
       </Col>
     </Row>
