@@ -1,0 +1,21 @@
+@use "sass:color";
+@use "../../../../../styles/colors";
+
+button {
+  &.config-button {
+    // This has to be the same as the config button variant
+    $theme-color: colors.$color-mild-info;
+
+    &:hover {
+      color: white;
+      background-color: transparent;
+      border-color: $theme-color;
+
+      &:active,
+      &[class*="active"] {
+        background-color: $theme-color;
+        border-color: $theme-color;
+      }
+    }
+  }
+}

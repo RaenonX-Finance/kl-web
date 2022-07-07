@@ -9,6 +9,7 @@ $custom-theme-colors: (
   "orange": colors.$color-orange,
   "light-gray": colors.$color-bw-170,
   // Extended theme colors
+  "mild-info": colors.$color-mild-info,
   "dark-primary": colors.$color-dark-primary,
   "dark-info": colors.$color-dark-info,
   "dark-success": colors.$color-dark-success,
@@ -38,6 +39,7 @@ $utilities: map.merge(
       values: map.merge(
         $theme-colors,
         (
+          "mild-info": colors.$color-mild-info,
           "dark-primary": colors.$color-dark-primary,
           "dark-info": colors.$color-dark-info,
           "dark-success": colors.$color-dark-success,

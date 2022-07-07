@@ -1,0 +1,11 @@
+button.config-button:hover {
+  color: white;
+  background-color: transparent;
+  border-color: #0aaecf;
+}
+button.config-button:hover:active, button.config-button:hover[class*=active] {
+  background-color: #0aaecf;
+  border-color: #0aaecf;
+}
+
+/*# sourceMappingURL=main.module.css.map */

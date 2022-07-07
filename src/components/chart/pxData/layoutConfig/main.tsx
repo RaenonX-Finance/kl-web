@@ -8,6 +8,7 @@ import {LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../../s
 import {PxDataMapSlotNames} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
 import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
+import styles from './main.module.scss';
 
 
 type Props = {
@@ -46,7 +47,7 @@ export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props
             {Object.entries(configEntriesUiGroup)
               .map(([groupName, entryObj]) => (
                 <React.Fragment key={groupName}>
-                  <h5>{groupName}</h5>
+                  <h5 className="mb-3">{groupName}</h5>
                   {Object.entries(entryObj).map(([key, entry]) => {
                     const configKey = key as PxChartLayoutConfigKeys;
                     const {title, isDisabled} = entry;
@@ -54,9 +55,9 @@ export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props
 
                     return (
                       <Button
-                        className="w-100 mb-3 bg-gradient"
+                        className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
                         key={key}
-                        variant="outline-info"
+                        variant="outline-mild-info"
                         onClick={() => setConfig({
                           slot,
                           configKey,
