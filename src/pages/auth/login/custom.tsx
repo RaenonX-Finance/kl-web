@@ -2,6 +2,7 @@ import React, {FormEvent} from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
 import {FloatingInput} from '../../../components/common/form/floating/input';
 import {getNextAuthCallbackUrl, requestOAuth2Token} from '../../../utils/auth';
@@ -10,9 +11,11 @@ import {getNextAuthCallbackUrl, requestOAuth2Token} from '../../../utils/auth';
 export const AuthCustomLoginForm = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [disabled, setDisabled] = React.useState(false);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDisabled(true);
 
     const {data} = await requestOAuth2Token(username, password);
 
@@ -35,8 +38,8 @@ export const AuthCustomLoginForm = () => {
         onChange={({target}) => setPassword(target.value)}
         className="mb-3"
       />
-      <Button className="w-100" type="submit">
-        登入
+      <Button className="w-100" type="submit" onClick={() => ''} disabled={disabled}>
+        {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}登入
       </Button>
     </Form>
   );
