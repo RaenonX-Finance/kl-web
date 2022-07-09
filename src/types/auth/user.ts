@@ -21,7 +21,7 @@ export type Permission =
  */
 export type UserModelOriginal = {
   _id: string,
-  account_id: string,
+  username: string,
   email: `${string}@${string}.${string}` | null,
   expiry: ISOTimestampWithTimezone | null,
   blocked: boolean,
@@ -36,7 +36,7 @@ export type UserModelOriginal = {
 */
 export type UserModel = {
   id: string,
-  accountId: UserModelOriginal['account_id'],
+  username: UserModelOriginal['username'],
   email: UserModelOriginal['email'],
   isAdmin: UserModelOriginal['admin'],
   expiry: Date | null,

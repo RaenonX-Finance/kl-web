@@ -17,7 +17,7 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
   clientSecret: process.env.NEXTAUTH_CLIENT_SECRET,
   profile: (profile) => ({
     id: profile._id,
-    accountId: profile.account_id,
+    username: profile.username,
     email: profile.email,
     isAdmin: profile.admin,
     expiry: profile.expiry && new Date(profile.expiry),
