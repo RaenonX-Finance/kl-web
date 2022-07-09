@@ -1,9 +1,8 @@
 import React, {FormEvent} from 'react';
 
-import {AxiosError} from 'axios';
+import {AxiosError, AxiosResponse} from 'axios';
 import Form from 'react-bootstrap/Form';
 
-import {errorDetailTranslation, isTranslatedErrorDetail} from '../../pages/auth/login/form/type';
 import {AjaxFormError} from './error';
 import {AjaxFormData} from './type';
 
@@ -12,10 +11,11 @@ type Props<D extends AjaxFormData> = React.PropsWithChildren<{
   data: D,
   setData: React.Dispatch<React.SetStateAction<D>>,
   onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>,
+  getError: (response: AxiosResponse) => string | null,
 }>;
 
 export const AjaxForm = <D extends AjaxFormData>({
-  data, setData, onSubmit, children,
+  data, setData, onSubmit, getError, children,
 }: Props<D>) => {
   const {error} = data;
 
@@ -32,13 +32,11 @@ export const AjaxForm = <D extends AjaxFormData>({
     } catch (caughtError) {
       const isAxiosError = caughtError instanceof AxiosError;
       const response = isAxiosError ? caughtError.response : undefined;
-      const detail = response?.data?.detail;
       // Status could be `0` for network error
       const error = response && !!response.status ?
         (
-          isTranslatedErrorDetail(detail) ?
-            errorDetailTranslation[response.data.detail] :
-            `${response.status} ${response.statusText} - ${JSON.stringify(response.data)}`
+          getError(response) ??
+          `${response.status} ${response.statusText} - ${JSON.stringify(response.data)}`
         ) :
         (
           isAxiosError ?

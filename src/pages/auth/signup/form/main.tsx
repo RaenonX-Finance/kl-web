@@ -1,18 +1,24 @@
 import React from 'react';
 
+import {signIn} from 'next-auth/react';
 import {useRouter} from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {AjaxForm} from '../../../../components/form/main';
-import {GeneralPath} from '../../../../const/path';
+import {errorDispatchers} from '../../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../../state/error/types';
+import {useDispatch} from '../../../../state/store';
+import {CUSTOM_PROVIDER_ID} from '../../../../types/auth/const';
 import {apiSignupUser} from '../../../../utils/api/auth';
+import {getErrorFromResponse} from '../../common/utils';
 import {UserSignupFormData} from './type';
 
 
 export const AuthSignupForm = () => {
   const {query} = useRouter();
+  const dispatch = useDispatch();
   const [data, setData] = React.useState<UserSignupFormData>({
     username: '',
     password: '',
@@ -25,18 +31,21 @@ export const AuthSignupForm = () => {
   const onSubmit = async () => {
     await apiSignupUser({username, password, signupKey});
 
-    window.location.assign(GeneralPath.CHART);
+    signIn(CUSTOM_PROVIDER_ID).catch((error) => {
+      console.error(error);
+      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: JSON.stringify(error)}));
+    });
   };
 
   return (
-    <AjaxForm data={data} setData={setData} onSubmit={onSubmit}>
+    <AjaxForm data={data} setData={setData} onSubmit={onSubmit} getError={getErrorFromResponse}>
       <FloatingInput
         type="text"
         label="註冊金鑰"
         value={signupKey}
         onChange={({target}) => setData({...data, signupKey: target.value})}
         className="mb-3"
-        required
+        // required
       />
       <FloatingInput
         type="text"

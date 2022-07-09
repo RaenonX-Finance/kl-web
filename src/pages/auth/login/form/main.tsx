@@ -10,6 +10,7 @@ import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {AjaxForm} from '../../../../components/form/main';
 import {AuthPath} from '../../../../const/path';
 import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/auth';
+import {getErrorFromResponse} from '../../common/utils';
 import {CustomLoginFormData} from './type';
 
 
@@ -29,7 +30,7 @@ export const AuthCustomLoginForm = () => {
   };
 
   return (
-    <AjaxForm data={data} setData={setData} onSubmit={onSubmit}>
+    <AjaxForm data={data} setData={setData} onSubmit={onSubmit} getError={getErrorFromResponse}>
       <FloatingInput
         type="text"
         label="帳號 ID"
