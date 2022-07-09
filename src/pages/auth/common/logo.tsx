@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
-export const AuthLoginLogo = () => {
+export const AuthLogo = () => {
   return (
     <Row className="text-center mb-3">
       <Col>

@@ -1,12 +1,9 @@
 import React from 'react';
 
 import {getProviders} from 'next-auth/react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
-import {AuthLoginError} from './error';
+import {AuthPage} from '../common/page';
 import {AuthCustomLoginForm} from './form/main';
-import {AuthLoginLogo} from './logo';
 import {AuthLoginProviders} from './providers';
 
 
@@ -16,13 +13,9 @@ export type AuthLoginPageProps = {
 
 export const AuthLoginPage = ({providers}: AuthLoginPageProps) => {
   return (
-    <Row className="h-100 align-items-center mx-3 mx-md-0">
-      <Col md={{span: 6, offset: 3}} lg={{span: 4, offset: 4}}>
-        <AuthLoginLogo/>
-        <AuthLoginError/>
-        <AuthCustomLoginForm/>
-        <AuthLoginProviders providers={providers}/>
-      </Col>
-    </Row>
+    <AuthPage>
+      <AuthCustomLoginForm/>
+      <AuthLoginProviders providers={providers}/>
+    </AuthPage>
   );
 };
