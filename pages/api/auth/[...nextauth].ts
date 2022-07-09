@@ -12,7 +12,7 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
   type: 'oauth',
   authorization: `${process.env.NEXTAUTH_URL}/auth/login`,
   token: process.env.NEXT_PUBLIC_AUTH_URL_TOKEN,
-  userinfo: 'http://localhost:8000/auth/me',
+  userinfo: `${process.env.NEXTAUTH_URL}/auth/me`,
   clientId: process.env.NEXTAUTH_CLIENT_ID,
   clientSecret: process.env.NEXTAUTH_CLIENT_SECRET,
   profile: (profile) => ({
