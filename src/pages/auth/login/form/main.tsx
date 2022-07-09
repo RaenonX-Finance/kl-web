@@ -9,7 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {AjaxForm} from '../../../../components/form/main';
 import {AuthPath} from '../../../../const/path';
-import {getNextAuthCallbackUrl, requestOAuth2Token} from '../../../../utils/auth';
+import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/auth';
 import {CustomLoginFormData} from './type';
 
 
@@ -23,9 +23,9 @@ export const AuthCustomLoginForm = () => {
   const {username, password, disabled} = data;
 
   const onSubmit = async () => {
-    const {data} = await requestOAuth2Token(username, password);
+    const {data} = await apiRequestOAuth2Token({username, password});
 
-    window.location.assign(getNextAuthCallbackUrl(data.access_token));
+    window.location.assign(apiGetNextAuthCallbackUrl(data.access_token));
   };
 
   return (

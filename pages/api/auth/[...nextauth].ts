@@ -11,8 +11,8 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
   name: 'KL Site',
   type: 'oauth',
   authorization: `${process.env.NEXTAUTH_URL}/auth/login`,
-  token: process.env.NEXT_PUBLIC_AUTH_URL_TOKEN,
-  userinfo: `${process.env.NEXTAUTH_URL}/auth/me`,
+  token: `${process.env.NEXT_PUBLIC_API_URL}/auth/token`,
+  userinfo: `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
   clientId: process.env.NEXTAUTH_CLIENT_ID,
   clientSecret: process.env.NEXTAUTH_CLIENT_SECRET,
   profile: (profile) => ({
