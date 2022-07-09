@@ -21,7 +21,7 @@ const RenderWrapper = ({store, options, children}: React.PropsWithChildren<Wrapp
     expires: '99999999999',
     user: {
       id: '62c21575105753e238b0f2b5',
-      accountId: 'accountId',
+      username: 'username',
       email: 'email@example.com',
       isAdmin: false,
       expiry: new Date(),
