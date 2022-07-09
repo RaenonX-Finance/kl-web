@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 
 type ApiSendPostRequestOpts = {
@@ -11,7 +11,10 @@ type ApiSendPostRequestOpts = {
   data: URLSearchParams,
 };
 
-export const apiSendPostRequest = ({apiPath, data}: ApiSendPostRequestOpts) => {
+export const apiSendPostRequest = <R>({
+  apiPath,
+  data,
+}: ApiSendPostRequestOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
   return axios.request({
     url: `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`,
     method: 'POST',
