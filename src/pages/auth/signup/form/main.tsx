@@ -45,11 +45,12 @@ export const AuthSignupForm = () => {
         value={signupKey}
         onChange={({target}) => setData({...data, signupKey: target.value})}
         className="mb-3"
-        // required
+        required
       />
       <FloatingInput
         type="text"
         label="帳號 ID"
+        autoComplete="username"
         value={username}
         onChange={({target}) => setData({...data, username: target.value})}
         className="mb-3"
