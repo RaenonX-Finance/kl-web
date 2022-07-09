@@ -1,16 +1,12 @@
 import React from 'react';
 
-import {signIn} from 'next-auth/react';
 import {useRouter} from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {AjaxForm} from '../../../../components/form/main';
-import {errorDispatchers} from '../../../../state/error/dispatchers';
-import {ErrorDispatcherName} from '../../../../state/error/types';
-import {useDispatch} from '../../../../state/store';
-import {CUSTOM_PROVIDER_ID} from '../../../../types/auth/const';
+import {GeneralPath} from '../../../../const/path';
 import {apiSignupUser} from '../../../../utils/api/auth';
 import {getErrorFromResponse} from '../../common/utils';
 import {UserSignupFormData} from './type';
@@ -18,7 +14,6 @@ import {UserSignupFormData} from './type';
 
 export const AuthSignupForm = () => {
   const {query} = useRouter();
-  const dispatch = useDispatch();
   const [data, setData] = React.useState<UserSignupFormData>({
     username: '',
     password: '',
@@ -31,10 +26,11 @@ export const AuthSignupForm = () => {
   const onSubmit = async () => {
     await apiSignupUser({username, password, signupKey});
 
-    signIn(CUSTOM_PROVIDER_ID).catch((error) => {
-      console.error(error);
-      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: JSON.stringify(error)}));
-    });
+    // Redirect the user to the chart page
+    // > This redirects the user back to the login page
+    // > because `next-auth` does not recognize that the user is signed in.
+    // > `next-auth` currently doesn't have a way to programmatically sign in a user.
+    window.location.assign(GeneralPath.CHART);
   };
 
   return (
