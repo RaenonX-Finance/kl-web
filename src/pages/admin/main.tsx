@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 
 import {AdminLayout} from '../../components/layout/admin';
+import {NarrowLayout} from '../../components/layout/narrow';
 import {adminTabs, DEFAULT_ADMIN_TAB_KEY, tabKeyToAdminPath} from './const';
 import {AdminTabKey} from './type';
 
@@ -29,30 +30,32 @@ export const AdminPanel = ({tabKey}: Props) => {
 
   return (
     <AdminLayout>
-      <Tab.Container activeKey={key} onSelect={onSelect}>
-        <Row className="g-3 p-3">
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              {adminTabs.map(({tabKey, name, link}) => (
-                <Nav.Item key={tabKey}>
-                  <Link href={link}>
-                    <Nav.Link eventKey={tabKey}>{name}</Nav.Link>
-                  </Link>
-                </Nav.Item>
-              ))}
-            </Nav>
-          </Col>
-          <Col sm={9}>
-            <Tab.Content>
-              {adminTabs.map(({tabKey, Component}) => (
-                <Tab.Pane key={tabKey} eventKey={tabKey}>
-                  <Component/>
-                </Tab.Pane>
-              ))}
-            </Tab.Content>
-          </Col>
-        </Row>
-      </Tab.Container>
+      <NarrowLayout>
+        <Tab.Container activeKey={key} onSelect={onSelect}>
+          <Row className="g-3 p-3">
+            <Col sm={3}>
+              <Nav variant="pills" className="flex-column">
+                {adminTabs.map(({tabKey, name, link}) => (
+                  <Nav.Item key={tabKey}>
+                    <Link href={link}>
+                      <Nav.Link eventKey={tabKey}>{name}</Nav.Link>
+                    </Link>
+                  </Nav.Item>
+                ))}
+              </Nav>
+            </Col>
+            <Col sm={9}>
+              <Tab.Content>
+                {adminTabs.map(({tabKey, Component}) => (
+                  <Tab.Pane key={tabKey} eventKey={tabKey}>
+                    <Component/>
+                  </Tab.Pane>
+                ))}
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </NarrowLayout>
     </AdminLayout>
   );
 };
