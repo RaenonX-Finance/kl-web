@@ -31,7 +31,7 @@ div.nav-body a.nav-item-admin {
   padding: 0.5rem 1rem !important;
 }
 div.nav-body a.nav-item-admin:not([class*=disabled]) {
-  color: #ff4457;
+  color: #ff5c6c;
 }
 div.nav-body a.nav-item-admin.active {
   background-color: #ff4457;

@@ -70,7 +70,7 @@ div {
     // Admin entry
     a.nav-item-admin {
       @include nav-item(
-        $color-text: colors.$color-danger,
+        $color-text: color.change(colors.$color-danger, $lightness: 68%),
         $color-active-bg: colors.$color-danger,
         $color-active: colors.$color-bw-255,
         $color-hovered-bg: color.change(colors.$color-danger, $lightness: 30%),
