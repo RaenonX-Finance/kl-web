@@ -3,7 +3,7 @@ import React from 'react';
 import {signIn, useSession} from 'next-auth/react';
 import {useRouter} from 'next/router';
 
-import {Loading} from '../../components/common/loading';
+import {MainLoading} from '../../components/common/loading/main';
 import {GeneralPath} from '../../const/path';
 import {errorDispatchers} from '../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../state/error/types';
@@ -29,5 +29,5 @@ export const LoginRedirect = () => {
     }
   }, [status]);
 
-  return <Loading/>;
+  return <MainLoading/>;
 };

@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {FormLikeOutput} from '../../../../components/common/form/output/main';
+import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {apiGenerateSignupKey} from '../../../../utils/api/auth';
@@ -66,7 +67,7 @@ export const AdminTabGenerateSignupKey = () => {
           required
         />
         <Button type="submit" className="w-100" variant="outline-warning" disabled={!accountExpiry || disabled}>
-          產生註冊金鑰
+          <TextWithLoading show={disabled} text="產生註冊金鑰"/>
         </Button>
       </AjaxForm>
       <hr/>

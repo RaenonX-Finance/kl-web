@@ -3,9 +3,9 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Row from 'react-bootstrap/Row';
-import Spinner from 'react-bootstrap/Spinner';
 
 import {getProgressText} from '../../utils/text';
+import {TextWithLoading} from '../common/loading/text';
 
 
 type Props = {
@@ -18,8 +18,7 @@ export const SocketPingProgressBar = ({pingCount, pingCountMax}: Props) => {
     <>
       <Row className="text-center mb-2">
         <Col>
-          {pingCount !== pingCountMax && <Spinner size="sm" animation="border" className="me-2"/>}
-          {getProgressText(pingCount, pingCountMax)}
+          <TextWithLoading show={pingCount !== pingCountMax} text={getProgressText(pingCount, pingCountMax)}/>
         </Col>
       </Row>
       <Row>

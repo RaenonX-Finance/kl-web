@@ -2,9 +2,9 @@ import React from 'react';
 
 import {useRouter} from 'next/router';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 
 import {FloatingInput} from '../../../../components/common/form/floating/input';
+import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {GeneralPath} from '../../../../const/path';
 import {apiSignupUser} from '../../../../utils/api/auth';
@@ -62,7 +62,7 @@ export const AuthSignupForm = () => {
         required
       />
       <Button className="w-100" variant="info" disabled={disabled} type="submit">
-        {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}註冊
+        <TextWithLoading show={disabled} text="註冊"/>
       </Button>
     </AjaxForm>
   );

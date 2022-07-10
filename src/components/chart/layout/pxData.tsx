@@ -4,7 +4,7 @@ import {useCustomSrSelector} from '../../../state/customSr/selector';
 import {usePxDataSelector} from '../../../state/pxData/selector';
 import {PxDataMapSlotNames} from '../../../types/pxData';
 import {getPxDataTitle} from '../../../utils/pxData';
-import {Loading} from '../../common/loading';
+import {MainLoading} from '../../common/loading/main';
 import {PxDataChart} from '../pxData/main';
 
 
@@ -37,8 +37,8 @@ export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
     <div style={containerCss}>
       {
         pxData === null ?
-          <Loading/> :
-          <React.Suspense fallback={<Loading/>}>
+          <MainLoading/> :
+          <React.Suspense fallback={<MainLoading/>}>
             <PxDataChart
               title={getPxDataTitle(pxData)}
               slot={slot}

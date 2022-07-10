@@ -2,11 +2,11 @@ import React from 'react';
 
 import {signOut, useSession} from 'next-auth/react';
 import Nav from 'react-bootstrap/Nav';
-import Spinner from 'react-bootstrap/Spinner';
 
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
+import {TextWithLoading} from '../../common/loading/text';
 import styles from '../../nav/main.module.scss';
 
 
@@ -29,7 +29,7 @@ export const LogoutNavButton = () => {
 
   return (
     <Nav.Link className={styles['nav-item']} disabled={status === 'loading'} onClick={onClick}>
-      {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}登出
+      <TextWithLoading show={disabled} text="登出"/>
     </Nav.Link>
   );
 };

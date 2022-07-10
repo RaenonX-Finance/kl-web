@@ -3,7 +3,7 @@ import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-export const Loading = () => {
+export const MainLoading = () => {
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <Spinner animation="grow"/>&nbsp;

@@ -3,12 +3,12 @@ import React from 'react';
 import {signIn} from 'next-auth/react';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
 import {CUSTOM_PROVIDER_ID} from '../../../types/auth/const';
+import {TextWithLoading} from '../../common/loading/text';
 
 
 export const LoginRequired = () => {
@@ -33,7 +33,7 @@ export const LoginRequired = () => {
         <div className="d-flex justify-content-end">
           {/* Specify provider `KL-Site` do directly go to the webpage with providers and default login */}
           <Button variant="outline-danger" onClick={onClick} disabled={disabled}>
-            {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}點此登入
+            <TextWithLoading show={disabled} text="點此登入"/>
           </Button>
         </div>
       </Alert>

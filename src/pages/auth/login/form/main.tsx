@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Spinner from 'react-bootstrap/Spinner';
 
 import {FloatingInput} from '../../../../components/common/form/floating/input';
+import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {AuthPath} from '../../../../const/path';
 import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/auth';
@@ -52,13 +52,13 @@ export const AuthCustomLoginForm = () => {
       <Row className="g-3">
         <Col>
           <Button className="w-100" variant="info" disabled={disabled} type="submit">
-            {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}登入
+            <TextWithLoading show={disabled} text="登入"/>
           </Button>
         </Col>
         <Col>
           <Link href={AuthPath.SIGNUP}>
             <Button className="w-100" variant="outline-info" disabled={disabled}>
-              {disabled && <><Spinner size="sm" animation="border"/>&nbsp;</>}註冊
+              <TextWithLoading show={disabled} text="註冊"/>
             </Button>
           </Link>
         </Col>
