@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {AdminPath, GeneralPath} from '../../const/path';
+import {managementPermissions} from '../../types/auth/user';
 import {LogoutNavButton} from '../auth/logout/main';
 import {ChartLayoutSelector} from '../chart/layoutSelector/main';
 import {NavItemCollection} from './type';
@@ -28,7 +29,7 @@ export const navItemsAtLeft: NavItemCollection = [
     path: AdminPath.GENERATE_SIGNUP_KEY,
     text: '管理會員',
     pathActiveBasis: Object.values(AdminPath),
-    adminOnly: true,
+    requiredPermissions: managementPermissions,
   },
 ];
 

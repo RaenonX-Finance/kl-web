@@ -7,8 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 
-import {AdminLayout} from '../../components/layout/admin';
 import {NarrowLayout} from '../../components/layout/narrow';
+import {PermissionLayout} from '../../components/layout/permission';
+import {managementPermissions} from '../../types/auth/user';
 import {adminTabs, DEFAULT_ADMIN_TAB_KEY, tabKeyToAdminPath} from './const';
 import {AdminTabKey} from './type';
 
@@ -29,7 +30,7 @@ export const AdminPanel = ({tabKey}: Props) => {
   };
 
   return (
-    <AdminLayout>
+    <PermissionLayout allowedWithPermissions={managementPermissions}>
       <NarrowLayout>
         <Tab.Container activeKey={key} onSelect={onSelect}>
           <Row className="g-3 p-3">
@@ -56,6 +57,6 @@ export const AdminPanel = ({tabKey}: Props) => {
           </Row>
         </Tab.Container>
       </NarrowLayout>
-    </AdminLayout>
+    </PermissionLayout>
   );
 };

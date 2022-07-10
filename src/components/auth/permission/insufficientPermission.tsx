@@ -17,7 +17,7 @@ export const InsufficientPermission = ({allowedPermissions}: Props) => {
           權限不足。無法使用此功能。
         </p>
         <hr/>
-        所需權限:
+        所需任一權限:
         <ul className="m-0">
           {allowedPermissions.map((permission) => <li key={permission}>{permission}</li>)}
         </ul>

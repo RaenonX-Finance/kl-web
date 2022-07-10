@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {FormLikeOutput} from '../../../../components/common/form/output/main';
 import {AjaxForm} from '../../../../components/form/main';
+import {PermissionLayout} from '../../../../components/layout/permission';
 import {apiGenerateSignupKey} from '../../../../utils/api/auth';
 import {GenerateSignupKeyData, GenerateSignupKeyResult} from './type';
 
@@ -50,7 +51,7 @@ export const AdminTabGenerateSignupKey = () => {
   };
 
   return (
-    <>
+    <PermissionLayout allowedWithPermissions={['account:new']}>
       <AjaxForm data={data} setData={setData} onSubmit={onSubmit}>
         <FloatingInput
           type="date"
@@ -78,6 +79,6 @@ export const AdminTabGenerateSignupKey = () => {
         label="金鑰過期時間"
         value={expiry ? format(expiry, 'yyyy-MM-dd HH:mm:ss (O)') : undefined}
       />
-    </>
+    </PermissionLayout>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {PagePath, PagePathAdminOnly, PagePathNormal} from '../../const/path';
+import {Permission} from '../../types/auth/user';
 
 
 export type NavItemCommon = {
@@ -11,19 +12,19 @@ export type NavItemPathInternal = ({
   path?: PagePathNormal,
   pathActiveBasis?: PagePath[],
   href?: never,
-  adminOnly?: never,
+  requiredPermissions?: never,
 } | {
   path?: PagePathAdminOnly,
   pathActiveBasis?: PagePath[],
   href?: never,
-  adminOnly: true,
+  requiredPermissions: Permission[],
 });
 
 export type NavItemPathExternal = {
   path?: never,
   pathActiveBasis?: never,
   href?: string,
-  adminOnly?: boolean,
+  requiredPermissions?: Permission[],
 };
 
 export type NavItemPath = NavItemCommon & {

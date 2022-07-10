@@ -19,7 +19,7 @@ export const NavPath = ({
   href: hrefProps,
   text,
   disabled,
-  adminOnly = false,
+  requiredPermissions,
 }: Props) => {
   const {data} = useSession();
   const isActive = (
@@ -27,12 +27,20 @@ export const NavPath = ({
     (pathname && isPagePath(pathname) && pathActiveBasis?.includes(pathname))
   );
 
-  if (adminOnly && !data?.user.isAdmin) {
+  if (
+    requiredPermissions && !data?.user.isAdmin && (
+      !data?.user.permissions.length ||
+      data.user.permissions.some((owned) => requiredPermissions.includes(owned))
+    )
+  ) {
     return <></>;
   }
 
   const linkProps = {
-    className: `${isActive ? styles.active : ''} ${adminOnly ? styles['nav-item-admin'] : styles['nav-item']}`,
+    className: (
+      `${isActive ? styles.active : ''} ` +
+      `${requiredPermissions?.length ? styles['nav-item-admin'] : styles['nav-item']}`
+    ),
     href: path || hrefProps,
     disabled,
     target: hrefProps ? '_blank' : '_self',
