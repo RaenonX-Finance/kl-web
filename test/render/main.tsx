@@ -26,8 +26,12 @@ const RenderWrapper = ({store, options, children}: React.PropsWithChildren<Wrapp
       isAdmin: false,
       expiry: new Date(),
       permissions: ['chart:view'],
+      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
+        'eyJzdWIiOiJ0ZXN0IiwiZXhwIjo5OTk5OTk5OTk5fQ.' +
+        '17dn39EzlkMk-QI8wNwqn_dP9yMFQ7F-P_yBLneDY9Q',
       ...options?.user,
     },
+    error: null,
   };
 
   return (
