@@ -2,7 +2,7 @@ import {AxiosResponse} from 'axios';
 
 import {CUSTOM_PROVIDER_ID} from '../../types/auth/const';
 import {RequestOAuth2TokenResponse} from '../../types/auth/oauth';
-import {UserModelOriginal} from '../../types/auth/user';
+import {SignupKeyModel, UserModelOriginal} from '../../types/auth/user';
 import {apiSendPostRequest} from './common';
 
 
@@ -55,5 +55,25 @@ export const apiSignupUser = ({
   return apiSendPostRequest({
     apiPath: '/auth/signup',
     data,
+  });
+};
+
+type ApiGenerateSignupKeyOpts = {
+  accountExpiry: Date,
+  token: string,
+};
+
+export const apiGenerateSignupKey = ({
+  accountExpiry,
+  token,
+}: ApiGenerateSignupKeyOpts): Promise<AxiosResponse<SignupKeyModel>> => {
+  const data = new URLSearchParams();
+
+  data.set('expiry', accountExpiry.toISOString());
+
+  return apiSendPostRequest({
+    apiPath: '/auth/generate-signup-key',
+    data,
+    token,
   });
 };

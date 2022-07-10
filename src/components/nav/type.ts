@@ -1,26 +1,39 @@
 import React from 'react';
 
-import {GeneralPath, PagePath} from '../../const/path';
+import {PagePath, PagePathAdminOnly, PagePathNormal} from '../../const/path';
 
 
 export type NavItemCommon = {
   pathname?: string,
 };
 
+export type NavItemPathInternal = ({
+  path?: PagePathNormal,
+  pathActiveBasis?: PagePath[],
+  href?: never,
+  adminOnly?: never,
+} | {
+  path?: PagePathAdminOnly,
+  pathActiveBasis?: PagePath[],
+  href?: never,
+  adminOnly: true,
+});
+
+export type NavItemPathExternal = {
+  path?: never,
+  pathActiveBasis?: never,
+  href?: string,
+  adminOnly?: boolean,
+};
+
 export type NavItemPath = NavItemCommon & {
   type: 'path',
   text: string,
   disabled?: boolean,
-  adminOnly?: boolean,
-} & ({
-  path?: GeneralPath,
-  pathActiveBasis?: PagePath[],
-  href?: never,
-} | {
-  path?: never,
-  pathActiveBasis?: never,
-  href?: string,
-});
+} & (
+  NavItemPathInternal |
+  NavItemPathExternal
+);
 
 export type NavItemText = NavItemCommon & {
   type: 'text',

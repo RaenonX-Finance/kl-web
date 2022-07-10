@@ -41,4 +41,16 @@ export type UserModel = {
   isAdmin: UserModelOriginal['admin'],
   expiry: Date | null,
   permissions: UserModelOriginal['permissions'],
+  token: string | undefined,
+};
+
+/**
+ * Data model of an account sign up key.
+ *
+ * This should have the same schema as `SignupKeyModel` in the backend.
+ */
+export type SignupKeyModel = {
+  signup_key: string,
+  expiry: string,
+  account_expiry: string,
 };

@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "colors";
+@use "bootstrap";
 
 html,
 body {
@@ -71,5 +72,10 @@ input::-webkit-inner-spin-button:not(:disabled) {
 
   &.h-33 {
     height: calc(100% / 3) !important;
+  }
+
+  &.readonly {
+    background-color: bootstrap.$input-disabled-bg;
+    border-color: bootstrap.$input-disabled-border-color;
   }
 }

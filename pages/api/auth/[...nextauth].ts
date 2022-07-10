@@ -15,13 +15,14 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
   userinfo: `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
   clientId: process.env.NEXTAUTH_CLIENT_ID,
   clientSecret: process.env.NEXTAUTH_CLIENT_SECRET,
-  profile: (profile) => ({
+  profile: (profile, tokens) => ({
     id: profile._id,
     username: profile.username,
     email: profile.email,
     isAdmin: profile.admin,
     expiry: profile.expiry && new Date(profile.expiry),
     permissions: profile.permissions,
+    token: tokens.access_token,
   }),
 };
 

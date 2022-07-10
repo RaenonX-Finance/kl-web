@@ -3,16 +3,24 @@ export enum GeneralPath {
   ACCOUNT_INFO = '/info',
 }
 
+export enum AdminPath {
+  GENERATE_SIGNUP_KEY = '/admin/signup-key',
+}
+
 export enum AuthPath {
   LOGIN = '/auth/login',
   LOGIN_REDIRECT = '/auth/login-redirect',
   SIGNUP = '/auth/signup',
 }
 
-export type PagePath = GeneralPath | AuthPath;
+export type PagePathAdminOnly = AdminPath;
+
+export type PagePathNormal = GeneralPath;
+
+export type PagePath = PagePathNormal | PagePathAdminOnly | AuthPath;
 
 export const allPaths = ([] as Array<PagePath>).concat(
-  ...[GeneralPath, AuthPath].map(
+  ...[GeneralPath, AdminPath, AuthPath].map(
     (paths) => Object.values(paths),
   ),
 );

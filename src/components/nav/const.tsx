@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {GeneralPath} from '../../const/path';
+import {AdminPath, GeneralPath} from '../../const/path';
 import {LogoutNavButton} from '../auth/logout/main';
 import {ChartLayoutSelector} from '../chart/layoutSelector/main';
 import {NavItemCollection} from './type';
@@ -22,6 +22,13 @@ export const navItemsAtLeft: NavItemCollection = [
     type: 'path',
     href: 'https://kl-law.mystrikingly.com/',
     text: '官網',
+  },
+  {
+    type: 'path',
+    path: AdminPath.GENERATE_SIGNUP_KEY,
+    text: '管理會員',
+    pathActiveBasis: Object.values(AdminPath),
+    adminOnly: true,
   },
 ];
 
