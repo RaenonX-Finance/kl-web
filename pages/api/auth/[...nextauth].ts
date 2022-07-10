@@ -4,6 +4,7 @@ import {OAuthConfig} from 'next-auth/providers/oauth';
 import {AuthPath} from '../../../src/const/path';
 import {CUSTOM_PROVIDER_ID} from '../../../src/types/auth/const';
 import {UserModelOriginal} from '../../../src/types/auth/user';
+import {refreshAccessToken} from '../../../src/utils/auth';
 
 
 export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
@@ -48,16 +49,32 @@ export default NextAuth({
   },
   // Needed for custom user object as stated in the link below
   // https://github.com/nextauthjs/next-auth/discussions/2762#discussioncomment-1332952
+  // Check the link below for auto token rotation
+  // https://next-auth.js.org/tutorials/refresh-token-rotation
   callbacks: {
-    session: async ({session, token}) => {
-      session.user = token.user;
-      return session;
-    },
-    jwt: async ({token, user}) => {
+    jwt: async ({token, user, account}) => {
+      // Patch user data to token object
       if (user) {
         token.user = user;
       }
-      return token;
+
+      // Return previous token if not expired
+      if ((Date.now() / 1000) < token.exp) {
+        return token;
+      }
+
+      // Initial sign in
+      if (account) {
+        return token;
+      }
+
+      return refreshAccessToken(token);
+    },
+    session: async ({session, token}) => {
+      session.user = token.user;
+      session.error = token.error;
+
+      return session;
     },
   },
 });

@@ -1,5 +1,5 @@
 // Same structure as `OAuthToken` for the backend
-export type RequestOAuth2TokenResponse = {
+export type OAuth2TokenResponse = {
   access_token: string,
   token_type: 'bearer',
 };

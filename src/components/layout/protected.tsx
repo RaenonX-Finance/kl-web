@@ -4,6 +4,7 @@ import {useSession} from 'next-auth/react';
 
 import {LoginRequired} from '../auth/permission/loginRequired';
 import {Loading} from '../common/loading';
+import {CommonProtectedLayout} from './common';
 
 
 export const ProtectedLayout = ({children}: React.PropsWithChildren<{}>) => {
@@ -15,5 +16,9 @@ export const ProtectedLayout = ({children}: React.PropsWithChildren<{}>) => {
     return <LoginRequired/>;
   }
 
-  return <>{children}</>;
+  return (
+    <CommonProtectedLayout>
+      {children}
+    </CommonProtectedLayout>
+  );
 };

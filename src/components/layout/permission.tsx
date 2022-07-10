@@ -6,6 +6,7 @@ import {Permission} from '../../types/auth/user';
 import {InsufficientPermission} from '../auth/permission/insufficientPermission';
 import {LoginRequired} from '../auth/permission/loginRequired';
 import {Loading} from '../common/loading';
+import {CommonProtectedLayout} from './common';
 
 
 type Props = {
@@ -26,5 +27,9 @@ export const PermissionLayout = ({children, allowedWithPermissions}: React.Props
     return <InsufficientPermission allowedPermissions={allowedWithPermissions}/>;
   }
 
-  return <>{children}</>;
+  return (
+    <CommonProtectedLayout>
+      {children}
+    </CommonProtectedLayout>
+  );
 };

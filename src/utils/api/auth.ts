@@ -1,7 +1,7 @@
 import {AxiosResponse} from 'axios';
 
 import {CUSTOM_PROVIDER_ID} from '../../types/auth/const';
-import {RequestOAuth2TokenResponse} from '../../types/auth/oauth';
+import {OAuth2TokenResponse} from '../../types/auth/oauth';
 import {SignupKeyModel, UserModelOriginal} from '../../types/auth/user';
 import {apiSendPostRequest} from './common';
 
@@ -23,7 +23,7 @@ type ApiRequestOAuth2TokenOpts = {
 export const apiRequestOAuth2Token = ({
   username,
   password,
-}: ApiRequestOAuth2TokenOpts): Promise<AxiosResponse<RequestOAuth2TokenResponse>> => {
+}: ApiRequestOAuth2TokenOpts): Promise<AxiosResponse<OAuth2TokenResponse>> => {
   const data = new URLSearchParams(window.location.search);
 
   data.set('username', username);
@@ -35,6 +35,23 @@ export const apiRequestOAuth2Token = ({
   });
 };
 
+type ApiRefreshOAuth2TokenOpts = {
+  token: string,
+};
+
+export const apiRefreshOAuth2Token = ({
+  token,
+}: ApiRefreshOAuth2TokenOpts): Promise<AxiosResponse<OAuth2TokenResponse>> => (
+  apiSendPostRequest({
+    apiPath: '/auth/token-refresh',
+    data: new URLSearchParams({
+      client_id: process.env.NEXTAUTH_CLIENT_ID || '',
+      client_secret: process.env.NEXTAUTH_CLIENT_SECRET || '',
+    }),
+    token,
+  })
+);
+
 type ApiSignupUserOpts = {
   username: string,
   password: string,
@@ -45,18 +62,16 @@ export const apiSignupUser = ({
   username,
   password,
   signupKey,
-}: ApiSignupUserOpts): Promise<AxiosResponse<UserModelOriginal>> => {
-  const data = new URLSearchParams();
-
-  data.set('username', username);
-  data.set('password', password);
-  data.set('signup_key', signupKey);
-
-  return apiSendPostRequest({
+}: ApiSignupUserOpts): Promise<AxiosResponse<UserModelOriginal>> => (
+  apiSendPostRequest({
     apiPath: '/auth/signup',
-    data,
-  });
-};
+    data: new URLSearchParams({
+      username,
+      password,
+      signup_key: signupKey,
+    }),
+  })
+);
 
 type ApiGenerateSignupKeyOpts = {
   accountExpiry: Date,
@@ -66,14 +81,12 @@ type ApiGenerateSignupKeyOpts = {
 export const apiGenerateSignupKey = ({
   accountExpiry,
   token,
-}: ApiGenerateSignupKeyOpts): Promise<AxiosResponse<SignupKeyModel>> => {
-  const data = new URLSearchParams();
-
-  data.set('expiry', accountExpiry.toISOString());
-
-  return apiSendPostRequest({
+}: ApiGenerateSignupKeyOpts): Promise<AxiosResponse<SignupKeyModel>> => (
+  apiSendPostRequest({
     apiPath: '/auth/generate-signup-key',
-    data,
+    data: new URLSearchParams({
+      expiry: accountExpiry.toISOString(),
+    }),
     token,
-  });
-};
+  })
+);
