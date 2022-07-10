@@ -8,11 +8,11 @@ export type ISOTimestampWithTimezone =
  */
 export type Permission =
   'chart:view' |
-  'manager:add' |
-  'manager:remove' |
+  'permission:add' |
+  'permission:remove' |
   'account:new' |
   'account:block' |
-  'account:delete';
+  'account:view';
 
 /**
  * User data model returned by calling the `userinfo` URL defined in `next-auth` custom OAuth provider config.
