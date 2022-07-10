@@ -33,6 +33,10 @@ div#body {
   flex: 1 1 auto;
 }
 
+input {
+  color-scheme: dark;
+}
+
 input::-webkit-outer-spin-button:not(:disabled),
 input::-webkit-inner-spin-button:not(:disabled) {
   margin-left: 0.4rem;
