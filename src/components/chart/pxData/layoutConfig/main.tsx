@@ -8,18 +8,21 @@ import {LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../../s
 import {PxDataMapSlotNames} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
 import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
+import {configKeysToHideOfSecurity} from './const';
 import styles from './main.module.scss';
 
 
 type Props = {
+  security: string,
   title: string,
   slot: PxDataMapSlotNames,
   config: PxChartLayoutConfigState,
   setConfig: (payload: LayoutConfigUpdatePayload) => void,
 };
 
-export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props) => {
+export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConfig}: Props) => {
   const [show, setShow] = React.useState(false);
+  const configKeysToHide = configKeysToHideOfSecurity[security] || [];
 
   const configEntriesUiGroup: {[group in string]: {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry}} = {};
   Object.entries(configEntriesUI).forEach(([key, entry]) => {
@@ -50,6 +53,11 @@ export const PxChartLayoutConfigPanel = ({title, slot, config, setConfig}: Props
                   <h5 className="mb-3">{groupName}</h5>
                   {Object.entries(entryObj).map(([key, entry]) => {
                     const configKey = key as PxChartLayoutConfigKeys;
+
+                    if (configKeysToHide.includes(configKey)) {
+                      return <React.Fragment key={key}/>;
+                    }
+
                     const {title, isDisabled} = entry;
                     const enable = config[configKey];
 

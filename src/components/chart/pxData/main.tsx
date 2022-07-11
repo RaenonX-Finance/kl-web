@@ -27,7 +27,8 @@ type Props = Omit<
   'getIdentifier' |
   'getPnLMultiplier' |
   'getPeriodSec' |
-  'getDataLastUpdate'
+  'getDataLastUpdate' |
+  'getDataSecurity'
 > & {
   title: string,
 };
@@ -58,11 +59,18 @@ export const PxDataChart = (props: Props) => {
       renderObjects={{
         legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} title={title}/>,
       }}
-      renderLayoutConfig={(config, setConfig) => (
-        <PxChartLayoutConfigPanel title={title} slot={slot} config={config} setConfig={setConfig}/>
+      renderLayoutConfig={(security, config, setConfig) => (
+        <PxChartLayoutConfigPanel
+          security={security}
+          title={title}
+          slot={slot}
+          config={config}
+          setConfig={setConfig}
+        />
       )}
-      getPeriodSec={(data) => data.periodSec}
+      getPeriodSec={({periodSec}) => periodSec}
       getDataLastUpdate={({lastUpdated}) => lastUpdated}
+      getDataSecurity={({contract}) => contract.symbol}
       {...props}
     />
   );
