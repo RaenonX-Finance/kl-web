@@ -6,16 +6,22 @@ import {Dispatcher} from '../../state/types';
 import {SocketMessageHandler} from '../../types/socket/type';
 
 
-export const useSocketEventHandler = <T>(
-  dispatcher: Dispatcher,
+type UseSocketEventHandlerOpts<T> = {
+  dispatch: Dispatcher,
   action: ActionCreatorWithPayload<T>,
   afterAction?: () => void,
-): SocketMessageHandler => React.useCallback((
+};
+
+export const useSocketEventHandler = <T>({
+  dispatch,
+  action,
+  afterAction,
+}: UseSocketEventHandlerOpts<T>): SocketMessageHandler => React.useCallback((
   message: string,
 ) => {
   const data: T = JSON.parse(message);
 
-  dispatcher(action(data));
+  dispatch(action(data));
   if (afterAction) {
     afterAction();
   }

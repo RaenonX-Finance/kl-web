@@ -42,25 +42,25 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
 
     dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
   }, []);
-  const onPxInit = useSocketEventHandler(
+  const onPxInit = useSocketEventHandler({
     dispatch,
-    pxDataDispatchers[PxDataDispatcherName.INIT],
-    refreshStatus,
-  );
-  const onPxUpdated = useSocketEventHandler(
+    action: pxDataDispatchers[PxDataDispatcherName.INIT],
+    afterAction: refreshStatus,
+  });
+  const onPxUpdated = useSocketEventHandler({
     dispatch,
-    pxDataDispatchers[PxDataDispatcherName.UPDATE],
-  );
-  const onPxUpdatedMarket = useSocketEventHandler(
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE],
+  });
+  const onPxUpdatedMarket = useSocketEventHandler({
     dispatch,
-    pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-    refreshStatus,
-  );
-  const onError = useSocketEventHandler(
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
+    afterAction: refreshStatus,
+  });
+  const onError = useSocketEventHandler({
     dispatch,
-    errorDispatchers[ErrorDispatcherName.UPDATE],
-    refreshStatus,
-  );
+    action: errorDispatchers[ErrorDispatcherName.UPDATE],
+    afterAction: refreshStatus,
+  });
 
   React.useEffect(() => {
     const socket = generateSocketClient();
