@@ -1,7 +1,9 @@
 import {Socket} from 'socket.io-client';
 
 
-export type SocketMessageHandler = (message: string) => void;
+export type SocketMessage = string | Uint8Array;
+
+export type SocketMessageHandler = (message: SocketMessage) => void;
 
 export type SocketEventKeys =
   'init' |

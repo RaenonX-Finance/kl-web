@@ -8,9 +8,9 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
-import {PxDataSocket} from '../../../types/socket/type';
+import {PxDataSocket, SocketMessage} from '../../../types/socket/type';
 import {generateSocketClient} from '../../../utils/socket';
-import {useSocketEventHandler} from '../utils';
+import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
 export const usePxSocketInit = (): PxDataSocket | undefined => {
@@ -36,8 +36,8 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
     console.error(err);
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
   };
-  const onInit = React.useCallback((message: string) => {
-    const data: InitData = JSON.parse(message);
+  const onInit = React.useCallback((message: SocketMessage) => {
+    const data: InitData = JSON.parse(ensureStringMessage(message));
     const {customSrLevelDict} = data;
 
     dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
