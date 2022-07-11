@@ -30,6 +30,11 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     group: '標籤',
     isDisabled: ({srLevel}) => !srLevel,
   },
+  srLevelBasicLabel: {
+    title: '基礎撐壓線',
+    group: '標籤',
+    isDisabled: ({srLevelBasic}) => !srLevelBasic,
+  },
   inChartExtremaLabel: {
     title: '圖內高低點',
     group: '標籤',
@@ -53,6 +58,10 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
   },
   srLevel: {
     title: '黃金撐壓線',
+    group: '指標',
+  },
+  srLevelBasic: {
+    title: '基礎撐壓線',
     group: '指標',
   },
 };

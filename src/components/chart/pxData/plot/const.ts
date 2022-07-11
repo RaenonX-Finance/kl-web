@@ -28,6 +28,8 @@ export const emaLineColors: {[key in keyof PxDataEmaPeriodPair]: string} = {
   slow: bearColor,
 };
 
+export const srLevelBasicColor = '#cacaca';
+
 export const srLevelGroupColors = [
   '#f23645',
   '#f5d52f',
@@ -45,6 +47,11 @@ export const srLevelCommonOptions: SrLevelCommonOptions = {
   lineStyle: LineStyle.Solid,
   lineWidth: 1,
   lineVisible: true,
+};
+
+export const srLevelBasicCommonOptions: SrLevelCommonOptions = {
+  ...srLevelCommonOptions,
+  lineStyle: LineStyle.Dashed,
 };
 
 export const srLevelCustom = 'rgba(255, 109, 14, 0.6)';

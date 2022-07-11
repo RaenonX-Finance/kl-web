@@ -5,7 +5,7 @@ import {handleEmaStrongSr} from './emaStrongSr';
 import {handleExtrema} from './extrema';
 import {handleLegend} from './legend';
 import {handlePrice} from './price';
-import {handleSR} from './sr';
+import {handleSR} from './sr/main';
 import {handleSrCustom} from './srCustom';
 import {handleTiePoint} from './tiePoint';
 

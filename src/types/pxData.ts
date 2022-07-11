@@ -22,6 +22,7 @@ export type PxDataBar = {
 
 export type PxDataSupportResistance = {
   groups: number[][],
+  basic: number[],
 };
 
 export type PxDataContract = {

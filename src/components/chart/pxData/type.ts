@@ -32,7 +32,10 @@ export type PxChartExtremaSeries = {
 };
 
 export type PxChartLines = {
-  srLevelLines: Record<number, Record<number, IPriceLine>>,
+  srLevelLines: {
+    group: Record<number, Record<number, IPriceLine>>,
+    basic: Record<number, IPriceLine>,
+  },
   extrema: PxChartExtremaSeries,
 };
 
@@ -55,11 +58,13 @@ export type PxChartLayoutConfigKeys =
   'emaNetLabel' |
   'emaStrongSrLabel' |
   'srLevelLabel' |
+  'srLevelBasicLabel' |
   'candlestickColor' |
   'tiePoint' |
   'emaNet' |
   'emaStrongSr' |
   'srLevel' |
+  'srLevelBasic' |
   'inChartExtrema' |
   'inChartExtremaLabel';
 
