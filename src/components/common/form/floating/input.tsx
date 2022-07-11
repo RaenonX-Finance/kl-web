@@ -7,18 +7,25 @@ import styles from './main.module.scss';
 import {FloatingControlCommonProps} from './type';
 
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & FloatingControlCommonProps<HTMLInputElement>;
+type Props = React.InputHTMLAttributes<HTMLInputElement> & FloatingControlCommonProps<HTMLInputElement> & {
+  feedbackOnValid?: string,
+  feedbackOnInvalid?: string,
+};
 
-export const FloatingInput = ({label, ...props}: Props) => {
+export const FloatingInput = ({label, feedbackOnValid, feedbackOnInvalid, ...props}: Props) => {
   // `placeholder` is not displayed here, but it's required for the floating label to work
   // `placeholder` also needs a non-zero-length value or the animation won't be displayed
   return (
-    <FloatingLabel label={label}>
-      <Form.Control
-        {...props}
-        placeholder=" "
-        className={`${props.className} ${styles['override-autofill']}`}
-      />
+    <FloatingLabel label={label} className={props.className}>
+      <Form.Control {...props} placeholder=" " className={styles['override-autofill']}/>
+      {
+        feedbackOnValid &&
+        <Form.Control.Feedback>{feedbackOnValid}</Form.Control.Feedback>
+      }
+      {
+        feedbackOnInvalid &&
+        <Form.Control.Feedback type="invalid">{feedbackOnInvalid}</Form.Control.Feedback>
+      }
     </FloatingLabel>
   );
 };

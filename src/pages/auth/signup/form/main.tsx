@@ -10,6 +10,7 @@ import {GeneralPath} from '../../../../const/path';
 import {apiSignupUser} from '../../../../utils/api/auth';
 import {getErrorFromResponse} from '../../common/utils';
 import {UserSignupFormData} from './type';
+import {isValidPassword, isValidUsername} from './utils';
 
 
 export const AuthSignupForm = () => {
@@ -22,6 +23,9 @@ export const AuthSignupForm = () => {
     error: '',
   });
   const {signupKey, username, password, disabled} = data;
+  const isUsernameValid = isValidUsername(username);
+  const isPasswordValid = isValidPassword(password);
+  const signupDisabled = disabled || !isUsernameValid || !isPasswordValid;
 
   const onSubmit = async () => {
     await apiSignupUser({username, password, signupKey});
@@ -48,20 +52,28 @@ export const AuthSignupForm = () => {
         label="帳號 ID"
         autoComplete="username"
         value={username}
+        minLength={6}
         onChange={({target}) => setData({...data, username: target.value})}
         className="mb-3"
         required
+        isValid={isUsernameValid}
+        isInvalid={!isUsernameValid}
+        feedbackOnInvalid="帳號 ID 最低長度為 6 個字元。"
       />
       <FloatingInput
         type="password"
         label="密碼"
         autoComplete="new-password"
         value={password}
+        minLength={8}
         onChange={({target}) => setData({...data, password: target.value})}
         className="mb-3"
         required
+        isValid={isPasswordValid}
+        isInvalid={!isPasswordValid}
+        feedbackOnInvalid="密碼最低長度為 8 個字元。"
       />
-      <Button className="w-100" variant="info" disabled={disabled} type="submit">
+      <Button className="w-100" variant="info" disabled={signupDisabled} type="submit">
         <TextWithLoading show={disabled} text="註冊"/>
       </Button>
     </AjaxForm>
