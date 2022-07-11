@@ -10,6 +10,30 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     title: '圖內高低點',
     group: '圖表',
   },
+  candlestickColor: {
+    title: '紅綠量能',
+    group: '指標',
+  },
+  tiePoint: {
+    title: '多空線',
+    group: '指標',
+  },
+  emaNet: {
+    title: '趨勢濾網',
+    group: '指標',
+  },
+  emaStrongSr: {
+    title: '趨勢控盤',
+    group: '指標',
+  },
+  srLevel: {
+    title: '黃金撐壓線',
+    group: '指標',
+  },
+  srLevelBasic: {
+    title: '基礎撐壓線',
+    group: '指標',
+  },
   tiePointLabel: {
     title: '多空線',
     group: '標籤',
@@ -39,29 +63,5 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     title: '圖內高低點',
     group: '標籤',
     isDisabled: ({inChartExtrema}) => !inChartExtrema,
-  },
-  candlestickColor: {
-    title: '紅綠量能',
-    group: '指標',
-  },
-  tiePoint: {
-    title: '多空線',
-    group: '指標',
-  },
-  emaNet: {
-    title: '趨勢濾網',
-    group: '指標',
-  },
-  emaStrongSr: {
-    title: '趨勢控盤',
-    group: '指標',
-  },
-  srLevel: {
-    title: '黃金撐壓線',
-    group: '指標',
-  },
-  srLevelBasic: {
-    title: '基礎撐壓線',
-    group: '指標',
   },
 };
