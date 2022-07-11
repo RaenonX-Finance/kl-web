@@ -32,13 +32,16 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   }, []);
 
   // Events
+  const onConnectionError = (err: Error) => {
+    console.error(err);
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
+  };
   const onInit = React.useCallback((message: string) => {
     const data: InitData = JSON.parse(message);
     const {customSrLevelDict} = data;
 
     dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
   }, []);
-
   const onPxInit = useSocketEventHandler(
     dispatch,
     pxDataDispatchers[PxDataDispatcherName.INIT],
@@ -63,7 +66,7 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
     const socket = generateSocketClient();
 
     // System events
-    socket.on('connect_error', console.error);
+    socket.on('connect_error', onConnectionError);
 
     // Custom events
     socket.on('init', onInit);
