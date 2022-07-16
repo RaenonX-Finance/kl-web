@@ -2,8 +2,7 @@ import {AxiosResponse} from 'axios';
 
 import {PxChartLayoutConfig} from '../../state/config/types';
 import {PxDataSlotMap} from '../../state/pxData/types';
-import {UserConfigModel, UserConfigModelOriginal} from '../../types/user';
-import {apiSendGetRequest, apiSendPostRequest} from './common';
+import {apiSendPostRequest} from './common';
 
 
 type ApiUpdateSlotMapOpts = {
@@ -40,22 +39,4 @@ export const apiUpdateLayoutConfig = ({
     }),
     token,
   })
-);
-
-type ApiGetConfigOpts = {
-  token: string,
-};
-
-export const apiGetConfig = ({
-  token,
-}: ApiGetConfigOpts): Promise<UserConfigModel> => (
-  apiSendGetRequest<UserConfigModelOriginal>({
-    apiPath: '/user/config/get',
-    token,
-  }).then<UserConfigModel>(({data}) => ({
-    accountId: data.account_id,
-    layoutConfig: data.layout_config,
-    layoutType: data.layout_type,
-    slotMap: data.slot_map,
-  }))
 );

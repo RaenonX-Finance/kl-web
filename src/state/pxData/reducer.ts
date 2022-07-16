@@ -4,8 +4,8 @@ import {PxData, PxDataFromSocket} from '../../types/pxData';
 import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
-import {aggregatedDispatchers} from '../aggregated/dispatchers';
-import {AggregatedDispatcherName} from '../aggregated/types';
+import {mergedDispatchers} from '../aggregated/dispatchers';
+import {MergedDispatcherName} from '../aggregated/types';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataUpdateChartMap} from './types';
 
@@ -64,9 +64,11 @@ const slice = createSlice({
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE], pxDataFillingReducer);
     builder.addCase(
-      aggregatedDispatchers[AggregatedDispatcherName.INIT_CONFIG],
-      (state, {payload}) => {
-        state.map = payload.slotMap;
+      mergedDispatchers[MergedDispatcherName.INIT_APP],
+      (state: PxDataState, {payload}) => {
+        const {config} = payload;
+
+        state.map = config.slot_map;
         state.mapReady = true;
       },
     );

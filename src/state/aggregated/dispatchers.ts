@@ -1,9 +1,9 @@
 import {createAction} from '@reduxjs/toolkit';
 
-import {UserConfigModel} from '../../types/user';
-import {AggregatedDispatcherName} from './types';
+import {InitData} from '../../types/init';
+import {MergedDispatcherName} from './types';
 
 
-export const aggregatedDispatchers = {
-  [AggregatedDispatcherName.INIT_CONFIG]: createAction<UserConfigModel>(AggregatedDispatcherName.INIT_CONFIG),
+export const mergedDispatchers = {
+  [MergedDispatcherName.INIT_APP]: createAction<InitData>(MergedDispatcherName.INIT_APP),
 };

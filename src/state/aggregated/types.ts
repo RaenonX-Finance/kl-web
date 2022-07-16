@@ -1,3 +1,3 @@
-export enum AggregatedDispatcherName {
-  INIT_CONFIG = 'initConfig'
+export enum MergedDispatcherName {
+  INIT_APP = 'initApp'
 }

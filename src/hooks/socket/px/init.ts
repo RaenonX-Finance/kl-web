@@ -2,10 +2,8 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
-import {aggregatedDispatchers} from '../../../state/aggregated/dispatchers';
-import {AggregatedDispatcherName} from '../../../state/aggregated/types';
-import {customSrDispatchers} from '../../../state/customSr/dispatchers';
-import {SrCustomDispatcherName} from '../../../state/customSr/types';
+import {mergedDispatchers} from '../../../state/aggregated/dispatchers';
+import {MergedDispatcherName} from '../../../state/aggregated/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
@@ -13,9 +11,7 @@ import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
 import {PxDataSocket, SocketMessage} from '../../../types/socket/type';
-import {apiGetConfig} from '../../../utils/api/user';
 import {generateSocketClient} from '../../../utils/socket';
-import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
@@ -24,7 +20,6 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   const lastUpdate = React.useRef(0);
   const {data: session} = useSession();
   const dispatch = useDispatch();
-  const {signIn} = useNextAuthCall();
 
   const refreshStatus = React.useCallback(() => {
     const now = Date.now();
@@ -45,22 +40,12 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   };
   const onInit = React.useCallback((message: SocketMessage) => {
     const initData: InitData = JSON.parse(ensureStringMessage(message));
-    const {customSrLevelDict} = initData;
 
-    if (!session || !!session.error || !session.user.token) {
+    if (!session || !!session.error) {
       return;
     }
 
-    apiGetConfig({token: session.user.token})
-      .then((config) => {
-        dispatch(aggregatedDispatchers[AggregatedDispatcherName.INIT_CONFIG](config));
-      })
-      .catch((error) => {
-        console.error(error);
-        signIn();
-      });
-
-    dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
+    dispatch(mergedDispatchers[MergedDispatcherName.INIT_APP](initData));
   }, []);
   const onPxInit = useSocketEventHandler({
     dispatch,
@@ -95,7 +80,7 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
     socket.on('pxInit', onPxInit);
     socket.on('error', onError);
 
-    socket.emit('init', '');
+    socket.emit('init', session?.user?.token || '');
     socket.emit('pxInit', '');
 
     setSocket(socket);

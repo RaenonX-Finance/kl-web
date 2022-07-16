@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {wholeStateUpdateReducer} from '../common';
-import {customSrDispatchers} from './dispatchers';
-import {CustomSrLevelState, SR_CUSTOM_STATE_NAME, SrCustomDispatcherName} from './types';
+import {mergedDispatchers} from '../aggregated/dispatchers';
+import {MergedDispatcherName} from '../aggregated/types';
+import {CustomSrLevelState, SR_CUSTOM_STATE_NAME} from './types';
 
 
 const initialState: CustomSrLevelState = {};
@@ -12,7 +12,12 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(customSrDispatchers[SrCustomDispatcherName.UPDATE], wholeStateUpdateReducer());
+    builder.addCase(
+      mergedDispatchers[MergedDispatcherName.INIT_APP],
+      (state: CustomSrLevelState, {payload}) => {
+        return payload.customSrLevelDict;
+      },
+    );
   },
 });
 

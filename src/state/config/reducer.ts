@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {aggregatedDispatchers} from '../aggregated/dispatchers';
-import {AggregatedDispatcherName} from '../aggregated/types';
+import {mergedDispatchers} from '../aggregated/dispatchers';
+import {MergedDispatcherName} from '../aggregated/types';
 import {configDispatchers} from './dispatchers';
 import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './types';
 import {getInitialConfigSingle} from './utils';
@@ -25,16 +25,13 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      aggregatedDispatchers[AggregatedDispatcherName.INIT_CONFIG],
+      mergedDispatchers[MergedDispatcherName.INIT_APP],
       (state: ConfigState, {payload}) => {
-        const {layoutType, layoutConfig} = payload;
+        const {config} = payload;
 
-        return {
-          ...state,
-          layoutType,
-          layoutConfig,
-          isReady: true,
-        };
+        state.layoutType = config.layout_type;
+        state.layoutConfig = config.layout_config;
+        state.isReady = true;
       },
     );
     builder.addCase(
