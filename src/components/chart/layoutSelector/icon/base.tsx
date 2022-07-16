@@ -30,7 +30,7 @@ export const LayoutIconBase = ({lines, layoutType, onClick, size = 32, hideOnPor
     dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT](layoutType));
   };
 
-  if (hideOnPortrait && !isLandscape) {
+  if (!configLayoutType || (hideOnPortrait && !isLandscape)) {
     return <></>;
   }
 

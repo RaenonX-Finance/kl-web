@@ -1,7 +1,7 @@
-import {PxChartLayoutConfigState} from './types';
+import {PxChartLayoutConfigSingle} from './types';
 
 
-export const initialConfig: Required<PxChartLayoutConfigState> = {
+export const defaultConfig: Required<PxChartLayoutConfigSingle> = {
   currentPxLine: true,
   tiePointLabel: true,
   emaNetLabel: false,

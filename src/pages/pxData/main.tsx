@@ -9,12 +9,16 @@ import {useLayoutTypeConfigSelector} from '../../state/config/selector';
 export const PxDataMain = () => {
   const layoutType = useLayoutTypeConfigSelector();
 
-  const LayoutComponent = pxDataLayout[layoutType];
+  const LayoutComponent = layoutType && pxDataLayout[layoutType];
 
   return (
     <PermissionLayout allowedWithPermissions={['chart:view']}>
       <PxDataSocketContext>
-        <LayoutComponent/>
+        {
+          !!LayoutComponent ?
+            <LayoutComponent/> :
+            <></>
+        }
       </PxDataSocketContext>
     </PermissionLayout>
   );

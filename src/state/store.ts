@@ -19,4 +19,4 @@ export const createStore = (preloadedState?: PreloadedReduxState) => configureSt
   },
 });
 
-export const useDispatch: () => Dispatcher = () => useReduxDispatch<Dispatcher>();
+export const useDispatch = (): Dispatcher => useReduxDispatch<Dispatcher>();

@@ -7,15 +7,19 @@ import {StateBase} from '../types';
 export const CONFIG_STATE_NAME = 'Config';
 
 export enum ConfigDispatcherName {
+  INIT = 'init',
   UPDATE_LAYOUT = 'updateLayout',
   UPDATE_LAYOUT_CONFIG = 'updateLayoutConfig',
 }
 
-export type PxChartLayoutConfigState = {[key in PxChartLayoutConfigKeys]?: boolean};
+export type PxChartLayoutConfigSingle = {[key in PxChartLayoutConfigKeys]?: boolean};
+
+export type PxChartLayoutConfig = {[name in PxDataMapSlotNames]: PxChartLayoutConfigSingle};
 
 export type ConfigState = StateBase & {
   layoutType: LayoutType,
-  layoutConfig: {[name in PxDataMapSlotNames]: PxChartLayoutConfigState},
+  layoutConfig: PxChartLayoutConfig,
+  isReady: boolean,
 };
 
 export type LayoutConfigUpdatePayload = {

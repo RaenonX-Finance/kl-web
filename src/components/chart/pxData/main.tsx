@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {PxChartLayoutConfigState} from '../../../state/config/types';
+import {PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {PxData} from '../../../types/pxData';
 import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
@@ -17,7 +17,7 @@ type Props = Omit<
     PxChartPayload,
     PxChartInitData,
     PxChartLegendData,
-    PxChartLayoutConfigState
+    PxChartLayoutConfigSingle
   >,
   'initChart' |
   'calcObjects' |

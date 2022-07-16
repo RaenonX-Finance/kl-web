@@ -1,3 +1,6 @@
+/**
+ * This should have the same typing definition as ``LayoutType`` in the backend.
+ */
 export type LayoutType =
   '1-1x1' |
   '2-2x1' |

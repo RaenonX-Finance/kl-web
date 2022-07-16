@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
+
+import {aggregatedDispatchers} from '../../../state/aggregated/dispatchers';
+import {AggregatedDispatcherName} from '../../../state/aggregated/types';
 import {customSrDispatchers} from '../../../state/customSr/dispatchers';
 import {SrCustomDispatcherName} from '../../../state/customSr/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
@@ -9,14 +13,16 @@ import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
 import {PxDataSocket, SocketMessage} from '../../../types/socket/type';
+import {apiGetConfig} from '../../../utils/api/user';
 import {generateSocketClient} from '../../../utils/socket';
+import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
 export const usePxSocketInit = (): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
   const lastUpdate = React.useRef(0);
-
+  const {data: session} = useSession();
   const dispatch = useDispatch();
   const {signIn} = useNextAuthCall();
 
@@ -38,8 +44,21 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
   };
   const onInit = React.useCallback((message: SocketMessage) => {
-    const data: InitData = JSON.parse(ensureStringMessage(message));
-    const {customSrLevelDict} = data;
+    const initData: InitData = JSON.parse(ensureStringMessage(message));
+    const {customSrLevelDict} = initData;
+
+    if (!session || !!session.error || !session.user.token) {
+      return;
+    }
+
+    apiGetConfig({token: session.user.token})
+      .then((config) => {
+        dispatch(aggregatedDispatchers[AggregatedDispatcherName.INIT_CONFIG](config));
+      })
+      .catch((error) => {
+        console.error(error);
+        signIn();
+      });
 
     dispatch(customSrDispatchers[SrCustomDispatcherName.UPDATE](customSrLevelDict));
   }, []);

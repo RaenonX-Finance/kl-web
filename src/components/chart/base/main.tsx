@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import {useAnimation} from '../../../hooks/animation';
 import {configDispatchers} from '../../../state/config/dispatchers';
 import {useLayoutSingleConfigSelector} from '../../../state/config/selector';
-import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../state/config/types';
+import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {useDispatch} from '../../../state/store';
 import {PxDataMapSlotNames} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
@@ -51,7 +51,7 @@ export const TradingViewChart = <T, P, R, L>({
   getPeriodSec,
   getDataLastUpdate,
   getDataSecurity,
-}: TradingViewChartProps<T, P, R, L, PxChartLayoutConfigState>) => {
+}: TradingViewChartProps<T, P, R, L, PxChartLayoutConfigSingle>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
   const chartDataRef = React.useRef<T>(chartData);
   const updateIndicatorRef = useAnimation({
@@ -74,7 +74,7 @@ export const TradingViewChart = <T, P, R, L>({
     chartDataRef.current = chartData;
     const dataLastUpdated = getDataLastUpdate(chartData);
 
-    if (!forceUpdate && dataLastUpdated <= lastUpdated.current) {
+    if (!layoutConfig || (!forceUpdate && dataLastUpdated <= lastUpdated.current)) {
       return;
     }
 
@@ -83,7 +83,7 @@ export const TradingViewChart = <T, P, R, L>({
   };
 
   const onLoad = () => {
-    if (!chartContainerRef.current) {
+    if (!chartContainerRef.current || !layoutConfig) {
       return;
     }
 
@@ -99,7 +99,7 @@ export const TradingViewChart = <T, P, R, L>({
     });
   };
 
-  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxChartLayoutConfigState, P>({
+  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxChartLayoutConfigSingle, P>({
     initChart,
     onDataUpdated: onDataUpdatedInternal(true),
     width,
@@ -124,7 +124,10 @@ export const TradingViewChart = <T, P, R, L>({
       <div className={styles['toolbar']}>
         <Row className="g-2 align-items-center">
           <Col>
-            {renderLayoutConfig(getDataSecurity(chartData), layoutConfig, setLayoutConfig)}
+            {
+              layoutConfig &&
+              renderLayoutConfig(getDataSecurity(chartData), layoutConfig, setLayoutConfig)
+            }
             <Button size="sm" variant="outline-success" className="me-2" onClick={() => {
               chartRef.current?.timeScale().scrollToRealTime();
             }}>

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import {LayoutConfigUpdatePayload, PxChartLayoutConfigState} from '../../../../state/config/types';
+import {LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../../state/config/types';
 import {PxDataMapSlotNames} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
 import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
@@ -16,7 +16,7 @@ type Props = {
   security: string,
   title: string,
   slot: PxDataMapSlotNames,
-  config: PxChartLayoutConfigState,
+  config: PxChartLayoutConfigSingle,
   setConfig: (payload: LayoutConfigUpdatePayload) => void,
 };
 

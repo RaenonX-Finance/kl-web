@@ -4,6 +4,8 @@ import {PxData, PxDataFromSocket} from '../../types/pxData';
 import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
+import {aggregatedDispatchers} from '../aggregated/dispatchers';
+import {AggregatedDispatcherName} from '../aggregated/types';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataUpdateChartMap} from './types';
 
@@ -21,6 +23,7 @@ const initialState: PxDataState = {
     'YM@1': 'C',
     'FITX@5': 'D',
   },
+  mapReady: false,
 };
 
 const fixPxData = (pxData: PxData): PxData => {
@@ -60,6 +63,13 @@ const slice = createSlice({
     // > Always use history data to add new bar - only update the last bar on market Px updated
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE], pxDataFillingReducer);
+    builder.addCase(
+      aggregatedDispatchers[AggregatedDispatcherName.INIT_CONFIG],
+      (state, {payload}) => {
+        state.map = payload.slotMap;
+        state.mapReady = true;
+      },
+    );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
       (state: PxDataState, {payload}) => {

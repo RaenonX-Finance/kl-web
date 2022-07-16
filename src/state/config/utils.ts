@@ -1,12 +1,12 @@
 import {PxChartLayoutConfigKeys} from '../../components/chart/pxData/type';
-import {initialConfig} from './const';
-import {PxChartLayoutConfigState} from './types';
+import {defaultConfig} from './const';
+import {PxChartLayoutConfigSingle} from './types';
 
 
-export const getInitialConfigSingle = () : PxChartLayoutConfigState => ({
-  ...initialConfig,
+export const getInitialConfigSingle = () : PxChartLayoutConfigSingle => ({
+  ...defaultConfig,
 });
 
-export const getConfig = (config: PxChartLayoutConfigState, key: PxChartLayoutConfigKeys): boolean => {
-  return config[key] ?? initialConfig[key];
+export const getConfig = (config: PxChartLayoutConfigSingle, key: PxChartLayoutConfigKeys): boolean => {
+  return config[key] ?? defaultConfig[key];
 };

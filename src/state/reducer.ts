@@ -17,7 +17,7 @@ const reducers = {
   pxData: pxDataReducer,
 };
 
-const whitelist: (keyof typeof reducers)[] = ['config'];
+const whitelist: (keyof typeof reducers)[] = [];
 
 const persistConfig: PersistConfig<ReduxState> = {
   key: 'root',

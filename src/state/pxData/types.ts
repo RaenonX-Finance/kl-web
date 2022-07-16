@@ -6,14 +6,18 @@ export const PX_DATA_STATE_NAME = 'PxData';
 
 export enum PxDataDispatcherName {
   INIT = 'initPx',
+  INIT_SLOT_MAP = 'initSlotMap',
   UPDATE = 'updatePx',
   UPDATE_MARKET = 'updateMarketPx',
   UPDATE_CHART_MAP = 'updateChartMap',
 }
 
+export type PxDataSlotMap = {[uniqueIdentifier in string]?: PxDataMapSlotNames};
+
 export type PxDataState = StateBase & {
   data: PxDataMap,
-  map: {[uniqueIdentifier in string]?: PxDataMapSlotNames},
+  map: PxDataSlotMap,
+  mapReady: boolean,
 };
 
 export type PxDataUpdateChartMapEntry = {
