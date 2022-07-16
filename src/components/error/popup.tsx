@@ -13,7 +13,6 @@ export const ErrorPopup = () => {
   const {show, message} = useErrorSelector();
   const dispatch = useDispatch();
 
-  // TODO: Style
   return (
     <Modal
       show={show}

@@ -10,7 +10,7 @@ import {PxDataSlotMap} from '../state/pxData/types';
  */
 export type UserConfigModel = {
   account_id: string,
-  slot_map: PxDataSlotMap,
-  layout_config: PxChartLayoutConfig,
-  layout_type: LayoutType,
+  slot_map: PxDataSlotMap | null,
+  layout_config: PxChartLayoutConfig | null,
+  layout_type: LayoutType | null,
 };

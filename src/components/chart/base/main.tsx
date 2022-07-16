@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 import {useAnimation} from '../../../hooks/animation';
 import {configDispatchers} from '../../../state/config/dispatchers';
-import {useLayoutSingleConfigSelector} from '../../../state/config/selector';
+import {useSingleLayoutConfigSelector} from '../../../state/config/selector';
 import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {useDispatch} from '../../../state/store';
 import {PxDataMapSlotNames} from '../../../types/pxData';
@@ -59,8 +59,10 @@ export const TradingViewChart = <T, P, R, L>({
   });
   const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
-  const layoutConfig = useLayoutSingleConfigSelector(slot);
+  const layoutConfig = useSingleLayoutConfigSelector(slot);
   const dispatch = useDispatch();
+  // Need to be explicit because empty object `{}` is also falsy
+  const isLayoutConfigReady = layoutConfig !== null;
 
   const setObject = {
     legend: setLegend,
@@ -74,7 +76,7 @@ export const TradingViewChart = <T, P, R, L>({
     chartDataRef.current = chartData;
     const dataLastUpdated = getDataLastUpdate(chartData);
 
-    if (!layoutConfig || (!forceUpdate && dataLastUpdated <= lastUpdated.current)) {
+    if (!isLayoutConfigReady || (!forceUpdate && dataLastUpdated <= lastUpdated.current)) {
       return;
     }
 
@@ -83,7 +85,7 @@ export const TradingViewChart = <T, P, R, L>({
   };
 
   const onLoad = () => {
-    if (!chartContainerRef.current || !layoutConfig) {
+    if (!chartContainerRef.current || !isLayoutConfigReady) {
       return;
     }
 
@@ -106,7 +108,7 @@ export const TradingViewChart = <T, P, R, L>({
     height,
   });
 
-  React.useEffect(onLoad, []);
+  React.useEffect(onLoad, [isLayoutConfigReady]);
   React.useEffect(
     onDataUpdatedInternal(true),
     [chartObjectRef.current?.initData, payload, layoutConfig],

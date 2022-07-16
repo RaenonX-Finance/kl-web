@@ -26,3 +26,8 @@ export type LayoutConfigUpdatePayload = {
   configKey: PxChartLayoutConfigKeys,
   value: boolean,
 };
+
+export type UseSingleLayoutConfigReturn = {
+  layoutConfig: PxChartLayoutConfigSingle | null,
+  isReady: boolean,
+};

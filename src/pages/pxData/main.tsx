@@ -14,11 +14,7 @@ export const PxDataMain = () => {
   return (
     <PermissionLayout allowedWithPermissions={['chart:view']}>
       <PxDataSocketContext>
-        {
-          !!LayoutComponent ?
-            <LayoutComponent/> :
-            <></>
-        }
+        {!!LayoutComponent && <LayoutComponent/>}
       </PxDataSocketContext>
     </PermissionLayout>
   );

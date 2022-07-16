@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {TextWithLoading} from '../../../components/common/loading/text';
 import {SocketContext} from '../../../types/socket/socket';
 import {usePxSocketInit} from './init';
 
@@ -17,7 +18,7 @@ export const PxDataSocketContext = ({children}: PxDataContextProps) => {
       {
         socket ?
           children :
-          <>Px data socket not connected.</>
+          <TextWithLoading show text="行情資料 Socket 未連線。"/>
       }
     </SocketContext.Provider>
   );

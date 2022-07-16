@@ -10,6 +10,6 @@ export const useLayoutTypeConfigSelector = (): LayoutType | null => {
   return useSelector(({config}: ReduxState) => config.layoutType);
 };
 
-export const useLayoutSingleConfigSelector = (slot: PxDataMapSlotNames): PxChartLayoutConfigSingle | null => {
-  return useSelector(({config}: ReduxState) => config.layoutConfig ? config.layoutConfig[slot] : null);
+export const useSingleLayoutConfigSelector = (slot: PxDataMapSlotNames): PxChartLayoutConfigSingle | null => {
+  return useSelector(({config}: ReduxState) => config.layoutConfig && config.layoutConfig[slot]);
 };

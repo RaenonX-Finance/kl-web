@@ -8,6 +8,7 @@ import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataUpdateChartMap} from './types';
+import {generateInitialSlotMap} from './utils';
 
 
 const initialState: PxDataState = {
@@ -33,8 +34,8 @@ const fixPxData = (pxData: PxData): PxData => {
 const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
   // TODO: To fix after data sending optimization
   payload.forEach((pxData) => {
-    if (!state.map) {
-      console.error('Attempt to fill Px data while the px data map is not ready.', state);
+    if (state.map === null) {
+      console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
       return;
     }
     const slot = state.map[pxData.uniqueIdentifier];
@@ -66,7 +67,7 @@ const slice = createSlice({
       (state: PxDataState, {payload}) => {
         const {config} = payload;
 
-        state.map = config.slot_map;
+        state.map = config.slot_map || generateInitialSlotMap();
       },
     );
     builder.addCase(
