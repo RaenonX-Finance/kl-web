@@ -16,8 +16,7 @@ export type PxDataSlotMap = {[uniqueIdentifier in string]?: PxDataMapSlotNames};
 
 export type PxDataState = StateBase & {
   data: PxDataMap,
-  map: PxDataSlotMap,
-  mapReady: boolean,
+  map: PxDataSlotMap | null,
 };
 
 export type PxDataUpdateChartMapEntry = {

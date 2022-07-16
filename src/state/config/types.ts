@@ -17,9 +17,8 @@ export type PxChartLayoutConfigSingle = {[key in PxChartLayoutConfigKeys]?: bool
 export type PxChartLayoutConfig = {[name in PxDataMapSlotNames]: PxChartLayoutConfigSingle};
 
 export type ConfigState = StateBase & {
-  layoutType: LayoutType,
-  layoutConfig: PxChartLayoutConfig,
-  isReady: boolean,
+  layoutType: LayoutType | null,
+  layoutConfig: PxChartLayoutConfig | null,
 };
 
 export type LayoutConfigUpdatePayload = {

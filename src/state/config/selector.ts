@@ -7,9 +7,9 @@ import {PxChartLayoutConfigSingle} from './types';
 
 
 export const useLayoutTypeConfigSelector = (): LayoutType | null => {
-  return useSelector(({config}: ReduxState) => config.isReady ? config.layoutType : null);
+  return useSelector(({config}: ReduxState) => config.layoutType);
 };
 
 export const useLayoutSingleConfigSelector = (slot: PxDataMapSlotNames): PxChartLayoutConfigSingle | null => {
-  return useSelector(({config}: ReduxState) => config.isReady ? config.layoutConfig[slot] : null);
+  return useSelector(({config}: ReduxState) => config.layoutConfig ? config.layoutConfig[slot] : null);
 };

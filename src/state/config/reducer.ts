@@ -4,19 +4,12 @@ import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {configDispatchers} from './dispatchers';
 import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './types';
-import {getInitialConfigSingle} from './utils';
 
 
 const initialState: ConfigState = {
   // Values doesn't really matter here as `isReady` should block the UI from render
-  layoutType: '1-1x1',
-  layoutConfig: {
-    A: getInitialConfigSingle(),
-    B: getInitialConfigSingle(),
-    C: getInitialConfigSingle(),
-    D: getInitialConfigSingle(),
-  },
-  isReady: false,
+  layoutType: null,
+  layoutConfig: null,
 };
 
 const slice = createSlice({
@@ -31,7 +24,6 @@ const slice = createSlice({
 
         state.layoutType = config.layout_type;
         state.layoutConfig = config.layout_config;
-        state.isReady = true;
       },
     );
     builder.addCase(
@@ -43,6 +35,11 @@ const slice = createSlice({
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG],
       (state: ConfigState, {payload}) => {
+        if (!state.layoutConfig) {
+          console.error('Attempted to update the layout config while the config is not ready.', state);
+          return;
+        }
+
         const {slot, configKey, value} = payload;
         state.layoutConfig[slot][configKey] = value;
       },

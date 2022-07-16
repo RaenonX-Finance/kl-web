@@ -5,5 +5,5 @@ import {ReduxState} from '../types';
 
 
 export const usePxDataSelector = (slot: PxDataMapSlotNames): PxData | null => {
-  return useSelector(({pxData}: ReduxState) => pxData.mapReady ? pxData.data[slot] : null);
+  return useSelector(({pxData}: ReduxState) => pxData.data[slot]);
 };

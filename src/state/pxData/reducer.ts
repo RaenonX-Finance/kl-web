@@ -17,13 +17,7 @@ const initialState: PxDataState = {
     'C': null,
     'D': null,
   },
-  map: {
-    'FITX@1': 'A',
-    'NQ@1': 'B',
-    'YM@1': 'C',
-    'FITX@5': 'D',
-  },
-  mapReady: false,
+  map: null,
 };
 
 const fixPxData = (pxData: PxData): PxData => {
@@ -39,6 +33,10 @@ const fixPxData = (pxData: PxData): PxData => {
 const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
   // TODO: To fix after data sending optimization
   payload.forEach((pxData) => {
+    if (!state.map) {
+      console.error('Attempt to fill Px data while the px data map is not ready.', state);
+      return;
+    }
     const slot = state.map[pxData.uniqueIdentifier];
 
     if (!slot) {
@@ -69,7 +67,6 @@ const slice = createSlice({
         const {config} = payload;
 
         state.map = config.slot_map;
-        state.mapReady = true;
       },
     );
     builder.addCase(
