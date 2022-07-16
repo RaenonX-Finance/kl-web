@@ -18,6 +18,7 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   const lastUpdate = React.useRef(0);
 
   const dispatch = useDispatch();
+  const {signIn} = useNextAuthCall();
 
   const refreshStatus = React.useCallback(() => {
     const now = Date.now();

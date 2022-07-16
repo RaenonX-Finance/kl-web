@@ -1,27 +1,24 @@
 import React from 'react';
 
-import {signIn, useSession} from 'next-auth/react';
+import {useSession} from 'next-auth/react';
 import {useRouter} from 'next/router';
 
 import {MainLoading} from '../../components/common/loading/main';
 import {GeneralPath} from '../../const/path';
-import {errorDispatchers} from '../../state/error/dispatchers';
-import {ErrorDispatcherName} from '../../state/error/types';
-import {useDispatch} from '../../state/store';
+import {useNextAuthCall} from '../../hooks/auth';
 import {CUSTOM_PROVIDER_ID} from '../../types/auth/const';
 
 
 export const LoginRedirect = () => {
   const {status} = useSession();
   const {query} = useRouter();
-  const dispatch = useDispatch();
+  const {signIn} = useNextAuthCall();
 
   React.useEffect(() => {
     if (status === 'unauthenticated') {
-      signIn(CUSTOM_PROVIDER_ID).catch((error) => {
-        console.error(error);
-        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: JSON.stringify(error)}));
-      });
+      // Must set `noSignOut` to `true`, or infinite loop happens
+      // (Use main sign-in page -> redirect -> sign-out -> sign-in / go to main sign-in page -> ...)
+      signIn({providerId: CUSTOM_PROVIDER_ID, noSignOut: true});
     } else if (status === 'authenticated') {
       const redirectUrl = query.callbackUrl as (string | undefined);
 

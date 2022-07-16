@@ -1,26 +1,19 @@
 import React from 'react';
 
-import {signIn} from 'next-auth/react';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
-import {errorDispatchers} from '../../../state/error/dispatchers';
-import {ErrorDispatcherName} from '../../../state/error/types';
-import {useDispatch} from '../../../state/store';
-import {CUSTOM_PROVIDER_ID} from '../../../types/auth/const';
+import {useNextAuthCall} from '../../../hooks/auth';
 import {TextWithLoading} from '../../common/loading/text';
 
 
 export const LoginRequired = () => {
   const [disabled, setDisabled] = React.useState(false);
-  const dispatch = useDispatch();
+  const {signIn} = useNextAuthCall();
 
   const onClick = async () => {
     setDisabled(true);
-    signIn(CUSTOM_PROVIDER_ID).catch((error) => {
-      console.error(error);
-      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: JSON.stringify(error)}));
-    });
+    signIn();
   };
 
   return (
