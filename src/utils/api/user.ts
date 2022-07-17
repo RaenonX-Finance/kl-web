@@ -15,9 +15,9 @@ type ApiUpdateConfigKeyDataMap = {
   layout_type: LayoutType,
 };
 
-type ApiUpdateConfigKeys = keyof ApiUpdateConfigKeyDataMap;
+export type ApiUpdateConfigKeys = keyof ApiUpdateConfigKeyDataMap;
 
-type ApiUpdateConfigOpts<K extends ApiUpdateConfigKeys> = {
+export type ApiUpdateConfigOpts<K extends ApiUpdateConfigKeys> = {
   token: string,
   key: K,
   data: ApiUpdateConfigKeyDataMap[K],

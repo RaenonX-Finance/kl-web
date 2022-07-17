@@ -29,7 +29,7 @@ export const LayoutIconBase = ({lines, layoutType, onClick, size = 32, hideOnPor
 
   const onButtonClick = () => {
     onClick();
-    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT]({
+    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_TYPE]({
       layoutType,
       token: session?.user?.token,
     }));

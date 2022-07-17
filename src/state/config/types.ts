@@ -7,7 +7,7 @@ import {StateBase} from '../types';
 export const CONFIG_STATE_NAME = 'Config';
 
 export enum ConfigDispatcherName {
-  UPDATE_LAYOUT = 'Config/UpdateLayout',
+  UPDATE_LAYOUT_TYPE = 'Config/UpdateLayoutType',
   UPDATE_LAYOUT_CONFIG = 'Config/UpdateLayoutConfig',
 }
 
