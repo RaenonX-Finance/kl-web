@@ -1,8 +1,9 @@
 import React, {FormEvent} from 'react';
 
-import {AxiosError, AxiosResponse} from 'axios';
+import {AxiosResponse} from 'axios';
 import Form from 'react-bootstrap/Form';
 
+import {getErrorMessage} from '../../utils/error';
 import {AjaxFormError} from './error';
 import {AjaxFormData} from './type';
 
@@ -29,32 +30,11 @@ export const AjaxForm = <D extends AjaxFormData>({
 
     try {
       await onSubmit(e);
-    } catch (caughtError) {
-      const isAxiosError = caughtError instanceof AxiosError;
-      const isJsError = caughtError instanceof Error;
-
-      const response = isAxiosError ? caughtError.response : undefined;
-      // Status could be `0` for network error
-      const error = response && !!response.status ?
-        (
-          (getError && getError(response)) ??
-          `${response.status} ${response.statusText} - ${JSON.stringify(response.data)}`
-        ) :
-        (
-          isAxiosError ?
-            `${caughtError.code} - ${caughtError.message}` :
-            (
-              isJsError ?
-                `${caughtError.message}` :
-                '開啟開發者模式後，截圖錯誤資訊，然後聯繫客服。'
-            )
-        );
-
-      console.error(caughtError);
+    } catch (err) {
       setData({
         ...data,
         disabled: false,
-        error,
+        error: getErrorMessage({err, getAxiosError: getError}),
       });
     }
   };
