@@ -7,7 +7,7 @@ import {updateCurrentPxDataTitle} from '../../utils/title';
 import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {pxDataDispatchers} from './dispatchers';
-import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState, PxDataUpdateChartMap} from './types';
+import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
 import {generateInitialSlotMap} from './utils';
 
 
@@ -100,15 +100,6 @@ const slice = createSlice({
         });
 
         updateCurrentPxDataTitle(state.data);
-      },
-    );
-    builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE_CHART_MAP],
-      (state: PxDataState, {payload}: {payload: PxDataUpdateChartMap}) => {
-        state.map = {
-          ...state.map,
-          ...Object.fromEntries(payload.map(({slot, uniqueIdentifier}) => [uniqueIdentifier, slot])),
-        };
       },
     );
   },
