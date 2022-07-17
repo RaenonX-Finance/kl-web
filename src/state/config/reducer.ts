@@ -19,7 +19,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       mergedDispatchers[MergedDispatcherName.INIT_APP],
-      (state: ConfigState, {payload}) => {
+      (state, {payload}) => {
         const {config} = payload;
 
         return {
@@ -30,7 +30,7 @@ const slice = createSlice({
     );
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_TYPE].fulfilled,
-      (state: ConfigState, {payload}) => {
+      (state, {payload}) => {
         const {layoutType} = payload;
 
         state.layoutType = layoutType;
@@ -38,7 +38,7 @@ const slice = createSlice({
     );
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG].fulfilled,
-      (state: ConfigState, {payload}) => {
+      (state, {payload}) => {
         const {slot, configKey, value} = payload;
 
         if (!state.layoutConfig) {

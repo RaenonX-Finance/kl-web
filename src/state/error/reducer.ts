@@ -17,14 +17,14 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       errorDispatchers[ErrorDispatcherName.UPDATE],
-      (state: ErrorState, {payload}: {payload: ErrorMessage}) => {
+      (state, {payload}: {payload: ErrorMessage}) => {
         state.show = true;
         state.message = payload.message;
       },
     );
     builder.addCase(
       errorDispatchers[ErrorDispatcherName.HIDE_ERROR],
-      (state: ErrorState) => {
+      (state) => {
         state.show = false;
       },
     );

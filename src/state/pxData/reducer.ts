@@ -64,7 +64,7 @@ const slice = createSlice({
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
     builder.addCase(
       mergedDispatchers[MergedDispatcherName.INIT_APP],
-      (state: PxDataState, {payload}) => {
+      (state, {payload}) => {
         const {config} = payload;
 
         state.map = config.slot_map || generateInitialSlotMap();
@@ -72,7 +72,7 @@ const slice = createSlice({
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-      (state: PxDataState, {payload}) => {
+      (state, {payload}) => {
         Object.values(state.data).map((pxData) => {
           if (!pxData) {
             return;

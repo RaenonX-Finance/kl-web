@@ -14,9 +14,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       mergedDispatchers[MergedDispatcherName.INIT_APP],
-      (state: CustomSrLevelState, {payload}) => {
-        return payload.customSrLevelDict;
-      },
+      (_, {payload}) => payload.customSrLevelDict,
     );
   },
 });
