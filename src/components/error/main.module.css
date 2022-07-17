@@ -1,5 +1,6 @@
 div.error-modal {
   background-color: #600000;
+  overflow-wrap: break-word;
 }
 
 /*# sourceMappingURL=main.module.css.map */

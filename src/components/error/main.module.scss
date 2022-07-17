@@ -3,5 +3,6 @@
 div {
   &.error-modal {
     background-color: colors.$color-dark-red;
+    overflow-wrap: break-word;
   }
 }
