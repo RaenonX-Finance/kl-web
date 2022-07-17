@@ -9,3 +9,10 @@ export type DeepPartial<T> = {
 };
 
 export type RecursiveArray<T> = Array<RecursiveArray<T> | T>;
+
+export type JsonValue =
+  string |
+  number |
+  boolean |
+  {[x in string]?: JsonValue} |
+  JsonValue[];

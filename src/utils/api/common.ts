@@ -1,39 +1,35 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import axios, {AxiosResponse} from 'axios';
+
+import {JsonValue} from '../types';
 
 
-type ApiRequestOpts = {
+type ApiPostRequestOpts = {
   /**
    * This has to start with `/`.
    */
   apiPath: string,
-  // Forcing `URLSearchParams`
-  // because FastAPI receives `Content-Type: application/x-www-form-urlencoded` using `Body(...)`
-  data?: URLSearchParams,
   token?: string,
-};
-
-const getAxiosCommonOptions = ({
-  apiPath,
-  token,
-  data,
-}: ApiRequestOpts): AxiosRequestConfig<ApiRequestOpts['data']> => ({
-  url: `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`,
-  headers: {
-    ...(token ? {Authorization: `Bearer ${token}`} : {}),
-  },
-  data,
+} & ({
+  contentType: 'application/json',
+  data: JsonValue,
+} | {
+  contentType: 'application/x-www-form-urlencoded',
+  data: URLSearchParams,
 });
 
-export const apiSendPostRequest = <R>(opts: ApiRequestOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+export const apiSendPostRequest = <R>({
+  apiPath,
+  token,
+  contentType,
+  data,
+}: ApiPostRequestOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
   return axios.request({
-    ...getAxiosCommonOptions(opts),
+    url: `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`,
     method: 'POST',
-  });
-};
-
-export const apiSendGetRequest = <R>(opts: ApiRequestOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
-  return axios.request({
-    ...getAxiosCommonOptions(opts),
-    method: 'GET',
+    headers: {
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
+      'Content-Type': contentType,
+    },
+    data,
   });
 };

@@ -30,10 +30,11 @@ export const apiUpdateConfig = <K extends ApiUpdateConfigKeys>({
 }: ApiUpdateConfigOpts<K>): Promise<AxiosResponse<ApiUpdateConfigKeyDataMap[K]>> => (
   apiSendPostRequest({
     apiPath: '/user/config/update',
-    data: new URLSearchParams({
-      key,
-      data: JSON.stringify(data),
-    }),
+    contentType: 'application/json',
     token,
+    data: {
+      key,
+      data,
+    },
   })
 );

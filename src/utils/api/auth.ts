@@ -32,6 +32,8 @@ export const apiRequestOAuth2Token = ({
   return apiSendPostRequest({
     apiPath: '/auth/token',
     data,
+    // Per OAuth2 specs, this has to be 'application/x-www-form-urlencoded'
+    contentType: 'application/x-www-form-urlencoded',
   });
 };
 
@@ -44,11 +46,12 @@ export const apiRefreshOAuth2Token = ({
 }: ApiRefreshOAuth2TokenOpts): Promise<AxiosResponse<OAuth2TokenResponse>> => (
   apiSendPostRequest({
     apiPath: '/auth/token-refresh',
-    data: new URLSearchParams({
+    data: {
       client_id: process.env.NEXTAUTH_CLIENT_ID || '',
       client_secret: process.env.NEXTAUTH_CLIENT_SECRET || '',
-    }),
+    },
     token,
+    contentType: 'application/json',
   })
 );
 
@@ -65,11 +68,12 @@ export const apiSignupUser = ({
 }: ApiSignupUserOpts): Promise<AxiosResponse<UserModelOriginal>> => (
   apiSendPostRequest({
     apiPath: '/auth/signup',
-    data: new URLSearchParams({
+    data: {
       username,
       password,
       signup_key: signupKey,
-    }),
+    },
+    contentType: 'application/json',
   })
 );
 
@@ -84,9 +88,10 @@ export const apiGenerateSignupKey = ({
 }: ApiGenerateSignupKeyOpts): Promise<AxiosResponse<SignupKeyModel>> => (
   apiSendPostRequest({
     apiPath: '/auth/generate-signup-key',
-    data: new URLSearchParams({
-      expiry: accountExpiry.toISOString(),
-    }),
+    data: {
+      account_expiry: accountExpiry.toISOString(),
+    },
     token,
+    contentType: 'application/json',
   })
 );
