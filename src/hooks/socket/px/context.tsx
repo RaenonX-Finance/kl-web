@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {TextWithLoading} from '../../../components/common/loading/text';
+import {MainLoading} from '../../../components/common/loading/main';
 import {SocketContext} from '../../../types/socket/socket';
-import {usePxSocketInit} from './init';
+import {usePxSocket} from './main';
 
 
 type PxDataContextProps = {
@@ -11,15 +11,11 @@ type PxDataContextProps = {
 
 
 export const PxDataSocketContext = ({children}: PxDataContextProps) => {
-  const socket = usePxSocketInit();
+  const socket = usePxSocket();
 
   return (
     <SocketContext.Provider value={socket}>
-      {
-        socket ?
-          children :
-          <TextWithLoading show text="行情資料 Socket 未連線。"/>
-      }
+      {socket ? children : <MainLoading/>}
     </SocketContext.Provider>
   );
 };

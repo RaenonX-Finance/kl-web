@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@blaumaus/react-alert": "^7.0.5",
-    "@newrelic/next": "^0.1.1",
     "@newrelic/native-metrics": "^8.0.0",
-    "@reduxjs/toolkit": "^1.8.2",
+    "@newrelic/next": "^0.1.1",
+    "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
     "date-fns": "^2.28.0",
@@ -29,7 +29,7 @@
     "pako": "^2.0.4",
     "pm2": "^5.2.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.4.0",
+    "react-bootstrap": "2.3.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "sass": "^1.49.9",
@@ -63,16 +63,16 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^5.0.4",
     "jest": "^28.1.1",
-    "jest-junit": "^13.2.0",
     "jest-environment-jsdom": "^28.1.1",
+    "jest-junit": "^13.2.0",
     "react-app-polyfill": "^3.0.0",
     "socket.io-mock": "^1.3.2",
     "stylelint": "^14.9.0",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-config-standard-scss": "^4.0.0",
     "stylelint-scss": "^4.2.0",
-    "typescript": "^4.7.3",
-    "ts-node": "^10.8.1"
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
   },
   "browserslist": {
     "production": [

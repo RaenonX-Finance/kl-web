@@ -15,23 +15,10 @@ import {generateSocketClient} from '../../../utils/socket';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
-export const usePxSocketInit = (): PxDataSocket | undefined => {
+export const usePxSocket = (): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
-  const lastUpdate = React.useRef(0);
   const {data: session} = useSession();
   const dispatch = useDispatch();
-
-  const refreshStatus = React.useCallback(() => {
-    const now = Date.now();
-
-    // Only refresh once per 3 secs
-    // > not using `setInterval()` because the frequency is more unreliable
-    if (now - lastUpdate.current < 3000) {
-      return;
-    }
-
-    lastUpdate.current = now;
-  }, []);
 
   // Events
   const onConnectionError = (err: Error) => {
@@ -50,7 +37,6 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   const onPxInit = useSocketEventHandler({
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.INIT],
-    afterAction: refreshStatus,
   });
   const onPxUpdated = useSocketEventHandler({
     dispatch,
@@ -59,14 +45,13 @@ export const usePxSocketInit = (): PxDataSocket | undefined => {
   const onPxUpdatedMarket = useSocketEventHandler({
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-    afterAction: refreshStatus,
   });
   const onError = useSocketEventHandler({
     dispatch,
     action: errorDispatchers[ErrorDispatcherName.UPDATE],
-    afterAction: refreshStatus,
   });
 
+  // Hooks
   React.useEffect(() => {
     const socket = generateSocketClient();
 
