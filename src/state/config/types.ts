@@ -20,7 +20,13 @@ export type ConfigState = StateBase & {
   layoutConfig: PxChartLayoutConfig | null,
 };
 
+export type LayoutTypeUpdatePayload = {
+  token: string | undefined,
+  layoutType: LayoutType,
+};
+
 export type LayoutConfigUpdatePayload = {
+  token: string | undefined,
   slot: PxDataMapSlotNames,
   configKey: PxChartLayoutConfigKeys,
   value: boolean,

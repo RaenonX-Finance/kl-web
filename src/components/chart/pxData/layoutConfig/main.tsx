@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -21,6 +22,7 @@ type Props = {
 };
 
 export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConfig}: Props) => {
+  const {data: session} = useSession();
   const [show, setShow] = React.useState(false);
   const configKeysToHide = configKeysToHideOfSecurity[security] || [];
 
@@ -47,39 +49,39 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
         <hr className="my-0"/>
         <Offcanvas.Body>
           <Form>
-            {Object.entries(configEntriesUiGroup)
-              .map(([groupName, entryObj]) => (
-                <React.Fragment key={groupName}>
-                  <h5 className="mb-3">{groupName}</h5>
-                  {Object.entries(entryObj).map(([key, entry]) => {
-                    const configKey = key as PxChartLayoutConfigKeys;
+            {Object.entries(configEntriesUiGroup).map(([groupName, entryObj]) => (
+              <React.Fragment key={groupName}>
+                <h5 className="mb-3">{groupName}</h5>
+                {Object.entries(entryObj).map(([key, entry]) => {
+                  const configKey = key as PxChartLayoutConfigKeys;
 
-                    if (configKeysToHide.includes(configKey)) {
-                      return <React.Fragment key={key}/>;
-                    }
+                  if (configKeysToHide.includes(configKey)) {
+                    return <React.Fragment key={key}/>;
+                  }
 
-                    const {title, isDisabled} = entry;
-                    const enable = config[configKey];
+                  const {title, isDisabled} = entry;
+                  const enable = config[configKey];
 
-                    return (
-                      <Button
-                        className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
-                        key={key}
-                        variant="outline-mild-info"
-                        onClick={() => setConfig({
-                          slot,
-                          configKey,
-                          value: !enable,
-                        })}
-                        disabled={isDisabled && isDisabled(config)}
-                        active={enable}
-                      >
-                        {title}
-                      </Button>
-                    );
-                  })}
-                </React.Fragment>
-              ))
+                  return (
+                    <Button
+                      className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
+                      key={key}
+                      variant="outline-mild-info"
+                      onClick={() => setConfig({
+                        token: session?.user?.token,
+                        slot,
+                        configKey,
+                        value: !enable,
+                      })}
+                      disabled={isDisabled && isDisabled(config)}
+                      active={enable}
+                    >
+                      {title}
+                    </Button>
+                  );
+                })}
+              </React.Fragment>
+            ))
             }
           </Form>
         </Offcanvas.Body>

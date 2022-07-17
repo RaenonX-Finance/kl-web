@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
 import {useLayout} from '../../../../hooks/layout/main';
@@ -21,13 +22,17 @@ type Props = {
 };
 
 export const LayoutIconBase = ({lines, layoutType, onClick, size = 32, hideOnPortrait = true}: Props) => {
+  const {data: session} = useSession();
   const dispatch = useDispatch();
   const configLayoutType = useLayoutTypeConfigSelector();
   const {isLandscape} = useLayout();
 
   const onButtonClick = () => {
     onClick();
-    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT](layoutType));
+    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT]({
+      layoutType,
+      token: session?.user?.token,
+    }));
   };
 
   if (!configLayoutType || (hideOnPortrait && !isLandscape)) {

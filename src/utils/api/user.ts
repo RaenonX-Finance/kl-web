@@ -1,41 +1,38 @@
 import {AxiosResponse} from 'axios';
 
+import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxChartLayoutConfig} from '../../state/config/types';
 import {PxDataSlotMap} from '../../state/pxData/types';
 import {apiSendPostRequest} from './common';
 
 
-type ApiUpdateSlotMapOpts = {
-  token: string,
-  slotMap: PxDataSlotMap,
+/**
+ * Key of this typing map must match ``ConfigKey*`` in the backend.
+ */
+type ApiUpdateConfigKeyDataMap = {
+  slot_map: PxDataSlotMap,
+  layout_config: PxChartLayoutConfig,
+  layout_type: LayoutType,
 };
 
-export const apiUpdateSlotMap = ({
-  token,
-  slotMap,
-}: ApiUpdateSlotMapOpts): Promise<AxiosResponse<PxDataSlotMap>> => (
-  apiSendPostRequest({
-    apiPath: '/user/config/update-slot',
-    data: new URLSearchParams({
-      data: JSON.stringify(slotMap),
-    }),
-    token,
-  })
-);
+type ApiUpdateConfigKeys = keyof ApiUpdateConfigKeyDataMap;
 
-type ApiUpdateLayoutConfigOpts = {
+type ApiUpdateConfigOpts<K extends ApiUpdateConfigKeys> = {
   token: string,
-  layoutConfig: PxChartLayoutConfig,
+  key: K,
+  data: ApiUpdateConfigKeyDataMap[K],
 };
 
-export const apiUpdateLayoutConfig = ({
+export const apiUpdateConfig = <K extends ApiUpdateConfigKeys>({
   token,
-  layoutConfig,
-}: ApiUpdateLayoutConfigOpts): Promise<AxiosResponse<PxChartLayoutConfig>> => (
+  key,
+  data,
+}: ApiUpdateConfigOpts<K>): Promise<AxiosResponse<ApiUpdateConfigKeyDataMap[K]>> => (
   apiSendPostRequest({
-    apiPath: '/user/config/update-layout',
+    apiPath: '/user/config/update',
     data: new URLSearchParams({
-      data: JSON.stringify(layoutConfig),
+      key,
+      data: JSON.stringify(data),
     }),
     token,
   })
