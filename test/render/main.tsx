@@ -36,7 +36,7 @@ const RenderWrapper = ({store, options, children}: React.PropsWithChildren<Wrapp
 
   return (
     // Should have the same provider wrapping as what is in `_app.tsx`
-    <ReduxProvider persist={false} reduxStore={store}>
+    <ReduxProvider reduxStore={store}>
       <SessionProvider session={session}>
         {children}
       </SessionProvider>
