@@ -61,7 +61,7 @@ const slice = createSlice({
     // New px bar to be added only from the backend
     // > Always use history data to add new bar - only update the last bar on market Px updated
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE], pxDataFillingReducer);
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
     builder.addCase(
       mergedDispatchers[MergedDispatcherName.INIT_APP],
       (state: PxDataState, {payload}) => {

@@ -7,6 +7,6 @@ import {PxDataDispatcherName} from './types';
 
 export const pxDataDispatchers = {
   [PxDataDispatcherName.INIT]: createAction<PxDataFromSocket[]>(PxDataDispatcherName.INIT),
-  [PxDataDispatcherName.UPDATE]: createAction<PxDataFromSocket[]>(PxDataDispatcherName.UPDATE),
+  [PxDataDispatcherName.UPDATE_COMPLETE]: createAction<PxDataFromSocket[]>(PxDataDispatcherName.UPDATE_COMPLETE),
   [PxDataDispatcherName.UPDATE_MARKET]: createAction<PxDataMarket>(PxDataDispatcherName.UPDATE_MARKET),
 };

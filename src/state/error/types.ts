@@ -5,8 +5,8 @@ import {StateBase} from '../types';
 export const ERROR_STATE_NAME = 'Error';
 
 export enum ErrorDispatcherName {
-  UPDATE = 'updateErrorMessage',
-  HIDE_ERROR = 'hideError',
+  UPDATE = 'Error/UpdateErrorMessage',
+  HIDE_ERROR = 'Error/HideError',
 }
 
 export type ErrorState = StateBase & ErrorMessage & {

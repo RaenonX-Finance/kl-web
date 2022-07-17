@@ -40,7 +40,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   });
   const onPxUpdated = useSocketEventHandler({
     dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.UPDATE],
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
   });
   const onPxUpdatedMarket = useSocketEventHandler({
     dispatch,

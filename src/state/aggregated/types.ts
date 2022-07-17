@@ -1,3 +1,3 @@
 export enum MergedDispatcherName {
-  INIT_APP = 'initApp'
+  INIT_APP = 'Merged/InitApp'
 }

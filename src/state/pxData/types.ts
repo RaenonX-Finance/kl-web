@@ -5,9 +5,9 @@ import {StateBase} from '../types';
 export const PX_DATA_STATE_NAME = 'PxData';
 
 export enum PxDataDispatcherName {
-  INIT = 'initPx',
-  UPDATE = 'updatePx',
-  UPDATE_MARKET = 'updateMarketPx',
+  INIT = 'PxData/Init',
+  UPDATE_COMPLETE = 'PxData/UpdateComplete',
+  UPDATE_MARKET = 'PxData/UpdateMarket',
 }
 
 export type PxDataSlotMap = {[uniqueIdentifier in string]?: PxDataMapSlotNames};
