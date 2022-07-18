@@ -18,6 +18,7 @@ type Props = {
 
 export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
   const pxData = usePxDataSelector(slot);
+  const products = useProductDataSelector();
   const customSrLevels = useCustomSrSelector(pxData?.contract.symbol) || [];
 
   const containerCss: React.CSSProperties = {
@@ -40,7 +41,10 @@ export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
           <MainLoading/> :
           <React.Suspense fallback={<MainLoading/>}>
             <PxDataChart
-              title={getPxDataTitle(pxData)}
+              title={
+                `${products[pxData.contract.symbol]?.name || pxData.contract.symbol} @ ` +
+                `${(pxData.periodSec / 60).toFixed(0)}`
+              }
               slot={slot}
               chartData={pxData}
               payload={{customSrLevels}}
