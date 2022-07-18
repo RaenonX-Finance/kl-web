@@ -12,6 +12,7 @@ export type SocketEventKeys =
   'pxRequest' |
   'pxInit' |
   'error' |
+  'signIn' |
   'ping';
 
 export type SocketEvent = {[key in SocketEventKeys]: SocketMessageHandler};

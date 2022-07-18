@@ -12,6 +12,7 @@ import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
 import {PxDataSocket, SocketMessage} from '../../../types/socket/type';
 import {generateSocketClient} from '../../../utils/socket';
+import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
@@ -19,6 +20,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
   const {data: session} = useSession();
   const dispatch = useDispatch();
+  const {signIn} = useNextAuthCall();
 
   // Events
   const onConnectionError = (err: Error) => {
@@ -50,6 +52,15 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     dispatch,
     action: errorDispatchers[ErrorDispatcherName.UPDATE],
   });
+  const onSignIn = (message: SocketMessage) => {
+    if (typeof message !== 'string') {
+      console.error(`Socket event [signIn] does not have [string] message: ${message}`);
+      return;
+    }
+
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
+    signIn();
+  };
 
   // Hooks
   React.useEffect(() => {
@@ -64,6 +75,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     socket.on('pxUpdatedMarket', onPxUpdatedMarket);
     socket.on('pxInit', onPxInit);
     socket.on('error', onError);
+    socket.on('signIn', onSignIn);
 
     socket.emit('init', session?.user?.token || '');
     socket.emit('pxInit', '');
@@ -76,6 +88,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
       socket.off('pxUpdatedMarket', onPxUpdatedMarket);
       socket.off('pxInit', onPxInit);
       socket.off('error', onError);
+      socket.off('signIn', onSignIn);
 
       socket.close();
     };
