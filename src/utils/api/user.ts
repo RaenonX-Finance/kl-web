@@ -7,7 +7,7 @@ import {apiSendPostRequest} from './common';
 
 
 /**
- * Key of this typing map must match ``ConfigKey*`` in the backend.
+ * Key of this typing map must match `ConfigKey*` in the backend.
  */
 type ApiUpdateConfigKeyDataMap = {
   slot_map: PxDataSlotMap,

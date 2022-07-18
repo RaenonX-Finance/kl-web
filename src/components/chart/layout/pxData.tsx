@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {useCustomSrSelector} from '../../../state/customSr/selector';
+import {useProductDataSelector} from '../../../state/data/selector';
 import {usePxDataSelector} from '../../../state/pxData/selector';
 import {PxDataMapSlotNames} from '../../../types/pxData';
-import {getPxDataTitle} from '../../../utils/pxData';
 import {MainLoading} from '../../common/loading/main';
 import {PxDataChart} from '../pxData/main';
 
