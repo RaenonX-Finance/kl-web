@@ -2,6 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 
 import {PxDataFromSocket} from '../../types/pxData';
 import {PxDataMarket} from '../../types/pxDataMarket';
+import {overrideObject} from '../../utils/override';
 import {createConfigAsyncThunk} from '../config/utils';
 import {PxDataDispatcherName, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap} from './utils';
@@ -17,10 +18,9 @@ export const pxDataDispatchers = {
   >({
     actionName: PxDataDispatcherName.UPDATE_SLOT_MAP,
     key: 'slot_map',
-    getData: ({pxData}, {slot, symbol, periodMin}) => (
-      Object.fromEntries(Object.entries(pxData.map || generateInitialSlotMap())
-        .filter(([_, mapSlot]) => slot !== mapSlot)
-        .concat([[`${symbol}@${periodMin}`, slot]]))
+    getData: ({pxData}, {slot, symbol, periodMin}) => overrideObject(
+      pxData.map || generateInitialSlotMap(),
+      {[slot]: `${symbol}@${periodMin}`},
     ),
   }),
 };

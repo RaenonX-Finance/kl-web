@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {PxData, PxDataFromSocket} from '../../types/pxData';
+import {PxData, PxDataFromSocket, PxSlotName} from '../../types/pxData';
 import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
@@ -13,10 +13,10 @@ import {generateInitialSlotMap} from './utils';
 
 const initialState: PxDataState = {
   data: {
-    'A': null,
-    'B': null,
-    'C': null,
-    'D': null,
+    A: null,
+    B: null,
+    C: null,
+    D: null,
   },
   map: null,
 };
@@ -38,15 +38,16 @@ const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFro
       console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
       return;
     }
-    const slot = state.map[pxData.uniqueIdentifier];
 
-    if (!slot) {
-      return;
-    }
+    Object.entries(state.map).forEach(([slot, identifier]) => {
+      if (identifier !== pxData.uniqueIdentifier) {
+        return;
+      }
 
-    state.data[slot] = fixPxData({
-      ...pxData,
-      lastUpdated: Date.now(),
+      state.data[slot as PxSlotName] = fixPxData({
+        ...pxData,
+        lastUpdated: Date.now(),
+      });
     });
   });
 

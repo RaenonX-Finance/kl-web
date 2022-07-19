@@ -11,7 +11,7 @@ export enum PxDataDispatcherName {
   UPDATE_SLOT_MAP = 'PxData/UpdateSlotMap',
 }
 
-export type PxSlotMap = {[uniqueIdentifier in string]?: PxSlotName};
+export type PxSlotMap = {[name in PxSlotName]: string};
 
 export type PxDataState = StateBase & {
   data: PxDataMap,

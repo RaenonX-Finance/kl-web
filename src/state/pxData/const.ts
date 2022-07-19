@@ -2,8 +2,8 @@ import {PxSlotMap} from './types';
 
 
 export const defaultSlotMap: PxSlotMap = {
-  'FITX@1': 'A',
-  'YM@1': 'B',
-  'NQ@1': 'C',
-  'FITX@5': 'D',
+  A: 'FITX@1',
+  B: 'YM@1',
+  C: 'NQ@1',
+  D: 'FITX@5',
 };
