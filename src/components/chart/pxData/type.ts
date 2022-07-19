@@ -2,6 +2,7 @@ import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {CustomSrLevel} from '../../../types/init';
 import {PxData, PxDataEmaPeriodPair} from '../../../types/pxData';
+import {KeysOfType} from '../../../utils/types';
 import {
   ChartDataUpdatedEventHandler,
   ChartInitEventHandler,
@@ -66,14 +67,19 @@ export type PxChartLayoutConfigSingle = {
   srLevelBasic: boolean,
   inChartExtrema: boolean,
   inChartExtremaLabel: boolean,
+  intervalMarketPx: number,
 };
 
 export type PxChartLayoutConfigKeys = keyof PxChartLayoutConfigSingle;
+
+export type PxChartLayoutConfigBoolValKeys = KeysOfType<PxChartLayoutConfigSingle, boolean>;
 
 export type PxChartLayoutConfigEntry = {
   title: string,
   group: string,
   isDisabled?: (config: PxChartLayoutConfigSingle) => boolean,
+  step?: number,
+  min?: number,
 };
 
 export type PxChartLayoutConfigUI = {

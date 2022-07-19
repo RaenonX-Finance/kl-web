@@ -1,7 +1,7 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {getConfig} from '../../../../../../state/config/utils';
-import {OnPxChartUpdatedEvent, PxChartLayoutConfigKeys} from '../../../type';
+import {OnPxChartUpdatedEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
 import {SrLevelCommonOptions} from '../../type';
 
 
@@ -28,8 +28,8 @@ const removePxLines = (
 
 type HandleSrCommonOptions = {
   e: OnPxChartUpdatedEvent,
-  keyOfConfig: PxChartLayoutConfigKeys,
-  keyOfConfigLabel: PxChartLayoutConfigKeys,
+  keyOfConfig: PxChartLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
   levels: number[],
   lineRecord: Record<number, IPriceLine>,
   color: string,

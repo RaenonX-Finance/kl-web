@@ -1,15 +1,15 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {getConfig} from '../../../../../../state/config/utils';
-import {OnPxChartInitEvent, PxChartLayoutConfigKeys} from '../../../type';
+import {OnPxChartInitEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
 import {SrLevelCommonOptions} from '../../type';
 
 
 type HandleSrCommonOptions = {
   e: OnPxChartInitEvent,
   price: ISeriesApi<'Candlestick'>,
-  keyOfConfig: PxChartLayoutConfigKeys,
-  keyOfConfigLabel: PxChartLayoutConfigKeys,
+  keyOfConfig: PxChartLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
   levels: number[],
   color: string,
   commonOptions: SrLevelCommonOptions,

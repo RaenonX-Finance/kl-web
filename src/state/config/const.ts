@@ -16,4 +16,5 @@ export const defaultConfig: Required<PxChartLayoutConfigSingle> = {
   srLevelBasic: false,
   inChartExtrema: true,
   inChartExtremaLabel: true,
+  intervalMarketPx: 0.3,
 };

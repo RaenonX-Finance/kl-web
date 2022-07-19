@@ -27,7 +27,7 @@ export type LayoutConfigUpdatePayload = {
   token: string | undefined,
   slot: PxSlotName,
   configKey: PxChartLayoutConfigKeys,
-  value: boolean,
+  value: PxChartLayoutConfigSingle[PxChartLayoutConfigKeys],
 };
 
 export type UseSingleLayoutConfigReturn = {

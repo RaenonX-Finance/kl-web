@@ -16,7 +16,10 @@ export const generateInitialConfig = () : PxChartLayoutConfig => ({
   D: {...defaultConfig},
 });
 
-export const getConfig = (config: PxChartLayoutConfigSingle, key: PxChartLayoutConfigKeys): boolean => {
+export const getConfig = <K extends PxChartLayoutConfigKeys>(
+  config: PxChartLayoutConfigSingle,
+  key: K,
+): PxChartLayoutConfigSingle[K] => {
   return config[key] ?? defaultConfig[key];
 };
 

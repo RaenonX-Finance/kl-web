@@ -64,4 +64,10 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     group: '標籤',
     isDisabled: ({inChartExtrema}) => !inChartExtrema,
   },
+  intervalMarketPx: {
+    title: '行情刷新頻率 (秒)',
+    group: '其他',
+    step: 0.05,
+    min: 0.05,
+  },
 };

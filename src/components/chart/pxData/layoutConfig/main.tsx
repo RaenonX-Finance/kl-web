@@ -2,19 +2,19 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import {LayoutConfigUpdatePayload} from '../../../../state/config/type';
 import {PxSlotName} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
-import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../type';
-import {configKeysToHideOfSecurity} from './const';
+import {PxChartLayoutConfigSingle} from '../type';
+import {PxChartLayoutConfigEntries} from './entries';
 import styles from './main.module.scss';
+import {LayoutConfigEntriesGroup} from './type';
 import {PxChartLayoutConfigUpdating} from './updating';
 
 
-type Props = {
+export type LayoutConfigPanelProps = {
   security: string,
   title: string,
   slot: PxSlotName,
@@ -22,29 +22,24 @@ type Props = {
   setConfig: (payload: LayoutConfigUpdatePayload) => Promise<void>,
 };
 
-export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConfig}: Props) => {
+export const PxChartLayoutConfigPanel = ({
+  security,
+  title,
+  slot,
+  config,
+  setConfig,
+}: LayoutConfigPanelProps) => {
   const {data: session} = useSession();
   const [show, setShow] = React.useState(false);
   const [updating, setUpdating] = React.useState(false);
-  const configKeysToHide = configKeysToHideOfSecurity[security] || [];
 
-  const configEntriesUiGroup: {[group in string]: {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry}} = {};
+  const configEntriesGroup: LayoutConfigEntriesGroup = {};
   Object.entries(configEntriesUI).forEach(([key, entry]) => {
-    configEntriesUiGroup[entry.group] = {
-      ...(configEntriesUiGroup[entry.group] || {}),
+    configEntriesGroup[entry.group] = {
+      ...(configEntriesGroup[entry.group] || {}),
       [key]: entry,
     };
   });
-
-  const updateConfig = (configKey: PxChartLayoutConfigKeys) => () => {
-    setUpdating(true);
-    setConfig({
-      token: session?.user?.token,
-      slot,
-      configKey,
-      value: !config[configKey],
-    }).finally(() => setUpdating(false));
-  };
 
   return (
     <>
@@ -61,36 +56,20 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
         <hr className="my-0"/>
         <Offcanvas.Body>
           {updating && <PxChartLayoutConfigUpdating/>}
-          <Form>
-            {Object.entries(configEntriesUiGroup).map(([groupName, entryObj]) => (
-              <React.Fragment key={groupName}>
-                <h5 className="mb-3">{groupName}</h5>
-                {Object.entries(entryObj).map(([key, entry]) => {
-                  const configKey = key as PxChartLayoutConfigKeys;
-
-                  if (configKeysToHide.includes(configKey)) {
-                    return <React.Fragment key={key}/>;
-                  }
-
-                  const {title, isDisabled} = entry;
-                  const enable = config[configKey];
-
-                  return (
-                    <Button
-                      className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
-                      key={key}
-                      variant="outline-mild-info"
-                      onClick={updateConfig(configKey)}
-                      disabled={isDisabled && isDisabled(config)}
-                      active={enable}
-                    >
-                      {title}
-                    </Button>
-                  );
-                })}
-              </React.Fragment>
-            ))}
-          </Form>
+          <PxChartLayoutConfigEntries
+            security={security}
+            config={config}
+            configEntriesGroup={configEntriesGroup}
+            updateConfig={(configKey, value) => {
+              setUpdating(true);
+              setConfig({
+                token: session?.user?.token,
+                slot,
+                configKey,
+                value,
+              }).finally(() => setUpdating(false));
+            }}
+          />
         </Offcanvas.Body>
       </Offcanvas>
     </>

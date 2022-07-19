@@ -3,7 +3,7 @@ import {ISeriesApi} from 'lightweight-charts';
 import {getConfig} from '../../../../../../state/config/utils';
 import {PxDataBar, PxDataEmaPeriodPair} from '../../../../../../types/pxData';
 import {toLineData} from '../../../dataConvert';
-import {OnPxChartUpdatedEvent, PxChartLayoutConfigKeys} from '../../../type';
+import {OnPxChartUpdatedEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
 import {ColorOverridder} from '../../type';
 import {getAnimationMode} from '../../utils';
 
@@ -13,8 +13,8 @@ type UpdateEmaOptions = {
   series: ISeriesApi<'Line'>,
   periodType: keyof PxDataEmaPeriodPair,
   periodPair: PxDataEmaPeriodPair,
-  keyofConfig: PxChartLayoutConfigKeys,
-  keyOfConfigLabel: PxChartLayoutConfigKeys,
+  keyofConfig: PxChartLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
   lastPx: PxDataBar,
   colorOverride?: ColorOverridder,
 };
