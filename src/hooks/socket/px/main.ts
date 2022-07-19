@@ -78,7 +78,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     socket.on('signIn', onSignIn);
 
     socket.emit('init', session?.user?.token || '');
-    socket.emit('pxInit', '');
+    socket.emit('pxInit', session?.user?.token || '');
 
     setSocket(socket);
 
