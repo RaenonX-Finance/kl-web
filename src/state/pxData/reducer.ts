@@ -33,13 +33,13 @@ const fixPxData = (pxData: PxData): PxData => {
 
 const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
   // TODO: To fix after data sending optimization
-  payload.forEach((pxData) => {
-    if (state.map === null) {
-      console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
-      return;
-    }
+  if (!state.map) {
+    console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
+    return;
+  }
 
-    Object.entries(state.map).forEach(([slot, identifier]) => {
+  Object.entries(state.map).forEach(([slot, identifier]) => {
+    payload.forEach((pxData) => {
       if (identifier !== pxData.uniqueIdentifier) {
         return;
       }
