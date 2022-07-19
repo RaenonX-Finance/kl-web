@@ -6,6 +6,8 @@ export type PxDataCandlestickDirection = 1 | -1;
 
 export type PxDataBarEmaKey = `ema${number}`;
 
+export type PxDataUniqueIdentifier = `${string}@${number}`;
+
 export type PxDataBar = {
   epochSec: number,
   open: number,
@@ -46,7 +48,7 @@ export type PxDataIndicatorConfig = {
 };
 
 export type PxDataFromSocket = {
-  uniqueIdentifier: string,
+  uniqueIdentifier: PxDataUniqueIdentifier,
   periodSec: number,
   contract: PxDataContract,
   data: PxDataBar[],

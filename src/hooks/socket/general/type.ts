@@ -11,3 +11,8 @@ export type GeneralSocketEventKeys =
   'ping';
 
 export type GeneralSocket = Socket<SocketEvent<GeneralSocketEventKeys>>;
+
+export type PxInitMessage = {
+  token: string | undefined,
+  identifiers: string[],
+};

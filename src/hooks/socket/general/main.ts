@@ -14,7 +14,7 @@ import {SocketMessage} from '../../../types/socket';
 import {generateSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
-import {GeneralSocket} from './type';
+import {GeneralSocket, PxInitMessage} from './type';
 
 
 export const useGeneralSocket = (): GeneralSocket | undefined => {
@@ -71,7 +71,11 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
     socket.on('signIn', onSignIn);
 
     socket.emit('init', session?.user?.token || '');
-    socket.emit('pxInit', session?.user?.token || '');
+    const message: PxInitMessage = {
+      token: session?.user?.token,
+      identifiers: [],
+    };
+    socket.emit('pxInit', JSON.stringify(message));
 
     setSocket(socket);
 

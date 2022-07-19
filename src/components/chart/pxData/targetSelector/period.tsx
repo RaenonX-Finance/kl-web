@@ -11,7 +11,7 @@ import {titleStyle} from './const';
 import {TargetSelectorButtonProps} from './type';
 
 
-export const PeriodSelector = ({slot, pxData, token, closeModal}: TargetSelectorButtonProps) => {
+export const PeriodSelector = ({slot, pxData, token, afterUpdate}: TargetSelectorButtonProps) => {
   const periods = usePeriodDataSelector();
   const dispatch = useDispatch();
 
@@ -31,8 +31,7 @@ export const PeriodSelector = ({slot, pxData, token, closeModal}: TargetSelector
               slot,
               symbol: pxData.contract.symbol,
               periodMin,
-            }));
-            closeModal();
+            })).then(() => afterUpdate(`${pxData.contract.symbol}@${periodMin}`));
           }}
         >
           {name}

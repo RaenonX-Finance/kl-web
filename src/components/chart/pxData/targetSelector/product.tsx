@@ -11,7 +11,7 @@ import {titleStyle} from './const';
 import {TargetSelectorButtonProps} from './type';
 
 
-export const ProductSelector = ({slot, pxData, token, closeModal}: TargetSelectorButtonProps) => {
+export const ProductSelector = ({slot, pxData, token, afterUpdate}: TargetSelectorButtonProps) => {
   const products = useProductDataSelector();
   const dispatch = useDispatch();
 
@@ -31,8 +31,7 @@ export const ProductSelector = ({slot, pxData, token, closeModal}: TargetSelecto
               slot,
               symbol,
               periodMin: pxData.periodSec / 60,
-            }));
-            closeModal();
+            })).then(() => afterUpdate(`${symbol}@${pxData.periodSec / 60}`));
           }}
         >
           {`${name} - ${symbol}`}

@@ -1,4 +1,4 @@
-import {PxData, PxSlotName} from '../../../../types/pxData';
+import {PxData, PxDataUniqueIdentifier, PxSlotName} from '../../../../types/pxData';
 
 
 export type TargetSelectorCommonProps = {
@@ -8,5 +8,5 @@ export type TargetSelectorCommonProps = {
 
 export type TargetSelectorButtonProps = TargetSelectorCommonProps & {
   token: string,
-  closeModal: () => void,
+  afterUpdate: (identifier: PxDataUniqueIdentifier) => void,
 };
