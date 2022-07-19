@@ -8,4 +8,16 @@ button.config-button:hover:active, button.config-button:hover[class*=active] {
   border-color: #0aaecf;
 }
 
+div.config-panel {
+  width: 18rem;
+}
+div.updating {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 18rem;
+  background-color: rgba(5, 5, 5, 0.77);
+}
+
 /*# sourceMappingURL=main.module.css.map */

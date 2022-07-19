@@ -11,6 +11,7 @@ import {configEntriesUI} from '../config';
 import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
 import {configKeysToHideOfSecurity} from './const';
 import styles from './main.module.scss';
+import {PxChartLayoutConfigUpdating} from './updating';
 
 
 type Props = {
@@ -18,12 +19,13 @@ type Props = {
   title: string,
   slot: PxSlotName,
   config: PxChartLayoutConfigSingle,
-  setConfig: (payload: LayoutConfigUpdatePayload) => void,
+  setConfig: (payload: LayoutConfigUpdatePayload) => Promise<void>,
 };
 
 export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConfig}: Props) => {
   const {data: session} = useSession();
   const [show, setShow] = React.useState(false);
+  const [updating, setUpdating] = React.useState(false);
   const configKeysToHide = configKeysToHideOfSecurity[security] || [];
 
   const configEntriesUiGroup: {[group in string]: {[key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry}} = {};
@@ -34,12 +36,22 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
     };
   });
 
+  const updateConfig = (configKey: PxChartLayoutConfigKeys) => () => {
+    setUpdating(true);
+    setConfig({
+      token: session?.user?.token,
+      slot,
+      configKey,
+      value: !config[configKey],
+    }).finally(() => setUpdating(false));
+  };
+
   return (
     <>
       <Button size="sm" variant="outline-info" className="me-2" onClick={() => setShow(true)}>
         版面設定
       </Button>
-      <Offcanvas show={show} onHide={() => setShow(false)} placement="end" style={{width: '18rem'}}>
+      <Offcanvas className={styles['config-panel']} show={show} onHide={() => setShow(false)} placement="end">
         <div className="mb-0"/>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
@@ -48,6 +60,7 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
         </Offcanvas.Header>
         <hr className="my-0"/>
         <Offcanvas.Body>
+          {updating && <PxChartLayoutConfigUpdating/>}
           <Form>
             {Object.entries(configEntriesUiGroup).map(([groupName, entryObj]) => (
               <React.Fragment key={groupName}>
@@ -67,12 +80,7 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
                       className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
                       key={key}
                       variant="outline-mild-info"
-                      onClick={() => setConfig({
-                        token: session?.user?.token,
-                        slot,
-                        configKey,
-                        value: !enable,
-                      })}
+                      onClick={updateConfig(configKey)}
                       disabled={isDisabled && isDisabled(config)}
                       active={enable}
                     >

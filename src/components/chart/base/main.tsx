@@ -14,7 +14,13 @@ import {PeriodTimer} from '../../periodTimer/main';
 import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import {useTradingViewChart} from './hook';
 import styles from './main.module.scss';
-import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, ChartRenderObjects} from './type';
+import {
+  ChartCalcObjects,
+  ChartDataUpdatedEventHandler,
+  ChartInitEventHandler,
+  ChartRenderObjects,
+  ChartSetStateObjects,
+} from './type';
 
 
 export type TradingViewChartProps<T, P, R, L, A> = {
@@ -30,7 +36,7 @@ export type TradingViewChartProps<T, P, R, L, A> = {
   renderLayoutConfig: (
     security: string,
     config: A,
-    setConfig: (newConfig: LayoutConfigUpdatePayload) => void,
+    setConfig: (newConfig: LayoutConfigUpdatePayload) => Promise<void>,
   ) => React.ReactNode,
   getPeriodSec: (data: T) => number,
   getDataLastUpdate: (data: T) => number,
@@ -64,12 +70,12 @@ export const TradingViewChart = <T, P, R, L>({
   // Need to be explicit because empty object `{}` is also falsy
   const isLayoutConfigReady = layoutConfig !== null;
 
-  const setObject = {
+  const setObject: ChartSetStateObjects<L> = {
     legend: setLegend,
   };
 
-  const setLayoutConfig = (payload: LayoutConfigUpdatePayload) => {
-    dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG](payload));
+  const setLayoutConfig = async (payload: LayoutConfigUpdatePayload) => {
+    await dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG](payload));
   };
 
   const onDataUpdatedInternal = (forceUpdate: boolean) => () => {

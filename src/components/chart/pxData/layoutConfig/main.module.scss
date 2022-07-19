@@ -19,3 +19,20 @@ button {
     }
   }
 }
+
+div {
+  $width: 18rem;
+
+  &.config-panel {
+    width: $width;
+  }
+
+  &.updating {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: $width;
+    background-color: colors.$color-chart-status-bg;
+  }
+}
