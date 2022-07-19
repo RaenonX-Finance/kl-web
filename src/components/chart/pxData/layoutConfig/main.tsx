@@ -60,6 +60,7 @@ export const PxChartLayoutConfigPanel = ({
             security={security}
             config={config}
             configEntriesGroup={configEntriesGroup}
+            updating={updating}
             updateConfig={(configKey, value) => {
               setUpdating(true);
               setConfig({

@@ -19,13 +19,15 @@ type Props = Pick<LayoutConfigPanelProps, 'security' | 'config'> & {
     configKey: PxChartLayoutConfigKeys,
     value: PxChartLayoutConfigSingle[PxChartLayoutConfigKeys]
   ) => void,
+  updating: boolean,
 };
 
 export const PxChartLayoutConfigEntries = ({
   security,
   config,
-  updateConfig,
   configEntriesGroup,
+  updateConfig,
+  updating,
 }: Props) => {
   const configKeysToHide = configKeysToHideOfSecurity[security] || [];
 
@@ -43,7 +45,7 @@ export const PxChartLayoutConfigEntries = ({
 
             const {title, isDisabled, min, step} = entry;
             const value = getConfig(config, configKey);
-            const disabled = isDisabled && isDisabled(config);
+            const disabled = updating || (isDisabled && isDisabled(config));
 
             if (typeof value === 'boolean') {
               return (
