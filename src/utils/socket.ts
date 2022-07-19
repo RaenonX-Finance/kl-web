@@ -1,15 +1,16 @@
 import {io} from 'socket.io-client';
 
-import {PxDataSocket} from '../types/socket/type';
+import {PxDataSocket} from '../hooks/socket/px/type';
+import {SocketNamespace} from '../types/socket';
 import {isProduction, isUsingActualData} from './env';
 
 
-export const getDataUrl = (): string => {
+export const getDataUrl = (namespace: SocketNamespace = '/'): string => {
   return isProduction() || isUsingActualData() ?
-    'wss://data.kl-law.net' :
-    'ws://localhost:8000';
+    `wss://data.kl-law.net${namespace}` :
+    `ws://localhost:8000${namespace}`;
 };
 
-export const generateSocketClient = (): PxDataSocket => {
-  return io(getDataUrl(), {path: '/ws/socket.io/'});
+export const generateSocketClient = (namespace: SocketNamespace = '/'): PxDataSocket => {
+  return io(getDataUrl(namespace), {path: '/ws/socket.io/'});
 };

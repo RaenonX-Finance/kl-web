@@ -89,8 +89,7 @@ export const PxChartLayoutConfigPanel = ({security, title, slot, config, setConf
                   );
                 })}
               </React.Fragment>
-            ))
-            }
+            ))}
           </Form>
         </Offcanvas.Body>
       </Offcanvas>

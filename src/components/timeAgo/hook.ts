@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SocketContext} from '../../types/socket/socket';
+import {PxSocketContext} from '../../hooks/socket/px/const';
 
 
 type UsePingSocketOptions = {
@@ -16,7 +16,7 @@ type UsePingSocketReturn = {
 };
 
 export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketReturn => {
-  const socket = React.useContext(SocketContext);
+  const socket = React.useContext(PxSocketContext);
   const [inUse, setInUse] = React.useState(false);
   const pingCountInternal = React.useRef(0);
   // Use state to intentionally trigger re-render on complete

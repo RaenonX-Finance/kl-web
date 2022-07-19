@@ -10,10 +10,11 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
-import {PxDataSocket, SocketMessage} from '../../../types/socket/type';
+import {SocketMessage} from '../../../types/socket';
 import {generateSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
+import {PxDataSocket} from './type';
 
 
 export const usePxSocket = (): PxDataSocket | undefined => {

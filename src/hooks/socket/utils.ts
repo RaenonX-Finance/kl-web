@@ -4,7 +4,7 @@ import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import pako from 'pako';
 
 import {Dispatcher} from '../../state/types';
-import {SocketMessage, SocketMessageHandler} from '../../types/socket/type';
+import {SocketMessage, SocketMessageHandler} from '../../types/socket';
 
 
 type UseSocketEventHandlerOpts<T> = {
