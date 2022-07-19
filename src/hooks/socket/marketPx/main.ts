@@ -63,9 +63,10 @@ export const useMarketPxSocket = ({security}: UseMarketPxSocketOpts): MarketPxDa
     setSocket(socket);
 
     return () => {
+      socket.off('connect_error', onConnectionError);
+      socket.off('disconnect', onDisconnect);
       socket.off('updated', onUpdated);
       socket.off('request', onRequested);
-      socket.off('disconnect', onDisconnect);
 
       socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));
 

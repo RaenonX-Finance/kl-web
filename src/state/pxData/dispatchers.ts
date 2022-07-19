@@ -25,8 +25,25 @@ export const pxDataDispatchers = {
       const {config, pxData} = getState();
       const {layoutConfig} = config;
 
-      for (const [slotStr, pxDataInSlot] of Object.entries(pxData.data)) {
+      if (!layoutConfig) {
+        return onAsyncThunkError({
+          message: `Attempt to update market data while the layout config is not ready.`,
+          data: null,
+          rejectWithValue,
+          dispatch,
+        });
+      }
+
+      const pxDataMap: PxDataMap = {
+        A: null,
+        B: null,
+        C: null,
+        D: null,
+      };
+
+      for (const slotStr of Object.keys(pxData.data)) {
         const slot = slotStr as PxSlotName;
+        const pxDataInSlot = pxData.data[slot];
 
         if (
           // Check if `pxData` of a slot is set
@@ -34,8 +51,9 @@ export const pxDataDispatchers = {
           // Check if the `pxData` in slot is has the matching security symbol
           payload.symbol !== pxDataInSlot.contract.symbol ||
           // Check if it's OK to update
-          isMarketPxUpdateOk(layoutConfig, pxDataInSlot, slot)
+          !isMarketPxUpdateOk(layoutConfig, pxDataInSlot, slot)
         ) {
+          pxDataMap[slot] = pxDataInSlot;
           continue;
         }
 
@@ -52,14 +70,17 @@ export const pxDataDispatchers = {
           });
         }
 
-        pxDataInSlot.data[pxDataInSlot.data.length - 1] = updatePxDataBar(lastBar, payload.close);
-        pxDataInSlot.latestMarket = payload;
-        pxDataInSlot.lastUpdated = Date.now();
+        pxDataMap[slot] = {
+          ...pxDataInSlot,
+          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, payload.close)]),
+          latestMarket: payload,
+          lastUpdated: Date.now(),
+        };
       }
 
       updateCurrentPxDataTitle(pxData.data);
 
-      return pxData.data;
+      return pxDataMap;
     },
   ),
   [PxDataDispatcherName.UPDATE_SLOT_MAP]: createConfigAsyncThunk<
