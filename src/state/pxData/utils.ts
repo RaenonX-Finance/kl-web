@@ -10,7 +10,7 @@ export const generateInitialSlotMap = (): PxSlotMap => ({
 });
 
 export const isMarketPxUpdateOk = (layoutConfig: ConfigState['layoutConfig'], pxData: PxData, slot: PxSlotName) => {
-  const interval = (layoutConfig ? layoutConfig[slot].intervalMarketPx : defaultConfig.intervalMarketPx);
+  const interval = (layoutConfig ? layoutConfig[slot].intervalMarketPxSec : defaultConfig.intervalMarketPxSec);
 
-  return Date.now() - pxData.lastUpdated > interval;
+  return (Date.now() - pxData.lastUpdated) / 1000 > interval;
 };
