@@ -6,6 +6,6 @@ import styles from './main.module.scss';
 
 export const PxChartLayoutConfigUpdating = () => (
   <div className={styles['updating']}>
-    <MainLoading text="Updating..."/>
+    <MainLoading text="更新中..."/>
   </div>
 );
