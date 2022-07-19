@@ -44,22 +44,20 @@ export const pxDataDispatchers = {
       for (const slotStr of Object.keys(pxData.data)) {
         const slot = slotStr as PxSlotName;
         const pxDataInSlot = pxData.data[slot];
+        const lastBar = pxDataInSlot?.data.at(-1);
+        const {close: last, symbol} = payload;
 
         if (
           // Check if `pxData` of a slot is set
           !pxDataInSlot ||
           // Check if the `pxData` in slot is has the matching security symbol
-          payload.symbol !== pxDataInSlot.contract.symbol ||
+          symbol !== pxDataInSlot.contract.symbol ||
           // Check if it's OK to update
-          !isMarketPxUpdateOk(layoutConfig, pxDataInSlot, slot)
+          !isMarketPxUpdateOk({layoutConfig, pxData: pxDataInSlot, slot, lastBar, last})
         ) {
           pxDataMap[slot] = pxDataInSlot;
           continue;
-        }
-
-        const lastBar = pxDataInSlot.data.at(-1);
-
-        if (!lastBar) {
+        } else if (!lastBar) {
           return onAsyncThunkError({
             message: (
               `Last data of the PxData ${pxDataInSlot.contract.symbol} @ ${pxDataInSlot.periodSec / 60} undefined.`
@@ -72,7 +70,7 @@ export const pxDataDispatchers = {
 
         pxDataMap[slot] = {
           ...pxDataInSlot,
-          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, payload.close)]),
+          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, last)]),
           latestMarket: payload,
           lastUpdated: Date.now(),
         };
