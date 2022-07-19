@@ -75,7 +75,7 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
       token: session?.user?.token,
       identifiers: [],
     };
-    socket.emit('pxInit', JSON.stringify(message));
+    socket.emit('pxInit', message);
 
     setSocket(socket);
 

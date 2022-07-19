@@ -35,7 +35,7 @@ export const TargetSelectorModal = ({show, setShow, slot, pxData}: Props) => {
       token: data?.user?.token,
       identifiers: [identifier],
     };
-    socket.emit('pxInit', JSON.stringify(message));
+    socket.emit('pxInit', message);
   };
 
   if (!token) {

@@ -46,7 +46,7 @@ export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefin
     };
 
     const onDisconnect = () => {
-      socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));
+      socket.emit('unsubscribe', subscriptionMessage);
     };
 
     // System events
@@ -58,7 +58,7 @@ export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefin
     socket.on('request', onRequested);
 
     // Send message
-    socket.emit('subscribe', JSON.stringify(subscriptionMessage));
+    socket.emit('subscribe', subscriptionMessage);
 
     setSocket(socket);
 
@@ -68,7 +68,7 @@ export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefin
       socket.off('updated', onUpdated);
       socket.off('request', onRequested);
 
-      socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));
+      socket.emit('unsubscribe', subscriptionMessage);
 
       socket.close();
     };

@@ -33,8 +33,7 @@ export const PxSocketProvider = ({children, security, slot, identifier}: Props) 
         token: session?.user?.token,
         identifier,
       };
-
-      socket.emit('request', JSON.stringify(requestMessage));
+      socket.emit('request', requestMessage);
     }, getConfig(layoutConfig, 'intervalHistoryPxSec') * 1000);
 
     return () => clearInterval(intervalId);
