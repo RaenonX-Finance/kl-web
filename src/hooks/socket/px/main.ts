@@ -43,10 +43,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.INIT],
   });
-  const onPxUpdated = useSocketEventHandler({
-    dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
-  });
   const onError = useSocketEventHandler({
     dispatch,
     action: errorDispatchers[ErrorDispatcherName.UPDATE],
@@ -70,7 +66,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
 
     // Custom events
     socket.on('init', onInit);
-    socket.on('pxUpdated', onPxUpdated);
     socket.on('pxInit', onPxInit);
     socket.on('error', onError);
     socket.on('signIn', onSignIn);
@@ -82,7 +77,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
 
     return () => {
       socket.off('init', onInit);
-      socket.off('pxUpdated', onPxUpdated);
       socket.off('pxInit', onPxInit);
       socket.off('error', onError);
       socket.off('signIn', onSignIn);

@@ -38,7 +38,11 @@ export const PxDataChart = (props: Props) => {
   const {slot, title, chartData} = props;
 
   return (
-    <MarketPxDataSocketContext security={chartData.contract.symbol}>
+    <MarketPxDataSocketContext
+      security={chartData.contract.symbol}
+      slot={slot}
+      identifier={chartData.uniqueIdentifier}
+    >
       <TradingViewChart
         initChart={onPxChartInit}
         onDataUpdated={onPxChartUpdated}

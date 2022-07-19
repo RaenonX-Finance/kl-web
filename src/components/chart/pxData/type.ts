@@ -68,6 +68,7 @@ export type PxChartLayoutConfigSingle = {
   inChartExtrema: boolean,
   inChartExtremaLabel: boolean,
   intervalMarketPxSec: number,
+  intervalHistoryPxSec: number,
 };
 
 export type PxChartLayoutConfigKeys = keyof PxChartLayoutConfigSingle;

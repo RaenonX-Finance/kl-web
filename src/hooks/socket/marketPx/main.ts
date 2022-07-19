@@ -32,6 +32,10 @@ export const useMarketPxSocket = ({security}: UseMarketPxSocketOpts): MarketPxDa
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
   });
+  const onRequested = useSocketEventHandler({
+    dispatch,
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
+  });
 
   // Hooks
   React.useEffect(() => {
@@ -51,13 +55,16 @@ export const useMarketPxSocket = ({security}: UseMarketPxSocketOpts): MarketPxDa
 
     // Custom events
     socket.on('updated', onUpdated);
+    socket.on('request', onRequested);
 
+    // Send message
     socket.emit('subscribe', JSON.stringify(subscriptionMessage));
 
     setSocket(socket);
 
     return () => {
       socket.off('updated', onUpdated);
+      socket.off('request', onRequested);
       socket.off('disconnect', onDisconnect);
 
       socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));

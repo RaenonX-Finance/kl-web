@@ -70,4 +70,10 @@ export const configEntriesUI: PxChartLayoutConfigUI = {
     step: 0.05,
     min: 0.05,
   },
+  intervalHistoryPxSec: {
+    title: '歷史資料要求頻率 (秒)',
+    group: '其他',
+    step: 1,
+    min: 1,
+  },
 };

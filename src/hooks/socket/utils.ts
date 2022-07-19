@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
+import {ActionCreatorWithPayload, AsyncThunk, ThunkDispatch} from '@reduxjs/toolkit';
 import pako from 'pako';
 
-import {Dispatcher} from '../../state/types';
+import {ReduxState} from '../../state/types';
 import {SocketMessage, SocketMessageHandler} from '../../types/socket';
 
 
-type UseSocketEventHandlerOpts<T> = {
-  dispatch: Dispatcher,
-  action: ActionCreatorWithPayload<T>,
+type UseSocketEventHandlerOpts<R, T, A> = {
+  dispatch: ThunkDispatch<ReduxState, undefined, any>,
+  action: ActionCreatorWithPayload<T> | AsyncThunk<R, T, A>,
   afterAction?: () => void,
 };
 
@@ -21,11 +21,11 @@ export const ensureStringMessage = (message: SocketMessage): string => {
   return message;
 };
 
-export const useSocketEventHandler = <T>({
+export const useSocketEventHandler = <R, T, A>({
   dispatch,
   action,
   afterAction,
-}: UseSocketEventHandlerOpts<T>): SocketMessageHandler => React.useCallback((
+}: UseSocketEventHandlerOpts<R, T, A>): SocketMessageHandler => React.useCallback((
   message,
 ) => {
   const data: T = JSON.parse(ensureStringMessage(message));
