@@ -81,6 +81,7 @@ export type PxChartLayoutConfigEntry = {
   isDisabled?: (config: PxChartLayoutConfigSingle) => boolean,
   step?: number,
   min?: number,
+  tips?: string,
 };
 
 export type PxChartLayoutConfigUI = {

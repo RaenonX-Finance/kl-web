@@ -43,7 +43,7 @@ export const PxChartLayoutConfigEntries = ({
               return <React.Fragment key={key}/>;
             }
 
-            const {title, isDisabled, min, step} = entry;
+            const {title, isDisabled, min, step, tips} = entry;
             const value = getConfig(config, configKey);
             const disabled = updating || (isDisabled && isDisabled(config));
 
@@ -58,6 +58,7 @@ export const PxChartLayoutConfigEntries = ({
                   active={value}
                 >
                   {title}
+                  {tips && <><br/><small>{tips}</small></>}
                 </Button>
               );
             }
@@ -76,6 +77,7 @@ export const PxChartLayoutConfigEntries = ({
                 disabled={disabled}
                 min={min}
                 step={step}
+                description={tips}
               />
             );
           })}
