@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {MarketPxDataSocketContext} from '../../../hooks/socket/marketPx/context';
+import {PxSocketProvider} from '../../../hooks/socket/px/context';
 import {PxData} from '../../../types/pxData';
 import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
@@ -38,7 +38,7 @@ export const PxDataChart = (props: Props) => {
   const {slot, title, chartData} = props;
 
   return (
-    <MarketPxDataSocketContext
+    <PxSocketProvider
       security={chartData.contract.symbol}
       slot={slot}
       identifier={chartData.uniqueIdentifier}
@@ -78,6 +78,6 @@ export const PxDataChart = (props: Props) => {
         getDataSecurity={({contract}) => contract.symbol}
         {...props}
       />
-    </MarketPxDataSocketContext>
+    </PxSocketProvider>
   );
 };

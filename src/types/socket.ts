@@ -1,4 +1,4 @@
-import {MarketPxDataSocket} from '../hooks/socket/marketPx/type';
+import {GeneralSocket} from '../hooks/socket/general/type';
 import {PxDataSocket} from '../hooks/socket/px/type';
 
 
@@ -10,11 +10,11 @@ export type SocketEvent<E extends string> = {[key in E]: SocketMessageHandler};
 
 export type SocketNamespace =
   '/' |
-  '/px-market';
+  '/px';
 
 type SocketClientTypeMap = {
-  '/': PxDataSocket,
-  '/px-market': MarketPxDataSocket,
+  '/': GeneralSocket,
+  '/px': PxDataSocket,
 };
 
 export type SocketClient<N extends SocketNamespace> = SocketClientTypeMap[N];

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {pxDataLayout} from '../../components/chart/layout/const';
 import {PermissionLayout} from '../../components/layout/permission';
-import {PxDataSocketContext} from '../../hooks/socket/px/context';
+import {GeneralSocketProvider} from '../../hooks/socket/general/context';
 import {useLayoutTypeConfigSelector} from '../../state/config/selector';
 
 
@@ -13,9 +13,9 @@ export const PxDataMain = () => {
 
   return (
     <PermissionLayout allowedWithPermissions={['chart:view']}>
-      <PxDataSocketContext>
+      <GeneralSocketProvider>
         {LayoutComponent && <LayoutComponent/>}
-      </PxDataSocketContext>
+      </GeneralSocketProvider>
     </PermissionLayout>
   );
 };

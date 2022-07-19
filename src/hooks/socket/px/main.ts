@@ -2,26 +2,24 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
-import {mergedDispatchers} from '../../../state/aggregated/dispatchers';
-import {MergedDispatcherName} from '../../../state/aggregated/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
-import {InitData} from '../../../types/init';
-import {SocketMessage} from '../../../types/socket';
 import {generateSocketClient} from '../../../utils/socket';
-import {useNextAuthCall} from '../../auth';
-import {ensureStringMessage, useSocketEventHandler} from '../utils';
-import {PxDataSocket} from './type';
+import {useSocketEventHandler} from '../utils';
+import {PxDataSocket, MarketPxSubscriptionMessage} from './type';
 
 
-export const usePxSocket = (): PxDataSocket | undefined => {
+type UsePxSocketOpts = {
+  security: string,
+};
+
+export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
   const {data: session} = useSession();
   const dispatch = useDispatch();
-  const {signIn} = useNextAuthCall();
 
   // System events
   const onConnectionError = (err: Error) => {
@@ -30,56 +28,47 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   };
 
   // Custom events
-  const onInit = React.useCallback((message: SocketMessage) => {
-    const initData: InitData = JSON.parse(ensureStringMessage(message));
-
-    if (!session || !!session.error) {
-      return;
-    }
-
-    dispatch(mergedDispatchers[MergedDispatcherName.INIT_APP](initData));
-  }, []);
-  const onPxInit = useSocketEventHandler({
+  const onUpdated = useSocketEventHandler({
     dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.INIT],
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
   });
-  const onError = useSocketEventHandler({
+  const onRequested = useSocketEventHandler({
     dispatch,
-    action: errorDispatchers[ErrorDispatcherName.UPDATE],
+    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
   });
-  const onSignIn = (message: SocketMessage) => {
-    if (typeof message !== 'string') {
-      console.error(`Socket event [signIn] does not have [string] message: ${message}`);
-      return;
-    }
-
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
-    signIn();
-  };
 
   // Hooks
   React.useEffect(() => {
-    const socket = generateSocketClient('/');
+    const socket = generateSocketClient('/px');
+    const subscriptionMessage: MarketPxSubscriptionMessage = {
+      token: session?.user.token,
+      security,
+    };
+
+    const onDisconnect = () => {
+      socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));
+    };
 
     // System events
     socket.on('connect_error', onConnectionError);
+    socket.on('disconnect', onDisconnect);
 
     // Custom events
-    socket.on('init', onInit);
-    socket.on('pxInit', onPxInit);
-    socket.on('error', onError);
-    socket.on('signIn', onSignIn);
+    socket.on('updated', onUpdated);
+    socket.on('request', onRequested);
 
-    socket.emit('init', session?.user?.token || '');
-    socket.emit('pxInit', session?.user?.token || '');
+    // Send message
+    socket.emit('subscribe', JSON.stringify(subscriptionMessage));
 
     setSocket(socket);
 
     return () => {
-      socket.off('init', onInit);
-      socket.off('pxInit', onPxInit);
-      socket.off('error', onError);
-      socket.off('signIn', onSignIn);
+      socket.off('connect_error', onConnectionError);
+      socket.off('disconnect', onDisconnect);
+      socket.off('updated', onUpdated);
+      socket.off('request', onRequested);
+
+      socket.emit('unsubscribe', JSON.stringify(subscriptionMessage));
 
       socket.close();
     };
