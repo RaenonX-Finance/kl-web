@@ -7,11 +7,12 @@ import Row from 'react-bootstrap/Row';
 import {useAnimation} from '../../../hooks/animation';
 import {configDispatchers} from '../../../state/config/dispatchers';
 import {useSingleLayoutConfigSelector} from '../../../state/config/selector';
-import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../state/config/types';
+import {ConfigDispatcherName, LayoutConfigUpdatePayload} from '../../../state/config/type';
 import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
 import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
+import {PxChartLayoutConfigSingle} from '../pxData/type';
 import {useTradingViewChart} from './hook';
 import styles from './main.module.scss';
 import {

@@ -1,6 +1,5 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
-import {PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {CustomSrLevel} from '../../../types/init';
 import {PxData, PxDataEmaPeriodPair} from '../../../types/pxData';
 import {
@@ -52,21 +51,24 @@ export type PxChartLegendData = {
   hovered: boolean,
 };
 
-export type PxChartLayoutConfigKeys =
-  'currentPxLine' |
-  'tiePointLabel' |
-  'emaNetLabel' |
-  'emaStrongSrLabel' |
-  'srLevelLabel' |
-  'srLevelBasicLabel' |
-  'candlestickColor' |
-  'tiePoint' |
-  'emaNet' |
-  'emaStrongSr' |
-  'srLevel' |
-  'srLevelBasic' |
-  'inChartExtrema' |
-  'inChartExtremaLabel';
+export type PxChartLayoutConfigSingle = {
+  currentPxLine: boolean,
+  tiePointLabel: boolean,
+  emaNetLabel: boolean,
+  emaStrongSrLabel: boolean,
+  srLevelLabel: boolean,
+  srLevelBasicLabel: boolean,
+  candlestickColor: boolean,
+  tiePoint: boolean,
+  emaNet: boolean,
+  emaStrongSr: boolean,
+  srLevel: boolean,
+  srLevelBasic: boolean,
+  inChartExtrema: boolean,
+  inChartExtremaLabel: boolean,
+};
+
+export type PxChartLayoutConfigKeys = keyof PxChartLayoutConfigSingle;
 
 export type PxChartLayoutConfigEntry = {
   title: string,

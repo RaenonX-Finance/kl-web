@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import {useLayout} from '../../../../hooks/layout/main';
 import {configDispatchers} from '../../../../state/config/dispatchers';
 import {useLayoutTypeConfigSelector} from '../../../../state/config/selector';
-import {ConfigDispatcherName} from '../../../../state/config/types';
+import {ConfigDispatcherName} from '../../../../state/config/type';
 import {useDispatch} from '../../../../state/store';
 import {LayoutType} from '../type';
 import styles from './main.module.scss';

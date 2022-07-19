@@ -2,6 +2,7 @@ import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
 import {getConfig} from '../../../../../../state/config/utils';
 import {PxDataEmaPeriodPair} from '../../../../../../types/pxData';
+import {KeysOfType} from '../../../../../../utils/types';
 import {toLineData} from '../../../dataConvert';
 import {OnPxChartInitEvent, PxChartLayoutConfigKeys} from '../../../type';
 import {emaLineColors} from '../../const';
@@ -13,8 +14,8 @@ type CreateEmaLineOptions = {
   e: OnPxChartInitEvent,
   periodType: keyof PxDataEmaPeriodPair,
   periodPair: PxDataEmaPeriodPair,
-  keyOfConfig: PxChartLayoutConfigKeys,
-  keyOfConfigLabel: PxChartLayoutConfigKeys,
+  keyOfConfig: keyof KeysOfType<PxChartLayoutConfigKeys, boolean>,
+  keyOfConfigLabel: keyof KeysOfType<PxChartLayoutConfigKeys, boolean>,
   colorOverride?: ColorOverridder,
   specialStyleOnSlow?: boolean,
 };

@@ -1,5 +1,5 @@
 import {LayoutType} from '../../components/chart/layoutSelector/type';
-import {PxChartLayoutConfigKeys} from '../../components/chart/pxData/type';
+import {PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
 import {PxSlotName} from '../../types/pxData';
 import {StateBase} from '../types';
 
@@ -10,8 +10,6 @@ export enum ConfigDispatcherName {
   UPDATE_LAYOUT_TYPE = 'Config/UpdateLayoutType',
   UPDATE_LAYOUT_CONFIG = 'Config/UpdateLayoutConfig',
 }
-
-export type PxChartLayoutConfigSingle = {[key in PxChartLayoutConfigKeys]?: boolean};
 
 export type PxChartLayoutConfig = {[name in PxSlotName]: PxChartLayoutConfigSingle};
 

@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {configDispatchers} from './dispatchers';
-import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './types';
+import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './type';
 import {generateInitialConfig} from './utils';
 
 

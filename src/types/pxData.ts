@@ -1,5 +1,5 @@
 import {StrengthIndex} from '../components/chart/pxData/legend/type';
-import {PxDataMarketSingle} from './pxDataMarket';
+import {PxDataMarket} from './pxDataMarket';
 
 
 export type PxDataCandlestickDirection = 1 | -1;

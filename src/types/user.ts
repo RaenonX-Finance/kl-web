@@ -1,5 +1,5 @@
 import {LayoutType} from '../components/chart/layoutSelector/type';
-import {PxChartLayoutConfig} from '../state/config/types';
+import {PxChartLayoutConfig} from '../state/config/type';
 import {PxSlotMap} from '../state/pxData/types';
 
 

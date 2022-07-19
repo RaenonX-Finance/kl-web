@@ -1,12 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {PxChartLayoutConfigKeys} from '../../components/chart/pxData/type';
+import {PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
 import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
 import {getErrorMessage} from '../../utils/error';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
 import {defaultConfig} from './const';
-import {ApiUpdateConfigCommonPayload, PxChartLayoutConfig, PxChartLayoutConfigSingle} from './types';
+import {ApiUpdateConfigCommonPayload, PxChartLayoutConfig} from './type';
 
 
 export const generateInitialConfig = () : PxChartLayoutConfig => ({

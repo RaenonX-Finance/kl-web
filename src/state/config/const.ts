@@ -1,4 +1,4 @@
-import {PxChartLayoutConfigSingle} from './types';
+import {PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
 
 
 export const defaultConfig: Required<PxChartLayoutConfigSingle> = {

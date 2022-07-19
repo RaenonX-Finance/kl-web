@@ -1,5 +1,5 @@
 import {overrideObject} from '../../utils/override';
-import {ConfigDispatcherName, LayoutConfigUpdatePayload, LayoutTypeUpdatePayload} from './types';
+import {ConfigDispatcherName, LayoutConfigUpdatePayload, LayoutTypeUpdatePayload} from './type';
 import {createConfigAsyncThunk, generateInitialConfig} from './utils';
 
 

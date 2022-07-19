@@ -5,10 +5,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import {LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../../state/config/types';
+import {LayoutConfigUpdatePayload} from '../../../../state/config/type';
 import {PxSlotName} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
-import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
+import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../type';
 import {configKeysToHideOfSecurity} from './const';
 import styles from './main.module.scss';
 import {PxChartLayoutConfigUpdating} from './updating';

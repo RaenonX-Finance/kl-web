@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {MarketPxDataSocketContext} from '../../../hooks/socket/marketPx/context';
-import {PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {PxData} from '../../../types/pxData';
 import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
@@ -9,7 +8,7 @@ import {PxChartLayoutConfigPanel} from './layoutConfig/main';
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
-import {PxChartInitData, PxChartLegendData, PxChartPayload} from './type';
+import {PxChartInitData, PxChartLayoutConfigSingle, PxChartLegendData, PxChartPayload} from './type';
 
 
 type Props = Omit<
