@@ -70,28 +70,19 @@ const slice = createSlice({
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET], (state, {payload}) => {
       Object.values(state.data).map((pxData) => {
-        if (!pxData) {
-          return;
-        }
-
-        const latestMarket = payload[pxData.contract.symbol];
-
-        if (!latestMarket) {
+        if (!pxData || payload.symbol !== pxData.contract.symbol) {
           return;
         }
 
         const lastBar = pxData.data.at(-1);
 
         if (!lastBar) {
-          console.error(
-            `Last data of the PxData ` +
-              `(Contract: ${pxData.contract.symbol} / Period: ${pxData.periodSec} sec) undefined.`,
-          );
+          console.error(`Last data of the PxData ${pxData.contract.symbol} @ ${pxData.periodSec / 60} undefined.`);
           return;
         }
 
-        pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, latestMarket.close);
-        pxData.latestMarket = latestMarket;
+        pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, payload.close);
+        pxData.latestMarket = payload;
         pxData.lastUpdated = Date.now();
       });
 

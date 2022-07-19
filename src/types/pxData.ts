@@ -51,7 +51,7 @@ export type PxDataFromSocket = {
   contract: PxDataContract,
   data: PxDataBar[],
   supportResistance: PxDataSupportResistance,
-  latestMarket: PxDataMarketSingle,
+  latestMarket: PxDataMarket,
   indicator: PxDataIndicatorConfig,
 };
 
