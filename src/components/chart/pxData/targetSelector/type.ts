@@ -7,6 +7,6 @@ export type CommonSelectorProps = {
 
 export type CommonSelectorModalProps = {
   show: boolean,
-  setModalShow: (show: boolean) => void,
+  setShow: (show: boolean) => void,
   pxData: PxData,
 };

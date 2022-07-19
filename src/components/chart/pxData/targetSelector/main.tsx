@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 
+import {usePeriodDataSelector, useProductDataSelector} from '../../../../state/data/selector';
 import {PxData} from '../../../../types/pxData';
-import {PeriodSelector} from './period/main';
-import {ProductSelector} from './product/main';
+import {TargetSelectorModal} from './modal';
 
 
 type Props = {
@@ -12,10 +12,16 @@ type Props = {
 };
 
 export const TargetSelector = ({pxData}: Props) => {
+  const products = useProductDataSelector();
+  const periods = usePeriodDataSelector();
+  const [show, setShow] = React.useState(false);
+
   return (
-    <ButtonGroup>
-      <ProductSelector pxData={pxData}/>
-      <PeriodSelector pxData={pxData}/>
-    </ButtonGroup>
+    <>
+      <TargetSelectorModal show={show} setShow={setShow} pxData={pxData}/>
+      <Button variant="outline-light" size="sm" onClick={() => setShow(true)}>
+        {`${products[pxData.contract.symbol].name} @ ${periods[pxData.periodSec / 60].name}`}
+      </Button>
+    </>
   );
 };
