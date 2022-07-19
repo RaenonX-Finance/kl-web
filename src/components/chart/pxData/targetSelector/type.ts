@@ -1,12 +1,12 @@
-import {PxData} from '../../../../types/pxData';
+import {PxData, PxSlotName} from '../../../../types/pxData';
 
 
-export type CommonSelectorProps = {
+export type TargetSelectorCommonProps = {
   pxData: PxData,
+  slot: PxSlotName,
 };
 
-export type CommonSelectorModalProps = {
-  show: boolean,
-  setShow: (show: boolean) => void,
-  pxData: PxData,
+export type TargetSelectorButtonProps = TargetSelectorCommonProps & {
+  token: string,
+  closeModal: () => void,
 };

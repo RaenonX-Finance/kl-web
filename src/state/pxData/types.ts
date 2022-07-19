@@ -1,4 +1,4 @@
-import {PxDataMap, PxDataMapSlotNames} from '../../types/pxData';
+import {PxDataMap, PxSlotName} from '../../types/pxData';
 import {StateBase} from '../types';
 
 
@@ -8,11 +8,19 @@ export enum PxDataDispatcherName {
   INIT = 'PxData/Init',
   UPDATE_COMPLETE = 'PxData/UpdateComplete',
   UPDATE_MARKET = 'PxData/UpdateMarket',
+  UPDATE_SLOT_MAP = 'PxData/UpdateSlotMap',
 }
 
-export type PxDataSlotMap = {[uniqueIdentifier in string]?: PxDataMapSlotNames};
+export type PxSlotMap = {[uniqueIdentifier in string]?: PxSlotName};
 
 export type PxDataState = StateBase & {
   data: PxDataMap,
-  map: PxDataSlotMap | null,
+  map: PxSlotMap | null,
+};
+
+export type PxSlotMapUpdatePayload = {
+  token: string | null | undefined,
+  slot: PxSlotName,
+  symbol: string,
+  periodMin: number,
 };

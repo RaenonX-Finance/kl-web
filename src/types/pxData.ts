@@ -59,6 +59,6 @@ export type PxData = PxDataFromSocket & {
   lastUpdated: number,
 };
 
-export type PxDataMapSlotNames = 'A' | 'B' | 'C' | 'D';
+export type PxSlotName = 'A' | 'B' | 'C' | 'D';
 
-export type PxDataMap = {[name in PxDataMapSlotNames]: PxData | null};
+export type PxDataMap = {[name in PxSlotName]: PxData | null};

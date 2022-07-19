@@ -1,6 +1,6 @@
 import {LayoutType} from '../components/chart/layoutSelector/type';
 import {PxChartLayoutConfig} from '../state/config/types';
-import {PxDataSlotMap} from '../state/pxData/types';
+import {PxSlotMap} from '../state/pxData/types';
 
 
 /**
@@ -10,7 +10,7 @@ import {PxDataSlotMap} from '../state/pxData/types';
  */
 export type UserConfigModel = {
   account_id: string,
-  slot_map: PxDataSlotMap | null,
+  slot_map: PxSlotMap | null,
   layout_config: PxChartLayoutConfig | null,
   layout_type: LayoutType | null,
 };

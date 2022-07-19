@@ -9,7 +9,7 @@ import {configDispatchers} from '../../../state/config/dispatchers';
 import {useSingleLayoutConfigSelector} from '../../../state/config/selector';
 import {ConfigDispatcherName, LayoutConfigUpdatePayload, PxChartLayoutConfigSingle} from '../../../state/config/types';
 import {useDispatch} from '../../../state/store';
-import {PxDataMapSlotNames} from '../../../types/pxData';
+import {PxSlotName} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
 import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import {useTradingViewChart} from './hook';
@@ -20,7 +20,7 @@ import {ChartCalcObjects, ChartDataUpdatedEventHandler, ChartInitEventHandler, C
 export type TradingViewChartProps<T, P, R, L, A> = {
   width: number,
   height: number,
-  slot: PxDataMapSlotNames,
+  slot: PxSlotName,
   initChart: ChartInitEventHandler<T, R, L, A, P>,
   chartData: T,
   payload: P,

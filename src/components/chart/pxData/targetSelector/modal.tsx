@@ -1,25 +1,30 @@
-import React, {CSSProperties} from 'react';
+import React from 'react';
 
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
-import {usePeriodDataSelector, useProductDataSelector} from '../../../../state/data/selector';
-import {CommonSelectorModalProps} from './type';
+import {PeriodSelector} from './period';
+import {ProductSelector} from './product';
+import {TargetSelectorCommonProps} from './type';
 
 
-export const TargetSelectorModal = ({show, setShow, pxData}: CommonSelectorModalProps) => {
-  const products = useProductDataSelector();
-  const periods = usePeriodDataSelector();
+type Props = TargetSelectorCommonProps & {
+  show: boolean,
+  setShow: (show: boolean) => void,
+};
+
+export const TargetSelectorModal = ({show, setShow, slot, pxData}: Props) => {
+  const {data} = useSession();
+
+  const token = data?.user?.token;
 
   const closeModal = () => setShow(false);
 
-  const titleStyle: CSSProperties = {
-    minWidth: '5rem',
-    maxWidth: '5rem',
-  };
+  if (!token) {
+    return <></>;
+  }
 
   return (
     <Modal show={show} size="lg" onHide={closeModal} centered>
@@ -29,30 +34,12 @@ export const TargetSelectorModal = ({show, setShow, pxData}: CommonSelectorModal
       <Modal.Body>
         <Row className="mb-3">
           <Col>
-            <ButtonGroup className="w-100 flex-wrap">
-              <Button variant="outline-light" disabled style={titleStyle}>
-                商品
-              </Button>
-              {Object.values(products).map(({name, symbol}) => (
-                <Button key={symbol} variant="outline-light" active={pxData.contract.symbol === symbol}>
-                  {`${name} - ${symbol}`}
-                </Button>
-              ))}
-            </ButtonGroup>
+            <ProductSelector pxData={pxData} slot={slot} token={token} closeModal={closeModal}/>
           </Col>
         </Row>
         <Row>
           <Col>
-            <ButtonGroup className="w-100 flex-wrap">
-              <Button variant="outline-light" disabled style={titleStyle}>
-                週期
-              </Button>
-              {Object.values(periods).map(({name, min}) => (
-                <Button key={min} variant="outline-light" active={pxData.periodSec / 60 === min}>
-                  {name}
-                </Button>
-              ))}
-            </ButtonGroup>
+            <PeriodSelector pxData={pxData} slot={slot} token={token} closeModal={closeModal}/>
           </Col>
         </Row>
       </Modal.Body>

@@ -1,7 +1,7 @@
-import {PxDataSlotMap} from './types';
+import {PxSlotMap} from './types';
 
 
-export const defaultSlotMap: PxDataSlotMap = {
+export const defaultSlotMap: PxSlotMap = {
   'FITX@1': 'A',
   'YM@1': 'B',
   'NQ@1': 'C',

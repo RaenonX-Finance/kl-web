@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import useResizeObserver from 'use-resize-observer';
 
 import {useAnimation} from '../../../../hooks/animation';
-import {PxData} from '../../../../types/pxData';
+import {PxData, PxSlotName} from '../../../../types/pxData';
 import {formatSignedNumber} from '../../../../utils/string';
 import {TargetSelector} from '../targetSelector/main';
 import {PxChartLegendData} from '../type';
@@ -14,13 +14,13 @@ import {strengthIndicatorStyleLookup} from './const';
 import styles from './main.module.scss';
 
 
-export type PxChartLegendProps = {
+type Props = {
   data: PxData,
   legend: PxChartLegendData,
+  slot: PxSlotName,
 };
 
-export const PxChartLegend = (props: PxChartLegendProps) => {
-  const {data, legend} = props;
+export const PxChartLegend = ({data, legend, slot}: Props) => {
   const {
     open,
     high,
@@ -61,9 +61,9 @@ export const PxChartLegend = (props: PxChartLegendProps) => {
           </span>
         </Col>
         <Col className={styles['main-content']}>
-          <Row className="g-2">
+          <Row className="g-2 mb-2">
             <Col xs="auto" className={styles['title']}>
-              <TargetSelector pxData={data}/>
+              <TargetSelector pxData={data} slot={slot}/>
             </Col>
             <Col xs="auto" className={styles['tie-point']}>
               <LegendDataCell value={tiePoint} decimals={decimals} title="多空" large/>

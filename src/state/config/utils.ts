@@ -6,7 +6,7 @@ import {getErrorMessage} from '../../utils/error';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
 import {defaultConfig} from './const';
-import {PxChartLayoutConfig, PxChartLayoutConfigSingle} from './types';
+import {ApiUpdateConfigCommonPayload, PxChartLayoutConfig, PxChartLayoutConfigSingle} from './types';
 
 
 export const generateInitialConfig = () : PxChartLayoutConfig => ({
@@ -20,23 +20,32 @@ export const getConfig = (config: PxChartLayoutConfigSingle, key: PxChartLayoutC
   return config[key] ?? defaultConfig[key];
 };
 
-type CreateConfigAsyncThunkOpts<T, K extends ApiUpdateConfigKeys> = {
+type CreateConfigAsyncThunkOpts<
+  R extends ApiUpdateConfigOpts<K>['data'],
+  T extends ApiUpdateConfigCommonPayload,
+  K extends ApiUpdateConfigKeys
+> = {
   actionName: string,
   key: K,
-  getData: (state: ReduxState) => ApiUpdateConfigOpts<K>['data'] | null | undefined,
-  getToken: (payload: T) => string | null | undefined,
+  getData: (state: ReduxState, payload: T) => R,
 };
 
-export const createConfigAsyncThunk = <T, K extends ApiUpdateConfigKeys>({
+export const createConfigAsyncThunk = <
+  T extends ApiUpdateConfigCommonPayload,
+  K extends ApiUpdateConfigKeys
+>({
   actionName,
   key,
   getData,
-  getToken,
-}: CreateConfigAsyncThunkOpts<T, K>) => createAsyncThunk<T, T, {state: ReduxState, rejectValue: string}>(
+}: CreateConfigAsyncThunkOpts<ApiUpdateConfigOpts<K>['data'], T, K>) => createAsyncThunk<
+  ApiUpdateConfigOpts<K>['data'],
+  T,
+  {state: ReduxState, rejectValue: string}
+>(
   actionName,
   async (payload, {getState, dispatch, rejectWithValue}) => {
-    const token = getToken(payload);
-    const data = getData(getState());
+    const {token} = payload;
+    const data = getData(getState(), payload);
 
     if (!data) {
       return onAsyncThunkError({
@@ -65,6 +74,6 @@ export const createConfigAsyncThunk = <T, K extends ApiUpdateConfigKeys>({
       });
     }
 
-    return payload;
+    return data;
   },
 );

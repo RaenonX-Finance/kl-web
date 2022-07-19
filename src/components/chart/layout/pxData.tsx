@@ -3,13 +3,13 @@ import React from 'react';
 import {useCustomSrSelector} from '../../../state/customSr/selector';
 import {useProductDataSelector} from '../../../state/data/selector';
 import {usePxDataSelector} from '../../../state/pxData/selector';
-import {PxDataMapSlotNames} from '../../../types/pxData';
+import {PxSlotName} from '../../../types/pxData';
 import {MainLoading} from '../../common/loading/main';
 import {PxDataChart} from '../pxData/main';
 
 
 type Props = {
-  slot: PxDataMapSlotNames,
+  slot: PxSlotName,
   width: number,
   height: number,
   x: number,

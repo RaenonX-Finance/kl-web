@@ -60,48 +60,46 @@ const slice = createSlice({
   extraReducers: (builder) => {
     // New px bar to be added only from the backend
     // > Always use history data to add new bar - only update the last bar on market Px updated
+    builder.addCase(mergedDispatchers[MergedDispatcherName.INIT_APP], (state, {payload}) => {
+      const {config} = payload;
+
+      state.map = config.slot_map || generateInitialSlotMap();
+    });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
-    builder.addCase(
-      mergedDispatchers[MergedDispatcherName.INIT_APP],
-      (state, {payload}) => {
-        const {config} = payload;
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET], (state, {payload}) => {
+      Object.values(state.data).map((pxData) => {
+        if (!pxData) {
+          return;
+        }
 
-        state.map = config.slot_map || generateInitialSlotMap();
-      },
-    );
-    builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-      (state, {payload}) => {
-        Object.values(state.data).map((pxData) => {
-          if (!pxData) {
-            return;
-          }
+        const latestMarket = payload[pxData.contract.symbol];
 
-          const latestMarket = payload[pxData.contract.symbol];
+        if (!latestMarket) {
+          return;
+        }
 
-          if (!latestMarket) {
-            return;
-          }
+        const lastBar = pxData.data.at(-1);
 
-          const lastBar = pxData.data.at(-1);
-
-          if (!lastBar) {
-            console.error(
-              `Last data of the PxData ` +
+        if (!lastBar) {
+          console.error(
+            `Last data of the PxData ` +
               `(Contract: ${pxData.contract.symbol} / Period: ${pxData.periodSec} sec) undefined.`,
-            );
-            return;
-          }
+          );
+          return;
+        }
 
-          pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, latestMarket.close);
-          pxData.latestMarket = latestMarket;
-          pxData.lastUpdated = Date.now();
-        });
+        pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, latestMarket.close);
+        pxData.latestMarket = latestMarket;
+        pxData.lastUpdated = Date.now();
+      });
 
-        updateCurrentPxDataTitle(state.data);
-      },
-    );
+      updateCurrentPxDataTitle(state.data);
+    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
+      ...state,
+      map: payload,
+    }));
   },
 });
 

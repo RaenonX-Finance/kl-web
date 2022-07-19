@@ -30,27 +30,17 @@ const slice = createSlice({
     );
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_TYPE].fulfilled,
-      (state, {payload}) => {
-        const {layoutType} = payload;
-
-        state.layoutType = layoutType;
-      },
+      (state, {payload}) => ({
+        ...state,
+        layoutType: payload,
+      }),
     );
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG].fulfilled,
-      (state, {payload}) => {
-        const {slot, configKey, value} = payload;
-
-        if (!state.layoutConfig) {
-          console.error(
-            'Attempt to update the layout config while the config is not ready. (Reducer)',
-            JSON.stringify(state),
-          );
-          return;
-        }
-
-        state.layoutConfig[slot][configKey] = value;
-      },
+      (state, {payload}) => ({
+        ...state,
+        layoutConfig: payload,
+      }),
     );
   },
 });

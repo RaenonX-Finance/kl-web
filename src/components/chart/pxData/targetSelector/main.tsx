@@ -3,22 +3,19 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 import {usePeriodDataSelector, useProductDataSelector} from '../../../../state/data/selector';
-import {PxData} from '../../../../types/pxData';
 import {TargetSelectorModal} from './modal';
+import {TargetSelectorCommonProps} from './type';
 
 
-type Props = {
-  pxData: PxData,
-};
-
-export const TargetSelector = ({pxData}: Props) => {
+export const TargetSelector = (props: TargetSelectorCommonProps) => {
+  const {pxData} = props;
   const products = useProductDataSelector();
   const periods = usePeriodDataSelector();
   const [show, setShow] = React.useState(false);
 
   return (
     <>
-      <TargetSelectorModal show={show} setShow={setShow} pxData={pxData}/>
+      <TargetSelectorModal show={show} setShow={setShow} {...props}/>
       <Button variant="outline-light" size="sm" onClick={() => setShow(true)}>
         {`${products[pxData.contract.symbol].name} @ ${periods[pxData.periodSec / 60].name}`}
       </Button>

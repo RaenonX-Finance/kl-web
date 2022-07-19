@@ -1,7 +1,7 @@
 import {defaultSlotMap} from './const';
-import {PxDataSlotMap} from './types';
+import {PxSlotMap} from './types';
 
 
-export const generateInitialSlotMap = (): PxDataSlotMap => ({
+export const generateInitialSlotMap = (): PxSlotMap => ({
   ...defaultSlotMap,
 });

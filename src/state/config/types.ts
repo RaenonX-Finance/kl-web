@@ -1,6 +1,6 @@
 import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxChartLayoutConfigKeys} from '../../components/chart/pxData/type';
-import {PxDataMapSlotNames} from '../../types/pxData';
+import {PxSlotName} from '../../types/pxData';
 import {StateBase} from '../types';
 
 
@@ -13,7 +13,7 @@ export enum ConfigDispatcherName {
 
 export type PxChartLayoutConfigSingle = {[key in PxChartLayoutConfigKeys]?: boolean};
 
-export type PxChartLayoutConfig = {[name in PxDataMapSlotNames]: PxChartLayoutConfigSingle};
+export type PxChartLayoutConfig = {[name in PxSlotName]: PxChartLayoutConfigSingle};
 
 export type ConfigState = StateBase & {
   layoutType: LayoutType | null,
@@ -27,7 +27,7 @@ export type LayoutTypeUpdatePayload = {
 
 export type LayoutConfigUpdatePayload = {
   token: string | undefined,
-  slot: PxDataMapSlotNames,
+  slot: PxSlotName,
   configKey: PxChartLayoutConfigKeys,
   value: boolean,
 };
@@ -35,4 +35,8 @@ export type LayoutConfigUpdatePayload = {
 export type UseSingleLayoutConfigReturn = {
   layoutConfig: PxChartLayoutConfigSingle | null,
   isReady: boolean,
+};
+
+export type ApiUpdateConfigCommonPayload = {
+  token: string | null | undefined,
 };

@@ -2,7 +2,7 @@ import {AxiosResponse} from 'axios';
 
 import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxChartLayoutConfig} from '../../state/config/types';
-import {PxDataSlotMap} from '../../state/pxData/types';
+import {PxSlotMap} from '../../state/pxData/types';
 import {apiSendPostRequest} from './common';
 
 
@@ -10,7 +10,7 @@ import {apiSendPostRequest} from './common';
  * Key of this typing map must match `ConfigKey*` in the backend.
  */
 type ApiUpdateConfigKeyDataMap = {
-  slot_map: PxDataSlotMap,
+  slot_map: PxSlotMap,
   layout_config: PxChartLayoutConfig,
   layout_type: LayoutType,
 };

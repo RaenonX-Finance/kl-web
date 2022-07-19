@@ -1,5 +1,6 @@
+import {overrideObject} from '../../utils/override';
 import {ConfigDispatcherName, LayoutConfigUpdatePayload, LayoutTypeUpdatePayload} from './types';
-import {createConfigAsyncThunk} from './utils';
+import {createConfigAsyncThunk, generateInitialConfig} from './utils';
 
 
 export const configDispatchers = {
@@ -9,8 +10,7 @@ export const configDispatchers = {
   >({
     actionName: ConfigDispatcherName.UPDATE_LAYOUT_TYPE,
     key: 'layout_type',
-    getData: ({config}) => config.layoutType,
-    getToken: ({token}) => token,
+    getData: (_, {layoutType}) => layoutType,
   }),
   [ConfigDispatcherName.UPDATE_LAYOUT_CONFIG]: createConfigAsyncThunk<
     LayoutConfigUpdatePayload,
@@ -18,7 +18,9 @@ export const configDispatchers = {
   >({
     actionName: ConfigDispatcherName.UPDATE_LAYOUT_CONFIG,
     key: 'layout_config',
-    getData: ({config}) => config.layoutConfig,
-    getToken: ({token}) => token,
+    getData: ({config}, {slot, configKey, value}) => overrideObject(
+      config.layoutConfig || generateInitialConfig(),
+      {[slot]: {[configKey]: value}},
+    ),
   }),
 };
