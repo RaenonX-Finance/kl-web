@@ -5,11 +5,11 @@ import {PxSocketContext} from './const';
 import {usePxSocket} from './main';
 
 
-type PxDataContextProps = {
+type Props = {
   children: React.ReactNode,
 };
 
-export const PxDataSocketContext = ({children}: PxDataContextProps) => {
+export const PxDataSocketContext = ({children}: Props) => {
   const socket = usePxSocket();
 
   return (

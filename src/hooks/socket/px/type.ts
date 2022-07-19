@@ -6,7 +6,6 @@ import {SocketEvent} from '../../../types/socket';
 export type PxSocketEventKeys =
   'init' |
   'pxUpdated' |
-  'pxUpdatedMarket' |
   'pxRequest' |
   'pxInit' |
   'error' |

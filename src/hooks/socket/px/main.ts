@@ -23,11 +23,13 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const dispatch = useDispatch();
   const {signIn} = useNextAuthCall();
 
-  // Events
+  // System events
   const onConnectionError = (err: Error) => {
     console.error(err);
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
   };
+
+  // Custom events
   const onInit = React.useCallback((message: SocketMessage) => {
     const initData: InitData = JSON.parse(ensureStringMessage(message));
 
@@ -45,10 +47,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
   });
-  const onPxUpdatedMarket = useSocketEventHandler({
-    dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
-  });
   const onError = useSocketEventHandler({
     dispatch,
     action: errorDispatchers[ErrorDispatcherName.UPDATE],
@@ -65,7 +63,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
 
   // Hooks
   React.useEffect(() => {
-    const socket = generateSocketClient();
+    const socket = generateSocketClient('/');
 
     // System events
     socket.on('connect_error', onConnectionError);
@@ -73,7 +71,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     // Custom events
     socket.on('init', onInit);
     socket.on('pxUpdated', onPxUpdated);
-    socket.on('pxUpdatedMarket', onPxUpdatedMarket);
     socket.on('pxInit', onPxInit);
     socket.on('error', onError);
     socket.on('signIn', onSignIn);
@@ -86,7 +83,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     return () => {
       socket.off('init', onInit);
       socket.off('pxUpdated', onPxUpdated);
-      socket.off('pxUpdatedMarket', onPxUpdatedMarket);
       socket.off('pxInit', onPxInit);
       socket.off('error', onError);
       socket.off('signIn', onSignIn);
