@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 import {PxData, PxDataFromSocket, PxSlotName} from '../../types/pxData';
-import {updatePxDataBar} from '../../utils/calc';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {mergedDispatchers} from '../aggregated/dispatchers';
@@ -68,26 +67,10 @@ const slice = createSlice({
     });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET], (state, {payload}) => {
-      Object.values(state.data).map((pxData) => {
-        if (!pxData || payload.symbol !== pxData.contract.symbol) {
-          return;
-        }
-
-        const lastBar = pxData.data.at(-1);
-
-        if (!lastBar) {
-          console.error(`Last data of the PxData ${pxData.contract.symbol} @ ${pxData.periodSec / 60} undefined.`);
-          return;
-        }
-
-        pxData.data[pxData.data.length - 1] = updatePxDataBar(lastBar, payload.close);
-        pxData.latestMarket = payload;
-        pxData.lastUpdated = Date.now();
-      });
-
-      updateCurrentPxDataTitle(state.data);
-    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload}) => ({
+      ...state,
+      data: payload,
+    }));
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
       data: {
         ...state.data,
