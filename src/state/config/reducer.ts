@@ -32,14 +32,14 @@ const slice = createSlice({
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_TYPE].fulfilled,
       (state, {payload}) => ({
         ...state,
-        layoutType: payload,
+        layoutType: payload.data,
       }),
     );
     builder.addCase(
       configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG].fulfilled,
       (state, {payload}) => ({
         ...state,
-        layoutConfig: payload,
+        layoutConfig: payload.data,
       }),
     );
   },

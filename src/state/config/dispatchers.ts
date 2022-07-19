@@ -11,6 +11,7 @@ export const configDispatchers = {
     actionName: ConfigDispatcherName.UPDATE_LAYOUT_TYPE,
     key: 'layout_type',
     getData: (_, {layoutType}) => layoutType,
+    getPayload: () => null,
   }),
   [ConfigDispatcherName.UPDATE_LAYOUT_CONFIG]: createConfigAsyncThunk<
     LayoutConfigUpdatePayload,
@@ -22,5 +23,6 @@ export const configDispatchers = {
       config.layoutConfig || generateInitialConfig(),
       {[slot]: {[configKey]: value}},
     ),
+    getPayload: () => null,
   }),
 };

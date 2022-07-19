@@ -98,8 +98,13 @@ const slice = createSlice({
       updateCurrentPxDataTitle(state.data);
     });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
-      ...state,
-      map: payload,
+      data: {
+        ...state.data,
+        // Need to set null to "reset" the chart
+        // Otherwise, the chart will use the old data, then the update will cause errors
+        [payload.payload]: null,
+      },
+      map: payload.data,
     }));
   },
 });

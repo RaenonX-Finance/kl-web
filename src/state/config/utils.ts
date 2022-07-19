@@ -20,25 +20,33 @@ export const getConfig = (config: PxChartLayoutConfigSingle, key: PxChartLayoutC
   return config[key] ?? defaultConfig[key];
 };
 
+type CreateConfigAsyncThunkReturn<K extends ApiUpdateConfigKeys, P> = {
+  data: ApiUpdateConfigOpts<K>['data'],
+  payload: P
+};
+
 type CreateConfigAsyncThunkOpts<
-  R extends ApiUpdateConfigOpts<K>['data'],
   T extends ApiUpdateConfigCommonPayload,
-  K extends ApiUpdateConfigKeys
+  K extends ApiUpdateConfigKeys,
+  P,
 > = {
   actionName: string,
   key: K,
-  getData: (state: ReduxState, payload: T) => R,
+  getData: (state: ReduxState, payload: T) => ApiUpdateConfigOpts<K>['data'],
+  getPayload: (payload: T) => P,
 };
 
 export const createConfigAsyncThunk = <
   T extends ApiUpdateConfigCommonPayload,
-  K extends ApiUpdateConfigKeys
+  K extends ApiUpdateConfigKeys,
+  P = any,
 >({
   actionName,
   key,
   getData,
-}: CreateConfigAsyncThunkOpts<ApiUpdateConfigOpts<K>['data'], T, K>) => createAsyncThunk<
-  ApiUpdateConfigOpts<K>['data'],
+  getPayload,
+}: CreateConfigAsyncThunkOpts<T, K, P>) => createAsyncThunk<
+  CreateConfigAsyncThunkReturn<K, P>,
   T,
   {state: ReduxState, rejectValue: string}
 >(
@@ -74,6 +82,6 @@ export const createConfigAsyncThunk = <
       });
     }
 
-    return data;
+    return {data, payload: getPayload(payload)};
   },
 );
