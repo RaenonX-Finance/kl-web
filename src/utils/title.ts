@@ -15,8 +15,8 @@ export const updateCurrentPxDataTitle = (pxDataMap: PxDataMap) => {
       return;
     }
 
-    currentPx[pxData.contract.symbol] = lastBar.close.toFixed(pxData.contract.decimals);
+    currentPx[pxData.contract.name] = lastBar.close.toFixed(pxData.contract.decimals);
   });
 
-  document.title = Object.entries(currentPx).map(([symbol, px]) => `${symbol} ${px}`).join(' ');
+  document.title = Object.entries(currentPx).map(([name, px]) => `${name} ${px}`).join(' ');
 };
