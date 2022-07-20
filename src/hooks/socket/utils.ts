@@ -14,11 +14,13 @@ type UseSocketEventHandlerOpts<R, T, A> = {
 };
 
 export const ensureStringMessage = (message: SocketMessage): string => {
-  if (typeof message !== 'string') {
-    message = pako.inflate(message, {to: 'string'});
+  if (message instanceof ArrayBuffer) {
+    return pako.inflate(message, {to: 'string'});
+  } else if (typeof message === 'string') {
+    return message;
   }
 
-  return message;
+  return JSON.stringify(message);
 };
 
 export const useSocketEventHandler = <R, T, A>({
