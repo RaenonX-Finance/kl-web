@@ -71,7 +71,9 @@ export const PxChartLayoutConfigEntries = ({
                 value={value}
                 onChange={({target}) => updateConfig(
                   configKey,
-                  target.value === '' ? (min || defaultConfig[configKey]) : parseFloat(target.value),
+                  (target.value === '' || target.value === '0') ?
+                    (min || defaultConfig[configKey]) :
+                    parseFloat(target.value),
                 )}
                 className="w-100 mb-3"
                 disabled={disabled}
