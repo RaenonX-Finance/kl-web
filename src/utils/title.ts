@@ -1,5 +1,4 @@
 import {PxDataMap} from '../types/pxData';
-import {getDecimalPlaces} from './calc';
 
 
 export const updateCurrentPxDataTitle = (pxDataMap: PxDataMap) => {
@@ -16,7 +15,7 @@ export const updateCurrentPxDataTitle = (pxDataMap: PxDataMap) => {
       return;
     }
 
-    currentPx[pxData.contract.symbol] = lastBar.close.toFixed(getDecimalPlaces(pxData.contract.minTick));
+    currentPx[pxData.contract.symbol] = lastBar.close.toFixed(pxData.contract.decimals);
   });
 
   document.title = Object.entries(currentPx).map(([symbol, px]) => `${symbol} ${px}`).join(' ');

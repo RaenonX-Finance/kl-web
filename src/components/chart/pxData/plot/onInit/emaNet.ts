@@ -1,6 +1,7 @@
 import {toCandlestickForFill} from '../../dataConvert';
 import {OnPxChartInitEvent, PxChartEmaLinePair, PxChartSeries} from '../../type';
 import {bearColorForFill, bullColorForFill} from '../const';
+import {getPriceFormat} from '../utils';
 import {createEmaLine} from './pxLine/ema';
 
 
@@ -41,6 +42,7 @@ export const handleEmaNet = (e: OnPxChartInitEvent): PxChartSeries['emaNet'] => 
     downColor: bearColorForFill,
     borderDownColor: bearColorForFill,
     wickDownColor: bearColorForFill,
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
   fill.setData(
     chartDataRef.current.data.map(

@@ -2,7 +2,6 @@ import React from 'react';
 
 import {PxSocketProvider} from '../../../hooks/socket/px/context';
 import {PxData} from '../../../types/pxData';
-import {getDecimalPlaces} from '../../../utils/calc';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
 import {PxChartLayoutConfigPanel} from './layoutConfig/main';
 import {PxChartLegend} from './legend/main';
@@ -51,7 +50,7 @@ export const PxDataChart = (props: Props) => {
             const lastHistory = data.data.at(-1);
 
             const legend: PxChartLegendData = {
-              decimals: getDecimalPlaces(data.contract.minTick),
+              decimals: data.contract.decimals,
               hovered: false,
               strength: lastHistory?.strength ?? '?',
               tiePoint: lastHistory?.tiePoint ?? NaN,

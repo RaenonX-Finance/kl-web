@@ -6,7 +6,7 @@ import {toLineData} from '../../../dataConvert';
 import {OnPxChartInitEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
 import {emaLineColors} from '../../const';
 import {ColorOverridder} from '../../type';
-import {getAnimationMode} from '../../utils';
+import {getAnimationMode, getPriceFormat} from '../../utils';
 
 
 type CreateEmaLineOptions = {
@@ -52,6 +52,7 @@ export const createEmaLine = ({
     lastValueVisible: visibleLabel, // Disable label
     crosshairMarkerVisible: false,
     visible,
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
   emaLine.setData(chartDataRef.current.data.map(toLineData(`ema${periodPair[periodType]}`, colorOverride)));
 

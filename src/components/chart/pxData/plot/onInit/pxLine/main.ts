@@ -2,6 +2,7 @@ import {ISeriesApi} from 'lightweight-charts';
 
 import {getConfig} from '../../../../../../state/config/utils';
 import {toLineData} from '../../../dataConvert';
+import {getPriceFormat} from '../../utils';
 import {AddPxLineOptions} from './type';
 
 
@@ -29,6 +30,7 @@ export const addPxLine = ({
     priceLineVisible,
     visible: visibleLine,
     lastValueVisible: visibleLabel,
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
   series.setData(chartDataRef.current.data.map(toLineData(keyForLineData)));
 

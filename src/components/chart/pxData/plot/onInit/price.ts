@@ -4,6 +4,7 @@ import {getConfig} from '../../../../../state/config/utils';
 import {toCandlestick} from '../../dataConvert';
 import {OnPxChartInitEvent} from '../../type';
 import {bearColor, bullColor, currentPxColor} from '../const';
+import {getPriceFormat} from '../utils';
 
 
 export const handlePrice = ({
@@ -13,11 +14,10 @@ export const handlePrice = ({
     throw new Error('Adding price while the chart is not ready');
   }
 
+  const {contract, data} = chartDataRef.current;
+
   const price = chartRef.current.addCandlestickSeries({
-    title: chartDataRef.current.contract.symbol,
-    priceFormat: {
-      minMove: chartDataRef.current.contract.minTick,
-    },
+    title: contract.symbol,
     priceLineVisible: getConfig(layoutConfig, 'currentPxLine'),
     priceLineWidth: 1,
     priceLineStyle: LineStyle.Dotted,
@@ -28,8 +28,9 @@ export const handlePrice = ({
     borderDownColor: bearColor,
     wickDownColor: bearColor,
     priceLineColor: currentPxColor,
+    priceFormat: getPriceFormat(contract),
   });
-  price.setData(chartDataRef.current.data.map(toCandlestick(getConfig(layoutConfig, 'candlestickColor'))));
+  price.setData(data.map(toCandlestick(getConfig(layoutConfig, 'candlestickColor'))));
 
   return price;
 };

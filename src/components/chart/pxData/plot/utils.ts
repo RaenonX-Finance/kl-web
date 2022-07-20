@@ -1,6 +1,7 @@
-import {BarsInfo, LastPriceAnimationMode} from 'lightweight-charts';
+import {BarsInfo, LastPriceAnimationMode, PriceFormat} from 'lightweight-charts';
 
-import {PxDataBar} from '../../../../types/pxData';
+import {PxDataBar, PxDataContract} from '../../../../types/pxData';
+import {DeepPartial} from '../../../../utils/types';
 import {bearColor, bullColor} from './const';
 import {ColorOverridder, ExtremaPx, GetCurrentExtremaPxOptions} from './type';
 
@@ -54,3 +55,8 @@ export const getExtremaPxOfRange = (barsInfo: BarsInfo, data: PxDataBar[]): Extr
 
   return {minPx, maxPx};
 };
+
+export const getPriceFormat = (contract: PxDataContract): DeepPartial<PriceFormat> => ({
+  minMove: contract.minTick,
+  precision: contract.decimals,
+});
