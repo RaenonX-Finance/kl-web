@@ -1,24 +1,23 @@
 import React from 'react';
 
-import {useSession} from 'next-auth/react';
-
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
-import {PxDataDispatcherName} from '../../../state/pxData/types';
+import {PxDataDispatcherName, PxDataSubscriptionInfo} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {generateSocketClient} from '../../../utils/socket';
 import {useSocketEventHandler} from '../utils';
-import {PxDataSocket, MarketPxSubscriptionMessage} from './type';
+import {useHistoryDataRequestHandler} from './historyRequest';
+import {useMarketPxUpdateHandler} from './market';
+import {PxDataSocket} from './type';
 
 
-type UsePxSocketOpts = {
-  security: string,
-};
+type UsePxSocketOpts = PxDataSubscriptionInfo;
 
-export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefined => {
+export const usePxSocket = ({securities, identifiers}: UsePxSocketOpts): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
-  const {data: session} = useSession();
+  useMarketPxUpdateHandler({socket, securities});
+  useHistoryDataRequestHandler({socket, identifiers});
   const dispatch = useDispatch();
 
   // System events
@@ -40,35 +39,20 @@ export const usePxSocket = ({security}: UsePxSocketOpts): PxDataSocket | undefin
   // Hooks
   React.useEffect(() => {
     const socket = generateSocketClient('/px');
-    const subscriptionMessage: MarketPxSubscriptionMessage = {
-      token: session?.user.token,
-      security,
-    };
-
-    const onDisconnect = () => {
-      socket.emit('unsubscribe', subscriptionMessage);
-    };
 
     // System events
     socket.on('connect_error', onConnectionError);
-    socket.on('disconnect', onDisconnect);
 
     // Custom events
     socket.on('updated', onUpdated);
     socket.on('request', onRequested);
 
-    // Send message
-    socket.emit('subscribe', subscriptionMessage);
-
     setSocket(socket);
 
     return () => {
       socket.off('connect_error', onConnectionError);
-      socket.off('disconnect', onDisconnect);
       socket.off('updated', onUpdated);
       socket.off('request', onRequested);
-
-      socket.emit('unsubscribe', subscriptionMessage);
 
       socket.close();
     };

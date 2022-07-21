@@ -13,10 +13,10 @@ export type PxDataSocket = Socket<SocketEvent<PxSocketEventKeys>>;
 
 export type MarketPxSubscriptionMessage = {
   token: string | undefined,
-  security: string,
+  securities: string[],
 };
 
 export type RequestPxMessage = {
   token: string | undefined,
-  identifier: string,
+  identifiers: string[],
 };

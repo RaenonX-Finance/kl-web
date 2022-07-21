@@ -24,14 +24,12 @@ const fixPxData = (pxData: PxData): PxData => {
   pxData.data = pxData.data.map((item) => ({
     ...item,
     epochSec: updateEpochSecToLocal(item.epochSec),
-    lastUpdated: Date.now(),
   }));
 
   return pxData;
 };
 
 const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
-  // TODO: To fix after data sending optimization
   if (!state.map) {
     console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
     return;
@@ -67,10 +65,17 @@ const slice = createSlice({
     });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload}) => ({
-      ...state,
-      data: payload,
-    }));
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload, meta}) => {
+      if (!meta.updatedAny) {
+        // Do nothing if none of the PxData got updated
+        return;
+      }
+
+      return {
+        ...state,
+        data: payload,
+      };
+    });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
       data: {
         ...state.data,

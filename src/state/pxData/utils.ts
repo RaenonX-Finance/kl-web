@@ -19,7 +19,14 @@ type IsMarketPxUpdateOkOpts = {
 
 export const isMarketPxUpdateOk = ({layoutConfig, pxData, slot, lastBar, last}: IsMarketPxUpdateOkOpts) => {
   if (lastBar && (last > lastBar.high || last < lastBar.low)) {
+    // Forces update on:
+    // - Breaking high
+    // - Breaking low
     return true;
+  } else if (lastBar?.close === last) {
+    // Avoid duplicated update on:
+    // - Unchanged Px
+    return false;
   }
 
   const interval = getConfig(layoutConfig[slot], 'intervalMarketPxSec');

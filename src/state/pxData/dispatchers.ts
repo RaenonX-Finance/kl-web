@@ -8,7 +8,7 @@ import {updateCurrentPxDataTitle} from '../../utils/title';
 import {createConfigAsyncThunk} from '../config/utils';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
-import {PxDataDispatcherName, PxSlotMapUpdatePayload} from './types';
+import {PxDataDispatcherName, PxMarketUpdateResult, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
 
 
@@ -18,11 +18,12 @@ export const pxDataDispatchers = {
   [PxDataDispatcherName.UPDATE_MARKET]: createAsyncThunk<
     PxDataMap,
     PxDataMarket,
-    {state: ReduxState, rejectValue: string}
+    {state: ReduxState, rejectValue: string, fulfilledMeta: PxMarketUpdateResult}
   >(
     PxDataDispatcherName.UPDATE_MARKET,
-    async (payload, {getState, dispatch, rejectWithValue}) => {
+    async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
       const {config, pxData} = getState();
+      // FIXME: Change `layoutConfig` to use shared config
       const {layoutConfig} = config;
 
       if (!layoutConfig) {
@@ -34,6 +35,7 @@ export const pxDataDispatchers = {
         });
       }
 
+      let updatedAny = false;
       const pxDataMap: PxDataMap = {
         A: null,
         B: null,
@@ -45,15 +47,17 @@ export const pxDataDispatchers = {
         const slot = slotStr as PxSlotName;
         const pxDataInSlot = pxData.data[slot];
         const lastBar = pxDataInSlot?.data.at(-1);
-        const {close: last, symbol} = payload;
+        const latestMarket = pxDataInSlot ? payload[pxDataInSlot.contract.symbol] : undefined;
 
         if (
+          // Check if the `pxData` is potentially update-able
+          !latestMarket ||
           // Check if `pxData` of a slot is set
           !pxDataInSlot ||
           // Check if the `pxData` in slot is has the matching security symbol
-          symbol !== pxDataInSlot.contract.symbol ||
+          !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||
           // Check if it's OK to update
-          !isMarketPxUpdateOk({layoutConfig, pxData: pxDataInSlot, slot, lastBar, last})
+          !isMarketPxUpdateOk({layoutConfig, pxData: pxDataInSlot, slot, lastBar, last: latestMarket.close})
         ) {
           pxDataMap[slot] = pxDataInSlot;
           continue;
@@ -70,15 +74,16 @@ export const pxDataDispatchers = {
 
         pxDataMap[slot] = {
           ...pxDataInSlot,
-          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, last)]),
-          latestMarket: payload,
+          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.close)]),
+          latestMarket,
           lastUpdated: Date.now(),
         };
+        updatedAny = true;
       }
 
       updateCurrentPxDataTitle(pxData.data);
 
-      return pxDataMap;
+      return fulfillWithValue(pxDataMap, {updatedAny});
     },
   ),
   [PxDataDispatcherName.UPDATE_SLOT_MAP]: createConfigAsyncThunk<

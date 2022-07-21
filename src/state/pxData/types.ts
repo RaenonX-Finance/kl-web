@@ -24,3 +24,12 @@ export type PxSlotMapUpdatePayload = {
   symbol: string,
   periodMin: number,
 };
+
+export type PxDataSubscriptionInfo = {
+  securities: string[],
+  identifiers: string[],
+};
+
+export type PxMarketUpdateResult = {
+  updatedAny: boolean,
+};
