@@ -4,6 +4,6 @@ import {ReduxState} from '../types';
 import {ErrorSelectorReturn} from './types';
 
 
-export const useErrorSelector = (): ErrorSelectorReturn => {
-  return useSelector((state: ReduxState) => state.error);
-};
+export const useErrorSelector = (): ErrorSelectorReturn => (
+  useSelector((state: ReduxState) => state.error)
+);

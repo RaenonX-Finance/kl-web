@@ -6,10 +6,10 @@ import {PxSlotName} from '../../types/pxData';
 import {ReduxState} from '../types';
 
 
-export const useLayoutTypeConfigSelector = (): LayoutType | null => {
-  return useSelector(({config}: ReduxState) => config.layoutType);
-};
+export const useLayoutTypeConfigSelector = (): LayoutType | null => (
+  useSelector(({config}: ReduxState) => config.layoutType)
+);
 
-export const useSingleLayoutConfigSelector = (slot: PxSlotName): PxChartLayoutConfigSingle | null => {
-  return useSelector(({config}: ReduxState) => config.layoutConfig && config.layoutConfig[slot]);
-};
+export const useSingleLayoutConfigSelector = (slot: PxSlotName): PxChartLayoutConfigSingle | null => (
+  useSelector(({config}: ReduxState) => config.layoutConfig && config.layoutConfig[slot])
+);
