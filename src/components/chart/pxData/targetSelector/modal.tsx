@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
-import {GeneralSocketContext} from '../../../../hooks/socket/general/const';
 import {PxInitMessage} from '../../../../hooks/socket/general/type';
+import {PxSocketContext} from '../../../../hooks/socket/px/const';
 import {PxDataUniqueIdentifier} from '../../../../types/pxData';
 import {PeriodSelector} from './period';
 import {ProductSelector} from './product';
@@ -20,7 +20,7 @@ type Props = TargetSelectorCommonProps & {
 
 export const TargetSelectorModal = ({show, setShow, slot, pxData}: Props) => {
   const {data} = useSession();
-  const socket = React.useContext(GeneralSocketContext);
+  const socket = React.useContext(PxSocketContext);
 
   const token = data?.user?.token;
 

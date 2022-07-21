@@ -8,6 +8,7 @@ import {useDispatch} from '../../../state/store';
 import {generateSocketClient} from '../../../utils/socket';
 import {useSocketEventHandler} from '../utils';
 import {useHistoryDataRequestHandler} from './historyRequest';
+import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
 import {PxDataSocket} from './type';
 
@@ -18,6 +19,7 @@ export const usePxSocket = ({securities, identifiers}: UsePxSocketOpts): PxDataS
   const [socket, setSocket] = React.useState<PxDataSocket>();
   useMarketPxUpdateHandler({socket, securities});
   useHistoryDataRequestHandler({socket, identifiers});
+  usePxInitHandler({socket});
   const dispatch = useDispatch();
 
   // System events

@@ -5,7 +5,6 @@ import {SocketEvent} from '../../../types/socket';
 
 export type GeneralSocketEventKeys =
   'init' |
-  'pxInit' |
   'error' |
   'signIn' |
   'ping';

@@ -33,26 +33,6 @@ class NextDocument extends Document<Props> {
           */}
           <link href="/manifest.json" rel="manifest"/>
 
-          {/* React-bootstrap imports */}
-          {/* No known available async ways to import these yet */}
-          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script
-            crossOrigin="anonymous"
-            src="https://unpkg.com/react/umd/react.production.min.js"
-          />
-          {/* No known available async ways to import these yet */}
-          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script
-            crossOrigin="anonymous"
-            src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"
-          />
-          {/* No known available async ways to import these yet */}
-          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script
-            crossOrigin="anonymous"
-            src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
-          />
-
           {/* New Relic Browser monitoring */}
           <script async type="text/javascript" src="/js/newRelicBrowser.js"/>
 

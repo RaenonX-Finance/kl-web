@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 
 import {PxData, PxSlotName} from '../../types/pxData';
 import {ReduxState} from '../types';
-import {PxDataSubscriptionInfo} from './types';
+import {PxDataSubscriptionInfo, PxSlotMap} from './types';
 
 
 export const usePxDataSelector = (slot: PxSlotName): PxData | null => (
@@ -40,4 +40,8 @@ export const usePxDataSubscriptionInfoSelector = (): PxDataSubscriptionInfo => (
 
 export const usePxDataLastUpdateSelector = (slot: PxSlotName): number | undefined => (
   useSelector(({pxData}: ReduxState) => pxData.data[slot]?.lastUpdated)
+);
+
+export const usePxDataSlotMap = (): PxSlotMap | null => (
+  useSelector(({pxData}: ReduxState) => pxData.map)
 );

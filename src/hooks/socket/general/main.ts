@@ -6,15 +6,13 @@ import {mergedDispatchers} from '../../../state/aggregated/dispatchers';
 import {MergedDispatcherName} from '../../../state/aggregated/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
-import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
-import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {InitData} from '../../../types/init';
 import {SocketMessage} from '../../../types/socket';
 import {generateSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
-import {GeneralSocket, PxInitMessage} from './type';
+import {GeneralSocket} from './type';
 
 
 export const useGeneralSocket = (): GeneralSocket | undefined => {
@@ -39,10 +37,6 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
 
     dispatch(mergedDispatchers[MergedDispatcherName.INIT_APP](initData));
   }, []);
-  const onPxInit = useSocketEventHandler({
-    dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.INIT],
-  });
   const onError = useSocketEventHandler({
     dispatch,
     action: errorDispatchers[ErrorDispatcherName.UPDATE],
@@ -66,22 +60,15 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
 
     // Custom events
     socket.on('init', onInit);
-    socket.on('pxInit', onPxInit);
     socket.on('error', onError);
     socket.on('signIn', onSignIn);
 
     socket.emit('init', session?.user?.token || '');
-    const message: PxInitMessage = {
-      token: session?.user?.token,
-      identifiers: [],
-    };
-    socket.emit('pxInit', message);
 
     setSocket(socket);
 
     return () => {
       socket.off('init', onInit);
-      socket.off('pxInit', onPxInit);
       socket.off('error', onError);
       socket.off('signIn', onSignIn);
 
