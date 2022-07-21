@@ -65,17 +65,10 @@ const slice = createSlice({
     });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload, meta}) => {
-      if (!meta.updatedAny) {
-        // Do nothing if none of the PxData got updated
-        return;
-      }
-
-      return {
-        ...state,
-        data: payload,
-      };
-    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload}) => ({
+      ...state,
+      data: payload,
+    }));
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
       data: {
         ...state.data,

@@ -4,16 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import {useAnimation} from '../../../hooks/animation';
 import {configDispatchers} from '../../../state/config/dispatchers';
 import {useSingleLayoutConfigSelector} from '../../../state/config/selector';
 import {ConfigDispatcherName, LayoutConfigUpdatePayload} from '../../../state/config/type';
 import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
-import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import {PxChartLayoutConfigSingle} from '../pxData/type';
 import {useTradingViewChart} from './hook';
+import {PxChartLastUpdate} from './lastUpdate';
 import styles from './main.module.scss';
 import {
   ChartCalcObjects,
@@ -56,15 +55,10 @@ export const TradingViewChart = <T, P, R, L>({
   renderObjects,
   renderLayoutConfig,
   getPeriodSec,
-  getDataLastUpdate,
   getDataSecurity,
 }: TradingViewChartProps<T, P, R, L, PxChartLayoutConfigSingle>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
   const chartDataRef = React.useRef<T>(chartData);
-  const updateIndicatorRef = useAnimation({
-    deps: [getDataLastUpdate(chartData)],
-  });
-  const lastUpdated = React.useRef(getDataLastUpdate(chartData));
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const layoutConfig = useSingleLayoutConfigSelector(slot);
   const dispatch = useDispatch();
@@ -79,16 +73,13 @@ export const TradingViewChart = <T, P, R, L>({
     await dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG](payload));
   };
 
-  const onDataUpdatedInternal = (forceUpdate: boolean) => () => {
+  const onDataUpdatedInternal = () => {
     chartDataRef.current = chartData;
-    const dataLastUpdated = getDataLastUpdate(chartData);
-
-    if (!isLayoutConfigReady || (!forceUpdate && dataLastUpdated <= lastUpdated.current)) {
+    if (!isLayoutConfigReady) {
       return;
     }
 
     onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig});
-    lastUpdated.current = dataLastUpdated;
   };
 
   const onLoad = () => {
@@ -110,19 +101,15 @@ export const TradingViewChart = <T, P, R, L>({
 
   const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxChartLayoutConfigSingle, P>({
     initChart,
-    onDataUpdated: onDataUpdatedInternal(true),
+    onDataUpdated: onDataUpdatedInternal,
     width,
     height,
   });
 
   React.useEffect(onLoad, [isLayoutConfigReady]);
   React.useEffect(
-    onDataUpdatedInternal(true),
+    onDataUpdatedInternal,
     [chartObjectRef.current?.initData, payload, layoutConfig],
-  );
-  React.useEffect(
-    onDataUpdatedInternal(false),
-    [getDataLastUpdate(chartData)],
   );
 
   return (
@@ -158,15 +145,7 @@ export const TradingViewChart = <T, P, R, L>({
             <PeriodTimer periodSec={getPeriodSec(chartData)}/>
           </Col>
           <Col xs="auto" className="text-end">
-            <SocketPingableTimeAgo
-              ref={updateIndicatorRef}
-              epochSec={lastUpdated.current}
-              format={(secDiffMs) => (
-                <><i className="bi bi-activity"/>&nbsp;{secDiffMs.toFixed(0)}</>
-              )}
-              updateMs={100}
-              className={styles['update-animation']}
-            />
+            <PxChartLastUpdate slot={slot}/>
           </Col>
         </Row>
       </div>

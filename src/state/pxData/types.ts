@@ -29,7 +29,3 @@ export type PxDataSubscriptionInfo = {
   securities: string[],
   identifiers: string[],
 };
-
-export type PxMarketUpdateResult = {
-  updatedAny: boolean,
-};
