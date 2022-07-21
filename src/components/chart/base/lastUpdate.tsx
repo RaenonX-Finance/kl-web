@@ -13,7 +13,7 @@ type Props = {
 
 export const PxChartLastUpdate = ({slot}: Props) => {
   const lastUpdate = usePxDataLastUpdateSelector(slot);
-  const updateIndicatorRef = useAnimation({deps: [lastUpdate]});
+  const updateIndicatorRef = useAnimation({deps: [lastUpdate], minReplayMs: 2000});
 
   return (
     <SocketPingableTimeAgo

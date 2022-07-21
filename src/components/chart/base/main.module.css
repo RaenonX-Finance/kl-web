@@ -28,11 +28,11 @@ span.update-animation {
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
-  animation: 1s update-light;
+  animation: 2s update-light;
 }
 @keyframes update-light {
   from {
-    background: #325bc2;
+    box-shadow: inset 0 0 1.7rem #325bc2;
   }
   to {
     background: rgba(5, 5, 5, 0.77);

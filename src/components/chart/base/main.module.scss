@@ -39,7 +39,7 @@ span.update-animation {
 
   @keyframes update-light {
     from {
-      background: $update-theme;
+      box-shadow: inset 0 0 1.7rem $update-theme;
     }
 
     to {
@@ -52,5 +52,5 @@ span.update-animation {
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
-  animation: 1s update-light;
+  animation: 2s update-light;
 }
