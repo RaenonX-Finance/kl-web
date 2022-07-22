@@ -6,6 +6,8 @@ import {ExtremaCommonOptions, SrLevelCommonOptions} from './type';
 
 export const bullColor = '#ef5350';
 
+export const neutralColor = '#c5c5c5';
+
 export const bearColor = '#26a69a';
 
 export const bullColorForFill = 'rgba(239,83,80,0.3)';
@@ -16,6 +18,7 @@ export const currentPxColor = '#d7d7d7';
 
 export const colorOfCandlestickDirection: {[dir in PxDataCandlestickDirection]: string} = {
   [1]: bullColor,
+  [0]: neutralColor,
   [-1]: bearColor,
 };
 

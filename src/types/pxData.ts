@@ -2,7 +2,7 @@ import {StrengthIndex} from '../components/chart/pxData/legend/type';
 import {PxDataMarketSingle} from './pxDataMarket';
 
 
-export type PxDataCandlestickDirection = 1 | -1;
+export type PxDataCandlestickDirection = 1 | 0 | -1;
 
 export type PxDataBarEmaKey = `ema${number}`;
 
