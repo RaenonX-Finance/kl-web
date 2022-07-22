@@ -52,7 +52,7 @@ export type PxChartLegendData = {
   hovered: boolean,
 };
 
-export type PxChartLayoutConfigSingle = {
+export type PxLayoutConfigSingle = {
   currentPxLine: boolean,
   tiePointLabel: boolean,
   emaNetLabel: boolean,
@@ -71,21 +71,21 @@ export type PxChartLayoutConfigSingle = {
   intervalHistoryPxSec: number,
 };
 
-export type PxChartLayoutConfigKeys = keyof PxChartLayoutConfigSingle;
+export type PxLayoutConfigKeys = keyof PxLayoutConfigSingle;
 
-export type PxChartLayoutConfigBoolValKeys = KeysOfType<PxChartLayoutConfigSingle, boolean>;
+export type PxLayoutConfigBoolValKeys = KeysOfType<PxLayoutConfigSingle, boolean>;
 
-export type PxChartLayoutConfigEntry = {
+export type PxLayoutConfigEntry = {
   title: string,
   group: string,
-  isDisabled?: (config: PxChartLayoutConfigSingle) => boolean,
+  isDisabled?: (config: PxLayoutConfigSingle) => boolean,
   step?: number,
   min?: number,
   tips?: string,
 };
 
-export type PxChartLayoutConfigUI = {
-  [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
+export type PxLayoutConfigUI = {
+  [key in PxLayoutConfigKeys]: PxLayoutConfigEntry
 };
 
 export type PxChartInitData = {
@@ -101,7 +101,7 @@ export type OnPxChartInitEvent = OnChartInitEvent<
   PxData,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfigSingle,
+  PxLayoutConfigSingle,
   PxChartPayload
 >;
 
@@ -109,7 +109,7 @@ export type PxChartInitEventHandler = ChartInitEventHandler<
   PxData,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfigSingle,
+  PxLayoutConfigSingle,
   PxChartPayload
 >;
 
@@ -118,7 +118,7 @@ export type OnPxChartUpdatedEvent = OnChartDataUpdatedEvent<
   PxChartPayload,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfigSingle
+  PxLayoutConfigSingle
 >;
 
 export type PxChartUpdatedEventHandler = ChartDataUpdatedEventHandler<
@@ -126,5 +126,5 @@ export type PxChartUpdatedEventHandler = ChartDataUpdatedEventHandler<
   PxChartPayload,
   PxChartInitData,
   PxChartLegendData,
-  PxChartLayoutConfigSingle
+  PxLayoutConfigSingle
 >;

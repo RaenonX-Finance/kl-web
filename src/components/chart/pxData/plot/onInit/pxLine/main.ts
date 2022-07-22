@@ -1,6 +1,6 @@
 import {ISeriesApi} from 'lightweight-charts';
 
-import {getConfig} from '../../../../../../state/config/utils';
+import {getLayoutConfig} from '../../../../../../state/config/utils';
 import {toLineData} from '../../../dataConvert';
 import {getPriceFormat} from '../../utils';
 import {AddPxLineOptions} from './type';
@@ -21,8 +21,8 @@ export const addPxLine = ({
     throw new Error(`Adding ${title} while the chart is not ready`);
   }
 
-  const visibleLine = getConfig(layoutConfig, keyOfConfig);
-  const visibleLabel = getConfig(layoutConfig, keyOfConfigLabel);
+  const visibleLine = getLayoutConfig(layoutConfig, keyOfConfig);
+  const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
   const series = chartRef.current.addLineSeries({
     ...props,

@@ -1,7 +1,7 @@
-import {PxChartLayoutConfigKeys} from '../type';
+import {PxLayoutConfigKeys} from '../type';
 
 
-export const configKeysToHideOfSecurity: {[security in string]?: PxChartLayoutConfigKeys[]} = {
+export const configKeysToHideOfSecurity: {[security in string]?: PxLayoutConfigKeys[]} = {
   'NQ': ['srLevelBasic', 'srLevelBasicLabel'],
   'YM': ['srLevelBasic', 'srLevelBasicLabel'],
 };

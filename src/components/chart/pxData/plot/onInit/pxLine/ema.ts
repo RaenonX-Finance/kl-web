@@ -1,9 +1,9 @@
 import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
-import {getConfig} from '../../../../../../state/config/utils';
+import {getLayoutConfig} from '../../../../../../state/config/utils';
 import {PxDataEmaPeriodPair} from '../../../../../../types/pxData';
 import {toLineData} from '../../../dataConvert';
-import {OnPxChartInitEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
+import {OnPxChartInitEvent, PxLayoutConfigBoolValKeys} from '../../../type';
 import {emaLineColors} from '../../const';
 import {ColorOverridder} from '../../type';
 import {getAnimationMode, getPriceFormat} from '../../utils';
@@ -13,8 +13,8 @@ type CreateEmaLineOptions = {
   e: OnPxChartInitEvent,
   periodType: keyof PxDataEmaPeriodPair,
   periodPair: PxDataEmaPeriodPair,
-  keyOfConfig: PxChartLayoutConfigBoolValKeys,
-  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
+  keyOfConfig: PxLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxLayoutConfigBoolValKeys,
   colorOverride?: ColorOverridder,
   specialStyleOnSlow?: boolean,
 };
@@ -39,8 +39,8 @@ export const createEmaLine = ({
     throw new Error('Adding EMA net lines while the chart is not ready');
   }
 
-  const visible = getConfig(layoutConfig, keyOfConfig);
-  const visibleLabel = getConfig(layoutConfig, keyOfConfigLabel);
+  const visible = getLayoutConfig(layoutConfig, keyOfConfig);
+  const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
   const emaLine = chartRef.current.addLineSeries({
     color: emaLineColors[periodType],

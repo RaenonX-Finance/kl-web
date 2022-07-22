@@ -1,5 +1,5 @@
 import {LayoutType} from '../../components/chart/layoutSelector/type';
-import {PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
+import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/pxData/type';
 import {PxSlotName} from '../../types/pxData';
 import {StateBase} from '../types';
 
@@ -11,11 +11,11 @@ export enum ConfigDispatcherName {
   UPDATE_LAYOUT_CONFIG = 'Config/UpdateLayoutConfig',
 }
 
-export type PxChartLayoutConfig = {[name in PxSlotName]: PxChartLayoutConfigSingle};
+export type PxLayoutConfig = {[name in PxSlotName]: PxLayoutConfigSingle};
 
 export type ConfigState = StateBase & {
   layoutType: LayoutType | null,
-  layoutConfig: PxChartLayoutConfig | null,
+  layoutConfig: PxLayoutConfig | null,
 };
 
 export type LayoutTypeUpdatePayload = {
@@ -26,12 +26,12 @@ export type LayoutTypeUpdatePayload = {
 export type LayoutConfigUpdatePayload = {
   token: string | undefined,
   slot: PxSlotName,
-  configKey: PxChartLayoutConfigKeys,
-  value: PxChartLayoutConfigSingle[PxChartLayoutConfigKeys],
+  configKey: PxLayoutConfigKeys,
+  value: PxLayoutConfigSingle[PxLayoutConfigKeys],
 };
 
 export type UseSingleLayoutConfigReturn = {
-  layoutConfig: PxChartLayoutConfigSingle | null,
+  layoutConfig: PxLayoutConfigSingle | null,
   isReady: boolean,
 };
 

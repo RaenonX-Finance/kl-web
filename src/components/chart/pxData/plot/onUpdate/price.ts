@@ -1,4 +1,4 @@
-import {getConfig} from '../../../../../state/config/utils';
+import {getLayoutConfig} from '../../../../../state/config/utils';
 import {toCandlestick} from '../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../type';
 
@@ -18,6 +18,6 @@ export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig}: OnPxCh
   const {symbol} = chartDataRef.current.contract;
   const title = symbol;
 
-  price.setData(chartDataRef.current.data.map(toCandlestick(getConfig(layoutConfig, 'candlestickColor'))));
-  price.applyOptions({title, priceLineVisible: getConfig(layoutConfig, 'currentPxLine')});
+  price.setData(chartDataRef.current.data.map(toCandlestick(getLayoutConfig(layoutConfig, 'candlestickColor'))));
+  price.applyOptions({title, priceLineVisible: getLayoutConfig(layoutConfig, 'currentPxLine')});
 };

@@ -1,7 +1,7 @@
 import {LineSeriesPartialOptions} from 'lightweight-charts';
 
 import {ValidKeyForLineData} from '../../../dataConvert';
-import {OnPxChartInitEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
+import {OnPxChartInitEvent, PxLayoutConfigBoolValKeys} from '../../../type';
 
 
 export type AddPxLineOptionsFromInitEvent = Pick<OnPxChartInitEvent, 'chartRef' | 'chartDataRef' | 'layoutConfig'>;
@@ -9,7 +9,7 @@ export type AddPxLineOptionsFromInitEvent = Pick<OnPxChartInitEvent, 'chartRef' 
 export type AddPxLineOptions =
   AddPxLineOptionsFromInitEvent &
   LineSeriesPartialOptions & {
-    keyOfConfig: PxChartLayoutConfigBoolValKeys,
-    keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
+    keyOfConfig: PxLayoutConfigBoolValKeys,
+    keyOfConfigLabel: PxLayoutConfigBoolValKeys,
     keyForLineData: ValidKeyForLineData,
   };

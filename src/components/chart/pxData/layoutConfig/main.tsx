@@ -7,7 +7,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import {LayoutConfigUpdatePayload} from '../../../../state/config/type';
 import {PxSlotName} from '../../../../types/pxData';
 import {configEntriesUI} from '../config';
-import {PxChartLayoutConfigSingle} from '../type';
+import {PxLayoutConfigSingle} from '../type';
 import {PxChartLayoutConfigEntries} from './entries';
 import styles from './main.module.scss';
 import {LayoutConfigEntriesGroup} from './type';
@@ -18,7 +18,7 @@ export type LayoutConfigPanelProps = {
   security: string,
   title: string,
   slot: PxSlotName,
-  config: PxChartLayoutConfigSingle,
+  config: PxLayoutConfigSingle,
   setConfig: (payload: LayoutConfigUpdatePayload) => Promise<void>,
 };
 

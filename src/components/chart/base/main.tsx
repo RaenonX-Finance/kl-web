@@ -10,7 +10,7 @@ import {ConfigDispatcherName, LayoutConfigUpdatePayload} from '../../../state/co
 import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
-import {PxChartLayoutConfigSingle} from '../pxData/type';
+import {PxLayoutConfigSingle} from '../pxData/type';
 import {useTradingViewChart} from './hook';
 import {PxChartLastUpdate} from './lastUpdate';
 import styles from './main.module.scss';
@@ -56,7 +56,7 @@ export const TradingViewChart = <T, P, R, L>({
   renderLayoutConfig,
   getPeriodSec,
   getDataSecurity,
-}: TradingViewChartProps<T, P, R, L, PxChartLayoutConfigSingle>) => {
+}: TradingViewChartProps<T, P, R, L, PxLayoutConfigSingle>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
   const chartDataRef = React.useRef<T>(chartData);
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
@@ -99,7 +99,7 @@ export const TradingViewChart = <T, P, R, L>({
     });
   };
 
-  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxChartLayoutConfigSingle, P>({
+  const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxLayoutConfigSingle, P>({
     initChart,
     onDataUpdated: onDataUpdatedInternal,
     width,

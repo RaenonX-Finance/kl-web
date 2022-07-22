@@ -6,7 +6,7 @@ import {PxChartLayoutConfigPanel} from './layoutConfig/main';
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
-import {PxChartInitData, PxChartLayoutConfigSingle, PxChartLegendData, PxChartPayload} from './type';
+import {PxChartInitData, PxLayoutConfigSingle, PxChartLegendData, PxChartPayload} from './type';
 
 
 type Props = Omit<
@@ -15,7 +15,7 @@ type Props = Omit<
     PxChartPayload,
     PxChartInitData,
     PxChartLegendData,
-    PxChartLayoutConfigSingle
+    PxLayoutConfigSingle
   >,
   'initChart' |
   'calcObjects' |

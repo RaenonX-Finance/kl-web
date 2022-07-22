@@ -1,26 +1,26 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
+import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/pxData/type';
 import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
 import {getErrorMessage} from '../../utils/error';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
-import {defaultConfig} from './const';
-import {ApiUpdateConfigCommonPayload, PxChartLayoutConfig} from './type';
+import {defaultLayoutConfig} from './const';
+import {ApiUpdateConfigCommonPayload, PxLayoutConfig} from './type';
 
 
-export const generateInitialConfig = () : PxChartLayoutConfig => ({
-  A: {...defaultConfig},
-  B: {...defaultConfig},
-  C: {...defaultConfig},
-  D: {...defaultConfig},
+export const generateLayoutConfig = () : PxLayoutConfig => ({
+  A: {...defaultLayoutConfig},
+  B: {...defaultLayoutConfig},
+  C: {...defaultLayoutConfig},
+  D: {...defaultLayoutConfig},
 });
 
-export const getConfig = <K extends PxChartLayoutConfigKeys>(
-  config: PxChartLayoutConfigSingle,
+export const getLayoutConfig = <K extends PxLayoutConfigKeys>(
+  config: PxLayoutConfigSingle,
   key: K,
-): PxChartLayoutConfigSingle[K] => {
-  return config[key] ?? defaultConfig[key];
+): PxLayoutConfigSingle[K] => {
+  return config[key] ?? defaultLayoutConfig[key];
 };
 
 type CreateConfigAsyncThunkReturn<K extends ApiUpdateConfigKeys, P> = {

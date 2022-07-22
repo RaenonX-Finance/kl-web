@@ -1,8 +1,8 @@
-import {PxChartLayoutConfigEntry, PxChartLayoutConfigKeys} from '../type';
+import {PxLayoutConfigEntry, PxLayoutConfigKeys} from '../type';
 
 
 export type LayoutConfigEntriesGroup = {
   [group in string]: {
-    [key in PxChartLayoutConfigKeys]: PxChartLayoutConfigEntry
+    [key in PxLayoutConfigKeys]: PxLayoutConfigEntry
   }
 };

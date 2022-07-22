@@ -1,4 +1,4 @@
-import {getConfig} from '../../../../../state/config/utils';
+import {getLayoutConfig} from '../../../../../state/config/utils';
 import {PxDataEmaPeriodPair} from '../../../../../types/pxData';
 import {toCandlestickForFill} from '../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../type';
@@ -34,5 +34,5 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
   });
 
   series.fill.update(toCandlestickForFill(`ema${periodPair.slow}`, `ema${periodPair.fast}`)(lastPx));
-  series.fill.applyOptions({visible: getConfig(layoutConfig, 'emaNet')});
+  series.fill.applyOptions({visible: getLayoutConfig(layoutConfig, 'emaNet')});
 };

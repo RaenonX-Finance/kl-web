@@ -1,15 +1,15 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
-import {getConfig} from '../../../../../../state/config/utils';
-import {OnPxChartInitEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
+import {getLayoutConfig} from '../../../../../../state/config/utils';
+import {OnPxChartInitEvent, PxLayoutConfigBoolValKeys} from '../../../type';
 import {SrLevelCommonOptions} from '../../type';
 
 
 type HandleSrCommonOptions = {
   e: OnPxChartInitEvent,
   price: ISeriesApi<'Candlestick'>,
-  keyOfConfig: PxChartLayoutConfigBoolValKeys,
-  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
+  keyOfConfig: PxLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxLayoutConfigBoolValKeys,
   levels: number[],
   color: string,
   commonOptions: SrLevelCommonOptions,
@@ -29,11 +29,11 @@ export const handleSrCommon = ({
   const lineRecord: Record<number, IPriceLine> = {};
   const currentPx = chartDataRef.current.data.at(-1);
 
-  if (!currentPx || !getConfig(layoutConfig, keyOfConfig)) {
+  if (!currentPx || !getLayoutConfig(layoutConfig, keyOfConfig)) {
     return {};
   }
 
-  const axisLabelVisible = getConfig(layoutConfig, keyOfConfigLabel);
+  const axisLabelVisible = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
   levels.forEach((level) => {
     lineRecord[level] = price.createPriceLine({

@@ -1,7 +1,7 @@
-import {PxChartLayoutConfigUI} from './type';
+import {PxLayoutConfigUI} from './type';
 
 
-export const configEntriesUI: PxChartLayoutConfigUI = {
+export const configEntriesUI: PxLayoutConfigUI = {
   currentPxLine: {
     title: '現價水平線',
     group: '圖表',

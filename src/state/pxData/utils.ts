@@ -1,6 +1,6 @@
 import {PxData, PxDataBar, PxSlotName} from '../../types/pxData';
-import {PxChartLayoutConfig} from '../config/type';
-import {getConfig} from '../config/utils';
+import {PxLayoutConfig} from '../config/type';
+import {getLayoutConfig} from '../config/utils';
 import {defaultSlotMap} from './const';
 import {PxSlotMap} from './types';
 
@@ -10,7 +10,7 @@ export const generateInitialSlotMap = (): PxSlotMap => ({
 });
 
 type IsMarketPxUpdateOkOpts = {
-  layoutConfig: PxChartLayoutConfig,
+  layoutConfig: PxLayoutConfig,
   pxData: PxData,
   slot: PxSlotName,
   lastBar: PxDataBar | undefined,
@@ -29,7 +29,7 @@ export const isMarketPxUpdateOk = ({layoutConfig, pxData, slot, lastBar, last}: 
     return false;
   }
 
-  const interval = getConfig(layoutConfig[slot], 'intervalMarketPxSec');
+  const interval = getLayoutConfig(layoutConfig[slot], 'intervalMarketPxSec');
 
   return (Date.now() - pxData.lastUpdated) / 1000 > interval;
 };

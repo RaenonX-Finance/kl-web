@@ -4,7 +4,7 @@ import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {configDispatchers} from './dispatchers';
 import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './type';
-import {generateInitialConfig} from './utils';
+import {generateLayoutConfig} from './utils';
 
 
 const initialState: ConfigState = {
@@ -24,7 +24,7 @@ const slice = createSlice({
 
         return {
           layoutType: config.layout_type || '4-2x2',
-          layoutConfig: config.layout_config || generateInitialConfig(),
+          layoutConfig: config.layout_config || generateLayoutConfig(),
         };
       },
     );

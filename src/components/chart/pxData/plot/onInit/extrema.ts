@@ -1,6 +1,6 @@
 import {ISeriesApi} from 'lightweight-charts';
 
-import {getConfig} from '../../../../../state/config/utils';
+import {getLayoutConfig} from '../../../../../state/config/utils';
 import {OnPxChartInitEvent, PxChartExtremaSeries} from '../../type';
 import {extremaCommonOptions} from '../const';
 import {getCurrentChartExtremaPx} from '../utils';
@@ -19,8 +19,8 @@ export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlest
     price,
   });
 
-  const lineVisible = getConfig(layoutConfig, 'inChartExtrema');
-  const axisLabelVisible = lineVisible && getConfig(layoutConfig, 'inChartExtremaLabel');
+  const lineVisible = getLayoutConfig(layoutConfig, 'inChartExtrema');
+  const axisLabelVisible = lineVisible && getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
 
   return {
     max: price.createPriceLine({

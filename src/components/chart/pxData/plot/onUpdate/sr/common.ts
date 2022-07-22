@@ -1,7 +1,7 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
-import {getConfig} from '../../../../../../state/config/utils';
-import {OnPxChartUpdatedEvent, PxChartLayoutConfigBoolValKeys} from '../../../type';
+import {getLayoutConfig} from '../../../../../../state/config/utils';
+import {OnPxChartUpdatedEvent, PxLayoutConfigBoolValKeys} from '../../../type';
 import {SrLevelCommonOptions} from '../../type';
 
 
@@ -28,8 +28,8 @@ const removePxLines = (
 
 type HandleSrCommonOptions = {
   e: OnPxChartUpdatedEvent,
-  keyOfConfig: PxChartLayoutConfigBoolValKeys,
-  keyOfConfigLabel: PxChartLayoutConfigBoolValKeys,
+  keyOfConfig: PxLayoutConfigBoolValKeys,
+  keyOfConfigLabel: PxLayoutConfigBoolValKeys,
   levels: number[],
   lineRecord: Record<number, IPriceLine>,
   color: string,
@@ -52,7 +52,7 @@ export const handleSrCommon = ({
 
   const {price: priceSeries} = chartObjectRef.current.initData.series;
 
-  if (!getConfig(layoutConfig, keyOfConfig)) {
+  if (!getLayoutConfig(layoutConfig, keyOfConfig)) {
     // No data available / layout config not enabled, remove all Px lines
     removePxLines(new Set(levels), priceSeries, lineRecord);
     return;
@@ -62,7 +62,7 @@ export const handleSrCommon = ({
 
   for (const level of levels) {
     const priceLine = lineRecord[level];
-    const axisLabelVisible = getConfig(layoutConfig, keyOfConfigLabel);
+    const axisLabelVisible = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
     if (priceLine) {
       priceLine.applyOptions({axisLabelVisible});

@@ -1,7 +1,7 @@
-import {PxChartLayoutConfigSingle} from '../../components/chart/pxData/type';
+import {PxLayoutConfigSingle} from '../../components/chart/pxData/type';
 
 
-export const defaultConfig: Required<PxChartLayoutConfigSingle> = {
+export const defaultLayoutConfig: Required<PxLayoutConfigSingle> = {
   currentPxLine: true,
   tiePointLabel: true,
   emaNetLabel: false,

@@ -3,10 +3,10 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import {defaultConfig} from '../../../../state/config/const';
-import {getConfig} from '../../../../state/config/utils';
+import {defaultLayoutConfig} from '../../../../state/config/const';
+import {getLayoutConfig} from '../../../../state/config/utils';
 import {FloatingInput} from '../../../common/form/floating/input';
-import {PxChartLayoutConfigKeys, PxChartLayoutConfigSingle} from '../type';
+import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../type';
 import {configKeysToHideOfSecurity} from './const';
 import {LayoutConfigPanelProps} from './main';
 import styles from './main.module.scss';
@@ -16,8 +16,8 @@ import {LayoutConfigEntriesGroup} from './type';
 type Props = Pick<LayoutConfigPanelProps, 'security' | 'config'> & {
   configEntriesGroup: LayoutConfigEntriesGroup,
   updateConfig: (
-    configKey: PxChartLayoutConfigKeys,
-    value: PxChartLayoutConfigSingle[PxChartLayoutConfigKeys]
+    configKey: PxLayoutConfigKeys,
+    value: PxLayoutConfigSingle[PxLayoutConfigKeys]
   ) => void,
   updating: boolean,
 };
@@ -37,14 +37,14 @@ export const PxChartLayoutConfigEntries = ({
         <React.Fragment key={groupName}>
           <h5 className="mb-3">{groupName}</h5>
           {Object.entries(entryObj).map(([key, entry]) => {
-            const configKey = key as PxChartLayoutConfigKeys;
+            const configKey = key as PxLayoutConfigKeys;
 
             if (configKeysToHide.includes(configKey)) {
               return <React.Fragment key={key}/>;
             }
 
             const {title, isDisabled, min, step, tips} = entry;
-            const value = getConfig(config, configKey);
+            const value = getLayoutConfig(config, configKey);
             const disabled = updating || (isDisabled && isDisabled(config));
 
             if (typeof value === 'boolean') {
@@ -72,7 +72,7 @@ export const PxChartLayoutConfigEntries = ({
                 onChange={({target}) => updateConfig(
                   configKey,
                   (target.value === '' || target.value === '0') ?
-                    (min || defaultConfig[configKey]) :
+                    (min || defaultLayoutConfig[configKey]) :
                     parseFloat(target.value),
                 )}
                 className="w-100 mb-3"
