@@ -18,14 +18,20 @@ type Props = TargetSelectorCommonProps & {
   setShow: (show: boolean) => void,
 };
 
-export const TargetSelectorModal = ({show, setShow, slot, pxData}: Props) => {
+export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
   const {data} = useSession();
   const socket = React.useContext(PxSocketContext);
+  const [disabled, setDisabled] = React.useState(false);
 
   const token = data?.user?.token;
 
+  const beforeUpdate = () => {
+    setDisabled(true);
+  };
+
   const afterUpdate = (identifier: PxDataUniqueIdentifier) => {
     setShow(false);
+    setDisabled(false);
 
     if (!socket) {
       throw Error(`Socket is [null], cannot request px data of [${identifier}]`);
@@ -50,12 +56,20 @@ export const TargetSelectorModal = ({show, setShow, slot, pxData}: Props) => {
       <Modal.Body>
         <Row className="mb-3">
           <Col>
-            <ProductSelector pxData={pxData} slot={slot} token={token} afterUpdate={afterUpdate}/>
+            <ProductSelector
+              disabled={disabled} token={token}
+              beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
+              {...props}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
-            <PeriodSelector pxData={pxData} slot={slot} token={token} afterUpdate={afterUpdate}/>
+            <PeriodSelector
+              disabled={disabled} token={token}
+              beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
+              {...props}
+            />
           </Col>
         </Row>
       </Modal.Body>

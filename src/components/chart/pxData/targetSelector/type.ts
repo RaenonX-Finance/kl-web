@@ -8,5 +8,7 @@ export type TargetSelectorCommonProps = {
 
 export type TargetSelectorButtonProps = TargetSelectorCommonProps & {
   token: string,
+  disabled: boolean,
+  beforeUpdate: () => void,
   afterUpdate: (identifier: PxDataUniqueIdentifier) => void,
 };
