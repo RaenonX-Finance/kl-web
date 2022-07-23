@@ -1,10 +1,6 @@
 import React from 'react';
 
-import Modal from 'react-bootstrap/Modal';
-import Nav from 'react-bootstrap/Nav';
-
 import {useLayout} from '../../../hooks/layout/main';
-import styles from '../../nav/main.module.scss';
 import {LayoutIcon1of1x1} from './icon/1-1x1';
 import {LayoutIcon2of1x2} from './icon/2-1x2';
 import {LayoutIcon2of2x1} from './icon/2-2x1';
@@ -28,70 +24,60 @@ import {LayoutIcon4ofTF} from './icon/4-TF';
 import {ChartLayoutOptions} from './optionRow';
 
 
-export const ChartLayoutSelector = () => {
-  const [show, setShow] = React.useState(false);
-  const {isLandscape} = useLayout();
+type Props = {
+  onSelect: () => void,
+};
 
-  const openModal = () => setShow(true);
-  const closeModal = () => setShow(false);
+export const ChartLayoutSelector = ({onSelect}: Props) => {
+  const {isLandscape} = useLayout();
 
   return (
     <>
-      <Nav.Link className={styles['nav-item']} onClick={openModal}>
-        版面配置
-      </Nav.Link>
-      <Modal show={show} size="lg" onHide={closeModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>選擇版面</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <ChartLayoutOptions
+        count={1}
+        icons={[
+          () => <LayoutIcon1of1x1 onClick={onSelect}/>,
+        ]}
+      />
+      <ChartLayoutOptions
+        count={2}
+        icons={[
+          () => <LayoutIcon2of1x2 onClick={onSelect}/>,
+          () => <LayoutIcon2of2x1 onClick={onSelect}/>,
+        ]}
+      />
+      {
+        isLandscape &&
+        <>
           <ChartLayoutOptions
-            count={1}
+            count={3}
             icons={[
-              () => <LayoutIcon1of1x1 onClick={closeModal}/>,
+              () => <LayoutIcon3of1x3 onClick={onSelect}/>,
+              () => <LayoutIcon3of3x1 onClick={onSelect}/>,
+              () => <LayoutIcon3ofBF onClick={onSelect}/>,
+              () => <LayoutIcon3ofLF onClick={onSelect}/>,
+              () => <LayoutIcon3ofRF onClick={onSelect}/>,
+              () => <LayoutIcon3ofTF onClick={onSelect}/>,
             ]}
           />
           <ChartLayoutOptions
-            count={2}
+            count={4}
             icons={[
-              () => <LayoutIcon2of1x2 onClick={closeModal}/>,
-              () => <LayoutIcon2of2x1 onClick={closeModal}/>,
+              () => <LayoutIcon4of1x4 onClick={onSelect}/>,
+              () => <LayoutIcon4of2x2 onClick={onSelect}/>,
+              () => <LayoutIcon4of4x1 onClick={onSelect}/>,
+              () => <LayoutIcon4ofB2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofBF onClick={onSelect}/>,
+              () => <LayoutIcon4ofL2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofLF onClick={onSelect}/>,
+              () => <LayoutIcon4ofR2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofRF onClick={onSelect}/>,
+              () => <LayoutIcon4ofT2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofTF onClick={onSelect}/>,
             ]}
           />
-          {
-            isLandscape &&
-            <>
-              <ChartLayoutOptions
-                count={3}
-                icons={[
-                  () => <LayoutIcon3of1x3 onClick={closeModal}/>,
-                  () => <LayoutIcon3of3x1 onClick={closeModal}/>,
-                  () => <LayoutIcon3ofBF onClick={closeModal}/>,
-                  () => <LayoutIcon3ofLF onClick={closeModal}/>,
-                  () => <LayoutIcon3ofRF onClick={closeModal}/>,
-                  () => <LayoutIcon3ofTF onClick={closeModal}/>,
-                ]}
-              />
-              <ChartLayoutOptions
-                count={4}
-                icons={[
-                  () => <LayoutIcon4of1x4 onClick={closeModal}/>,
-                  () => <LayoutIcon4of2x2 onClick={closeModal}/>,
-                  () => <LayoutIcon4of4x1 onClick={closeModal}/>,
-                  () => <LayoutIcon4ofB2 onClick={closeModal}/>,
-                  () => <LayoutIcon4ofBF onClick={closeModal}/>,
-                  () => <LayoutIcon4ofL2 onClick={closeModal}/>,
-                  () => <LayoutIcon4ofLF onClick={closeModal}/>,
-                  () => <LayoutIcon4ofR2 onClick={closeModal}/>,
-                  () => <LayoutIcon4ofRF onClick={closeModal}/>,
-                  () => <LayoutIcon4ofT2 onClick={closeModal}/>,
-                  () => <LayoutIcon4ofTF onClick={closeModal}/>,
-                ]}
-              />
-            </>
-          }
-        </Modal.Body>
-      </Modal>
+        </>
+      }
     </>
   );
 };

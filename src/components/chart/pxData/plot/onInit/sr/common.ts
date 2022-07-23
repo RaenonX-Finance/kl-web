@@ -1,7 +1,8 @@
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {getLayoutConfig} from '../../../../../../state/config/utils';
-import {OnPxChartInitEvent, PxLayoutConfigBoolValKeys} from '../../../type';
+import {PxLayoutConfigBoolValKeys} from '../../../../config/layout/type';
+import {OnPxChartInitEvent} from '../../../type';
 import {SrLevelCommonOptions} from '../../type';
 
 

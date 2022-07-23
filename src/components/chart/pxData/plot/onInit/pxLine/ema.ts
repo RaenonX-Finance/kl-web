@@ -2,8 +2,9 @@ import {ISeriesApi, LineStyle} from 'lightweight-charts';
 
 import {getLayoutConfig} from '../../../../../../state/config/utils';
 import {PxDataEmaPeriodPair} from '../../../../../../types/pxData';
+import {PxLayoutConfigBoolValKeys} from '../../../../config/layout/type';
 import {toLineData} from '../../../dataConvert';
-import {OnPxChartInitEvent, PxLayoutConfigBoolValKeys} from '../../../type';
+import {OnPxChartInitEvent} from '../../../type';
 import {emaLineColors} from '../../const';
 import {ColorOverridder} from '../../type';
 import {getAnimationMode, getPriceFormat} from '../../utils';

@@ -16,6 +16,7 @@ export const NavPath = ({
   pathname,
   path,
   pathActiveBasis,
+  pathShowBasis,
   href: hrefProps,
   text,
   disabled,
@@ -33,6 +34,10 @@ export const NavPath = ({
       data.user.permissions.some((owned) => requiredPermissions.includes(owned))
     )
   ) {
+    // Permission check
+    return <></>;
+  } else if (pathname && isPagePath(pathname) && pathShowBasis && !pathShowBasis.includes(pathname)) {
+    // Hide if page path doesn't match
     return <></>;
   }
 

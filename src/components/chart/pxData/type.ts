@@ -2,13 +2,13 @@ import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {CustomSrLevel} from '../../../types/init';
 import {PxData, PxDataEmaPeriodPair} from '../../../types/pxData';
-import {KeysOfType} from '../../../utils/types';
 import {
   ChartDataUpdatedEventHandler,
   ChartInitEventHandler,
   OnChartDataUpdatedEvent,
   OnChartInitEvent,
 } from '../base/type';
+import {PxLayoutConfigSingle} from '../config/layout/type';
 import {StrengthIndexCanNA} from './legend/type';
 
 
@@ -50,42 +50,6 @@ export type PxChartLegendData = {
   strength: StrengthIndexCanNA,
   tiePoint: number | null,
   hovered: boolean,
-};
-
-export type PxLayoutConfigSingle = {
-  currentPxLine: boolean,
-  tiePointLabel: boolean,
-  emaNetLabel: boolean,
-  emaStrongSrLabel: boolean,
-  srLevelLabel: boolean,
-  srLevelBasicLabel: boolean,
-  candlestickColor: boolean,
-  tiePoint: boolean,
-  emaNet: boolean,
-  emaStrongSr: boolean,
-  srLevel: boolean,
-  srLevelBasic: boolean,
-  inChartExtrema: boolean,
-  inChartExtremaLabel: boolean,
-  intervalMarketPxSec: number,
-  intervalHistoryPxSec: number,
-};
-
-export type PxLayoutConfigKeys = keyof PxLayoutConfigSingle;
-
-export type PxLayoutConfigBoolValKeys = KeysOfType<PxLayoutConfigSingle, boolean>;
-
-export type PxLayoutConfigEntry = {
-  title: string,
-  group: string,
-  isDisabled?: (config: PxLayoutConfigSingle) => boolean,
-  step?: number,
-  min?: number,
-  tips?: string,
-};
-
-export type PxLayoutConfigUI = {
-  [key in PxLayoutConfigKeys]: PxLayoutConfigEntry
 };
 
 export type PxChartInitData = {

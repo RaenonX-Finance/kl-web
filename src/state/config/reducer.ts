@@ -4,12 +4,13 @@ import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {configDispatchers} from './dispatchers';
 import {CONFIG_STATE_NAME, ConfigDispatcherName, ConfigState} from './type';
-import {generateLayoutConfig} from './utils';
+import {generateLayoutConfig, generateSharedConfig} from './utils';
 
 
 const initialState: ConfigState = {
   layoutType: null,
   layoutConfig: null,
+  sharedConfig: null,
 };
 
 const slice = createSlice({
@@ -25,6 +26,7 @@ const slice = createSlice({
         return {
           layoutType: config.layout_type || '4-2x2',
           layoutConfig: config.layout_config || generateLayoutConfig(),
+          sharedConfig: config.shared_config || generateSharedConfig(),
         };
       },
     );
@@ -40,6 +42,13 @@ const slice = createSlice({
       (state, {payload}) => ({
         ...state,
         layoutConfig: payload.data,
+      }),
+    );
+    builder.addCase(
+      configDispatchers[ConfigDispatcherName.UPDATE_SHARED_CONFIG].fulfilled,
+      (state, {payload}) => ({
+        ...state,
+        sharedConfig: payload.data,
       }),
     );
   },

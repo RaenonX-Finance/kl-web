@@ -10,7 +10,7 @@ import {ConfigDispatcherName, LayoutConfigUpdatePayload} from '../../../state/co
 import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
 import {PeriodTimer} from '../../periodTimer/main';
-import {PxLayoutConfigSingle} from '../pxData/type';
+import {PxLayoutConfigSingle} from '../config/layout/type';
 import {useTradingViewChart} from './hook';
 import {PxChartLastUpdate} from './lastUpdate';
 import styles from './main.module.scss';

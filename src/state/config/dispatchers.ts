@@ -1,5 +1,10 @@
 import {overrideObject} from '../../utils/override';
-import {ConfigDispatcherName, LayoutConfigUpdatePayload, LayoutTypeUpdatePayload} from './type';
+import {
+  ConfigDispatcherName,
+  LayoutConfigUpdatePayload,
+  LayoutTypeUpdatePayload,
+  SharedConfigUpdatePayload,
+} from './type';
 import {createConfigAsyncThunk, generateLayoutConfig} from './utils';
 
 
@@ -25,4 +30,13 @@ export const configDispatchers = {
     ),
     getPayload: () => null,
   }),
+  [ConfigDispatcherName.UPDATE_SHARED_CONFIG]: createConfigAsyncThunk<
+    SharedConfigUpdatePayload,
+    'shared_config'
+    >({
+      actionName: ConfigDispatcherName.UPDATE_SHARED_CONFIG,
+      key: 'shared_config',
+      getData: (_, {updated}) => updated,
+      getPayload: () => null,
+    }),
 };

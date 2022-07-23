@@ -2,8 +2,9 @@ import {ISeriesApi} from 'lightweight-charts';
 
 import {getLayoutConfig} from '../../../../../../state/config/utils';
 import {PxDataBar, PxDataEmaPeriodPair} from '../../../../../../types/pxData';
+import {PxLayoutConfigBoolValKeys} from '../../../../config/layout/type';
 import {toLineData} from '../../../dataConvert';
-import {OnPxChartUpdatedEvent, PxLayoutConfigBoolValKeys} from '../../../type';
+import {OnPxChartUpdatedEvent} from '../../../type';
 import {ColorOverridder} from '../../type';
 import {getAnimationMode} from '../../utils';
 

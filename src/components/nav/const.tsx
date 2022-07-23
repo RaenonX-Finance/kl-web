@@ -3,7 +3,7 @@ import React from 'react';
 import {AdminPath, GeneralPath} from '../../const/path';
 import {managementPermissions} from '../../types/auth/user';
 import {LogoutNavButton} from '../auth/logout/main';
-import {ChartLayoutSelector} from '../chart/layoutSelector/main';
+import {PxChartSharedConfig} from '../chart/config/shared/main';
 import {NavItemCollection} from './type';
 
 
@@ -36,7 +36,8 @@ export const navItemsAtLeft: NavItemCollection = [
 export const navItemsAtRight: NavItemCollection = [
   {
     type: 'component',
-    renderComponent: () => <ChartLayoutSelector/>,
+    renderComponent: () => <PxChartSharedConfig/>,
+    pathShowBasis: [GeneralPath.CHART],
   },
   {
     type: 'component',

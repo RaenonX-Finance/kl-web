@@ -1,6 +1,6 @@
-import {PxData, PxDataBar, PxSlotName} from '../../types/pxData';
-import {PxLayoutConfig} from '../config/type';
-import {getLayoutConfig} from '../config/utils';
+import {PxSharedConfig} from '../../components/chart/config/shared/type';
+import {PxData, PxDataBar} from '../../types/pxData';
+import {getSharedConfig} from '../config/utils';
 import {defaultSlotMap} from './const';
 import {PxSlotMap} from './types';
 
@@ -10,14 +10,13 @@ export const generateInitialSlotMap = (): PxSlotMap => ({
 });
 
 type IsMarketPxUpdateOkOpts = {
-  layoutConfig: PxLayoutConfig,
+  sharedConfig: PxSharedConfig,
   pxData: PxData,
-  slot: PxSlotName,
   lastBar: PxDataBar | undefined,
   last: number,
 };
 
-export const isMarketPxUpdateOk = ({layoutConfig, pxData, slot, lastBar, last}: IsMarketPxUpdateOkOpts) => {
+export const isMarketPxUpdateOk = ({sharedConfig, pxData, lastBar, last}: IsMarketPxUpdateOkOpts) => {
   if (lastBar && (last > lastBar.high || last < lastBar.low)) {
     // Forces update on:
     // - Breaking high
@@ -29,7 +28,7 @@ export const isMarketPxUpdateOk = ({layoutConfig, pxData, slot, lastBar, last}: 
     return false;
   }
 
-  const interval = getLayoutConfig(layoutConfig[slot], 'intervalMarketPxSec');
+  const interval = getSharedConfig(sharedConfig, 'intervalMarketPxSec');
 
   return (Date.now() - pxData.lastUpdated) / 1000 > interval;
 };

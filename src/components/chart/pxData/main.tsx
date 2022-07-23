@@ -2,11 +2,12 @@ import React from 'react';
 
 import {PxData} from '../../../types/pxData';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
-import {PxChartLayoutConfigPanel} from './layoutConfig/main';
+import {PxLayoutConfigPanel} from '../config/layout/main';
+import {PxLayoutConfigSingle} from '../config/layout/type';
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
-import {PxChartInitData, PxLayoutConfigSingle, PxChartLegendData, PxChartPayload} from './type';
+import {PxChartInitData, PxChartLegendData, PxChartPayload} from './type';
 
 
 type Props = Omit<
@@ -58,7 +59,7 @@ export const PxDataChart = (props: Props) => {
         legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} slot={slot}/>,
       }}
       renderLayoutConfig={(security, config, setConfig) => (
-        <PxChartLayoutConfigPanel
+        <PxLayoutConfigPanel
           security={security}
           title={title}
           slot={slot}

@@ -1,3 +1,4 @@
+import {PxSharedConfig} from '../components/chart/config/shared/type';
 import {LayoutType} from '../components/chart/layoutSelector/type';
 import {PxLayoutConfig} from '../state/config/type';
 import {PxSlotMap} from '../state/pxData/types';
@@ -11,6 +12,7 @@ import {PxSlotMap} from '../state/pxData/types';
 export type UserConfigModel = {
   account_id: string,
   slot_map: PxSlotMap | null,
-  layout_config: PxLayoutConfig | null,
   layout_type: LayoutType | null,
+  layout_config: PxLayoutConfig | null,
+  shared_config: PxSharedConfig | null,
 };

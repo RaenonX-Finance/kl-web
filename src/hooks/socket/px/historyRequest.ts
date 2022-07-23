@@ -2,6 +2,8 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
+import {useSharedConfigSelector} from '../../../state/config/selector';
+import {getSharedConfig} from '../../../state/config/utils';
 import {PxDataSubscriptionInfo} from '../../../state/pxData/types';
 import {PxDataSocket, RequestPxMessage} from './type';
 
@@ -12,9 +14,10 @@ type UseHistoryDataRequestHandlerOpts = Pick<PxDataSubscriptionInfo, 'identifier
 
 export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDataRequestHandlerOpts) => {
   const {data} = useSession();
+  const sharedConfig = useSharedConfigSelector();
 
   React.useEffect(() => {
-    if (!socket || !identifiers.length) {
+    if (!socket || !identifiers.length || !sharedConfig) {
       return;
     }
 
@@ -24,9 +27,8 @@ export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDa
         identifiers,
       };
       socket.emit('request', requestMessage);
-      // FIXME: To use global config here - historyDataInterval
-    }, 3000);
+    }, getSharedConfig(sharedConfig, 'intervalHistoryPxSec') * 1000);
 
     return () => clearInterval(intervalId);
-  }, [socket, identifiers]);
+  }, [socket, identifiers, sharedConfig?.intervalHistoryPxSec]);
 };

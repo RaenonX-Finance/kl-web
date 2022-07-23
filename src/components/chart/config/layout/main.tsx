@@ -6,11 +6,9 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import {LayoutConfigUpdatePayload} from '../../../../state/config/type';
 import {PxSlotName} from '../../../../types/pxData';
-import {configEntriesUI} from '../config';
-import {PxLayoutConfigSingle} from '../type';
 import {PxChartLayoutConfigEntries} from './entries';
 import styles from './main.module.scss';
-import {LayoutConfigEntriesGroup} from './type';
+import {PxLayoutConfigSingle} from './type';
 import {PxChartLayoutConfigUpdating} from './updating';
 
 
@@ -22,7 +20,7 @@ export type LayoutConfigPanelProps = {
   setConfig: (payload: LayoutConfigUpdatePayload) => Promise<void>,
 };
 
-export const PxChartLayoutConfigPanel = ({
+export const PxLayoutConfigPanel = ({
   security,
   title,
   slot,
@@ -32,14 +30,6 @@ export const PxChartLayoutConfigPanel = ({
   const {data: session} = useSession();
   const [show, setShow] = React.useState(false);
   const [updating, setUpdating] = React.useState(false);
-
-  const configEntriesGroup: LayoutConfigEntriesGroup = {};
-  Object.entries(configEntriesUI).forEach(([key, entry]) => {
-    configEntriesGroup[entry.group] = {
-      ...(configEntriesGroup[entry.group] || {}),
-      [key]: entry,
-    };
-  });
 
   return (
     <>
@@ -59,7 +49,6 @@ export const PxChartLayoutConfigPanel = ({
           <PxChartLayoutConfigEntries
             security={security}
             config={config}
-            configEntriesGroup={configEntriesGroup}
             updating={updating}
             updateConfig={(configKey, value) => {
               setUpdating(true);

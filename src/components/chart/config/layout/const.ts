@@ -1,7 +1,12 @@
-import {PxLayoutConfigUI} from './type';
+import {PxLayoutConfigKeys, PxLayoutConfigUI} from './type';
 
 
-export const configEntriesUI: PxLayoutConfigUI = {
+export const configKeysToHideOfSecurity: {[security in string]?: PxLayoutConfigKeys[]} = {
+  'NQ': ['srLevelBasic', 'srLevelBasicLabel'],
+  'YM': ['srLevelBasic', 'srLevelBasicLabel'],
+};
+
+export const layoutConfigEntries: PxLayoutConfigUI = {
   currentPxLine: {
     title: '現價水平線',
     group: '圖表',
@@ -63,19 +68,5 @@ export const configEntriesUI: PxLayoutConfigUI = {
     title: '圖內高低點',
     group: '標籤',
     isDisabled: ({inChartExtrema}) => !inChartExtrema,
-  },
-  intervalMarketPxSec: {
-    title: '行情刷新頻率 (秒)',
-    group: '其他',
-    step: 0.05,
-    min: 0.1,
-    tips: '秒數越低，系統資源消耗量越大；報價更新頻率越快。',
-  },
-  intervalHistoryPxSec: {
-    title: '歷史資料要求頻率 (秒)',
-    group: '其他',
-    step: 1,
-    min: 3,
-    tips: '秒數越低，網路流量消耗越大；資料準確度更高。',
   },
 };

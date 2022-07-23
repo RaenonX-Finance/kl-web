@@ -31,6 +31,7 @@ export type NavItemPath = NavItemCommon & {
   type: 'path',
   text: string,
   disabled?: boolean,
+  pathShowBasis?: PagePath[],
 } & (
   NavItemPathInternal |
   NavItemPathExternal
@@ -44,6 +45,7 @@ export type NavItemText = NavItemCommon & {
 export type NavItemReactComponent = NavItemCommon & {
   type: 'component',
   renderComponent: () => React.ReactNode,
+  pathShowBasis?: PagePath[],
 };
 
 export type NavItemEntry =

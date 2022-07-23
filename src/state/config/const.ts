@@ -1,7 +1,8 @@
-import {PxLayoutConfigSingle} from '../../components/chart/pxData/type';
+import {PxLayoutConfigSingle} from '../../components/chart/config/layout/type';
+import {PxSharedConfig} from '../../components/chart/config/shared/type';
 
 
-export const defaultLayoutConfig: Required<PxLayoutConfigSingle> = {
+export const defaultLayoutConfig: PxLayoutConfigSingle = {
   currentPxLine: true,
   tiePointLabel: true,
   emaNetLabel: false,
@@ -16,6 +17,9 @@ export const defaultLayoutConfig: Required<PxLayoutConfigSingle> = {
   srLevelBasic: false,
   inChartExtrema: true,
   inChartExtremaLabel: true,
-  intervalMarketPxSec: 0.3,
-  intervalHistoryPxSec: 5,
+};
+
+export const defaultSharedConfig: PxSharedConfig = {
+  intervalHistoryPxSec: 15,
+  intervalMarketPxSec: 0.25,
 };

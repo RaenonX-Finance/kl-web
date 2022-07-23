@@ -23,12 +23,11 @@ export const pxDataDispatchers = {
     PxDataDispatcherName.UPDATE_MARKET,
     async (payload, {getState, dispatch, rejectWithValue}) => {
       const {config, pxData} = getState();
-      // FIXME: Change `layoutConfig` to use shared config
-      const {layoutConfig} = config;
+      const {sharedConfig} = config;
 
-      if (!layoutConfig) {
+      if (!sharedConfig) {
         return onAsyncThunkError({
-          message: `Attempt to update market data while the layout config is not ready.`,
+          message: `Attempt to update market data while the shared config is not ready.`,
           data: null,
           rejectWithValue,
           dispatch,
@@ -58,7 +57,7 @@ export const pxDataDispatchers = {
           // Check if the `pxData` in slot is has the matching security symbol
           !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||
           // Check if it's OK to update
-          !isMarketPxUpdateOk({layoutConfig, pxData: pxDataInSlot, slot, lastBar, last: latestMarket.close})
+          !isMarketPxUpdateOk({sharedConfig, pxData: pxDataInSlot, lastBar, last: latestMarket.close})
         ) {
           pxDataMap[slot] = {
             ...pxDataInSlot,

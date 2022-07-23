@@ -1,11 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/pxData/type';
+import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/config/layout/type';
+import {PxSharedConfig, PxSharedConfigKeys} from '../../components/chart/config/shared/type';
 import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
 import {getErrorMessage} from '../../utils/error';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
-import {defaultLayoutConfig} from './const';
+import {defaultLayoutConfig, defaultSharedConfig} from './const';
 import {ApiUpdateConfigCommonPayload, PxLayoutConfig} from './type';
 
 
@@ -16,11 +17,20 @@ export const generateLayoutConfig = () : PxLayoutConfig => ({
   D: {...defaultLayoutConfig},
 });
 
+export const generateSharedConfig = () : PxSharedConfig => ({...defaultSharedConfig});
+
 export const getLayoutConfig = <K extends PxLayoutConfigKeys>(
   config: PxLayoutConfigSingle,
   key: K,
 ): PxLayoutConfigSingle[K] => {
   return config[key] ?? defaultLayoutConfig[key];
+};
+
+export const getSharedConfig = <K extends PxSharedConfigKeys>(
+  config: PxSharedConfig,
+  key: K,
+): PxSharedConfig[K] => {
+  return config[key] ?? defaultSharedConfig[key];
 };
 
 type CreateConfigAsyncThunkReturn<K extends ApiUpdateConfigKeys, P> = {
