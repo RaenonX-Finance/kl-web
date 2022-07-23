@@ -16,7 +16,7 @@ export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef, layoutCon
   });
 
   const inChartExtrema = getLayoutConfig(layoutConfig, 'inChartExtrema');
-  const inChartExtremaLabel = inChartExtrema && getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
+  const inChartExtremaLabel = getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
 
   min.applyOptions({
     price: minPx,

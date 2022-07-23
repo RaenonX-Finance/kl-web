@@ -67,6 +67,5 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
   inChartExtremaLabel: {
     title: '圖內高低點',
     group: '標籤',
-    isDisabled: ({inChartExtrema}) => !inChartExtrema,
   },
 };

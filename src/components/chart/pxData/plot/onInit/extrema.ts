@@ -20,7 +20,7 @@ export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlest
   });
 
   const lineVisible = getLayoutConfig(layoutConfig, 'inChartExtrema');
-  const axisLabelVisible = lineVisible && getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
+  const axisLabelVisible = getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
 
   return {
     max: price.createPriceLine({
