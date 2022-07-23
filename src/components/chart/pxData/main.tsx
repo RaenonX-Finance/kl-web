@@ -26,7 +26,6 @@ type Props = Omit<
   'getIdentifier' |
   'getPnLMultiplier' |
   'getPeriodSec' |
-  'getDataLastUpdate' |
   'getDataSecurity'
 > & {
   title: string,
@@ -68,7 +67,6 @@ export const PxDataChart = (props: Props) => {
         />
       )}
       getPeriodSec={({periodSec}) => periodSec}
-      getDataLastUpdate={({lastUpdated}) => lastUpdated}
       getDataSecurity={({contract}) => contract.symbol}
       {...props}
     />

@@ -29,3 +29,7 @@ export type PxDataSubscriptionInfo = {
   securities: string[],
   identifiers: string[],
 };
+
+export type PxMarketUpdateMeta = {
+  securities: string[],
+};

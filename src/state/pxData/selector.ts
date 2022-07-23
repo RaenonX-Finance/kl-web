@@ -1,5 +1,4 @@
 import isEqual from 'lodash/isEqual';
-import omit from 'lodash/omit';
 import {useSelector} from 'react-redux';
 
 import {PxData, PxSlotName} from '../../types/pxData';
@@ -8,9 +7,7 @@ import {PxDataSubscriptionInfo, PxSlotMap} from './types';
 
 
 export const usePxDataSelector = (slot: PxSlotName): PxData | null => (
-  useSelector(({pxData}: ReduxState) => pxData.data[slot],
-    (a, b) => isEqual(omit(a, 'lastUpdated'), omit(b, 'lastUpdated')),
-  )
+  useSelector(({pxData}: ReduxState) => pxData.data[slot], isEqual)
 );
 
 export const usePxDataSubscriptionInfoSelector = (): PxDataSubscriptionInfo => (
@@ -36,10 +33,6 @@ export const usePxDataSubscriptionInfoSelector = (): PxDataSubscriptionInfo => (
       };
     }, isEqual,
   )
-);
-
-export const usePxDataLastUpdateSelector = (slot: PxSlotName): number | undefined => (
-  useSelector(({pxData}: ReduxState) => pxData.data[slot]?.lastUpdated)
 );
 
 export const usePxDataSlotMap = (): PxSlotMap | null => (

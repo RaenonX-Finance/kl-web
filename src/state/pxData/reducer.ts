@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {PxData, PxDataFromSocket, PxSlotName} from '../../types/pxData';
+import {PxData, PxSlotName} from '../../types/pxData';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {mergedDispatchers} from '../aggregated/dispatchers';
@@ -29,7 +29,7 @@ const fixPxData = (pxData: PxData): PxData => {
   return pxData;
 };
 
-const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFromSocket[]}) => {
+const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxData[]}) => {
   if (!state.map) {
     console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
     return;
@@ -41,10 +41,7 @@ const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxDataFro
         return;
       }
 
-      state.data[slot as PxSlotName] = fixPxData({
-        ...pxData,
-        lastUpdated: Date.now(),
-      });
+      state.data[slot as PxSlotName] = fixPxData(pxData);
     });
   });
 

@@ -48,7 +48,7 @@ export type PxDataIndicatorConfig = {
   ema: PxDataEmaConfig,
 };
 
-export type PxDataFromSocket = {
+export type PxData = {
   uniqueIdentifier: PxDataUniqueIdentifier,
   periodSec: number,
   contract: PxDataContract,
@@ -56,10 +56,6 @@ export type PxDataFromSocket = {
   supportResistance: PxDataSupportResistance,
   latestMarket: PxDataMarketSingle,
   indicator: PxDataIndicatorConfig,
-};
-
-export type PxData = PxDataFromSocket & {
-  lastUpdated: number,
 };
 
 export type PxSlotName = 'A' | 'B' | 'C' | 'D';

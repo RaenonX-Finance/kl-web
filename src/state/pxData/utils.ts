@@ -1,5 +1,5 @@
 import {PxSharedConfig} from '../../components/chart/config/shared/type';
-import {PxData, PxDataBar} from '../../types/pxData';
+import {PxDataBar} from '../../types/pxData';
 import {getSharedConfig} from '../config/utils';
 import {defaultSlotMap} from './const';
 import {PxSlotMap} from './types';
@@ -11,12 +11,12 @@ export const generateInitialSlotMap = (): PxSlotMap => ({
 
 type IsMarketPxUpdateOkOpts = {
   sharedConfig: PxSharedConfig,
-  pxData: PxData,
+  lastUpdated: number | undefined,
   lastBar: PxDataBar | undefined,
   last: number,
 };
 
-export const isMarketPxUpdateOk = ({sharedConfig, pxData, lastBar, last}: IsMarketPxUpdateOkOpts) => {
+export const isMarketPxUpdateOk = ({sharedConfig, lastUpdated, lastBar, last}: IsMarketPxUpdateOkOpts) => {
   if (lastBar && (last > lastBar.high || last < lastBar.low)) {
     // Forces update on:
     // - Breaking high
@@ -26,9 +26,12 @@ export const isMarketPxUpdateOk = ({sharedConfig, pxData, lastBar, last}: IsMark
     // Avoid duplicated update on:
     // - Unchanged Px
     return false;
+  } else if (!lastUpdated) {
+    // Data never updated before
+    return true;
   }
 
   const interval = getSharedConfig(sharedConfig, 'intervalMarketPxSec');
 
-  return (Date.now() - pxData.lastUpdated) / 1000 > interval;
+  return (Date.now() - lastUpdated) / 1000 > interval;
 };

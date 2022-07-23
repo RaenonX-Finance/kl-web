@@ -39,7 +39,6 @@ export type TradingViewChartProps<T, P, R, L, A> = {
     setConfig: (newConfig: LayoutConfigUpdatePayload) => Promise<void>,
   ) => React.ReactNode,
   getPeriodSec: (data: T) => number,
-  getDataLastUpdate: (data: T) => number,
   getDataSecurity: (data: T) => string,
 };
 
@@ -145,7 +144,7 @@ export const TradingViewChart = <T, P, R, L>({
             <PeriodTimer periodSec={getPeriodSec(chartData)}/>
           </Col>
           <Col xs="auto" className="text-end">
-            <PxChartLastUpdate slot={slot}/>
+            <PxChartLastUpdate security={getDataSecurity(chartData)}/>
           </Col>
         </Row>
       </div>

@@ -1,24 +1,23 @@
 import React from 'react';
 
 import {useAnimation} from '../../../hooks/animation';
-import {usePxDataLastUpdateSelector} from '../../../state/pxData/selector';
-import {PxSlotName} from '../../../types/pxData';
+import {useLastPxUpdateSelector} from '../../../state/data/selector';
 import {SocketPingableTimeAgo} from '../../timeAgo/pingable';
 import styles from './main.module.scss';
 
 
 type Props = {
-  slot: PxSlotName,
+  security: string,
 };
 
-export const PxChartLastUpdate = ({slot}: Props) => {
-  const lastUpdate = usePxDataLastUpdateSelector(slot);
+export const PxChartLastUpdate = ({security}: Props) => {
+  const lastUpdate = useLastPxUpdateSelector(security);
   const updateIndicatorRef = useAnimation({deps: [lastUpdate], minReplayMs: 2000});
 
   return (
     <SocketPingableTimeAgo
       ref={updateIndicatorRef}
-      epochSec={lastUpdate || 0}
+      epochSec={lastUpdate}
       format={(secDiffMs) => (
         <><i className="bi bi-activity"/>&nbsp;{secDiffMs.toFixed(0)}</>
       )}

@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 
-import {PxDataFromSocket, PxDataMap, PxSlotName} from '../../types/pxData';
+import {PxData, PxDataMap, PxSlotName} from '../../types/pxData';
 import {PxDataMarket} from '../../types/pxDataMarket';
 import {updatePxDataBar} from '../../utils/calc';
 import {overrideObject} from '../../utils/override';
@@ -8,21 +8,21 @@ import {updateCurrentPxDataTitle} from '../../utils/title';
 import {createConfigAsyncThunk} from '../config/utils';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
-import {PxDataDispatcherName, PxSlotMapUpdatePayload} from './types';
+import {PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
 
 
 export const pxDataDispatchers = {
-  [PxDataDispatcherName.INIT]: createAction<PxDataFromSocket[]>(PxDataDispatcherName.INIT),
-  [PxDataDispatcherName.UPDATE_COMPLETE]: createAction<PxDataFromSocket[]>(PxDataDispatcherName.UPDATE_COMPLETE),
+  [PxDataDispatcherName.INIT]: createAction<PxData[]>(PxDataDispatcherName.INIT),
+  [PxDataDispatcherName.UPDATE_COMPLETE]: createAction<PxData[]>(PxDataDispatcherName.UPDATE_COMPLETE),
   [PxDataDispatcherName.UPDATE_MARKET]: createAsyncThunk<
     PxDataMap,
     PxDataMarket,
-    {state: ReduxState, rejectValue: string}
+    {state: ReduxState, rejectValue: string, fulfilledMeta: PxMarketUpdateMeta}
   >(
     PxDataDispatcherName.UPDATE_MARKET,
-    async (payload, {getState, dispatch, rejectWithValue}) => {
-      const {config, pxData} = getState();
+    async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
+      const {config, data, pxData} = getState();
       const {sharedConfig} = config;
 
       if (!sharedConfig) {
@@ -51,18 +51,21 @@ export const pxDataDispatchers = {
           pxDataMap[slot] = null;
           continue;
         }
+
         if (
           // Check if the `pxData` is potentially update-able
           !latestMarket ||
           // Check if the `pxData` in slot is has the matching security symbol
           !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||
           // Check if it's OK to update
-          !isMarketPxUpdateOk({sharedConfig, pxData: pxDataInSlot, lastBar, last: latestMarket.close})
+          !isMarketPxUpdateOk({
+            sharedConfig,
+            lastUpdated: data.lastPxUpdate[pxDataInSlot.contract.symbol],
+            lastBar,
+            last: latestMarket.close,
+          })
         ) {
-          pxDataMap[slot] = {
-            ...pxDataInSlot,
-            lastUpdated: Date.now(),
-          };
+          pxDataMap[slot] = {...pxDataInSlot};
           continue;
         }
         if (!lastBar) {
@@ -80,13 +83,12 @@ export const pxDataDispatchers = {
           ...pxDataInSlot,
           data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.close)]),
           latestMarket,
-          lastUpdated: Date.now(),
         };
       }
 
       updateCurrentPxDataTitle(pxData.data);
 
-      return pxDataMap;
+      return fulfillWithValue(pxDataMap, {securities: Object.keys(payload)});
     },
   ),
   [PxDataDispatcherName.UPDATE_SLOT_MAP]: createConfigAsyncThunk<
