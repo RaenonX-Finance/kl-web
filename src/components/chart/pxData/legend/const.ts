@@ -1,8 +1,8 @@
 import styles from './main.module.scss';
-import {StrengthIndexCanNA} from './type';
+import {StrengthIndex} from './type';
 
 
-export const strengthIndicatorStyleLookup: {[index in StrengthIndexCanNA]: string} = {
+export const strengthIndicatorStyleLookup: {[index in StrengthIndex]: string} = {
   [-3]: styles['strength-indicator-bear'],
   [-2]: styles['strength-indicator-bear'],
   [-1]: styles['strength-indicator-bear'],
@@ -10,5 +10,4 @@ export const strengthIndicatorStyleLookup: {[index in StrengthIndexCanNA]: strin
   [1]: styles['strength-indicator-bull'],
   [2]: styles['strength-indicator-bull'],
   [3]: styles['strength-indicator-bull'],
-  '?': styles['strength-indicator-na'],
 };

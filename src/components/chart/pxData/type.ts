@@ -9,7 +9,7 @@ import {
   OnChartInitEvent,
 } from '../base/type';
 import {PxLayoutConfigSingle} from '../config/layout/type';
-import {StrengthIndexCanNA} from './legend/type';
+import {StrengthIndex} from './legend/type';
 
 
 export type PxChartEmaLinePair = {[key in keyof PxDataEmaPeriodPair]: ISeriesApi<'Line'>};
@@ -47,7 +47,7 @@ export type PxChartLegendData = {
   decimals: number,
   changeVal: number,
   changePct: number,
-  strength: StrengthIndexCanNA,
+  strength: StrengthIndex,
   tiePoint: number | null,
   hovered: boolean,
 };

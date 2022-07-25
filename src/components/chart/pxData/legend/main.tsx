@@ -57,7 +57,7 @@ export const PxChartLegend = ({data, legend, slot}: Props) => {
           style={{fontSize: !!height ? (height * 0.65) : '2rem'}}
         >
           <span ref={elemRef}>
-            {strength === '?' ? '?' : Math.abs(strength)}
+            {Math.abs(strength)}
           </span>
         </Col>
         <Col className={styles['main-content']}>

@@ -15,7 +15,6 @@ export type PxDataBar = {
   low: number,
   close: number,
   diff: number,
-  strength: StrengthIndex | null,
   candlestick: PxDataCandlestickDirection,
   tiePoint: number,
 } & {
@@ -53,6 +52,7 @@ export type PxData = {
   periodSec: number,
   contract: PxDataContract,
   data: PxDataBar[],
+  strength: StrengthIndex,
   supportResistance: PxDataSupportResistance,
   latestMarket: PxDataMarketSingle,
   indicator: PxDataIndicatorConfig,

@@ -45,8 +45,8 @@ export const PxDataChart = (props: Props) => {
 
           const legend: PxChartLegendData = {
             decimals: data.contract.decimals,
+            strength: data.strength,
             hovered: false,
-            strength: lastHistory?.strength ?? '?',
             tiePoint: lastHistory?.tiePoint ?? NaN,
             ...data.latestMarket,
           };
