@@ -17,7 +17,12 @@ export type MarketPxSubscriptionMessage = {
   securities: string[],
 };
 
+export type RequestPxMessageSingle = {
+  identifier: string,
+  offset: number | null,
+};
+
 export type RequestPxMessage = {
   token: string | undefined,
-  identifiers: string[],
+  requests: RequestPxMessageSingle[],
 };

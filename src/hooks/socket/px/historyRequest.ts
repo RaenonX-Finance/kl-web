@@ -24,7 +24,7 @@ export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDa
     const intervalId = setInterval(() => {
       const requestMessage: RequestPxMessage = {
         token: data?.user?.token,
-        identifiers,
+        requests: identifiers.map((identifier) => ({identifier, offset: null})),
       };
       socket.emit('request', requestMessage);
     }, getSharedConfig(sharedConfig, 'intervalHistoryPxSec') * 1000);
