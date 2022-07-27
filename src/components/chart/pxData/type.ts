@@ -59,6 +59,7 @@ export type PxChartInitData = {
 
 export type PxChartPayload = {
   customSrLevels: CustomSrLevel[] | undefined,
+  requestPxData: (offset: number) => void,
 };
 
 export type OnPxChartInitEvent = OnChartInitEvent<

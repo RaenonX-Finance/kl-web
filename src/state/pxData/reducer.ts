@@ -20,13 +20,16 @@ const initialState: PxDataState = {
   map: null,
 };
 
-const fixPxData = (pxData: PxData): PxData => {
-  pxData.data = pxData.data.map((item) => ({
-    ...item,
-    epochSec: updateEpochSecToLocal(item.epochSec),
-  }));
+const fixPxData = (newPxData: PxData, original: PxData | null): PxData => {
+  newPxData.data = [
+    ...newPxData.data.map((item) => ({
+      ...item,
+      epochSec: updateEpochSecToLocal(item.epochSec),
+    })),
+    ...(original?.data || []),
+  ];
 
-  return pxData;
+  return newPxData;
 };
 
 const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxData[]}) => {
@@ -41,7 +44,9 @@ const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxData[]}
         return;
       }
 
-      state.data[slot as PxSlotName] = fixPxData(pxData);
+      const slotName = slot as PxSlotName;
+
+      state.data[slotName] = fixPxData(pxData, state.data[slotName]);
     });
   });
 

@@ -1,28 +1,21 @@
 import {LogicalRangeChangeEventHandler} from 'lightweight-charts';
 
 import {OnPxChartInitEvent} from '../../type';
-import {getExtremaPxOfRange} from '../utils';
+import {handleXrangeChangeExtrema} from './xRangeChange/extrema';
+import {handleXrangeChangeFetchOlder} from './xRangeChange/fetchOlder';
 
 
-export const handleXrangeChange = ({
-  chartObjectRef,
-  chartDataRef,
-}: OnPxChartInitEvent): LogicalRangeChangeEventHandler => (
+export const handleXrangeChange = (e: OnPxChartInitEvent): LogicalRangeChangeEventHandler => (
   logicalRange,
 ) => {
+  const {chartObjectRef} = e;
+
   if (!logicalRange || !chartObjectRef.current) {
     return;
   }
 
   const barsInfo = chartObjectRef.current.initData.series.price.barsInLogicalRange(logicalRange);
 
-  if (!barsInfo) {
-    return;
-  }
-
-  const {min, max} = chartObjectRef.current.initData.lines.extrema;
-  const {minPx, maxPx} = getExtremaPxOfRange(barsInfo, chartDataRef.current.data);
-
-  min.applyOptions({price: minPx});
-  max.applyOptions({price: maxPx});
+  handleXrangeChangeExtrema({e, barsInfo});
+  handleXrangeChangeFetchOlder({e, barsInfo});
 };
