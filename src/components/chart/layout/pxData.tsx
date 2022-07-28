@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {useSession} from 'next-auth/react';
-
-import {PxSocketContext} from '../../../hooks/socket/px/const';
-import {RequestPxMessage} from '../../../hooks/socket/px/type';
+import {useOlderHistoryDataFetcher} from '../../../hooks/socket/px/historyRequest';
 import {useCustomSrSelector} from '../../../state/customSr/selector';
 import {useProductDataSelector} from '../../../state/data/selector';
 import {usePxDataSelector} from '../../../state/pxData/selector';
@@ -21,10 +18,9 @@ type Props = {
 };
 
 export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
-  const {data} = useSession();
-  const socket = React.useContext(PxSocketContext);
   const pxData = usePxDataSelector(slot);
   const products = useProductDataSelector();
+  const {requestPxData} = useOlderHistoryDataFetcher({slot});
   const customSrLevels = useCustomSrSelector(pxData?.contract.symbol) || [];
 
   const containerCss: React.CSSProperties = {
@@ -39,22 +35,6 @@ export const PxDataLayoutPane = ({slot, width, height, x, y}: Props) => {
     justifyContent: 'center',
     alignItems: 'center',
   };
-
-  const token = data?.user?.token;
-  const requestPxData = React.useCallback((offset: number) => {
-    if (!socket) {
-      throw Error('Socket is [null] while requesting older px data');
-    }
-    if (!pxData) {
-      throw Error('Px data is [null] while requesting older px data');
-    }
-
-    const requestMessage: RequestPxMessage = {
-      token,
-      requests: [{identifier: pxData.uniqueIdentifier, offset}],
-    };
-    socket.emit('request', requestMessage);
-  }, [socket, pxData === null, token]);
 
   return (
     <div style={containerCss}>

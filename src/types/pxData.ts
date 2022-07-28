@@ -52,6 +52,7 @@ export type PxData = {
   periodSec: number,
   contract: PxDataContract,
   data: PxDataBar[],
+  offset: number | null,
   strength: StrengthIndex,
   supportResistance: PxDataSupportResistance,
   latestMarket: PxDataMarketSingle,

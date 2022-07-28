@@ -3,7 +3,7 @@ import React from 'react';
 import {useSession} from 'next-auth/react';
 
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
-import {usePxDataSlotMap} from '../../../state/pxData/selector';
+import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {PxInitMessage} from '../general/type';
@@ -17,7 +17,7 @@ type UsePxInitHandlerOpts = {
 
 export const usePxInitHandler = ({socket}: UsePxInitHandlerOpts) => {
   const {data} = useSession();
-  const slotMap = usePxDataSlotMap();
+  const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
 
   // Custom events

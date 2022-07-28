@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 import {PxData, PxSlotName} from '../../types/pxData';
+import {insertElement} from '../../utils/arr';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {mergedDispatchers} from '../aggregated/dispatchers';
@@ -21,13 +22,14 @@ const initialState: PxDataState = {
 };
 
 const fixPxData = (newPxData: PxData, original: PxData | null): PxData => {
-  newPxData.data = [
-    ...newPxData.data.map((item) => ({
+  newPxData.data = insertElement(
+    original?.data || [],
+    newPxData.data.map((item) => ({
       ...item,
       epochSec: updateEpochSecToLocal(item.epochSec),
     })),
-    ...(original?.data || []),
-  ];
+    newPxData.offset,
+  );
 
   return newPxData;
 };

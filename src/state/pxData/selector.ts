@@ -35,6 +35,10 @@ export const usePxDataSubscriptionInfoSelector = (): PxDataSubscriptionInfo => (
   )
 );
 
-export const usePxDataSlotMap = (): PxSlotMap | null => (
+export const usePxSlotMap = (): PxSlotMap | null => (
   useSelector(({pxData}: ReduxState) => pxData.map)
+);
+
+export const usePxSlotIdentifier = (slot: PxSlotName): string | null => (
+  useSelector(({pxData}: ReduxState) => pxData.map ? pxData.map[slot] : null)
 );
