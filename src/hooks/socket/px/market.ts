@@ -6,21 +6,21 @@ import {PxDataSubscriptionInfo} from '../../../state/pxData/types';
 import {MarketPxSubscriptionMessage, PxDataSocket} from './type';
 
 
-type UseMarketPxUpdateHandlerOpts = Pick<PxDataSubscriptionInfo, 'securities'> & {
+type UseMarketPxUpdateHandlerOpts = PxDataSubscriptionInfo & {
   socket: PxDataSocket | undefined,
 };
 
-export const useMarketPxUpdateHandler = ({socket, securities}: UseMarketPxUpdateHandlerOpts) => {
+export const useMarketPxUpdateHandler = ({socket, identifiers}: UseMarketPxUpdateHandlerOpts) => {
   const {data} = useSession();
 
   React.useEffect(() => {
-    if (!socket || !securities.length) {
+    if (!socket || !identifiers.length) {
       return;
     }
 
     const subscriptionMessage: MarketPxSubscriptionMessage = {
       token: data?.user.token,
-      securities,
+      identifiers,
     };
 
     const onDisconnect = () => {
@@ -34,5 +34,5 @@ export const useMarketPxUpdateHandler = ({socket, securities}: UseMarketPxUpdate
       socket.off('disconnect', onDisconnect);
       socket.emit('unsubscribe', subscriptionMessage);
     };
-  }, [socket, securities]);
+  }, [socket, identifiers]);
 };

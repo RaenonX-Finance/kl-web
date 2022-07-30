@@ -1,5 +1,6 @@
 import {Socket} from 'socket.io-client';
 
+import {PxDataUniqueIdentifier} from '../../../types/pxData';
 import {SocketEvent} from '../../../types/socket';
 
 
@@ -14,7 +15,7 @@ export type PxDataSocket = Socket<SocketEvent<PxSocketEventKeys>>;
 
 export type MarketPxSubscriptionMessage = {
   token: string | undefined,
-  securities: string[],
+  identifiers: PxDataUniqueIdentifier[],
 };
 
 export type RequestPxMessageSingle = {

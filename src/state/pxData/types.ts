@@ -26,8 +26,7 @@ export type PxSlotMapUpdatePayload = {
 };
 
 export type PxDataSubscriptionInfo = {
-  securities: string[],
-  identifiers: string[],
+  identifiers: PxDataUniqueIdentifier[],
 };
 
 export type PxMarketUpdateMeta = {
