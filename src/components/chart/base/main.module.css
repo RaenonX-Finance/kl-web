@@ -28,7 +28,7 @@ span.update-animation {
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;
-  animation: 2s update-light;
+  animation: 1s ease-in update-light;
 }
 @keyframes update-light {
   from {

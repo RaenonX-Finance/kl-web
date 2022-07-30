@@ -65,6 +65,7 @@ export type ChartInitEventHandler<T, R, L, A, P = {}> = (e: OnChartInitEvent<T, 
 
 export type OnChartDataUpdatedEvent<T, P, R, L, A> = OnChartChangedEventCommon<T, R, L, A> & {
   payload: P,
+  partial: boolean,
 };
 
 export type ChartDataUpdatedEventHandler<T, P, R, L, A> = (e: OnChartDataUpdatedEvent<T, P, R, L, A>) => void;

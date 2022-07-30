@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useLastPxUpdateSelector} from '../../../state/data/selector';
 import {PxData} from '../../../types/pxData';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
 import {PxLayoutConfigPanel} from '../config/layout/main';
@@ -26,14 +27,17 @@ type Props = Omit<
   'getIdentifier' |
   'getPnLMultiplier' |
   'getPeriodSec' |
-  'getDataSecurity'
+  'getDataSecurity' |
+  'getCompleteUpdateDeps' |
+  'getPartialUpdateDeps'
 > & {
   title: string,
 };
 
 
 export const PxDataChart = (props: Props) => {
-  const {slot, title} = props;
+  const {slot, title, chartData} = props;
+  const lastUpdate = useLastPxUpdateSelector(chartData.contract.symbol);
 
   return (
     <TradingViewChart
@@ -68,6 +72,8 @@ export const PxDataChart = (props: Props) => {
       )}
       getPeriodSec={({periodSec}) => periodSec}
       getDataSecurity={({contract}) => contract.symbol}
+      getCompleteUpdateDeps={({offset}) => [offset]}
+      getPartialUpdateDeps={() => [lastUpdate]}
       {...props}
     />
   );

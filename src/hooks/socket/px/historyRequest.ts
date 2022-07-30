@@ -70,7 +70,9 @@ export const useOlderHistoryDataFetcher = ({slot}: UseOlderHistoryDataFetchOpts)
     };
     requesting.current = true;
     socket.emit('request', requestMessage);
-    socket.on('request', onCompletedRequest);
+    if (!socket.listeners('request').includes(onCompletedRequest)) {
+      socket.on('request', onCompletedRequest);
+    }
   };
 
   return {requestPxData};

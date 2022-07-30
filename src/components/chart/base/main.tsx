@@ -36,6 +36,8 @@ export type TradingViewChartProps<T, P, R, L, A> = {
   renderLayoutConfig: PxChartToolbarProps<A>['renderLayoutConfig'],
   getPeriodSec: (data: T) => number,
   getDataSecurity: (data: T) => string,
+  getPartialUpdateDeps: (data: T) => React.DependencyList,
+  getCompleteUpdateDeps: (data: T) => React.DependencyList,
 };
 
 export const TradingViewChart = <T, P, R, L>({
@@ -51,6 +53,8 @@ export const TradingViewChart = <T, P, R, L>({
   renderLayoutConfig,
   getPeriodSec,
   getDataSecurity,
+  getCompleteUpdateDeps,
+  getPartialUpdateDeps,
 }: TradingViewChartProps<T, P, R, L, PxLayoutConfigSingle>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
   const chartDataRef = React.useRef<T>(chartData);
@@ -68,13 +72,13 @@ export const TradingViewChart = <T, P, R, L>({
     await dispatch(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_CONFIG](payload));
   };
 
-  const onDataUpdatedInternal = () => {
+  const onDataUpdatedInternal = (partial: boolean) => () => {
     chartDataRef.current = chartData;
     if (!isLayoutConfigReady) {
       return;
     }
 
-    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig});
+    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig, partial});
   };
 
   const onLoad = () => {
@@ -96,15 +100,19 @@ export const TradingViewChart = <T, P, R, L>({
 
   const {makeChart, chartRef, chartObjectRef} = useTradingViewChart<T, R, L, PxLayoutConfigSingle, P>({
     initChart,
-    onDataUpdated: onDataUpdatedInternal,
+    onDataUpdated: onDataUpdatedInternal(true),
     width,
     height,
   });
 
   React.useEffect(onLoad, [isLayoutConfigReady]);
   React.useEffect(
-    onDataUpdatedInternal,
-    [chartObjectRef.current?.initData, payload, layoutConfig],
+    onDataUpdatedInternal(true),
+    [chartObjectRef.current?.initData, layoutConfig, ...getPartialUpdateDeps(chartData)],
+  );
+  React.useEffect(
+    onDataUpdatedInternal(false),
+    getCompleteUpdateDeps(chartData),
   );
 
   return (

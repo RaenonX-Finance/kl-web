@@ -30,13 +30,16 @@ export const updateEma = ({
   lastPx,
   colorOverride,
 }: UpdateEmaOptions) => {
-  const {layoutConfig} = e;
+  const {chartDataRef, layoutConfig, partial} = e;
 
-  const pxLine = toLineData(`ema${periodPair[periodType]}`, colorOverride)(lastPx);
   const visible = getLayoutConfig(layoutConfig, keyofConfig);
   const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
-  series.update(pxLine);
+  if (partial) {
+    series.update(toLineData(`ema${periodPair[periodType]}`, colorOverride)(lastPx));
+  } else {
+    series.setData(chartDataRef.current.data.map(toLineData(`ema${periodPair[periodType]}`, colorOverride)));
+  }
   series.applyOptions({
     visible,
     lastValueVisible: visibleLabel,

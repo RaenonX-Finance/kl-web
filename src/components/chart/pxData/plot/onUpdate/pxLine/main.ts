@@ -6,7 +6,7 @@ import {HandlePxLineOptions} from './type';
 
 
 export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions) => {
-  const {chartDataRef, chartObjectRef, setObject, layoutConfig} = e;
+  const {chartDataRef, chartObjectRef, setObject, layoutConfig, partial} = e;
   const {title, keyOfConfig, keyOfConfigLabel, keyOfSeries, keyOfLegendData, keyForLineData} = opts;
 
   if (!chartObjectRef.current) {
@@ -26,7 +26,12 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
   const visible = getLayoutConfig(layoutConfig, keyOfConfig);
   const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
 
-  series.update(pxLine);
+  if (partial) {
+    series.update(pxLine);
+  } else {
+    series.setData(chartDataRef.current.data.map(toLineData(keyForLineData)));
+  }
+
   series.applyOptions({
     visible,
     title: visibleLabel ? title : '',
