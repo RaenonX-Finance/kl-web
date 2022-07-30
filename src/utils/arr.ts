@@ -3,19 +3,7 @@ export const arrToMap = <T, K extends string | number>(
   getKey: (item: T) => K,
 ): Record<string, T> => Object.fromEntries(arr.map((item) => [getKey(item), item]));
 
-export const insertElement = <T>(a: T[], b: T[], offset: number | null): T[] => {
-  if (!a.length) {
-    return [...b];
-  }
-
-  if (offset) {
-    const idxTailStartA = a.length - offset;
-    const idxHeadEndA = Math.max(idxTailStartA - b.length, 0);
-
-    return [...a.slice(0, idxHeadEndA), ...b, ...a.slice(idxTailStartA)];
-  }
-
-  const idxHeadEndA = a.length - b.length;
-
-  return [...a.slice(0, idxHeadEndA), ...b];
+export const mergeThenSort = <T>(original: T[], newer: T[], getSortBasis: (item: T) => number): T[] => {
+  return Object.values(Object.fromEntries(original.concat(...newer).map((item) => [getSortBasis(item), item])))
+    .sort((a, b) => getSortBasis(a) - getSortBasis(b));
 };
