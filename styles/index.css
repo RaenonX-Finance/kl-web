@@ -12155,6 +12155,10 @@ a {
   text-decoration: none;
 }
 
+button.dropdown-toggle::after {
+  display: none !important;
+}
+
 div#__next {
   /* stylelint-disable-line selector-id-pattern */
   display: flex;

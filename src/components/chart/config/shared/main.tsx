@@ -1,14 +1,13 @@
 import React from 'react';
 
 import {useSession} from 'next-auth/react';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from 'react-bootstrap/Modal';
-import Nav from 'react-bootstrap/Nav';
 
 import {configDispatchers} from '../../../../state/config/dispatchers';
 import {useSharedConfigSelector} from '../../../../state/config/selector';
 import {ConfigDispatcherName} from '../../../../state/config/type';
 import {useDispatch} from '../../../../state/store';
-import stylesNav from '../../../nav/main.module.scss';
 import styles from './main.module.scss';
 import {PxChartSharedConfigTabs} from './tabs';
 
@@ -49,9 +48,9 @@ export const PxChartSharedConfig = () => {
 
   return (
     <>
-      <Nav.Link className={stylesNav['nav-item']} onClick={openModal}>
-        設定
-      </Nav.Link>
+      <Dropdown.Item onClick={openModal}>
+        圖表設定
+      </Dropdown.Item>
       <Modal show={show} size="lg" onHide={closeModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>圖表相關設定</Modal.Title>

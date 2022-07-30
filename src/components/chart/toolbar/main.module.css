@@ -1,0 +1,15 @@
+button.to-realtime {
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+}
+
+div.dropdown {
+  display: inline;
+}
+div.dropdown > button {
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+  border: none;
+}
+
+/*# sourceMappingURL=main.module.css.map */

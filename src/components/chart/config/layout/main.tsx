@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {useSession} from 'next-auth/react';
-import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import {LayoutConfigUpdatePayload} from '../../../../state/config/type';
@@ -33,9 +33,9 @@ export const PxLayoutConfigPanel = ({
 
   return (
     <>
-      <Button size="sm" variant="outline-info" className="me-2" onClick={() => setShow(true)}>
+      <Dropdown.Item onClick={() => setShow(true)}>
         版面設定
-      </Button>
+      </Dropdown.Item>
       <Offcanvas className={styles['config-panel']} show={show} onHide={() => setShow(false)} placement="end">
         <div className="mb-0"/>
         <Offcanvas.Header closeButton>

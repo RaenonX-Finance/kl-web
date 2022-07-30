@@ -1,0 +1,22 @@
+@mixin common-button {
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+}
+
+button {
+  &.to-realtime {
+    @include common-button;
+  }
+}
+
+div {
+  &.dropdown {
+    display: inline;
+
+    & > button {
+      @include common-button;
+
+      border: none;
+    }
+  }
+}
