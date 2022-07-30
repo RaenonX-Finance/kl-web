@@ -12,6 +12,10 @@ export const handleXrangeChangeExtrema = ({e, barsInfo}: HandleXrangeChangeOpts)
   const {min, max} = chartObjectRef.current.initData.lines.extrema;
   const {minPx, maxPx} = getExtremaPxOfRange(barsInfo, chartDataRef.current.data);
 
+  if (!minPx) {
+    return;
+  }
+
   min.applyOptions({price: minPx});
   max.applyOptions({price: maxPx});
 };

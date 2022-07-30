@@ -45,7 +45,8 @@ export const getExtremaPxOfRange = (barsInfo: BarsInfo, data: PxDataBar[]): Extr
   const {from, to} = barsInfo;
 
   if (!from || !to) {
-    throw Error('Bars info does not include timestamps');
+    console.warn('Bars info does not include timestamps', barsInfo);
+    return {minPx: null, maxPx: null};
   }
 
   const bars = data.filter(({epochSec}) => epochSec >= from && epochSec <= to);

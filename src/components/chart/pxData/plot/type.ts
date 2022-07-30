@@ -12,6 +12,9 @@ export type ExtremaCommonOptions = Omit<PriceLineOptions, 'price' | 'title' | 'a
 export type ExtremaPx = {
   minPx: number,
   maxPx: number,
+} | {
+  minPx: null,
+  maxPx: null,
 };
 
 export type GetCurrentExtremaPxOptions = {
