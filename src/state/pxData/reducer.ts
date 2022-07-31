@@ -51,7 +51,12 @@ const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNa
 
       const slotName = slot as PxSlotName;
 
-      if (validSlotNames && !validSlotNames.includes(slotName)) {
+      if (
+        // If `validSlotNames` is provided, check if the current slot name is valid
+        (validSlotNames && !validSlotNames.includes(slotName)) ||
+        // Px data to fill has to match the desired unique identifier
+        (state.map && state.map[slotName] !== pxData.uniqueIdentifier)
+      ) {
         return;
       }
 
