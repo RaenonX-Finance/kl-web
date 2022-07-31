@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {dataDispatchers} from '../../../state/data/dispatchers';
+import {DataDispatcherName} from '../../../state/data/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
@@ -37,6 +39,10 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
   });
+  const onMinChanged = useSocketEventHandler({
+    dispatch,
+    action: dataDispatchers[DataDispatcherName.MIN_CHANGE],
+  });
 
   // Hooks
   React.useEffect(() => {
@@ -48,6 +54,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
     // Custom events
     socket.on('updated', onUpdated);
     socket.on('request', onRequested);
+    socket.on('minChange', onMinChanged);
 
     setSocket(socket);
 

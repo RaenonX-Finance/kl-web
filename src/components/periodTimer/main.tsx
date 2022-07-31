@@ -1,7 +1,9 @@
 import React from 'react';
 
 import {useAnimation} from '../../hooks/animation';
+import {useEpochSecOffsetSelector} from '../../state/data/selector';
 import styles from './main.module.scss';
+import {getCurrentEpochSec} from './utils';
 
 
 const getAnimationClassName = (secLeft: number): string => {
@@ -19,18 +21,21 @@ type Props = {
 };
 
 export const PeriodTimer = ({periodSec}: Props) => {
-  const [secLeft, setSecLeft] = React.useState(periodSec - (Date.now() / 1000) % periodSec);
+  const epochSecOffset = useEpochSecOffsetSelector();
+  const [secLeft, setSecLeft] = React.useState(
+    periodSec - getCurrentEpochSec(epochSecOffset) % periodSec,
+  );
   const secLeftElemRef = useAnimation({
     deps: [secLeft],
   });
 
   React.useEffect(() => {
     const intervalId = setInterval(() => {
-      setSecLeft(periodSec - (Date.now() / 1000) % periodSec);
+      setSecLeft(periodSec - getCurrentEpochSec(epochSecOffset) % periodSec);
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [epochSecOffset]);
 
   return (
     <span

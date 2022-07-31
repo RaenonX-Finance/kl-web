@@ -15,3 +15,7 @@ export const usePeriodDataSelector = (): DataState['periods'] => (
 export const useLastPxUpdateSelector = (security: string): number | undefined => (
   useSelector(({data}: ReduxState) => data.lastPxUpdate[security])
 );
+
+export const useEpochSecOffsetSelector = (): number => (
+  useSelector(({data}: ReduxState) => data.epochOffsetSec)
+);

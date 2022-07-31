@@ -9,7 +9,8 @@ export type PxSocketEventKeys =
   'updated' |
   'request' |
   'subscribe' |
-  'unsubscribe';
+  'unsubscribe' |
+  'minChange';
 
 export type PxDataSocket = Socket<SocketEvent<PxSocketEventKeys>>;
 

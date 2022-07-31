@@ -5,13 +5,15 @@ import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
 import {pxDataDispatchers} from '../pxData/dispatchers';
 import {PxDataDispatcherName} from '../pxData/types';
-import {DATA_STATE_NAME, DataState} from './types';
+import {dataDispatchers} from './dispatchers';
+import {DATA_STATE_NAME, DataDispatcherName, DataState} from './types';
 
 
 const initialState: DataState = {
   products: {},
   periods: {},
   lastPxUpdate: {},
+  epochOffsetSec: 0,
 };
 
 const recordLastPxUpdateReducer = (state: DataState, securities: string[]): DataState => {
@@ -50,6 +52,13 @@ const slice = createSlice({
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled,
       (state, {payload}) => recordLastPxUpdateReducer(state, payload.map(({contract}) => contract.symbol)),
+    );
+    builder.addCase(
+      dataDispatchers[DataDispatcherName.MIN_CHANGE],
+      (state, {payload}) => ({
+        ...state,
+        epochOffsetSec: (Date.now() / 1000) - payload.epochSec,
+      }),
     );
   },
 });
