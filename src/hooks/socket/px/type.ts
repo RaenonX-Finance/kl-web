@@ -21,6 +21,7 @@ export type MarketPxSubscriptionMessage = {
 export type RequestPxMessageSingle = {
   identifier: string,
   offset?: number,
+  limit?: number,
 };
 
 export type RequestPxMessage = {
