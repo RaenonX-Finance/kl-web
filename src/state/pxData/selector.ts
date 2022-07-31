@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import {useSelector} from 'react-redux';
 
 import {PxData, PxDataUniqueIdentifier, PxSlotName} from '../../types/pxData';
+import {getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
 import {PxDataSubscriptionInfo, PxSlotMap} from './types';
 
@@ -12,18 +13,19 @@ export const usePxDataSelector = (slot: PxSlotName): PxData | null => (
 
 export const usePxDataSubscriptionInfoSelector = (): PxDataSubscriptionInfo => (
   useSelector(
-    ({pxData}: ReduxState) => {
+    ({pxData, config}: ReduxState) => {
       const identifiers = new Set<PxDataUniqueIdentifier>();
+      const slotNames = getValidSlotNames(config.layoutType);
 
-      Object.values(pxData.data).forEach((data) => {
-        if (!data) {
-          return;
-        }
+      if (!slotNames || !pxData.map) {
+        return {
+          identifiers: [],
+        };
+      }
 
-        const {uniqueIdentifier} = data;
-
-        identifiers.add(uniqueIdentifier);
-      });
+      for (const slotName of slotNames) {
+        identifiers.add(pxData.map[slotName]);
+      }
 
       return {
         identifiers: [...identifiers].sort(),

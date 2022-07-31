@@ -1,11 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {PxData, PxSlotName} from '../../types/pxData';
+import {PxData, PxDataMap, PxSlotName} from '../../types/pxData';
 import {mergeThenSort} from '../../utils/arr';
 import {updateEpochSecToLocal} from '../../utils/time';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {mergedDispatchers} from '../aggregated/dispatchers';
 import {MergedDispatcherName} from '../aggregated/types';
+import {configDispatchers} from '../config/dispatchers';
+import {ConfigDispatcherName} from '../config/type';
+import {getValidSlotNames} from '../config/utils';
 import {pxDataDispatchers} from './dispatchers';
 import {PX_DATA_STATE_NAME, PxDataDispatcherName, PxDataState} from './types';
 import {generateInitialSlotMap} from './utils';
@@ -34,7 +37,7 @@ const fixPxData = (newPxData: PxData, original: PxData | null): PxData => {
   return newPxData;
 };
 
-const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxData[]}) => {
+const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNames?: PxSlotName[]) => {
   if (!state.map) {
     console.error('Attempt to fill Px data while the px data map is not ready.', JSON.stringify(state));
     return;
@@ -47,6 +50,10 @@ const pxDataFillingReducer = (state: PxDataState, {payload}: {payload: PxData[]}
       }
 
       const slotName = slot as PxSlotName;
+
+      if (validSlotNames && !validSlotNames.includes(slotName)) {
+        return;
+      }
 
       state.data[slotName] = fixPxData(pxData, state.data[slotName]);
     });
@@ -67,8 +74,12 @@ const slice = createSlice({
 
       state.map = config.slot_map || generateInitialSlotMap();
     });
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], pxDataFillingReducer);
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE], pxDataFillingReducer);
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], (state, {payload}) => {
+      pxDataFillingReducer(state, payload);
+    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled, (state, {payload, meta}) => {
+      pxDataFillingReducer(state, payload, meta.validSlotNames);
+    });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled, (state, {payload}) => ({
       ...state,
       data: payload,
@@ -82,6 +93,25 @@ const slice = createSlice({
       },
       map: payload.data,
     }));
+    builder.addCase(configDispatchers[ConfigDispatcherName.UPDATE_LAYOUT_TYPE].fulfilled, (state, {payload}) => {
+      const validSlotNames = getValidSlotNames(payload.data);
+      if (!validSlotNames) {
+        return {...state};
+      }
+
+      return {
+        ...state,
+        data: {
+          ...Object.fromEntries(Object.entries(state.data).map(([slotName, pxData]) => {
+            if (validSlotNames.includes(slotName as PxSlotName)) {
+              return [slotName, pxData];
+            }
+
+            return [slotName, null];
+          })) as PxDataMap,
+        },
+      };
+    });
   },
 });
 

@@ -19,6 +19,7 @@ export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDa
   const {data} = useSession();
   const sharedConfig = useSharedConfigSelector();
 
+  // Periodic px data request
   React.useEffect(() => {
     if (!socket || !identifiers.length || !sharedConfig) {
       return;
@@ -34,6 +35,15 @@ export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDa
 
     return () => clearInterval(intervalId);
   }, [socket, identifiers, sharedConfig?.intervalHistoryPxSec]);
+
+  // Immediate px data request on `identifiers` changed
+  React.useEffect(() => {
+    const requestMessage: RequestPxMessage = {
+      token: data?.user?.token,
+      requests: identifiers.map((identifier) => ({identifier, offset: null})),
+    };
+    socket?.emit('request', requestMessage);
+  }, [identifiers]);
 };
 
 type UseOlderHistoryDataFetchOpts = {

@@ -32,3 +32,7 @@ export type PxDataSubscriptionInfo = {
 export type PxMarketUpdateMeta = {
   securities: string[],
 };
+
+export type PxCompleteUpdateMeta = {
+  validSlotNames: PxSlotName[],
+};

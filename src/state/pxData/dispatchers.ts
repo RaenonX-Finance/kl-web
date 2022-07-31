@@ -5,16 +5,37 @@ import {PxDataMarket} from '../../types/pxDataMarket';
 import {updatePxDataBar} from '../../utils/calc';
 import {overrideObject} from '../../utils/override';
 import {updateCurrentPxDataTitle} from '../../utils/title';
-import {createConfigAsyncThunk} from '../config/utils';
+import {createConfigAsyncThunk, getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
-import {PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
+import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
 
 
 export const pxDataDispatchers = {
   [PxDataDispatcherName.INIT]: createAction<PxData[]>(PxDataDispatcherName.INIT),
-  [PxDataDispatcherName.UPDATE_COMPLETE]: createAction<PxData[]>(PxDataDispatcherName.UPDATE_COMPLETE),
+  [PxDataDispatcherName.UPDATE_COMPLETE]: createAsyncThunk<
+    PxData[],
+    PxData[],
+    {state: ReduxState, rejectValue: string, fulfilledMeta: PxCompleteUpdateMeta}
+  >(
+    PxDataDispatcherName.UPDATE_COMPLETE,
+    async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
+      const {config} = getState();
+      const validSlotNames = getValidSlotNames(config.layoutType);
+
+      if (!validSlotNames) {
+        return onAsyncThunkError({
+          message: `No valid slot names of layout type [${config.layoutType}]`,
+          data: null,
+          rejectWithValue,
+          dispatch,
+        });
+      }
+
+      return fulfillWithValue(payload, {validSlotNames});
+    },
+  ),
   [PxDataDispatcherName.UPDATE_MARKET]: createAsyncThunk<
     PxDataMap,
     PxDataMarket,

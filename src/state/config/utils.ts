@@ -2,8 +2,11 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/config/layout/type';
 import {PxSharedConfig, PxSharedConfigKeys} from '../../components/chart/config/shared/type';
+import {LayoutType} from '../../components/chart/layoutSelector/type';
+import {PxSlotName} from '../../types/pxData';
 import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
 import {getErrorMessage} from '../../utils/error';
+import {layoutCountToSlotNames} from '../pxData/utils';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
 import {defaultLayoutConfig, defaultSharedConfig} from './const';
@@ -98,3 +101,26 @@ export const createConfigAsyncThunk = <
     return {data, payload: getPayload(payload)};
   },
 );
+
+export const getLayoutCount = (layoutType: LayoutType | null): number | null => {
+  const layoutCount = layoutType?.split('-')[0];
+
+  return layoutCount ? parseInt(layoutCount) : null;
+};
+
+export const getValidSlotNames = (layoutType: LayoutType | null): PxSlotName[] | null => {
+  const layoutCount = getLayoutCount(layoutType);
+
+  if (!layoutCount) {
+    console.error(`Invalid layout count ${layoutCount} from layout type ${layoutType}`);
+    return null;
+  }
+
+  const validSlotNames = layoutCountToSlotNames[layoutCount];
+  if (!validSlotNames) {
+    console.error(`Unhandled layout count ${layoutCount} of layout type ${layoutType}`);
+    return null;
+  }
+
+  return validSlotNames;
+};

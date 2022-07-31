@@ -1,5 +1,5 @@
 import {PxSharedConfig} from '../../components/chart/config/shared/type';
-import {PxDataBar} from '../../types/pxData';
+import {PxDataBar, PxSlotName} from '../../types/pxData';
 import {getSharedConfig} from '../config/utils';
 import {defaultSlotMap} from './const';
 import {PxSlotMap} from './types';
@@ -34,4 +34,11 @@ export const isMarketPxUpdateOk = ({sharedConfig, lastUpdated, lastBar, last}: I
   const interval = getSharedConfig(sharedConfig, 'intervalMarketPxSec');
 
   return (Date.now() - lastUpdated) / 1000 > interval;
+};
+
+export const layoutCountToSlotNames: {[count in number]?: PxSlotName[]} = {
+  [1]: ['A'],
+  [2]: ['A', 'B'],
+  [3]: ['A', 'B', 'C'],
+  [4]: ['A', 'B', 'C', 'D'],
 };

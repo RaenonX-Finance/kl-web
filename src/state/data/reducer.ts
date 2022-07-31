@@ -48,7 +48,7 @@ const slice = createSlice({
       (state, {meta}) => recordLastPxUpdateReducer(state, meta.securities),
     );
     builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE],
+      pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled,
       (state, {payload}) => recordLastPxUpdateReducer(state, payload.map(({contract}) => contract.symbol)),
     );
   },
