@@ -20,7 +20,7 @@ export type MarketPxSubscriptionMessage = {
 
 export type RequestPxMessageSingle = {
   identifier: string,
-  offset: number | null,
+  offset?: number,
 };
 
 export type RequestPxMessage = {
