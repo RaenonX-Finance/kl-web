@@ -46,13 +46,19 @@ export const PxDataChart = (props: Props) => {
       calcObjects={{
         legend: (data) => {
           const lastHistory = data.data.at(-1);
+          const latestMarket = data.latestMarket;
 
           const legend: PxChartLegendData = {
             decimals: data.contract.decimals,
             strength: data.strength,
             hovered: false,
             tiePoint: lastHistory?.tiePoint ?? NaN,
-            ...data.latestMarket,
+            open: latestMarket.o,
+            high: latestMarket.h,
+            low: latestMarket.l,
+            close: latestMarket.c,
+            changeVal: latestMarket.diffVal,
+            changePct: latestMarket.diffPct,
           };
 
           return legend;

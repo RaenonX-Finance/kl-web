@@ -83,7 +83,7 @@ export const pxDataDispatchers = {
             sharedConfig,
             lastUpdated: data.lastPxUpdate[pxDataInSlot.contract.symbol],
             lastBar,
-            last: latestMarket.close,
+            last: latestMarket.c,
           })
         ) {
           pxDataMap[slot] = {...pxDataInSlot};
@@ -102,7 +102,7 @@ export const pxDataDispatchers = {
 
         pxDataMap[slot] = {
           ...pxDataInSlot,
-          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.close)]),
+          data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.c)]),
           latestMarket,
         };
       }

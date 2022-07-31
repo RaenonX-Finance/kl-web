@@ -20,13 +20,13 @@ export const handleCrosshairMove = ({
     const legend: PxChartLegendData = {
       decimals,
       strength,
-      open: hovered?.open ?? latestMarket?.open,
-      high: hovered?.high ?? latestMarket?.high,
-      low: hovered?.low ?? latestMarket?.low,
-      close: hovered?.close ?? latestMarket?.close,
+      open: hovered?.open ?? latestMarket?.o,
+      high: hovered?.high ?? latestMarket?.h,
+      low: hovered?.low ?? latestMarket?.l,
+      close: hovered?.close ?? latestMarket?.c,
       // Diff / Change Val could be 0
-      changeVal: hovered?.diff ?? latestMarket?.changeVal,
-      changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? latestMarket?.changePct,
+      changeVal: hovered?.diff ?? latestMarket?.diffVal,
+      changePct: (hovered ? hovered.diff / hovered.open * 100 : null) ?? latestMarket?.diffPct,
       tiePoint: hovered?.tiePoint ?? last?.tiePoint ?? null,
       hovered: !!hovered,
     };

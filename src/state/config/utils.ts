@@ -112,7 +112,6 @@ export const getValidSlotNames = (layoutType: LayoutType | null): PxSlotName[] |
   const layoutCount = getLayoutCount(layoutType);
 
   if (!layoutCount) {
-    console.error(`Invalid layout count ${layoutCount} from layout type ${layoutType}`);
     return null;
   }
 

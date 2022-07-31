@@ -1,11 +1,10 @@
 export type PxDataMarketSingle = {
-  symbol: string,
-  open: number,
-  high: number,
-  low: number,
-  close: number,
-  changeVal: number,
-  changePct: number,
+  o: number,
+  h: number,
+  l: number,
+  c: number,
+  diffVal: number,
+  diffPct: number,
 };
 
 export type PxDataMarket = {[security in string]: PxDataMarketSingle};
