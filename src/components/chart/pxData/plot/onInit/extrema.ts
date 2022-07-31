@@ -19,6 +19,10 @@ export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlest
     price,
   });
 
+  if (!minPx) {
+    throw Error('Failed to initialize extrema Px lines');
+  }
+
   const lineVisible = getLayoutConfig(layoutConfig, 'inChartExtrema');
   const axisLabelVisible = getLayoutConfig(layoutConfig, 'inChartExtremaLabel');
 
