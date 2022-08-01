@@ -14,7 +14,7 @@ div {
   &.legend {
     @include overlay;
 
-    width: 100%;
+    width: calc(100% - 5rem);
   }
 
   &.toolbar {
