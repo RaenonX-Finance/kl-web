@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {useSession} from 'next-auth/react';
+import {Socket} from 'socket.io-client';
 
 import {mergedDispatchers} from '../../../state/aggregated/dispatchers';
 import {MergedDispatcherName} from '../../../state/aggregated/types';
@@ -12,6 +13,7 @@ import {SocketMessage} from '../../../types/socket';
 import {generateSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
 import {ensureStringMessage, useSocketEventHandler} from '../utils';
+import {useAuthHandler} from './auth';
 import {GeneralSocket} from './type';
 
 
@@ -20,11 +22,19 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
   const {data: session} = useSession();
   const dispatch = useDispatch();
   const {signIn} = useNextAuthCall();
+  useAuthHandler({socket});
 
   // System events
   const onConnectionError = (err: Error) => {
     console.error(err);
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
+  };
+  const onDisconnect = (reason: Socket.DisconnectReason) => {
+    if (reason === 'io server disconnect') {
+      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: '連線已中斷。請檢查帳戶是否多開。'}));
+    } else {
+      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: reason}));
+    }
   };
 
   // Custom events
@@ -57,6 +67,7 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
 
     // System events
     socket.on('connect_error', onConnectionError);
+    socket.on('disconnect', onDisconnect);
 
     // Custom events
     socket.on('init', onInit);
@@ -68,6 +79,9 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
     setSocket(socket);
 
     return () => {
+      socket.off('connect_error', onConnectionError);
+      socket.off('disconnect', onDisconnect);
+
       socket.off('init', onInit);
       socket.off('error', onError);
       socket.off('signIn', onSignIn);
