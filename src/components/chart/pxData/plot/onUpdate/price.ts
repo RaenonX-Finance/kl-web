@@ -17,11 +17,12 @@ export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig, partial
 
   const {symbol} = chartDataRef.current.contract;
   const title = symbol;
+  const fnToCandlestick = toCandlestick(getLayoutConfig(layoutConfig, 'candlestickColor'));
 
   if (partial) {
-    price.update(toCandlestick(getLayoutConfig(layoutConfig, 'candlestickColor'))(lastPrice));
+    price.update(fnToCandlestick(lastPrice));
   } else {
-    price.setData(chartDataRef.current.data.map(toCandlestick(getLayoutConfig(layoutConfig, 'candlestickColor'))));
+    price.setData(chartDataRef.current.data.map(fnToCandlestick));
   }
   price.applyOptions({title, priceLineVisible: getLayoutConfig(layoutConfig, 'currentPxLine')});
 };

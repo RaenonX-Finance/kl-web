@@ -108,11 +108,13 @@ export const TradingViewChart = <T, P, R, L>({
   React.useEffect(onLoad, [isLayoutConfigReady]);
   React.useEffect(
     onDataUpdatedInternal(true),
-    [chartObjectRef.current?.initData, layoutConfig, ...getPartialUpdateDeps(chartData)],
+    [chartObjectRef.current?.initData, ...getPartialUpdateDeps(chartData)],
   );
   React.useEffect(
     onDataUpdatedInternal(false),
-    getCompleteUpdateDeps(chartData),
+    // `layoutConfig` should trigger complete update because some config requires full re-paint
+    // > For example, candlestick color
+    [layoutConfig, ...getCompleteUpdateDeps(chartData)],
   );
 
   return (
