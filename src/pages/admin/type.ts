@@ -3,7 +3,9 @@ import React from 'react';
 import {AdminPath} from '../../const/path';
 
 
-export type AdminTabKey = 'signupKey';
+export type AdminTabKey =
+  'signupKey' |
+  'accountView';
 
 export type AdminTab = {
   tabKey: AdminTabKey,

@@ -9,31 +9,24 @@ import Tab from 'react-bootstrap/Tab';
 
 import {NarrowLayout} from '../../components/layout/narrow';
 import {PermissionLayout} from '../../components/layout/permission';
+import {AdminPath} from '../../const/path';
 import {managementPermissions} from '../../types/auth/user';
-import {adminTabs, DEFAULT_ADMIN_TAB_KEY, tabKeyToAdminPath} from './const';
+import {adminPathToTabKey, adminTabs, tabKeyToAdminPath} from './const';
 import styles from './main.module.scss';
 import {AdminTabKey} from './type';
 
 
-type Props = {
-  tabKey?: AdminTabKey,
-};
-
-export const AdminPanel = ({tabKey}: Props) => {
-  const [key, setKey] = React.useState<AdminTabKey>(tabKey || DEFAULT_ADMIN_TAB_KEY);
-  const {push} = useRouter();
+export const AdminPanel = () => {
+  const {push, pathname} = useRouter();
 
   const onSelect = async (key: string | null) => {
-    const typedKey = key as AdminTabKey;
-
-    setKey(typedKey);
-    await push(tabKeyToAdminPath[typedKey]);
+    await push(tabKeyToAdminPath[key as AdminTabKey]);
   };
 
   return (
     <PermissionLayout allowedWithPermissions={managementPermissions}>
       <NarrowLayout>
-        <Tab.Container activeKey={key} onSelect={onSelect}>
+        <Tab.Container activeKey={adminPathToTabKey[pathname as AdminPath]} onSelect={onSelect}>
           <Row className="g-3 p-3">
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
