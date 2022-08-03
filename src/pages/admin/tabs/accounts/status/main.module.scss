@@ -1,0 +1,52 @@
+@use "sass:color";
+@use "../../../../../../styles/colors";
+
+@mixin status-icon {
+  font-size: 1.25rem;
+}
+
+@mixin status-animation($name, $color) {
+  $color-og: $color;
+  $color-lighter: color.adjust($color, $lightness: 10%);
+
+  @keyframes status-glow-#{$name} {
+    from {
+      text-shadow: 0 0 0.25rem $color-og, 0 0 0.5rem $color-og;
+    }
+
+    to {
+      text-shadow: none;
+    }
+  }
+
+  animation: status-glow-#{$name} 1s ease-in-out infinite alternate;
+}
+
+i {
+  &.offline {
+    @include status-icon;
+
+    color: colors.$color-bw-140;
+  }
+
+  &.online {
+    @include status-icon;
+    @include status-animation(online, colors.$color-safe);
+
+    color: colors.$color-safe;
+  }
+
+  &.expired {
+    @include status-icon;
+    @include status-animation(expired, colors.$color-warning);
+
+    color: colors.$color-warning;
+  }
+
+  &.blocked {
+    @include status-icon;
+    @include status-animation(blocked, colors.$color-danger);
+
+    color: colors.$color-danger;
+  }
+}
