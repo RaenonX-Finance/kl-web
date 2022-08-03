@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {isExpired} from '../utils';
 import {StatusBlocked} from './blocked';
 import {StatusExpired} from './expired';
 import {StatusOffline} from './offline';
@@ -15,7 +16,7 @@ type Props = {
 export const StatusIcon = ({blocked, expiry, online}: Props) => {
   if (blocked) {
     return <StatusBlocked/>;
-  } else if (expiry && new Date() > expiry) {
+  } else if (isExpired(expiry)) {
     return <StatusExpired/>;
   } else if (online) {
     return <StatusOnline/>;

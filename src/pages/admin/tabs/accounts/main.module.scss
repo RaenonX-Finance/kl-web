@@ -1,0 +1,40 @@
+@use "sass:color";
+@use "../../../../../styles/colors";
+
+table {
+  &.account-table > tbody > tr > td {
+    vertical-align: middle;
+  }
+}
+
+tr {
+  &.admin > td {
+    background-color: color.change(colors.$color-dark-primary, $alpha: 0.18);
+  }
+
+  &.expired > td {
+    background-color: color.change(colors.$color-dark-warning, $alpha: 0.18);
+  }
+
+  &.blocked > td {
+    background-color: color.change(colors.$color-dark-danger, $alpha: 0.18);
+  }
+}
+
+td {
+  &.username {
+    font-family: monospace;
+  }
+
+  &.status-icon {
+    width: 1.2rem;
+  }
+
+  &.permission-badge > span {
+    &:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+
+    line-height: 1rem;
+  }
+}

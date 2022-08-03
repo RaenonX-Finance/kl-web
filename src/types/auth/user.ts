@@ -11,6 +11,7 @@ export type Permission =
   'chart:view' |
   'permission:add' |
   'permission:remove' |
+  'account:expiry' |
   'account:new' |
   'account:block' |
   'account:view';
@@ -19,6 +20,7 @@ export const isPermissionManagement: {[permission in Permission]: boolean} = {
   'chart:view': false,
   'permission:add': true,
   'permission:remove': true,
+  'account:expiry': true,
   'account:new': true,
   'account:block': true,
   'account:view': true,
