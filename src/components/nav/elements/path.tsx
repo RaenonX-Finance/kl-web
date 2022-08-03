@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 
 import {isPagePath} from '../../../const/path';
+import {isAllowed} from '../../../utils/permission';
 import styles from '../main.module.scss';
 import {NavItemPath} from '../type';
 
@@ -29,10 +30,8 @@ export const NavPath = ({
   );
 
   if (
-    requiredPermissions && !data?.user.isAdmin && (
-      !data?.user.permissions.length ||
-      data.user.permissions.some((owned) => requiredPermissions.includes(owned))
-    )
+    !!data?.user && !!requiredPermissions?.length &&
+    !isAllowed({...data.user, allowedWithPermissions: requiredPermissions})
   ) {
     // Permission check
     return <></>;

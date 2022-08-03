@@ -3,6 +3,7 @@ import React from 'react';
 import {useSession} from 'next-auth/react';
 
 import {Permission} from '../../types/auth/user';
+import {isAllowed} from '../../utils/permission';
 import {InsufficientPermission} from '../auth/permission/insufficientPermission';
 import {LoginRequired} from '../auth/permission/loginRequired';
 import {MainLoading} from '../common/loading/main';
@@ -20,10 +21,7 @@ export const PermissionLayout = ({children, allowedWithPermissions}: React.Props
     return <MainLoading/>;
   } else if (data === null) {
     return <LoginRequired/>;
-  } else if (
-    !data.user.isAdmin &&
-    !data.user.permissions.some((permission) => allowedWithPermissions.includes(permission))
-  ) {
+  } else if (!isAllowed({...data.user, allowedWithPermissions})) {
     return <InsufficientPermission allowedPermissions={allowedWithPermissions}/>;
   }
 
