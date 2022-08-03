@@ -11,6 +11,7 @@ import {NarrowLayout} from '../../components/layout/narrow';
 import {PermissionLayout} from '../../components/layout/permission';
 import {managementPermissions} from '../../types/auth/user';
 import {adminTabs, DEFAULT_ADMIN_TAB_KEY, tabKeyToAdminPath} from './const';
+import styles from './main.module.scss';
 import {AdminTabKey} from './type';
 
 
@@ -37,7 +38,7 @@ export const AdminPanel = ({tabKey}: Props) => {
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
                 {adminTabs.map(({tabKey, name, link}) => (
-                  <Nav.Item key={tabKey}>
+                  <Nav.Item key={tabKey} className={styles['admin-tab']}>
                     <Link href={link}>
                       <Nav.Link eventKey={tabKey}>{name}</Nav.Link>
                     </Link>
