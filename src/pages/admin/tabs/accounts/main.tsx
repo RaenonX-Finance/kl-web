@@ -1,18 +1,17 @@
 import React from 'react';
 
-import {format} from 'date-fns';
 import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
-import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {Permission} from '../../../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../../../types/time';
 import {AccountActions} from './actions/main';
-import {AdminBadge, permissionBadge} from './const';
+import {AccountExpiry} from './expiry';
 import styles from './main.module.scss';
+import {AccountPermissionBadges} from './permissionBadges';
 import {StatusIcon} from './status/main';
 import {getAccountRowClassName} from './utils';
 
@@ -40,7 +39,7 @@ const accounts: Account[] = [
   {
     username: 'accountM',
     permissions: ['chart:view', 'permission:add', 'account:view'],
-    expiry: '2022-09-01T14:48:00.000+00:00',
+    expiry: null,
     blocked: false,
     admin: false,
     online: false,
@@ -92,43 +91,25 @@ export const AdminTabAccountView = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {accounts.map((account) => {
-                    const {username, permissions, expiry, admin} = account;
-
-                    return (
-                      <tr key={username} className={getAccountRowClassName(account)}>
-                        <td className={styles['status-icon']}>
-                          <StatusIcon account={account}/>
-                        </td>
-                        <td className={styles['username']}>
-                          {username}
-                        </td>
-                        <td>
-                          {
-                            permissions.includes('account:expiry') ?
-                              <FloatingInput
-                                type="date"
-                                label="帳號過期日"
-                                value={expiry || undefined}
-                                className="mb-3"
-                                required
-                              /> :
-                              (expiry ? format(new Date(expiry), 'yyyy-MM-dd') : '-')
-                          }
-                        </td>
-                        <td className={styles['permission-badge']}>
-                          {admin ?
-                            <AdminBadge/> :
-                            permissions.map((permission) => (
-                              <React.Fragment key={permission}>{permissionBadge[permission]}</React.Fragment>
-                            ))}
-                        </td>
-                        <td className={styles['account-actions']}>
-                          <AccountActions account={account}/>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {accounts.map((account) => (
+                    <tr key={account.username} className={getAccountRowClassName(account)}>
+                      <td className={styles['status-icon']}>
+                        <StatusIcon account={account}/>
+                      </td>
+                      <td className={styles['username']}>
+                        {account.username}
+                      </td>
+                      <td>
+                        <AccountExpiry account={account}/>
+                      </td>
+                      <td className={styles['permission-badge']}>
+                        <AccountPermissionBadges account={account}/>
+                      </td>
+                      <td className={styles['account-actions']}>
+                        <AccountActions account={account}/>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table> :
               <Alert variant="danger">

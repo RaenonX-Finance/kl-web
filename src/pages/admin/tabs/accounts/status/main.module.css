@@ -1,9 +1,9 @@
 i.offline {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: #8c8c8c;
 }
 i.online {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   animation: status-glow-online 1s ease-in-out infinite alternate;
   color: #33ec57;
 }
@@ -16,7 +16,7 @@ i.online {
   }
 }
 i.expired {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   animation: status-glow-expired 1s ease-in-out infinite alternate;
   color: #f5d937;
 }
@@ -29,7 +29,7 @@ i.expired {
   }
 }
 i.blocked {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   animation: status-glow-blocked 1s ease-in-out infinite alternate;
   color: #ff4457;
 }

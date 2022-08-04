@@ -4,10 +4,10 @@ import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
 import {isAllowed} from '../../../../../utils/permission';
-import {AccountActionProps} from './type';
+import {AccountCellProps} from '../type';
 
 
-type Props = AccountActionProps;
+type Props = AccountCellProps;
 
 export const AccountActionBlock = ({account}: Props) => {
   const {data} = useSession();

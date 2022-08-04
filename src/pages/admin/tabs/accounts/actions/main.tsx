@@ -1,11 +1,11 @@
 import React from 'react';
 
+import {AccountCellProps} from '../type';
 import {AccountActionBlock} from './block';
 import {AccountActionPermission} from './permission';
-import {AccountActionProps} from './type';
 
 
-type Props = AccountActionProps;
+type Props = AccountCellProps;
 
 export const AccountActions = (props: Props) => {
   return (

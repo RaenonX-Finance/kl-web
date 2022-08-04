@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Account} from '../main';
+import {AccountCellProps} from '../type';
 import {isExpired} from '../utils';
 import {StatusBlocked} from './blocked';
 import {StatusExpired} from './expired';
@@ -8,9 +8,7 @@ import {StatusOffline} from './offline';
 import {StatusOnline} from './online';
 
 
-type Props = {
-  account: Account,
-};
+type Props = AccountCellProps;
 
 export const StatusIcon = ({account}: Props) => {
   const {blocked, expiry, online} = account;

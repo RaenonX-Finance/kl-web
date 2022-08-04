@@ -9,12 +9,12 @@ import Row from 'react-bootstrap/Row';
 import {availablePermissions, PermissionMap} from '../../../../../types/auth/user';
 import {isAllowed} from '../../../../../utils/permission';
 import {permissionBadge} from '../const';
+import {AccountCellProps} from '../type';
 import styles from './main.module.scss';
-import {AccountActionProps} from './type';
 import {generatePermissionMap} from './utils';
 
 
-type Props = AccountActionProps;
+type Props = AccountCellProps;
 
 export const AccountActionPermission = ({account}: Props) => {
   const {data} = useSession();
@@ -48,22 +48,20 @@ export const AccountActionPermission = ({account}: Props) => {
           <>
             <h5 className="mx-3 mt-3 mb-0">新增權限</h5>
             <Modal.Body>
-              {
-                availablePermissions
-                  .filter((permission) => !permissions.includes(permission))
-                  .map((permission) => (
-                    <Button
-                      key={permission}
-                      variant={permissionToAdd[permission] ? 'success' : 'outline-secondary'}
-                      className={styles['permission-button']}
-                      onClick={() => (
-                        setPermissionToAdd({...permissionToAdd, [permission]: !permissionToAdd[permission]})
-                      )}
-                    >
-                      {permissionBadge[permission]}
-                    </Button>
-                  ))
-              }
+              {availablePermissions
+                .filter((permission) => !permissions.includes(permission))
+                .map((permission) => (
+                  <Button
+                    key={permission}
+                    variant={permissionToAdd[permission] ? 'success' : 'outline-secondary'}
+                    className={styles['permission-button']}
+                    onClick={() => (
+                      setPermissionToAdd({...permissionToAdd, [permission]: !permissionToAdd[permission]})
+                    )}
+                  >
+                    {permissionBadge[permission]}
+                  </Button>
+                )) }
             </Modal.Body>
           </>
         }
@@ -72,22 +70,20 @@ export const AccountActionPermission = ({account}: Props) => {
           <>
             <h5 className="mx-3 mt-3 mb-0">移除權限</h5>
             <Modal.Body>
-              {
-                availablePermissions
-                  .filter((permission) => permissions.includes(permission))
-                  .map((permission) => (
-                    <Button
-                      key={permission}
-                      variant={permissionToRemove[permission] ? 'danger' : 'outline-secondary'}
-                      className={styles['permission-button']}
-                      onClick={() => (
-                        setPermissionToRemove({...permissionToRemove, [permission]: !permissionToRemove[permission]})
-                      )}
-                    >
-                      {permissionBadge[permission]}
-                    </Button>
-                  ))
-              }
+              {availablePermissions
+                .filter((permission) => permissions.includes(permission))
+                .map((permission) => (
+                  <Button
+                    key={permission}
+                    variant={permissionToRemove[permission] ? 'danger' : 'outline-secondary'}
+                    className={styles['permission-button']}
+                    onClick={() => (
+                      setPermissionToRemove({...permissionToRemove, [permission]: !permissionToRemove[permission]})
+                    )}
+                  >
+                    {permissionBadge[permission]}
+                  </Button>
+                ))}
             </Modal.Body>
           </>
         }
