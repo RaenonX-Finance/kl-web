@@ -25,6 +25,7 @@ export const useNextAuthCall = (): UseNextAuthCallReturn => {
         await nextAuthSignOut();
       }
 
+      console.log('next signIn', opts?.providerId || CUSTOM_PROVIDER_ID, process.env.NEXTAUTH_URL);
       await nextAuthSignIn(opts?.providerId || CUSTOM_PROVIDER_ID);
     } catch (err) {
       console.error(err);

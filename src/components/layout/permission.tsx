@@ -2,10 +2,10 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
+import {LoginRedirect} from '../../pages/auth/loginRedirect';
 import {Permission} from '../../types/auth/user';
 import {isAllowed} from '../../utils/permission';
 import {InsufficientPermission} from '../auth/permission/insufficientPermission';
-import {LoginRequired} from '../auth/permission/loginRequired';
 import {MainLoading} from '../common/loading/main';
 import {CommonProtectedLayout} from './common';
 
@@ -20,7 +20,7 @@ export const PermissionLayout = ({children, allowedWithPermissions}: React.Props
   if (status === 'loading') {
     return <MainLoading/>;
   } else if (data === null) {
-    return <LoginRequired/>;
+    return <LoginRedirect/>;
   } else if (!isAllowed({...data.user, allowedWithPermissions})) {
     return <InsufficientPermission allowedPermissions={allowedWithPermissions}/>;
   }
