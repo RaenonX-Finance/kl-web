@@ -2,7 +2,6 @@ import React from 'react';
 
 import {format} from 'date-fns';
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
@@ -10,6 +9,7 @@ import Table from 'react-bootstrap/Table';
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {Permission} from '../../../../types/auth/user';
+import {AccountActions} from './actions';
 import styles from './main.module.scss';
 import {AdminBadge, permissionBadge} from './permission';
 import {StatusIcon} from './status/main';
@@ -92,7 +92,7 @@ export const AdminTabAccountView = () => {
                 </thead>
                 <tbody>
                   {accounts.map((account) => {
-                    const {username, permissions, expiry, blocked, admin} = account;
+                    const {username, permissions, expiry, admin} = account;
 
                     return (
                       <tr key={username} className={getAccountRowClassName(account)}>
@@ -118,18 +118,12 @@ export const AdminTabAccountView = () => {
                         <td className={styles['permission-badge']}>
                           {admin ?
                             <AdminBadge/> :
-                            permissions.map((permission) => permissionBadge[permission])}
+                            permissions.map((permission) => (
+                              <React.Fragment key={permission}>{permissionBadge[permission]}</React.Fragment>
+                            ))}
                         </td>
                         <td>
-                          {
-                            blocked ?
-                              <Button variant="outline-success" size="sm">
-                                解鎖
-                              </Button> :
-                              <Button variant="outline-danger" size="sm">
-                                禁用
-                              </Button>
-                          }
+                          <AccountActions account={account}/>
                         </td>
                       </tr>
                     );
