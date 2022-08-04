@@ -1,4 +1,4 @@
-import {ISOTimestampWithTimezone} from '../../../../types/auth/user';
+import {ISOTimestampWithTimezone} from '../../../../types/time';
 import {Account} from './main';
 import styles from './main.module.scss';
 
