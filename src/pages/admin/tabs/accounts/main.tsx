@@ -9,9 +9,10 @@ import Table from 'react-bootstrap/Table';
 import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {Permission} from '../../../../types/auth/user';
-import {AccountActions} from './actions';
+import {ISOTimestampWithTimezone} from '../../../../types/time';
+import {AccountActions} from './actions/main';
+import {AdminBadge, permissionBadge} from './const';
 import styles from './main.module.scss';
-import {AdminBadge, permissionBadge} from './permission';
 import {StatusIcon} from './status/main';
 import {getAccountRowClassName} from './utils';
 
@@ -19,7 +20,7 @@ import {getAccountRowClassName} from './utils';
 export type Account = {
   username: string,
   permissions: Permission[],
-  expiry: Date | null,
+  expiry: ISOTimestampWithTimezone | null,
   blocked: boolean,
   admin: boolean,
   online: boolean,
@@ -30,7 +31,7 @@ const accounts: Account[] = [
   {
     username: 'accountA',
     permissions: ['chart:view'],
-    expiry: new Date(2022, 9, 1),
+    expiry: '2022-09-01T14:48:00.000+00:00',
     blocked: false,
     admin: false,
     online: false,
@@ -39,7 +40,7 @@ const accounts: Account[] = [
   {
     username: 'accountM',
     permissions: ['chart:view', 'permission:add', 'account:view'],
-    expiry: new Date(2022, 9, 1),
+    expiry: '2022-09-01T14:48:00.000+00:00',
     blocked: false,
     admin: false,
     online: false,
@@ -57,7 +58,7 @@ const accounts: Account[] = [
   {
     username: 'accountE',
     permissions: ['chart:view'],
-    expiry: new Date(2021, 9, 1),
+    expiry: '2021-09-01T14:48:00.000+00:00',
     blocked: false,
     admin: false,
     online: false,
@@ -66,7 +67,7 @@ const accounts: Account[] = [
   {
     username: 'accountB',
     permissions: ['chart:view'],
-    expiry: new Date(2022, 9, 1),
+    expiry: '2022-09-01T14:48:00.000+00:00',
     blocked: true,
     admin: false,
     online: false,
@@ -80,7 +81,7 @@ export const AdminTabAccountView = () => {
         <Col>
           {
             accounts.length > 0 ?
-              <Table bordered hover responsive variant="dark" className={styles['account-table']}>
+              <Table responsive variant="dark" className={styles['account-table']}>
                 <thead>
                   <tr>
                     <th>狀態</th>
@@ -97,7 +98,7 @@ export const AdminTabAccountView = () => {
                     return (
                       <tr key={username} className={getAccountRowClassName(account)}>
                         <td className={styles['status-icon']}>
-                          <StatusIcon {...account}/>
+                          <StatusIcon account={account}/>
                         </td>
                         <td className={styles['username']}>
                           {username}
@@ -112,7 +113,7 @@ export const AdminTabAccountView = () => {
                                 className="mb-3"
                                 required
                               /> :
-                              (expiry ? format(expiry, 'yyyy-MM-dd') : '-')
+                              (expiry ? format(new Date(expiry), 'yyyy-MM-dd') : '-')
                           }
                         </td>
                         <td className={styles['permission-badge']}>
@@ -122,7 +123,7 @@ export const AdminTabAccountView = () => {
                               <React.Fragment key={permission}>{permissionBadge[permission]}</React.Fragment>
                             ))}
                         </td>
-                        <td>
+                        <td className={styles['account-actions']}>
                           <AccountActions account={account}/>
                         </td>
                       </tr>

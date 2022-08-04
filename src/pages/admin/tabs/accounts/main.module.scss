@@ -1,6 +1,18 @@
 @use "sass:color";
 @use "../../../../../styles/colors";
 
+span {
+  &.badge {
+    &:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.2rem;
+  }
+}
+
 table {
   &.account-table > tbody > tr > td {
     vertical-align: middle;
@@ -30,11 +42,7 @@ td {
     width: 1.2rem;
   }
 
-  &.permission-badge > span {
-    &:not(:last-child) {
-      margin-right: 0.25rem;
-    }
-
-    line-height: 1rem;
+  &.account-actions > button:not(:last-child) {
+    margin-right: 0.5rem;
   }
 }

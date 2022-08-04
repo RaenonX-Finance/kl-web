@@ -1,0 +1,8 @@
+button.permission-button {
+  padding: 0.5rem;
+}
+button.permission-button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */

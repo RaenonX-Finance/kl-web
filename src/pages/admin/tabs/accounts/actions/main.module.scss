@@ -1,0 +1,9 @@
+button {
+  &.permission-button {
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    padding: 0.5rem;
+  }
+}

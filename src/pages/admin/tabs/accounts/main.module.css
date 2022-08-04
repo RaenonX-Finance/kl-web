@@ -1,3 +1,12 @@
+span.badge {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2rem;
+}
+span.badge:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
 table.account-table > tbody > tr > td {
   vertical-align: middle;
 }
@@ -18,11 +27,8 @@ td.username {
 td.status-icon {
   width: 1.2rem;
 }
-td.permission-badge > span {
-  line-height: 1rem;
-}
-td.permission-badge > span:not(:last-child) {
-  margin-right: 0.25rem;
+td.account-actions > button:not(:last-child) {
+  margin-right: 0.5rem;
 }
 
 /*# sourceMappingURL=main.module.css.map */

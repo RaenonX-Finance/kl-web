@@ -15,7 +15,9 @@ export type Permission =
   'account:block' |
   'account:view';
 
-export const isPermissionManagement: {[permission in Permission]: boolean} = {
+export type PermissionMap = {[permission in Permission]: boolean};
+
+export const isPermissionManagement: PermissionMap = {
   'chart:view': false,
   'permission:add': true,
   'permission:remove': true,
@@ -28,6 +30,8 @@ export const isPermissionManagement: {[permission in Permission]: boolean} = {
 export const managementPermissions: Permission[] = Object.entries(isPermissionManagement)
   .filter(([_, isManagement]) => isManagement)
   .map(([permission]) => permission as Permission);
+
+export const availablePermissions: Permission[] = Object.keys(isPermissionManagement) as Permission[];
 
 /**
  * User data model returned by calling the `userinfo` URL defined in `next-auth` custom OAuth provider config.

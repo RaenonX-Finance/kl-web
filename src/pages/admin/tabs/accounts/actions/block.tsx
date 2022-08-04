@@ -3,21 +3,20 @@ import React from 'react';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
-import {isAllowed} from '../../../../utils/permission';
-import {Account} from './main';
+import {isAllowed} from '../../../../../utils/permission';
+import {AccountActionProps} from './type';
 
 
-type Props = {
-  account: Account,
-};
+type Props = AccountActionProps;
 
-export const AccountActions = ({account}: Props) => {
+export const AccountActionBlock = ({account}: Props) => {
   const {data} = useSession();
-  const {blocked} = account;
+  const {blocked, admin} = account;
 
   if (
     !data?.user ||
-    !isAllowed({...data.user, allowedWithPermissions: ['account:block']})
+    !isAllowed({...data.user, allowedWithPermissions: ['account:block']}) ||
+    admin
   ) {
     return <></>;
   } else if (blocked) {
