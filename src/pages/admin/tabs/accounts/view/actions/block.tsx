@@ -3,7 +3,7 @@ import React from 'react';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
-import {isAllowed} from '../../../../../utils/permission';
+import {isAllowed} from '../../../../../../utils/permission';
 import {AccountCellProps} from '../type';
 
 

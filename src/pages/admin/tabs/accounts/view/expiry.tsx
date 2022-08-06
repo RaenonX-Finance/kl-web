@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import {ISODateString} from '../../../../types/time';
-import {isAllowed} from '../../../../utils/permission';
+import {ISODateString} from '../../../../../types/time';
+import {isAllowed} from '../../../../../utils/permission';
 import {AccountCellProps} from './type';
 
 

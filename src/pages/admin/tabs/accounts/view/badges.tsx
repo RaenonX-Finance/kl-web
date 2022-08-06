@@ -2,7 +2,7 @@ import React from 'react';
 
 import Badge from 'react-bootstrap/Badge';
 
-import {Permission} from '../../../../types/auth/user';
+import {Permission} from '../../../../../types/auth/user';
 import styles from './main.module.scss';
 
 

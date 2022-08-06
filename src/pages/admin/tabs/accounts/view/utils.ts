@@ -1,5 +1,5 @@
-import {ISOTimestampWithTimezone} from '../../../../types/time';
-import {Account} from './main';
+import {ISOTimestampWithTimezone} from '../../../../../types/time';
+import {Account} from '../main';
 import styles from './main.module.scss';
 
 

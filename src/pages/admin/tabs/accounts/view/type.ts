@@ -1,4 +1,4 @@
-import {Account} from './main';
+import {Account} from '../main';
 
 
 export type AccountCellProps = {

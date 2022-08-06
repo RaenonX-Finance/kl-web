@@ -1,19 +1,13 @@
 import React from 'react';
 
-import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {Permission} from '../../../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../../../types/time';
-import {AccountActions} from './actions/main';
-import {AccountExpiry} from './expiry';
-import styles from './main.module.scss';
-import {AccountPermissionBadges} from './permissionBadges';
-import {StatusIcon} from './status/main';
-import {getAccountRowClassName} from './utils';
+import {AccountTableNoAccount} from './noAccount';
+import {AccountListView} from './view/main';
 
 
 export type Account = {
@@ -78,46 +72,9 @@ export const AdminTabAccountView = () => {
     <PermissionLayout allowedWithPermissions={['account:view']}>
       <Row className="mb-2 text-center">
         <Col>
-          {
-            accounts.length > 0 ?
-              <Table responsive variant="dark" className={styles['account-table']}>
-                <thead>
-                  <tr>
-                    <th>狀態</th>
-                    <th>帳號 ID</th>
-                    <th>到期日</th>
-                    <th>權限</th>
-                    <th>動作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {accounts.map((account) => (
-                    <tr key={account.username} className={getAccountRowClassName(account)}>
-                      <td className={styles['status-icon']}>
-                        <StatusIcon account={account}/>
-                      </td>
-                      <td className={styles['username']}>
-                        {account.username}
-                      </td>
-                      <td>
-                        <AccountExpiry account={account}/>
-                      </td>
-                      <td className={styles['permission-badge']}>
-                        <AccountPermissionBadges account={account}/>
-                      </td>
-                      <td className={styles['account-actions']}>
-                        <AccountActions account={account}/>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table> :
-              <Alert variant="danger">
-                <p className="h4 m-0">
-                  無可用帳號。
-                </p>
-              </Alert>
-          }
+          {accounts.length > 0 ?
+            <AccountListView accounts={accounts}/> :
+            <AccountTableNoAccount/>}
         </Col>
       </Row>
     </PermissionLayout>

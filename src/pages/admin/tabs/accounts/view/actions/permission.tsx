@@ -6,9 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
-import {availablePermissions, PermissionMap} from '../../../../../types/auth/user';
-import {isAllowed} from '../../../../../utils/permission';
-import {permissionBadge} from '../const';
+import {availablePermissions, PermissionMap} from '../../../../../../types/auth/user';
+import {isAllowed} from '../../../../../../utils/permission';
+import {permissionBadge} from '../badges';
 import {AccountCellProps} from '../type';
 import styles from './main.module.scss';
 import {generatePermissionMap} from './utils';

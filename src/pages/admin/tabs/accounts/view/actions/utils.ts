@@ -1,4 +1,4 @@
-import {availablePermissions, PermissionMap} from '../../../../../types/auth/user';
+import {availablePermissions, PermissionMap} from '../../../../../../types/auth/user';
 
 
 export const generatePermissionMap = (initialValue: boolean): PermissionMap => (

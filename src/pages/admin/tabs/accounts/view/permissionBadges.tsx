@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AdminBadge, permissionBadge} from './const';
+import {AdminBadge, permissionBadge} from './badges';
 import {AccountCellProps} from './type';
 
 
