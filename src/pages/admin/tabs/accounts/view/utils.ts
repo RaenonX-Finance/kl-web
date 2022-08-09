@@ -1,3 +1,4 @@
+import {availablePermissions, PermissionMap} from '../../../../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../../../../types/time';
 import {Account} from '../main';
 import styles from './main.module.scss';
@@ -30,3 +31,7 @@ export const getAccountRowClassName = ({expiry, admin, blocked}: Account): strin
 
   return '';
 };
+
+export const generatePermissionMap = (initialValue: boolean): PermissionMap => (
+  Object.fromEntries(availablePermissions.map((permission) => [permission, initialValue])) as PermissionMap
+);

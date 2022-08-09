@@ -10,8 +10,8 @@ import {availablePermissions, PermissionMap} from '../../../../../../types/auth/
 import {isAllowed} from '../../../../../../utils/permission';
 import {permissionBadge} from '../badges';
 import {AccountCellProps} from '../type';
+import {generatePermissionMap} from '../utils';
 import styles from './main.module.scss';
-import {generatePermissionMap} from './utils';
 
 
 type Props = AccountCellProps;
@@ -61,7 +61,7 @@ export const AccountActionPermission = ({account}: Props) => {
                   >
                     {permissionBadge[permission]}
                   </Button>
-                )) }
+                ))}
             </Modal.Body>
           </>
         }

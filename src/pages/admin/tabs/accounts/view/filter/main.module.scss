@@ -1,0 +1,21 @@
+@use "../../../../../../../styles/colors";
+
+button {
+  &.permission-button {
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+div {
+  &.filter {
+    background-color: colors.$color-bw-14;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
