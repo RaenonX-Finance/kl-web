@@ -7,8 +7,9 @@ import Row from 'react-bootstrap/Row';
 
 import {FloatingInput} from '../../../../../../components/common/form/floating/input';
 import {availablePermissions} from '../../../../../../types/auth/user';
+import {ISODateString} from '../../../../../../types/time';
 import {permissionBadge} from '../badges';
-import {AccountFilterConditions} from '../type';
+import {AccountFilterConditions, AccountStatus} from '../type';
 import styles from './main.module.scss';
 
 
@@ -18,7 +19,14 @@ type Props = {
 };
 
 export const AccountFilter = ({conditions, setConditions}: Props) => {
-  const {permissions} = conditions;
+  const {username, expiry, permissions, status} = conditions;
+
+  const updateStatus = (status: AccountStatus) => () => {
+    setConditions({
+      ...conditions,
+      status,
+    });
+  };
 
   return (
     <div className={styles['filter']}>
@@ -26,18 +34,39 @@ export const AccountFilter = ({conditions, setConditions}: Props) => {
         <Col md>
           <FloatingInput
             label="使用者名稱"
+            value={username}
+            onChange={({target}) => setConditions({
+              ...conditions,
+              username: target.value,
+            })}
           />
         </Col>
         <Col md>
           <FloatingInput
             type="date"
             label="到期日 (起)"
+            value={expiry.start || undefined}
+            onChange={({target}) => setConditions({
+              ...conditions,
+              expiry: {
+                ...conditions.expiry,
+                start: target.value as ISODateString,
+              },
+            })}
           />
         </Col>
         <Col md>
           <FloatingInput
             type="date"
             label="到期日 (訖)"
+            value={expiry.end || undefined}
+            onChange={({target}) => setConditions({
+              ...conditions,
+              expiry: {
+                ...conditions.expiry,
+                end: target.value as ISODateString,
+              },
+            })}
           />
         </Col>
       </Row>
@@ -59,7 +88,8 @@ export const AccountFilter = ({conditions, setConditions}: Props) => {
                   permissions: {
                     ...permissions,
                     [permission]: !permissions[permission],
-                  }})}
+                  },
+                })}
               >
                 {permissionBadge[permission]}
               </Button>
@@ -75,11 +105,41 @@ export const AccountFilter = ({conditions, setConditions}: Props) => {
       <Row className="text-start">
         <Col>
           <ButtonGroup className="w-100">
-            <Button variant="outline-info">(全部)</Button>
-            <Button variant="outline-success">在線</Button>
-            <Button variant="outline-light">離線</Button>
-            <Button variant="outline-warning">逾期</Button>
-            <Button variant="outline-danger">封鎖</Button>
+            <Button
+              variant="outline-info"
+              active={status === 'all'}
+              onClick={updateStatus('all')}
+            >
+              (全部)
+            </Button>
+            <Button
+              variant="outline-success"
+              active={status === 'online'}
+              onClick={updateStatus('online')}
+            >
+              在線
+            </Button>
+            <Button
+              variant="outline-light"
+              active={status === 'offline'}
+              onClick={updateStatus('offline')}
+            >
+              離線
+            </Button>
+            <Button
+              variant="outline-warning"
+              active={status === 'expired'}
+              onClick={updateStatus('expired')}
+            >
+              逾期
+            </Button>
+            <Button
+              variant="outline-danger"
+              active={status === 'blocked'}
+              onClick={updateStatus('blocked')}
+            >
+              封鎖
+            </Button>
           </ButtonGroup>
         </Col>
       </Row>

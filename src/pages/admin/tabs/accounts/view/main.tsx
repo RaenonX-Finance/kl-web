@@ -10,7 +10,7 @@ import styles from './main.module.scss';
 import {AccountPermissionBadges} from './permissionBadges';
 import {StatusIcon} from './status/main';
 import {AccountFilterConditions} from './type';
-import {generatePermissionMap, getAccountRowClassName} from './utils';
+import {filterAccounts, generatePermissionMap, getAccountRowClassName} from './utils';
 
 
 type Props = {
@@ -42,7 +42,7 @@ export const AccountListView = ({accounts}: Props) => {
           </tr>
         </thead>
         <tbody>
-          {accounts.map((account) => (
+          {filterAccounts(accounts, conditions).map((account) => (
             <tr key={account.username} className={getAccountRowClassName(account)}>
               <td className={styles['status-icon']}>
                 <StatusIcon account={account}/>
