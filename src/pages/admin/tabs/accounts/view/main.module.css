@@ -7,8 +7,17 @@ span.badge:not(:last-child) {
   margin-right: 0.25rem;
 }
 
-table.account-table > tbody > tr > td {
-  vertical-align: middle;
+td.username {
+  font-family: monospace;
+}
+td.status-icon {
+  width: 1.2rem;
+}
+td.account-actions > button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+td.expiry {
+  min-width: 18rem;
 }
 
 tr.admin > td {
@@ -21,17 +30,8 @@ tr.blocked > td {
   background-color: rgba(201, 29, 46, 0.18);
 }
 
-td.username {
-  font-family: monospace;
-}
-td.status-icon {
-  width: 1.2rem;
-}
-td.account-actions > button:not(:last-child) {
-  margin-right: 0.5rem;
-}
-td.expiry {
-  min-width: 18rem;
+table.account-table > tbody > tr > td {
+  vertical-align: middle;
 }
 
 /*# sourceMappingURL=main.module.css.map */

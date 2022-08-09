@@ -13,9 +13,21 @@ span {
   }
 }
 
-table {
-  &.account-table > tbody > tr > td {
-    vertical-align: middle;
+td {
+  &.username {
+    font-family: monospace;
+  }
+
+  &.status-icon {
+    width: 1.2rem;
+  }
+
+  &.account-actions > button:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+  &.expiry {
+    min-width: 18rem;
   }
 }
 
@@ -33,20 +45,8 @@ tr {
   }
 }
 
-td {
-  &.username {
-    font-family: monospace;
-  }
-
-  &.status-icon {
-    width: 1.2rem;
-  }
-
-  &.account-actions > button:not(:last-child) {
-    margin-right: 0.5rem;
-  }
-
-  &.expiry {
-    min-width: 18rem;
+table {
+  &.account-table > tbody > tr > td {
+    vertical-align: middle;
   }
 }
