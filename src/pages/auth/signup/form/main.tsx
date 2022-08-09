@@ -18,14 +18,16 @@ export const AuthSignupForm = () => {
   const [data, setData] = React.useState<UserSignupFormData>({
     username: '',
     password: '',
+    passwordConfirm: '',
     signupKey: query.signupKey as string || '',
     disabled: false,
     error: '',
   });
-  const {signupKey, username, password, disabled} = data;
+  const {signupKey, username, password, passwordConfirm, disabled} = data;
   const isUsernameValid = isValidUsername(username);
   const isPasswordValid = isValidPassword(password);
-  const signupDisabled = disabled || !isUsernameValid || !isPasswordValid;
+  const isPasswordMatch = !!password && !!passwordConfirm && password === passwordConfirm;
+  const signupDisabled = disabled || !isUsernameValid || !isPasswordValid || !isPasswordMatch;
 
   const onSubmit = async () => {
     await apiSignupUser({username, password, signupKey});
@@ -72,6 +74,19 @@ export const AuthSignupForm = () => {
         isValid={isPasswordValid}
         isInvalid={!isPasswordValid}
         feedbackOnInvalid="密碼最低長度為 8 個字元。"
+      />
+      <FloatingInput
+        type="password"
+        label="密碼確認"
+        autoComplete="new-password"
+        value={passwordConfirm}
+        minLength={8}
+        onChange={({target}) => setData({...data, passwordConfirm: target.value})}
+        className="mb-3"
+        required
+        isValid={isPasswordMatch}
+        isInvalid={!isPasswordMatch}
+        feedbackOnInvalid="密碼不相符。"
       />
       <Button className="w-100" variant="info" disabled={signupDisabled} type="submit">
         <TextWithLoading show={disabled} text="註冊"/>
