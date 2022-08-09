@@ -36,7 +36,7 @@ export const AccountListView = ({accounts}: Props) => {
             <td className={styles['username']}>
               {account.username}
             </td>
-            <td>
+            <td className={styles['expiry']}>
               <AccountExpiry account={account}/>
             </td>
             <td className={styles['permission-badge']}>

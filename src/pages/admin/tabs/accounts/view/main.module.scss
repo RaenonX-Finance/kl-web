@@ -45,4 +45,8 @@ td {
   &.account-actions > button:not(:last-child) {
     margin-right: 0.5rem;
   }
+
+  &.expiry {
+    min-width: 18rem;
+  }
 }

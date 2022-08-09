@@ -30,5 +30,8 @@ td.status-icon {
 td.account-actions > button:not(:last-child) {
   margin-right: 0.5rem;
 }
+td.expiry {
+  min-width: 18rem;
+}
 
 /*# sourceMappingURL=main.module.css.map */
