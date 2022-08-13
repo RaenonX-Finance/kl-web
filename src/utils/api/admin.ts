@@ -1,7 +1,8 @@
 import {AxiosResponse} from 'axios';
 
 import {AccountData} from '../../types/admin';
-import {apiSendGetRequest} from './common';
+import {ISOTimestampWithTimezone} from '../../types/time';
+import {apiSendGetRequest, apiSendPostRequest} from './common';
 
 
 export type ApiGetAccountListOpts = {
@@ -14,5 +15,27 @@ export const apiGetAccountList = ({
   apiSendGetRequest({
     apiPath: '/admin/accounts',
     token,
+  })
+);
+
+export type ApiUpdateExpiryOpts = {
+  token: string,
+  id: string,
+  expiry: ISOTimestampWithTimezone | null,
+};
+
+export const apiUpdateExpiry = ({
+  token,
+  id,
+  expiry,
+}: ApiUpdateExpiryOpts): Promise<AxiosResponse<void>> => (
+  apiSendPostRequest({
+    apiPath: '/admin/update-expiry',
+    contentType: 'application/json',
+    token,
+    data: {
+      id,
+      expiry,
+    },
   })
 );
