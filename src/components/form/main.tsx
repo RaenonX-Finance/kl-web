@@ -30,6 +30,12 @@ export const AjaxForm = <D extends AjaxFormData>({
 
     try {
       await onSubmit(e);
+
+      setData({
+        ...data,
+        disabled: false,
+        error: '',
+      });
     } catch (err) {
       setData({
         ...data,

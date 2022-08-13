@@ -45,10 +45,6 @@ export const AdminTabGenerateSignupKey = () => {
       signupKey: response.signup_key,
       expiry: new Date(response.expiry),
     });
-    setData({
-      ...data,
-      disabled: false,
-    });
   };
 
   return (
