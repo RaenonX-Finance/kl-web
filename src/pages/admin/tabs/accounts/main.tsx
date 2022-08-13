@@ -16,11 +16,15 @@ export const AdminTabAccountView = () => {
   const {data} = useSession();
   const {fetchStatus, fetchFunction} = useFetchState(
     [],
-    () => apiGetAccountList({token: data?.user?.token || ''}),
+    (token: string) => apiGetAccountList({token}),
     'Failed to get account list.',
   );
 
-  fetchFunction();
+  if (!data?.user) {
+    return <MainLoading/>;
+  }
+
+  fetchFunction(data.user.token || '');
 
   if (isNotFetched(fetchStatus)) {
     return <MainLoading/>;
