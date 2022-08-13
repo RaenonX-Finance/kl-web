@@ -2,7 +2,7 @@ import React from 'react';
 
 import Table from 'react-bootstrap/Table';
 
-import {Account} from '../main';
+import {AccountData} from '../../../../../types/admin';
 import {AccountActions} from './actions/main';
 import {AccountExpiry} from './expiry';
 import {AccountFilter} from './filter/main';
@@ -14,7 +14,7 @@ import {filterAccounts, generatePermissionMap, getAccountRowClassName} from './u
 
 
 type Props = {
-  accounts: Account[],
+  accounts: AccountData[],
 };
 
 export const AccountListView = ({accounts}: Props) => {

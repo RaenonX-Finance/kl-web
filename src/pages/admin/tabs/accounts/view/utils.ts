@@ -1,6 +1,6 @@
+import {AccountData} from '../../../../../types/admin';
 import {availablePermissions, Permission, PermissionMap} from '../../../../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../../../../types/time';
-import {Account} from '../main';
 import styles from './main.module.scss';
 import {AccountFilterConditions} from './type';
 
@@ -17,7 +17,7 @@ export const isExpired = (expiry: Date | ISOTimestampWithTimezone | null): boole
   return false;
 };
 
-export const getAccountRowClassName = ({expiry, admin, blocked}: Account): string => {
+export const getAccountRowClassName = ({expiry, admin, blocked}: AccountData): string => {
   if (blocked) {
     return styles['blocked'];
   }
@@ -38,9 +38,9 @@ export const generatePermissionMap = (initialValue: boolean): PermissionMap => (
 );
 
 export const filterAccounts = (
-  accounts: Account[],
+  accounts: AccountData[],
   {username, status, expiry, permissions}: AccountFilterConditions,
-): Account[] => {
+): AccountData[] => {
   // Filter by username
   if (username) {
     accounts = accounts.filter((account) => account.username.toUpperCase().includes(username.toUpperCase()));

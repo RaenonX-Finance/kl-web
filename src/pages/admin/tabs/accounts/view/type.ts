@@ -1,10 +1,10 @@
+import {AccountData} from '../../../../../types/admin';
 import {PermissionMap} from '../../../../../types/auth/user';
 import {ISODateString} from '../../../../../types/time';
-import {Account} from '../main';
 
 
 export type AccountCellProps = {
-  account: Account,
+  account: AccountData,
 };
 
 export type AccountStatus = 'online' | 'offline' | 'expired' | 'blocked' | 'all';

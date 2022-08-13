@@ -33,3 +33,25 @@ export const apiSendPostRequest = <R>({
     data,
   });
 };
+
+type ApiGetRequestOpts = {
+  /**
+   * This has to start with `/`.
+   */
+  apiPath: string,
+  token?: string,
+};
+
+export const apiSendGetRequest = <R>({
+  apiPath,
+  token,
+}: ApiGetRequestOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+  return axios.request({
+    url: `${process.env.NEXT_PUBLIC_API_URL}${apiPath}`,
+    method: 'GET',
+    headers: {
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
+      'Content-Type': 'application/json',
+    },
+  });
+};
