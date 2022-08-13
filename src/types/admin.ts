@@ -3,6 +3,7 @@ import {ISOTimestampWithTimezone} from './time';
 
 
 export type AccountData = {
+  id: string,
   username: string,
   permissions: Permission[],
   expiry: ISOTimestampWithTimezone | null,
