@@ -16,7 +16,11 @@ import {UpdateSingleAccount} from './view/type';
 
 export const AdminTabAccountView = () => {
   const {data} = useSession();
-  const {fetchStatus, fetchFunction, setFetchStatus} = useFetchStateProcessed(
+  const {
+    fetchStatus,
+    fetchFunction: fetchAccountList,
+    setFetchStatus,
+  } = useFetchStateProcessed(
     {},
     (token: string) => apiGetAccountList({token}),
     '無法獲取帳號清單，請重新登入。',
@@ -25,13 +29,18 @@ export const AdminTabAccountView = () => {
     ),
   );
 
-  if (!data?.user) {
-    return <MainLoading/>;
-  }
+  React.useEffect(() => {
+    fetchAccountList(data?.user.token || '');
 
-  fetchFunction(data.user.token || '');
+    const intervalId = setInterval(
+      () => fetchAccountList(data?.user.token || ''),
+      30000,
+    );
 
-  if (isNotFetched(fetchStatus)) {
+    return () => clearInterval(intervalId);
+  }, []);
+
+  if (!data?.user || isNotFetched(fetchStatus)) {
     return <MainLoading/>;
   }
 
@@ -51,7 +60,11 @@ export const AdminTabAccountView = () => {
       <Row className="mb-2 text-center">
         <Col>
           {!!accounts ?
-            <AccountListView accounts={accounts} updateSingleAccount={updateSingleAccount}/> :
+            <AccountListView
+              accounts={accounts}
+              updateSingleAccount={updateSingleAccount}
+              lastSuccessEpochMs={fetchStatus.lastSuccessEpochMs}
+            /> :
             <AccountTableNoAccount/>}
         </Col>
       </Row>

@@ -26,6 +26,7 @@ export type FetchStatusSimple = FetchStatusNotFetched | FetchStatusFetching | Fe
 
 export type FetchStatus<D> = FetchStatusSimple & {
   data: D,
+  lastSuccessEpochMs: number | null,
   fetchError: boolean,
 };
 
@@ -50,6 +51,7 @@ export const useFetchStateProcessed = <D, R, P>(
     fetching: false,
     fetchError: false,
     data: initialData,
+    lastSuccessEpochMs: null,
   });
   const dispatch = useDispatch();
 
@@ -70,6 +72,7 @@ export const useFetchStateProcessed = <D, R, P>(
           ...fetchStatus,
           fetched: true,
           fetching: false,
+          lastSuccessEpochMs: Date.now(),
           data: fnProcessData(data),
         });
       })

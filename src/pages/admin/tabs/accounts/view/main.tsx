@@ -1,8 +1,12 @@
 import React from 'react';
 
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
+import {TimeAgo} from '../../../../../components/timeAgo/main';
 import {AccountDataMap} from '../../../../../types/admin';
+import {FetchStatus} from '../../../../../utils/fetch';
 import {AccountActions} from './actions/main';
 import {AccountExpiry} from './expiry';
 import {AccountFilter} from './filter/main';
@@ -13,12 +17,12 @@ import {AccountFilterConditions, UpdateSingleAccount} from './type';
 import {filterAccounts, generatePermissionMap, getAccountRowClassName} from './utils';
 
 
-type Props = {
+type Props = Pick<FetchStatus<any>, 'lastSuccessEpochMs'> & {
   accounts: AccountDataMap,
   updateSingleAccount: UpdateSingleAccount,
 };
 
-export const AccountListView = ({accounts, updateSingleAccount}: Props) => {
+export const AccountListView = ({accounts, updateSingleAccount, lastSuccessEpochMs}: Props) => {
   const [conditions, setConditions] = React.useState<AccountFilterConditions>({
     expiry: {
       start: null,
@@ -32,6 +36,16 @@ export const AccountListView = ({accounts, updateSingleAccount}: Props) => {
   return (
     <>
       <AccountFilter conditions={conditions} setConditions={setConditions}/>
+      <Row className="text-end">
+        <Col>
+          <TimeAgo
+            epochMs={lastSuccessEpochMs}
+            format={(secDiffMs) => <>{`${secDiffMs.toFixed(0)} 秒前更新`}</>}
+            updateMs={1000}
+          />
+        </Col>
+      </Row>
+      <hr className="my-2"/>
       <Table responsive variant="dark" className={styles['account-table']}>
         <thead>
           <tr>
