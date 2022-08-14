@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {User} from 'next-auth';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import {ButtonVariant} from 'react-bootstrap/types';
 
@@ -36,29 +37,37 @@ export const PermissionUpdateSelection = ({
     return <></>;
   }
 
+  const permissionsToShow = availablePermissions.filter(filterPredicate);
+
   return (
     <>
       <h5 className="mb-2">{title}</h5>
-      {availablePermissions
-        .filter(filterPredicate)
-        .map((permission) => (
-          <Button
-            key={permission}
-            variant={permissionToChange[changeType][permission] ? activeVariant : 'outline-secondary'}
-            className={styles['permission-button']}
-            onClick={() => (
-              setPermissionToChange({
-                ...permissionToChange,
-                [changeType]: {
-                  ...permissionToChange[changeType],
-                  [permission]: !permissionToChange[changeType][permission],
-                },
-              })
-            )}
-          >
-            {permissionBadge[permission]}
-          </Button>
-        ))}
+      {
+        permissionsToShow.length ?
+          permissionsToShow.map((permission) => (
+            <Button
+              key={permission}
+              variant={permissionToChange[changeType][permission] ? activeVariant : 'outline-secondary'}
+              className={styles['permission-button']}
+              onClick={() => (
+                setPermissionToChange({
+                  ...permissionToChange,
+                  [changeType]: {
+                    ...permissionToChange[changeType],
+                    [permission]: !permissionToChange[changeType][permission],
+                  },
+                })
+              )}
+            >
+              {permissionBadge[permission]}
+            </Button>
+          )) :
+          <Alert>
+            <p className="m-0">
+              {`無可${title}。`}
+            </p>
+          </Alert>
+      }
     </>
   );
 };
