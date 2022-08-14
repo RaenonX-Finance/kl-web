@@ -39,3 +39,25 @@ export const apiUpdateExpiry = ({
     },
   })
 );
+
+export type ApiUpdateBlockedOpts = {
+  token: string,
+  id: string,
+  blocked: boolean,
+};
+
+export const apiUpdateBlocked = ({
+  token,
+  id,
+  blocked,
+}: ApiUpdateBlockedOpts): Promise<AxiosResponse<AccountData>> => (
+  apiSendPostRequest({
+    apiPath: '/admin/update-blocked',
+    contentType: 'application/json',
+    token,
+    data: {
+      id,
+      blocked,
+    },
+  })
+);

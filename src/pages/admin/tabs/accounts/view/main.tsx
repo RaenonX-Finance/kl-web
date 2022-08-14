@@ -58,7 +58,7 @@ export const AccountListView = ({accounts, updateSingleAccount}: Props) => {
                 <AccountPermissionBadges account={account}/>
               </td>
               <td className={styles['account-actions']}>
-                <AccountActions account={account}/>
+                <AccountActions account={account} updateSingleAccount={updateSingleAccount}/>
               </td>
             </tr>
           ))}
