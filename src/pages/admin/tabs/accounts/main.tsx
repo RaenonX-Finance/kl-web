@@ -19,7 +19,7 @@ export const AdminTabAccountView = () => {
   const {fetchStatus, fetchFunction, setFetchStatus} = useFetchStateProcessed(
     {},
     (token: string) => apiGetAccountList({token}),
-    'Failed to get account list.',
+    '無法獲取帳號清單，請重新登入。',
     ({data}) => (
       Object.fromEntries(data.map((account) => [account.id, account])) as AccountDataMap
     ),
