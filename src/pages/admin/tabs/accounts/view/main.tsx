@@ -2,22 +2,23 @@ import React from 'react';
 
 import Table from 'react-bootstrap/Table';
 
-import {AccountData} from '../../../../../types/admin';
+import {AccountDataMap} from '../../../../../types/admin';
 import {AccountActions} from './actions/main';
 import {AccountExpiry} from './expiry';
 import {AccountFilter} from './filter/main';
 import styles from './main.module.scss';
 import {AccountPermissionBadges} from './permissionBadges';
 import {StatusIcon} from './status/main';
-import {AccountFilterConditions} from './type';
+import {AccountFilterConditions, UpdateSingleAccount} from './type';
 import {filterAccounts, generatePermissionMap, getAccountRowClassName} from './utils';
 
 
 type Props = {
-  accounts: AccountData[],
+  accounts: AccountDataMap,
+  updateSingleAccount: UpdateSingleAccount,
 };
 
-export const AccountListView = ({accounts}: Props) => {
+export const AccountListView = ({accounts, updateSingleAccount}: Props) => {
   const [conditions, setConditions] = React.useState<AccountFilterConditions>({
     expiry: {
       start: null,
@@ -42,7 +43,7 @@ export const AccountListView = ({accounts}: Props) => {
           </tr>
         </thead>
         <tbody>
-          {filterAccounts(accounts, conditions).map((account) => (
+          {filterAccounts(Object.values(accounts), conditions).map((account) => (
             <tr key={account.username} className={getAccountRowClassName(account)}>
               <td className={styles['status-icon']}>
                 <StatusIcon account={account}/>
@@ -51,7 +52,7 @@ export const AccountListView = ({accounts}: Props) => {
                 {account.username}
               </td>
               <td className={styles['expiry']}>
-                <AccountExpiry account={account}/>
+                <AccountExpiry account={account} updateSingleAccount={updateSingleAccount}/>
               </td>
               <td className={styles['permission-badge']}>
                 <AccountPermissionBadges account={account}/>

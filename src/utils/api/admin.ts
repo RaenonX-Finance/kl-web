@@ -28,7 +28,7 @@ export const apiUpdateExpiry = ({
   token,
   id,
   expiry,
-}: ApiUpdateExpiryOpts): Promise<AxiosResponse<void>> => (
+}: ApiUpdateExpiryOpts): Promise<AxiosResponse<AccountData>> => (
   apiSendPostRequest({
     apiPath: '/admin/update-expiry',
     contentType: 'application/json',

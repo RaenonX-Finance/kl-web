@@ -88,5 +88,5 @@ export const useFetchState = <D, P>(
   fnFetch: (payload: P) => Promise<AxiosResponse<D>>,
   messageOnFetchFailed: string,
 ): FetchStateReturns<D, P> => {
-  return useFetchStateProcessed(initialData, fnFetch, messageOnFetchFailed, (data) => data.data);
+  return useFetchStateProcessed(initialData, fnFetch, messageOnFetchFailed, ({data}) => data);
 };

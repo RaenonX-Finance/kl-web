@@ -13,12 +13,12 @@ import {ISODateString, ISOTimestampWithTimezone} from '../../../../../types/time
 import {apiUpdateExpiry} from '../../../../../utils/api/admin';
 import {getErrorMessage} from '../../../../../utils/error';
 import {isAllowed} from '../../../../../utils/permission';
-import {AccountCellProps} from './type';
+import {AccountCellUpdatableProps} from './type';
 
 
-type Props = AccountCellProps;
+type Props = AccountCellUpdatableProps;
 
-export const AccountExpiry = ({account}: Props) => {
+export const AccountExpiry = ({account, updateSingleAccount}: Props) => {
   const {admin, expiry, id} = account;
   const [expiryState, setExpiryState] = React.useState(expiry);
   const [updating, setUpdating] = React.useState(false);
@@ -37,7 +37,12 @@ export const AccountExpiry = ({account}: Props) => {
   const onClickUpdate = async () => {
     setUpdating(true);
     try {
-      await apiUpdateExpiry({token: data.user.token || '', id, expiry: expiryState});
+      const updatedAccountData = await apiUpdateExpiry({
+        token: data.user.token || '',
+        id,
+        expiry: expiryState,
+      });
+      updateSingleAccount(updatedAccountData.data);
     } catch (err) {
       const message = getErrorMessage({err});
       dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));

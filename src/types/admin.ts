@@ -11,3 +11,5 @@ export type AccountData = {
   admin: boolean,
   online: boolean,
 };
+
+export type AccountDataMap = {[accountId in string]: AccountData};
