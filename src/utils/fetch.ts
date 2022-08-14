@@ -60,29 +60,29 @@ export const useFetchStateProcessed = <D, R, P>(
       return;
     }
 
-    setFetchStatus({
-      ...fetchStatus,
+    setFetchStatus((status) => ({
+      ...status,
       fetching: true,
       fetched: false,
-    });
+    }));
 
     fnFetch(payload)
       .then((data) => {
-        setFetchStatus({
-          ...fetchStatus,
+        setFetchStatus((status) => ({
+          ...status,
           fetched: true,
           fetching: false,
           lastSuccessEpochMs: Date.now(),
           data: fnProcessData(data),
-        });
+        }));
       })
       .catch((e) => {
-        setFetchStatus({
-          ...fetchStatus,
+        setFetchStatus((status) => ({
+          ...status,
           fetched: true,
           fetching: false,
           fetchError: true,
-        });
+        }));
         console.warn(messageOnFetchFailed, e);
         dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: messageOnFetchFailed}));
       });
