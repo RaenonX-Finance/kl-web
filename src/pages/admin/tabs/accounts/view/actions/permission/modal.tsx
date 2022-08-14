@@ -28,7 +28,7 @@ export const PermissionUpdateModal = ({account, show, setShow, updateSingleAccou
     add: generatePermissionMap(false),
     remove: generatePermissionMap(false),
   });
-  const {updating, sendApiUpdateRequest} = useUpdateAccountData<never>({
+  const {updating, sendApiUpdateRequest} = useUpdateAccountData({
     apiRequest: (token) => apiUpdatePermissions({
       token,
       id,
@@ -51,7 +51,7 @@ export const PermissionUpdateModal = ({account, show, setShow, updateSingleAccou
   };
 
   const onSendChange = async () => {
-    await sendApiUpdateRequest();
+    await sendApiUpdateRequest(undefined);
     onHide();
   };
 
