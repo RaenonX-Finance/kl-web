@@ -2,7 +2,7 @@ import React from 'react';
 
 import {AccountCellUpdatableProps} from '../type';
 import {AccountActionBlock} from './block';
-import {AccountActionPermission} from './permission';
+import {AccountActionPermission} from './permission/main';
 
 
 type Props = AccountCellUpdatableProps;
