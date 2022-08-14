@@ -6,6 +6,16 @@ span.badge {
 span.badge:not(:last-child) {
   margin-right: 0.25rem;
 }
+span.no-permission-badge {
+  font-size: 0.9rem;
+  font-weight: 500;
+  height: 3rem;
+  width: 3rem;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 td.username {
   font-family: monospace;

@@ -17,3 +17,9 @@ export const permissionBadge: {[permission in Permission]: React.ReactNode} = {
 };
 
 export const AdminBadge = () => <Badge className={styles['badge']} bg="light" text="dark">網站<br/>管理</Badge>;
+
+export const NoPermissionBadge = () => (
+  <Badge className={styles['no-permission-badge']} bg="secondary">
+    (無)
+  </Badge>
+);

@@ -2,14 +2,31 @@
 @use "../../../../../../styles/colors";
 
 span {
+  @mixin badge-common {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
   &.badge {
+    @include badge-common;
+
     &:not(:last-child) {
       margin-right: 0.25rem;
     }
 
-    font-size: 0.9rem;
-    font-weight: 500;
     line-height: 1.2rem;
+  }
+
+  &.no-permission-badge {
+    @include badge-common;
+
+    height: 3rem;
+    width: 3rem;
+    color: white;
+    // For centering text
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

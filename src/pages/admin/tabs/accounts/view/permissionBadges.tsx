@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AdminBadge, permissionBadge} from './badges';
+import {AdminBadge, NoPermissionBadge, permissionBadge} from './badges';
 import {AccountCellProps} from './type';
 
 
@@ -11,6 +11,8 @@ export const AccountPermissionBadges = ({account}: Props) => {
 
   if (admin) {
     return <AdminBadge/>;
+  } else if (!permissions.length) {
+    return <NoPermissionBadge/>;
   }
 
   return (
