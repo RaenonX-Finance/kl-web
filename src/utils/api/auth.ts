@@ -3,7 +3,7 @@ import {AxiosResponse} from 'axios';
 import {CUSTOM_PROVIDER_ID} from '../../types/auth/const';
 import {OAuth2TokenResponse} from '../../types/auth/oauth';
 import {SignupKeyModel, UserModelOriginal} from '../../types/auth/user';
-import {apiSendPostRequest} from './common';
+import {ApiRequestRequiresTokenOpts, apiSendPostRequest} from './common';
 
 
 export const apiGetNextAuthCallbackUrl = (accessToken: string): string => {
@@ -37,9 +37,7 @@ export const apiRequestOAuth2Token = ({
   });
 };
 
-type ApiRefreshOAuth2TokenOpts = {
-  token: string,
-};
+type ApiRefreshOAuth2TokenOpts = ApiRequestRequiresTokenOpts;
 
 export const apiRefreshOAuth2Token = ({
   token,
@@ -77,9 +75,8 @@ export const apiSignupUser = ({
   })
 );
 
-type ApiGenerateSignupKeyOpts = {
+type ApiGenerateSignupKeyOpts = ApiRequestRequiresTokenOpts & {
   accountExpiry: Date,
-  token: string,
 };
 
 export const apiGenerateSignupKey = ({

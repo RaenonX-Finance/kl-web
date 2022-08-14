@@ -4,7 +4,7 @@ import {PxSharedConfig} from '../../components/chart/config/shared/type';
 import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxLayoutConfig} from '../../state/config/type';
 import {PxSlotMap} from '../../state/pxData/types';
-import {apiSendPostRequest} from './common';
+import {ApiRequestRequiresTokenOpts, apiSendPostRequest} from './common';
 
 
 /**
@@ -19,8 +19,7 @@ type ApiUpdateConfigKeyDataMap = {
 
 export type ApiUpdateConfigKeys = keyof ApiUpdateConfigKeyDataMap;
 
-export type ApiUpdateConfigOpts<K extends ApiUpdateConfigKeys> = {
-  token: string,
+export type ApiUpdateConfigOpts<K extends ApiUpdateConfigKeys> = ApiRequestRequiresTokenOpts & {
   key: K,
   data: ApiUpdateConfigKeyDataMap[K],
 };
@@ -34,9 +33,6 @@ export const apiUpdateConfig = <K extends ApiUpdateConfigKeys>({
     apiPath: '/user/config/update',
     contentType: 'application/json',
     token,
-    data: {
-      key,
-      data,
-    },
+    data: {key, data},
   })
 );

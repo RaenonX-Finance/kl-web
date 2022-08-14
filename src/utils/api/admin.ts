@@ -1,13 +1,12 @@
 import {AxiosResponse} from 'axios';
 
 import {AccountData} from '../../types/admin';
+import {Permission} from '../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../types/time';
-import {apiSendGetRequest, apiSendPostRequest} from './common';
+import {ApiRequestRequiresTokenOpts, apiSendGetRequest, apiSendPostRequest} from './common';
 
 
-export type ApiGetAccountListOpts = {
-  token: string,
-};
+type ApiGetAccountListOpts = ApiRequestRequiresTokenOpts;
 
 export const apiGetAccountList = ({
   token,
@@ -18,9 +17,11 @@ export const apiGetAccountList = ({
   })
 );
 
-export type ApiUpdateExpiryOpts = {
-  token: string,
+type ApiAdminOpts = ApiRequestRequiresTokenOpts & {
   id: string,
+};
+
+type ApiUpdateExpiryOpts = ApiAdminOpts & {
   expiry: ISOTimestampWithTimezone | null,
 };
 
@@ -33,16 +34,11 @@ export const apiUpdateExpiry = ({
     apiPath: '/admin/update-expiry',
     contentType: 'application/json',
     token,
-    data: {
-      id,
-      expiry,
-    },
+    data: {id, expiry},
   })
 );
 
-export type ApiUpdateBlockedOpts = {
-  token: string,
-  id: string,
+type ApiUpdateBlockedOpts = ApiAdminOpts & {
   blocked: boolean,
 };
 
@@ -55,9 +51,6 @@ export const apiUpdateBlocked = ({
     apiPath: '/admin/update-blocked',
     contentType: 'application/json',
     token,
-    data: {
-      id,
-      blocked,
-    },
+    data: {id, blocked},
   })
 );

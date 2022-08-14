@@ -55,3 +55,7 @@ export const apiSendGetRequest = <R>({
     },
   });
 };
+
+export type ApiRequestRequiresTokenOpts = {
+  token: string,
+};
