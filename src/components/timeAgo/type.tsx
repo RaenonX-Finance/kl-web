@@ -2,7 +2,7 @@ import React from 'react';
 
 
 export type TimeAgoProps = {
-  epochSec: number | undefined,
+  epochMs: number | undefined | null,
   format: (secDiffMs: number) => React.ReactNode,
   updateMs: number,
   className?: string,

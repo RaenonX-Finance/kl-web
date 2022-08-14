@@ -17,7 +17,7 @@ export const PxChartLastUpdate = ({security}: Props) => {
   return (
     <SocketPingableTimeAgo
       ref={updateIndicatorRef}
-      epochSec={lastUpdate}
+      epochMs={lastUpdate}
       format={(secDiffMs) => (
         <><i className="bi bi-activity"/>&nbsp;{secDiffMs.toFixed(0)}</>
       )}

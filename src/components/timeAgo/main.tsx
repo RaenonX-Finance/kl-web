@@ -4,23 +4,23 @@ import {TimeAgoProps} from './type';
 
 
 export const TimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoProps>((
-  {epochSec, format, updateMs, className, onClick},
+  {epochMs, format, updateMs, className, onClick},
   ref,
 ) => {
-  const [secAgo, setSecAgo] = React.useState(epochSec ? (Date.now() - epochSec) / 1000 : undefined);
+  const [secAgo, setSecAgo] = React.useState(epochMs ? (Date.now() - epochMs) / 1000 : undefined);
 
   React.useEffect(() => {
-    if (!epochSec) {
+    if (!epochMs) {
       return;
     }
 
     const intervalId = setInterval(
-      () => setSecAgo((Date.now() - epochSec) / 1000),
+      () => setSecAgo((Date.now() - epochMs) / 1000),
       updateMs,
     );
 
     return () => clearInterval(intervalId);
-  }, [epochSec]);
+  }, [epochMs]);
 
   return (
     <span ref={ref} className={className} onClick={onClick}>
