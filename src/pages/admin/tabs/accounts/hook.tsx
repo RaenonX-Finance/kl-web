@@ -12,13 +12,13 @@ import {UpdateSingleAccount} from './view/type';
 
 
 type UseUpdateAccountDataProps<P> = {
-  apiRequest: (token: string, payload: P) => Promise<AxiosResponse<AccountData>>,
+  apiRequest: (token: string, payload?: P) => Promise<AxiosResponse<AccountData>>,
   updateSingleAccount: UpdateSingleAccount,
 };
 
 type UpdateAccountDataReturns<P> = {
   updating: boolean,
-  sendApiUpdateRequest: (payload: P) => Promise<void>,
+  sendApiUpdateRequest: (payload?: P) => Promise<void>,
 };
 
 export const useUpdateAccountData = <P, >({
@@ -29,7 +29,7 @@ export const useUpdateAccountData = <P, >({
   const {data} = useSession();
   const dispatch = useDispatch();
 
-  const sendApiUpdateRequest = async (payload: P) => {
+  const sendApiUpdateRequest = async (payload?: P) => {
     setUpdating(true);
     try {
       const updatedAccountData = await apiRequest(data?.user?.token || '', payload);

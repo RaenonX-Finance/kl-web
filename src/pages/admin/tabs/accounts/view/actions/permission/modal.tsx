@@ -6,23 +6,36 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
-import {AccountCellProps} from '../../type';
+import {TextWithLoading} from '../../../../../../../components/common/loading/text';
+import {availablePermissions} from '../../../../../../../types/auth/user';
+import {apiUpdatePermissions} from '../../../../../../../utils/api/admin';
+import {useUpdateAccountData} from '../../../hook';
+import {AccountCellUpdatableProps} from '../../type';
 import {generatePermissionMap} from '../../utils';
 import {PermissionUpdateSelection} from './selection';
 import {PermissionChangeState} from './type';
 
 
-type Props = AccountCellProps & {
+type Props = AccountCellUpdatableProps & {
   show: boolean,
   setShow: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
-export const PermissionUpdateModal = ({account, show, setShow}: Props) => {
+export const PermissionUpdateModal = ({account, show, setShow, updateSingleAccount}: Props) => {
   const {data} = useSession();
-  const {permissions} = account;
+  const {id, permissions} = account;
   const [permissionToChange, setPermissionToChange] = React.useState<PermissionChangeState>({
     add: generatePermissionMap(false),
     remove: generatePermissionMap(false),
+  });
+  const {updating, sendApiUpdateRequest} = useUpdateAccountData<never>({
+    apiRequest: (token) => apiUpdatePermissions({
+      token,
+      id,
+      add: availablePermissions.filter((permission) => permissionToChange.add[permission]),
+      remove: availablePermissions.filter((permission) => permissionToChange.remove[permission]),
+    }),
+    updateSingleAccount,
   });
 
   if (!data?.user) {
@@ -35,6 +48,11 @@ export const PermissionUpdateModal = ({account, show, setShow}: Props) => {
       add: generatePermissionMap(false),
       remove: generatePermissionMap(false),
     });
+  };
+
+  const onSendChange = async () => {
+    await sendApiUpdateRequest();
+    onHide();
   };
 
   return (
@@ -67,8 +85,8 @@ export const PermissionUpdateModal = ({account, show, setShow}: Props) => {
         <hr/>
         <Row className="text-end">
           <Col>
-            <Button>
-              套用變更
+            <Button onClick={onSendChange} disabled={updating}>
+              <TextWithLoading show={updating} text="套用變更"/>
             </Button>
           </Col>
         </Row>

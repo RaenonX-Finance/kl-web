@@ -54,3 +54,22 @@ export const apiUpdateBlocked = ({
     data: {id, blocked},
   })
 );
+
+type ApiUpdatePermissionOpts = ApiAdminOpts & {
+  add: Permission[],
+  remove: Permission[],
+};
+
+export const apiUpdatePermissions = ({
+  token,
+  id,
+  add,
+  remove,
+}: ApiUpdatePermissionOpts): Promise<AxiosResponse<AccountData>> => (
+  apiSendPostRequest({
+    apiPath: '/admin/update-permissions',
+    contentType: 'application/json',
+    token,
+    data: {id, add, remove},
+  })
+);

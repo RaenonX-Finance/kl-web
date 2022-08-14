@@ -4,15 +4,16 @@ import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
 import {isAllowed} from '../../../../../../../utils/permission';
-import {AccountCellProps} from '../../type';
+import {AccountCellUpdatableProps} from '../../type';
 import {PermissionUpdateModal} from './modal';
 
 
-type Props = AccountCellProps;
+type Props = AccountCellUpdatableProps;
 
-export const AccountActionPermission = ({account}: Props) => {
-  const {data} = useSession();
+export const AccountActionPermission = (props: Props) => {
+  const {account} = props;
   const {admin} = account;
+  const {data} = useSession();
   const [show, setShow] = React.useState(false);
 
   if (
@@ -32,7 +33,7 @@ export const AccountActionPermission = ({account}: Props) => {
         權限管理
       </Button>
       <PermissionUpdateModal
-        account={account}
+        {...props}
         show={show}
         setShow={setShow}
       />
