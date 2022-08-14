@@ -2,6 +2,10 @@ import React from 'react';
 
 import {AxiosResponse} from 'axios';
 
+import {errorDispatchers} from '../state/error/dispatchers';
+import {ErrorDispatcherName} from '../state/error/types';
+import {useDispatch} from '../state/store';
+
 
 type FetchStatusNotFetched = {
   fetched: false,
@@ -47,6 +51,7 @@ export const useFetchStateProcessed = <D, R, P>(
     fetchError: false,
     data: initialData,
   });
+  const dispatch = useDispatch();
 
   const fetchFunction = (payload: P) => {
     if (!isNotFetched(fetchStatus)) {
@@ -76,6 +81,7 @@ export const useFetchStateProcessed = <D, R, P>(
           fetchError: true,
         });
         console.warn(messageOnFetchFailed, e);
+        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: messageOnFetchFailed}));
       });
   };
 
