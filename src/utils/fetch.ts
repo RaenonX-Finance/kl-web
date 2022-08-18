@@ -30,13 +30,18 @@ export type FetchStatus<D> = FetchStatusSimple & {
   fetchError: boolean,
 };
 
+export type FetchPayload<P> = {
+  force?: boolean,
+  payload: P,
+};
+
 export const isNotFetched = <T extends FetchStatusSimple>(fetchStatus: T) => {
   return !fetchStatus.fetched && !fetchStatus.fetching;
 };
 
 type FetchStateReturns<D, P> = {
   fetchStatus: FetchStatus<D>,
-  fetchFunction: (payload: P) => void,
+  fetchFunction: (payload: FetchPayload<P>) => void,
   setFetchStatus: React.Dispatch<React.SetStateAction<FetchStatus<D>>>,
 };
 
@@ -55,8 +60,8 @@ export const useFetchStateProcessed = <D, R, P>(
   });
   const dispatch = useDispatch();
 
-  const fetchFunction = (payload: P) => {
-    if (!isNotFetched(fetchStatus)) {
+  const fetchFunction = ({force, payload}: FetchPayload<P>) => {
+    if (!force && !isNotFetched(fetchStatus)) {
       return;
     }
 

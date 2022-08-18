@@ -16,6 +16,7 @@ import {UpdateSingleAccount} from './view/type';
 
 export const AdminTabAccountView = () => {
   const {data} = useSession();
+  const [autoUpdate, setAutoUpdate] = React.useState(true);
   const {
     fetchStatus,
     fetchFunction: fetchAccountList,
@@ -30,15 +31,21 @@ export const AdminTabAccountView = () => {
   );
 
   React.useEffect(() => {
-    fetchAccountList(data?.user.token || '');
+    fetchAccountList({payload: data?.user.token || ''});
+  }, []);
+
+  React.useEffect(() => {
+    if (!autoUpdate) {
+      return;
+    }
 
     const intervalId = setInterval(
-      () => fetchAccountList(data?.user.token || ''),
+      () => fetchAccountList({force: true, payload: data?.user.token || ''}),
       30000,
     );
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [autoUpdate]);
 
   if (!data?.user || isNotFetched(fetchStatus)) {
     return <MainLoading/>;
@@ -64,6 +71,7 @@ export const AdminTabAccountView = () => {
               accounts={accounts}
               updateSingleAccount={updateSingleAccount}
               lastSuccessEpochMs={fetchStatus.lastSuccessEpochMs}
+              setAutoUpdate={setAutoUpdate}
             /> :
             <AccountTableNoAccount/>}
         </Col>

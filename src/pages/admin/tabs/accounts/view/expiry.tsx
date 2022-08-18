@@ -13,9 +13,11 @@ import {useUpdateAccountData} from '../hook';
 import {AccountCellUpdatableProps} from './type';
 
 
-type Props = AccountCellUpdatableProps;
+type Props = AccountCellUpdatableProps & {
+  setAutoUpdate: React.Dispatch<React.SetStateAction<boolean>>,
+};
 
-export const AccountExpiry = ({account, updateSingleAccount}: Props) => {
+export const AccountExpiry = ({account, updateSingleAccount, setAutoUpdate}: Props) => {
   const {admin, expiry, id} = account;
   const [expiryState, setExpiryState] = React.useState(expiry);
   const {data} = useSession();
@@ -58,6 +60,8 @@ export const AccountExpiry = ({account, updateSingleAccount}: Props) => {
 
             setExpiryState(expiryString);
           }}
+          onFocus={() => setAutoUpdate(false)}
+          onBlur={() => setAutoUpdate(true)}
           // Use `key` to clear input
           // https://stackoverflow.com/a/69536313/11571888
           key={(!expiryState).toString()}

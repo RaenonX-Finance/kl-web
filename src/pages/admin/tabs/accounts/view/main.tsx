@@ -20,9 +20,10 @@ import {filterAccounts, generatePermissionMap, getAccountRowClassName} from './u
 type Props = Pick<FetchStatus<any>, 'lastSuccessEpochMs'> & {
   accounts: AccountDataMap,
   updateSingleAccount: UpdateSingleAccount,
+  setAutoUpdate: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
-export const AccountListView = ({accounts, updateSingleAccount, lastSuccessEpochMs}: Props) => {
+export const AccountListView = ({accounts, updateSingleAccount, lastSuccessEpochMs, setAutoUpdate}: Props) => {
   const [conditions, setConditions] = React.useState<AccountFilterConditions>({
     expiry: {
       start: null,
@@ -66,7 +67,11 @@ export const AccountListView = ({accounts, updateSingleAccount, lastSuccessEpoch
                 {account.username}
               </td>
               <td className={styles['expiry']}>
-                <AccountExpiry account={account} updateSingleAccount={updateSingleAccount}/>
+                <AccountExpiry
+                  account={account}
+                  updateSingleAccount={updateSingleAccount}
+                  setAutoUpdate={setAutoUpdate}
+                />
               </td>
               <td className={styles['permission-badge']}>
                 <AccountPermissionBadges account={account}/>
