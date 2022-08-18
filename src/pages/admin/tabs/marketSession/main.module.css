@@ -1,0 +1,7 @@
+table.session-table > thead > tr > th, table.session-table > tbody > tr > td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.5rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */

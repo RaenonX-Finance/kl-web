@@ -6,6 +6,7 @@ export enum GeneralPath {
 export enum AdminPath {
   GENERATE_SIGNUP_KEY = '/admin/signup-key',
   ACCOUNT_VIEW = '/admin/account-view',
+  MARKET_SESSION = '/admin/market-session',
 }
 
 export enum AuthPath {

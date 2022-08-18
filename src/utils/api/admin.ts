@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 
-import {AccountData} from '../../types/admin';
+import {AccountData, FuturesMarketClosedSession} from '../../types/admin';
 import {Permission} from '../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../types/time';
 import {ApiRequestRequiresTokenOpts, apiSendGetRequest, apiSendPostRequest} from './common';
@@ -71,5 +71,48 @@ export const apiUpdatePermissions = ({
     contentType: 'application/json',
     token,
     data: {id, add, remove},
+  })
+);
+
+type ApiCreateMarketClosedSessionOpts = ApiRequestRequiresTokenOpts & Omit<FuturesMarketClosedSession, 'id'>;
+
+export const apiCreateMarketClosedSession = ({
+  token,
+  security,
+  start,
+  end,
+}: ApiCreateMarketClosedSessionOpts): Promise<AxiosResponse<FuturesMarketClosedSession[]>> => (
+  apiSendPostRequest({
+    apiPath: '/admin/create-closed-session',
+    contentType: 'application/json',
+    token,
+    data: {security, start, end},
+  })
+);
+
+type ApiDeleteMarketClosedSessionOpts = ApiRequestRequiresTokenOpts & {
+  session: string,
+};
+
+export const apiDeleteMarketClosedSession = ({
+  token,
+  session,
+}: ApiDeleteMarketClosedSessionOpts): Promise<AxiosResponse<FuturesMarketClosedSession[]>> => (
+  apiSendPostRequest({
+    apiPath: '/admin/delete-closed-session',
+    contentType: 'application/json',
+    token,
+    data: {session},
+  })
+);
+
+type ApiGetMarketClosedSessionsOpts = ApiRequestRequiresTokenOpts;
+
+export const apiGetMarketClosedSessions = ({
+  token,
+}: ApiGetMarketClosedSessionsOpts): Promise<AxiosResponse<FuturesMarketClosedSession[]>> => (
+  apiSendGetRequest({
+    apiPath: '/admin/get-closed-sessions',
+    token,
   })
 );

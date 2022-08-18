@@ -13,7 +13,8 @@ export type Permission =
   'account:expiry' |
   'account:new' |
   'account:block' |
-  'account:view';
+  'account:view' |
+  'config:session';
 
 export type PermissionMap = {[permission in Permission]: boolean};
 
@@ -25,6 +26,7 @@ export const isPermissionManagement: PermissionMap = {
   'account:new': true,
   'account:block': true,
   'account:view': true,
+  'config:session': true,
 };
 
 export const managementPermissions: Permission[] = Object.entries(isPermissionManagement)

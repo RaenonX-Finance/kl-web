@@ -14,6 +14,7 @@ export const permissionBadge: {[permission in Permission]: React.ReactNode} = {
   'account:expiry': <Badge className={styles['badge']} bg="dark-warning">更改<br/>到期</Badge>,
   'account:block': <Badge className={styles['badge']} bg="dark-warning">封停<br/>帳戶</Badge>,
   'account:view': <Badge className={styles['badge']} bg="dark-warning">瀏覽<br/>帳戶</Badge>,
+  'config:session': <Badge className={styles['badge']} bg="dark-success">交易<br/>時段</Badge>,
 };
 
 export const AdminBadge = () => <Badge className={styles['badge']} bg="light" text="dark">網站<br/>管理</Badge>;

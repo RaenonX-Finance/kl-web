@@ -5,7 +5,8 @@ import {AdminPath} from '../../const/path';
 
 export type AdminTabKey =
   'signupKey' |
-  'accountView';
+  'accountView' |
+  'marketSession';
 
 export type AdminTab = {
   tabKey: AdminTabKey,
