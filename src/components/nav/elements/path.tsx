@@ -29,8 +29,11 @@ export const NavPath = ({
     (pathname && isPagePath(pathname) && pathActiveBasis?.includes(pathname))
   );
 
-  if (
-    !!data?.user && !!requiredPermissions?.length &&
+  if (!data && requiredPermissions?.length) {
+    // Not authed
+    return <></>;
+  } else if (
+    !!data?.user && requiredPermissions?.length &&
     !isAllowed({...data.user, allowedWithPermissions: requiredPermissions})
   ) {
     // Permission check
