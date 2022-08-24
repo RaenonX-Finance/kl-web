@@ -24,18 +24,22 @@ const initialState: PxDataState = {
   map: null,
 };
 
-const fixPxData = (newPxData: PxData, original: PxData | null): PxData => {
-  newPxData.data = mergeThenSort(
-    original?.data || [],
-    newPxData.data.map((item) => ({
-      ...item,
-      epochSec: updateEpochSecToLocal(item.epochSec),
-    })),
-    ({epochSec}) => epochSec,
-  );
+const applyTimezoneOffsetOnBars = (pxData: PxData): PxData => ({
+  ...pxData,
+  data: pxData.data.map((item) => ({
+    ...item,
+    epochSec: updateEpochSecToLocal(item.epochSec),
+  })),
+});
 
-  return newPxData;
-};
+const mergePxData = (newPxData: PxData, original: PxData | null): PxData => ({
+  ...newPxData,
+  data: mergeThenSort(
+    original?.data || [],
+    newPxData.data,
+    ({epochSec}) => epochSec,
+  ),
+});
 
 const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNames?: PxSlotName[]) => {
   if (!state.map) {
@@ -44,7 +48,7 @@ const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNa
   }
 
   Object.entries(state.map).forEach(([slot, identifier]) => {
-    payload.forEach((pxData) => {
+    payload.map(applyTimezoneOffsetOnBars).forEach((pxData) => {
       if (identifier !== pxData.uniqueIdentifier) {
         return;
       }
@@ -60,7 +64,7 @@ const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNa
         return;
       }
 
-      state.data[slotName] = fixPxData(pxData, state.data[slotName]);
+      state.data[slotName] = mergePxData(pxData, state.data[slotName]);
     });
   });
 

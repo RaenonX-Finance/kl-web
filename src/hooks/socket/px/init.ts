@@ -2,6 +2,8 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
+import {useLayoutTypeConfigSelector} from '../../../state/config/selector';
+import {getValidSlotNames} from '../../../state/config/utils';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
@@ -17,6 +19,7 @@ type UsePxInitHandlerOpts = {
 
 export const usePxInitHandler = ({socket}: UsePxInitHandlerOpts) => {
   const {data} = useSession();
+  const layoutType = useLayoutTypeConfigSelector();
   const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
 
@@ -28,7 +31,7 @@ export const usePxInitHandler = ({socket}: UsePxInitHandlerOpts) => {
 
   // Hooks
   React.useEffect(() => {
-    if (!socket || !slotMap) {
+    if (!socket || !layoutType || !slotMap) {
       return;
     }
 
@@ -36,12 +39,15 @@ export const usePxInitHandler = ({socket}: UsePxInitHandlerOpts) => {
 
     const message: PxInitMessage = {
       token: data?.user?.token,
-      identifiers: Object.values(slotMap),
+      identifiers: (
+        getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) ||
+        Object.values(slotMap)
+      ),
     };
     socket.emit('pxInit', message);
 
     return () => {
       socket.off('pxInit', onPxInit);
     };
-  }, [socket, slotMap]);
+  }, [socket, layoutType]);
 };
