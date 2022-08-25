@@ -8,6 +8,6 @@ export const handleLegend = ({chartDataRef, setObject}: OnPxChartUpdatedEvent) =
     // So even if the latest bar is updated, the legend won't change
     ...(legend.hovered ? {} : chartDataRef.current.latestMarket),
     // Always update strength regardless the legend hovering status
-    strength: chartDataRef.current.strength,
+    strength: chartDataRef.current.latestMarket.strength,
   }));
 };
