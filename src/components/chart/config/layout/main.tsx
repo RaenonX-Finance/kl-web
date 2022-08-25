@@ -34,13 +34,13 @@ export const PxLayoutConfigPanel = ({
   return (
     <>
       <Dropdown.Item onClick={() => setShow(true)}>
-        版面設定
+        模式設定
       </Dropdown.Item>
       <Offcanvas className={styles['config-panel']} show={show} onHide={() => setShow(false)} placement="end">
         <div className="mb-0"/>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
-            {`版面設定 (${title})`}
+            {`模式設定 (${title})`}
           </Offcanvas.Title>
         </Offcanvas.Header>
         <hr className="my-0"/>
