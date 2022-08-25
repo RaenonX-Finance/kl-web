@@ -49,11 +49,11 @@ export const PxChartSharedConfig = () => {
   return (
     <>
       <Dropdown.Item onClick={openModal}>
-        圖表設定
+        版面設定
       </Dropdown.Item>
       <Modal show={show} size="lg" onHide={closeModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>圖表相關設定</Modal.Title>
+          <Modal.Title>版面相關設定</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles['popup-body']}>
           <PxChartSharedConfigTabs
