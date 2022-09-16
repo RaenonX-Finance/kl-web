@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@blaumaus/react-alert": "^7.0.5",
-    "@newrelic/native-metrics": "^8.0.0",
+    "@newrelic/native-metrics": "^9.0.0",
     "@newrelic/next": "^0.1.1",
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
