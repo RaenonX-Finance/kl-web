@@ -7,6 +7,7 @@ export const updatePxDataBar = (bar: PxDataBar, nextPx: number): PxDataBar => {
     high: Math.max(bar.high, nextPx),
     low: Math.min(bar.low, nextPx),
     close: nextPx,
+    diff: nextPx - bar.open,
   };
 };
 
