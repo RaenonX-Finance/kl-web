@@ -12,8 +12,8 @@ export const sharedConfigEntries: PxSharedConfigUI = {
   intervalHistoryPxSec: {
     group: '資料處理',
     title: '歷史資料要求頻率 (秒)',
-    step: 1,
-    min: 3,
+    step: 0.1,
+    min: 0.1,
     tips: '秒數越低，網路流量消耗越大；資料準確度更高。',
   },
 };
