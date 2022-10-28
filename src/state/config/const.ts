@@ -20,6 +20,6 @@ export const defaultLayoutConfig: PxLayoutConfigSingle = {
 };
 
 export const defaultSharedConfig: PxSharedConfig = {
-  intervalHistoryPxSec: 20,
+  intervalHistoryPxSec: 1, // FIXME: Market px sec could be removed
   intervalMarketPxSec: 0.25,
 };
