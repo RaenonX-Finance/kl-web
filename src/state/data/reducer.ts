@@ -13,18 +13,25 @@ const initialState: DataState = {
   products: {},
   periods: {},
   lastPxUpdate: {},
+  completePxUpdate: {},
   epochOffsetSec: 0,
 };
 
-const recordLastPxUpdateReducer = (state: DataState, securities: string[]): DataState => {
+type PxUpdateRecordOpts = {
+  state: DataState,
+  securities: string[],
+  last: boolean,
+  complete: boolean,
+};
+
+const recordPxUpdateReducer = ({state, securities, last, complete}: PxUpdateRecordOpts): DataState => {
   const now = Date.now();
+  const data = Object.fromEntries(securities.map((security) => [security, now]));
 
   return {
     ...state,
-    lastPxUpdate: {
-      ...state.lastPxUpdate,
-      ...Object.fromEntries(securities.map((security) => [security, now])),
-    },
+    ...(last ? {lastPxUpdate: {...state.lastPxUpdate, ...data}} : {}),
+    ...(complete ? {completePxUpdate: {...state.completePxUpdate, ...data}} : {}),
   };
 };
 
@@ -47,11 +54,19 @@ const slice = createSlice({
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled,
-      (state, {meta}) => recordLastPxUpdateReducer(state, meta.securities),
+      (state, {meta}) => (
+        recordPxUpdateReducer({
+          state, securities: meta.securities, last: true, complete: false,
+        })
+      ),
     );
     builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled,
-      (state, {payload}) => recordLastPxUpdateReducer(state, payload.map(({contract}) => contract.symbol)),
+      (state, {payload}) => (
+        recordPxUpdateReducer({
+          state, securities: payload.map(({contract}) => contract.symbol), last: true, complete: true,
+        })
+      ),
     );
     builder.addCase(
       dataDispatchers[DataDispatcherName.MIN_CHANGE],

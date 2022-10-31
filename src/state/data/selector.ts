@@ -16,6 +16,10 @@ export const useLastPxUpdateSelector = (security: string): number | undefined =>
   useSelector(({data}: ReduxState) => data.lastPxUpdate[security])
 );
 
+export const useCompletePxUpdateSelector = (security: string): number | undefined => (
+  useSelector(({data}: ReduxState) => data.completePxUpdate[security])
+);
+
 export const useEpochSecOffsetSelector = (): number => (
   useSelector(({data}: ReduxState) => data.epochOffsetSec)
 );
