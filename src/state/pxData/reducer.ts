@@ -32,14 +32,32 @@ const applyTimezoneOffsetOnBars = (pxData: PxData): PxData => ({
   })),
 });
 
-const mergePxData = (newPxData: PxData, original: PxData | null): PxData => ({
-  ...newPxData,
-  data: mergeThenSort(
+type MergePxDataOptions = {
+  newPxData: PxData,
+  original: PxData | null,
+  noLastOverwrite: boolean,
+};
+
+const mergePxData = ({newPxData, original, noLastOverwrite}: MergePxDataOptions): PxData => {
+  let data = mergeThenSort(
     original?.data || [],
     newPxData.data,
     ({epochSec}) => epochSec,
-  ),
-});
+  );
+
+  const lastBar = data.at(-1);
+  if (!noLastOverwrite && original && lastBar) {
+    data = [
+      ...data.slice(0, -1),
+      {...lastBar, close: original.data.at(-1)?.close || lastBar.close},
+    ];
+  }
+
+  return {
+    ...newPxData,
+    data,
+  };
+};
 
 const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNames?: PxSlotName[]) => {
   if (!state.map) {
@@ -64,7 +82,11 @@ const pxDataFillingReducer = (state: PxDataState, payload: PxData[], validSlotNa
         return;
       }
 
-      state.data[slotName] = mergePxData(pxData, state.data[slotName]);
+      state.data[slotName] = mergePxData({
+        newPxData: pxData,
+        original: state.data[slotName],
+        noLastOverwrite: false,
+      });
     });
   });
 
