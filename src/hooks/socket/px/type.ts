@@ -20,7 +20,7 @@ export type MarketPxSubscriptionMessage = {
 };
 
 export type RequestPxMessageSingle = {
-  identifier: string,
+  identifier: PxDataUniqueIdentifier,
   offset?: number,
   limit?: number,
 };

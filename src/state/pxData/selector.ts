@@ -38,6 +38,6 @@ export const usePxSlotMap = (): PxSlotMap | null => (
   useSelector(({pxData}: ReduxState) => pxData.map)
 );
 
-export const usePxSlotIdentifier = (slot: PxSlotName): string | null => (
+export const usePxSlotIdentifier = (slot: PxSlotName): PxDataUniqueIdentifier | null => (
   useSelector(({pxData}: ReduxState) => pxData.map ? pxData.map[slot] : null)
 );
