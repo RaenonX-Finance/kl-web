@@ -10,8 +10,8 @@ import {Navigation} from '../src/components/nav/main';
 import {ReduxProvider} from '../src/state/provider';
 import {store} from '../src/state/store';
 
-import '../styles/bootstrap.css';
-import '../styles/index.css';
+import '../styles/bootstrap.scss';
+import '../styles/index.scss';
 import '../styles/scrollbar.scss';
 
 
