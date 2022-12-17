@@ -8,46 +8,32 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
-import {PxInitMessage} from '../general/type';
-import {useSocketEventHandler} from '../utils';
-import {PxDataSocket} from './type';
+import {apiInitPxData} from '../../../utils/api/px';
 
 
-type UsePxInitHandlerOpts = {
-  socket: PxDataSocket | undefined,
-};
-
-export const usePxInitHandler = ({socket}: UsePxInitHandlerOpts) => {
+export const usePxInitHandler = () => {
   const {data} = useSession();
   const layoutType = useLayoutTypeConfigSelector();
   const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
-
-  // Custom events
-  const onPxInit = useSocketEventHandler({
-    dispatch,
-    action: pxDataDispatchers[PxDataDispatcherName.INIT],
-  });
+  const token = data?.user?.token;
 
   // Hooks
   React.useEffect(() => {
-    if (!socket || !layoutType || !slotMap) {
+    if (!layoutType || !slotMap) {
       return;
     }
+    if (!token) {
+      throw Error('Token unavailable - unable to initialize px data after layout change');
+    }
 
-    socket.on('pxInit', onPxInit);
-
-    const message: PxInitMessage = {
-      token: data?.user?.token,
+    apiInitPxData({
+      token,
       identifiers: (
         getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) ||
         Object.values(slotMap)
       ),
-    };
-    socket.emit('pxInit', message);
-
-    return () => {
-      socket.off('pxInit', onPxInit);
-    };
-  }, [socket, layoutType]);
+    })
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)));
+  }, [layoutType]);
 };

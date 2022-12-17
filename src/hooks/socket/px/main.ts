@@ -20,8 +20,8 @@ type UsePxSocketOpts = PxDataSubscriptionInfo;
 export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
   useMarketPxUpdateHandler({socket, identifiers});
-  useHistoryDataRequestHandler({socket, identifiers});
-  usePxInitHandler({socket});
+  useHistoryDataRequestHandler({identifiers});
+  usePxInitHandler();
   const dispatch = useDispatch();
 
   // System events

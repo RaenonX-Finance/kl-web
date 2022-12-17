@@ -5,9 +5,11 @@ import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
-import {PxInitMessage} from '../../../../hooks/socket/general/type';
-import {PxSocketContext} from '../../../../hooks/socket/px/const';
+import {pxDataDispatchers} from '../../../../state/pxData/dispatchers';
+import {PxDataDispatcherName} from '../../../../state/pxData/types';
+import {useDispatch} from '../../../../state/store';
 import {PxDataUniqueIdentifier} from '../../../../types/pxData';
+import {apiInitPxData} from '../../../../utils/api/px';
 import {PeriodSelector} from './period';
 import {ProductSelector} from './product';
 import {TargetSelectorCommonProps} from './type';
@@ -20,10 +22,14 @@ type Props = TargetSelectorCommonProps & {
 
 export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
   const {data} = useSession();
-  const socket = React.useContext(PxSocketContext);
+  const dispatch = useDispatch();
   const [disabled, setDisabled] = React.useState(false);
 
   const token = data?.user?.token;
+
+  if (!token) {
+    return <></>;
+  }
 
   const beforeUpdate = () => {
     setDisabled(true);
@@ -33,20 +39,12 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
     setShow(false);
     setDisabled(false);
 
-    if (!socket) {
-      throw Error(`Socket is [null], cannot request px data of [${identifier}]`);
-    }
-
-    const message: PxInitMessage = {
-      token: data?.user?.token,
+    apiInitPxData({
+      token,
       identifiers: [identifier],
-    };
-    socket.emit('pxInit', message);
+    })
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)));
   };
-
-  if (!token) {
-    return <></>;
-  }
 
   return (
     <Modal show={show} size="lg" onHide={() => setShow(false)} centered>

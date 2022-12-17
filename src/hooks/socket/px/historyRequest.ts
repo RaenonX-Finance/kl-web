@@ -4,45 +4,59 @@ import {useSession} from 'next-auth/react';
 
 import {useSharedConfigSelector} from '../../../state/config/selector';
 import {getSharedConfig} from '../../../state/config/utils';
+import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotIdentifier} from '../../../state/pxData/selector';
-import {PxDataSubscriptionInfo} from '../../../state/pxData/types';
+import {PxDataDispatcherName, PxDataSubscriptionInfo} from '../../../state/pxData/types';
+import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
-import {PxSocketContext} from './const';
-import {PxDataSocket, RequestPxMessage} from './type';
+import {apiRequestPxData} from '../../../utils/api/px';
 
 
-type UseHistoryDataRequestHandlerOpts = Pick<PxDataSubscriptionInfo, 'identifiers'> & {
-  socket: PxDataSocket | undefined,
-};
+type UseHistoryDataRequestHandlerOpts = Pick<PxDataSubscriptionInfo, 'identifiers'>;
 
-export const useHistoryDataRequestHandler = ({socket, identifiers}: UseHistoryDataRequestHandlerOpts) => {
+export const useHistoryDataRequestHandler = ({identifiers}: UseHistoryDataRequestHandlerOpts) => {
   const {data} = useSession();
+  const dispatch = useDispatch();
   const sharedConfig = useSharedConfigSelector();
+  const token = data?.user?.token;
 
   // Periodic px data request
   React.useEffect(() => {
-    if (!socket || !identifiers.length || !sharedConfig) {
+    if (!identifiers.length || !sharedConfig) {
       return;
     }
 
     const intervalId = setInterval(() => {
-      const requestMessage: RequestPxMessage = {
-        token: data?.user?.token,
+      if (!token) {
+        throw Error('Token unavailable - unable to periodically request Px data.');
+      }
+
+      apiRequestPxData({
+        token,
         requests: identifiers.map((identifier) => ({identifier, limit: 10})),
-      };
-      socket.emit('request', requestMessage);
+      })
+        .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)));
     }, getSharedConfig(sharedConfig, 'intervalHistoryPxSec') * 1000);
 
     return () => clearInterval(intervalId);
-  }, [socket, identifiers, sharedConfig?.intervalHistoryPxSec]);
+  }, [identifiers, sharedConfig?.intervalHistoryPxSec]);
 
   // Immediate px data request on `identifiers` changed
   React.useEffect(() => {
-    const requestMessage: RequestPxMessage = {
-      token: data?.user?.token,
+    if (!token) {
+      throw Error('Token unavailable - unable to immediately request Px data on identifier change.');
+    }
+
+    if (!identifiers.length) {
+      // Skip sending request if identifiers are empty
+      return;
+    }
+
+    apiRequestPxData({
+      token,
       requests: identifiers.map((identifier) => ({identifier})),
-    };
-    socket?.emit('request', requestMessage);
+    })
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)));
   }, [identifiers]);
 };
 
@@ -56,7 +70,7 @@ type UseOlderHistoryDataFetchReturn = {
 
 export const useOlderHistoryDataFetcher = ({slot}: UseOlderHistoryDataFetchOpts): UseOlderHistoryDataFetchReturn => {
   const {data} = useSession();
-  const socket = React.useContext(PxSocketContext);
+  const dispatch = useDispatch();
   const identifier = usePxSlotIdentifier(slot);
   const requesting = React.useRef(false); // To debounce
 
@@ -64,25 +78,23 @@ export const useOlderHistoryDataFetcher = ({slot}: UseOlderHistoryDataFetchOpts)
   const onCompletedRequest = () => requesting.current = false;
 
   const requestPxData = (offset: number) => {
-    if (!socket) {
-      throw Error('Socket is [null] while requesting older px data');
-    }
     if (!identifier) {
       throw Error(`Unique identifier for slot ${slot} is [null] while requesting older px data`);
     }
     if (requesting.current) {
       return;
     }
+    if (!token) {
+      throw Error('Token unavailable - unable to request older Px data.');
+    }
 
-    const requestMessage: RequestPxMessage = {
+    requesting.current = true;
+    apiRequestPxData({
       token,
       requests: [{identifier, offset}],
-    };
-    requesting.current = true;
-    socket.emit('request', requestMessage);
-    if (!socket.listeners('request').includes(onCompletedRequest)) {
-      socket.on('request', onCompletedRequest);
-    }
+    })
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)))
+      .then(onCompletedRequest);
   };
 
   return {requestPxData};
