@@ -31,7 +31,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
   };
 
   // Custom events
-  const onUpdated = useSocketEventHandler({
+  const onMarket = useSocketEventHandler({
     dispatch,
     action: pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET],
   });
@@ -52,7 +52,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
     socket.on('connect_error', onConnectionError);
 
     // Custom events
-    socket.on('updated', onUpdated);
+    socket.on('market', onMarket);
     socket.on('request', onRequested);
     socket.on('minChange', onMinChanged);
 
@@ -60,7 +60,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
 
     return () => {
       socket.off('connect_error', onConnectionError);
-      socket.off('updated', onUpdated);
+      socket.off('market', onMarket);
       socket.off('request', onRequested);
 
       socket.close();
