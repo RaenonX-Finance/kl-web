@@ -31,6 +31,8 @@ export const apiSendPostRequest = <R>({
       'Content-Type': contentType,
     },
     data,
+    timeout: 10000,
+    timeoutErrorMessage: `POST request to \`${apiPath}\` timed out after 10 secs`,
   });
 };
 
@@ -53,6 +55,8 @@ export const apiSendGetRequest = <R>({
       ...(token ? {Authorization: `Bearer ${token}`} : {}),
       'Content-Type': 'application/json',
     },
+    timeout: 10000,
+    timeoutErrorMessage: `GET request to \`${apiPath}\` timed out after 10 secs`,
   });
 };
 
