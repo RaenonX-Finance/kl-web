@@ -24,7 +24,7 @@ const slice = createSlice({
         const {config} = payload;
 
         return {
-          layoutType: config.layout_type || '4-2x2',
+          layoutType: config.layout_type || '1-1x1',
           layoutConfig: config.layout_config || generateLayoutConfig(),
           sharedConfig: config.shared_config || generateSharedConfig(),
         };
