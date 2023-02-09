@@ -16,6 +16,10 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
   userinfo: `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
   clientId: process.env.NEXTAUTH_CLIENT_ID,
   clientSecret: process.env.NEXTAUTH_CLIENT_SECRET,
+  httpOptions: {
+    // Default is 3500, which the API might not respond in-time, causing kick out
+    timeout: 10000,
+  },
   profile: (profile, tokens) => ({
     id: profile._id,
     username: profile.username,
