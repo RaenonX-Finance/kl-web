@@ -1,0 +1,23 @@
+{
+  "name": "kl-web-common",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "18.x",
+    "npm": "^9.5.1"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@sinclair/typebox": "^0.25.24",
+    "env-var": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.1",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.27.5",
+    "typescript": "^4.9.5"
+  }
+}

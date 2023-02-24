@@ -1,0 +1,53 @@
+{
+  "name": "kl-api-px",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x",
+    "npm": "^9.5.1"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc -p .",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
+    "protoc": "grpc_tools_node_protoc --plugin=protoc-gen-ts=%CD%/node_modules/.bin/protoc-gen-ts.cmd --ts_out=grpc_js:%CD%/src/protos --js_out=import_style=commonjs:%CD%/src/protos --grpc_out=grpc_js:%CD%/src/protos --proto_path ../kl-proto ../kl-proto/*.proto"
+  },
+  "author": "RaenonX",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.2.0",
+    "@fastify/type-provider-typebox": "^2.4.0",
+    "@grpc/grpc-js": "^1.8.11",
+    "@newrelic/pino-enricher": "^1.1.1",
+    "@sinclair/typebox": "^0.25.24",
+    "dotenv": "^16.0.3",
+    "env-var": "^7.3.0",
+    "google-protobuf": "^3.21.2",
+    "grpc-tools": "^1.12.4",
+    "fastify": "^4.13.0",
+    "fastify-socket.io": "^4.0.0",
+    "mongodb": "^5.1.0",
+    "newrelic": "^9.10.2",
+    "pino": "^8.11.0",
+    "pm2": "^5.2.2",
+    "redis": "^4.6.5",
+    "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.1",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.27.5",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "nodemon": "^2.0.20",
+    "pino-pretty": "^9.4.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "types-fastify-socket.io": "^0.0.1"
+  }
+}

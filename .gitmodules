@@ -1,0 +1,3 @@
+[submodule "kl-proto"]
+	path = kl-proto
+	url = git@github.com:RaenonX-Finance/kl-proto.git
