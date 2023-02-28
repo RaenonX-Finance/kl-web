@@ -11,7 +11,7 @@ export const generateDataSocketClient = (): PxDataSocket => {
     throw new Error('Data socket URL not set.');
   }
 
-  return io(url, {path: '/ws/socket.io/'});
+  return io(url, {path: '/socket.io/'});
 };
 
 export const generateAccountSocketClient = (): GeneralSocket => {
@@ -21,5 +21,5 @@ export const generateAccountSocketClient = (): GeneralSocket => {
     throw new Error('Account socket URL not set.');
   }
 
-  return io(process.env.NEXT_PUBLIC_ACCOUNT_SOCKET_URL as string, {path: '/ws/socket.io/'});
+  return io(url, {path: '/ws/socket.io/'});
 };
