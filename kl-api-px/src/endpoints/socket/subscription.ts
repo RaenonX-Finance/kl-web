@@ -27,7 +27,7 @@ export const sioUnsubscribeHandler = (
 
   const rooms = data.identifiers.map((identifier) => identifier.split('@')[0]);
 
-  await Promise.all(rooms.map(socket.leave));
+  await Promise.all(rooms.map((room) => socket.leave(room)));
 
   Logger.info({session: socket.id, rooms}, 'Socket `%s` left [%s]', socket.id, rooms);
 };
