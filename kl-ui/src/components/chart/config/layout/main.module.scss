@@ -6,9 +6,10 @@ button {
     // This has to be the same as the config button variant
     $theme-color: colors.$color-mild-info;
 
+    // TODO: Layout config button should have gradient style
     &:hover {
       color: white;
-      background-color: transparent;
+      background-color: color.change($theme-color, $lightness: 25%);
       border-color: $theme-color;
 
       &:active,
