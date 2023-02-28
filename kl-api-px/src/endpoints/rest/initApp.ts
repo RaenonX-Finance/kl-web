@@ -20,7 +20,9 @@ export const restAddInitAppRequestHandler = () => {
       const {sources, periods} = getConfig();
 
       return {
-        products: sources.map(({internalSymbol, name}) => ({symbol: internalSymbol, name})),
+        products: sources
+          .filter(({enabled}) => enabled)
+          .map(({internalSymbol, name}) => ({symbol: internalSymbol, name})),
         periods: periods.map(({name, periodMin}) => ({name, min: periodMin})),
       };
     },
