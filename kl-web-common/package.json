@@ -6,7 +6,9 @@
     "node": "18.x",
     "npm": "^9.5.1"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsc -p ."
+  },
   "dependencies": {
     "@sinclair/typebox": "^0.25.24",
     "env-var": "^7.3.0"

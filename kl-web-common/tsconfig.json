@@ -5,6 +5,7 @@
     "target": "es2022",
     "module": "commonjs",
     "esModuleInterop": true,
+    "outDir": "./dist",
     "lib": [
       "esnext"
     ],
@@ -26,7 +27,6 @@
     /* Advanced Options */
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "incremental": true
   },
   "include": [

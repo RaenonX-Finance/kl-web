@@ -16,7 +16,7 @@ import {bindRestEndpointHandlers} from './init/rest/endpoints';
 import {bindRestEventHandlers} from './init/rest/events';
 import {runFastify} from './init/rest/run';
 
-// TODO: Webpage check socket event
+// TODO: UI check socket event
 //  - C2S Subscribe
 //  - C2S Unsubscribe
 //  - C2S Disconnect
