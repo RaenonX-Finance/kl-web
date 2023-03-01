@@ -36,5 +36,6 @@ import {runFastify} from './init/rest/run';
 
   runFastify();
 })().catch((error) => {
-  Logger.error({error}, `Application start up error (%s)`, error.name);
+  Logger.error({error}, `Application start up error (%s)`, error.toString());
+  process.exit(1);
 });
