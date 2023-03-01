@@ -16,13 +16,6 @@ import {bindRestEndpointHandlers} from './init/rest/endpoints';
 import {bindRestEventHandlers} from './init/rest/events';
 import {runFastify} from './init/rest/run';
 
-// TODO: UI check socket event
-//  - C2S Subscribe
-//  - C2S Unsubscribe
-//  - C2S Disconnect
-//  - S2C minChange
-//  - S2C market
-//  - S2C request (API request send and reflected after? io.emit() send to all?)
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
