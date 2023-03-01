@@ -60,7 +60,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
   );
 
   const onError: DataSocketS2CEvents['error'] = (message) => {
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE])({message});
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
   };
 
   // Hooks
