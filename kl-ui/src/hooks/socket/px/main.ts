@@ -45,13 +45,17 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
       throw new Error('Received px data request socket event, but token is unavailable');
     }
 
-    const symbolsToRequest = new Set(symbols);
+    const socketRequesting = new Set(symbols);
+    const actualToRequest = identifiers
+      .filter((identifier) => socketRequesting.has(identifier.split('@')[0]));
+
+    if (!actualToRequest.length) {
+      return;
+    }
 
     apiRequestPxData({
       token,
-      requests: identifiers
-        .filter((identifier) => symbolsToRequest.has(identifier.split('@')[0]))
-        .map((identifier) => ({identifier, limit: 2})),
+      requests: actualToRequest.map((identifier) => ({identifier, limit: 2})),
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)));
   };
