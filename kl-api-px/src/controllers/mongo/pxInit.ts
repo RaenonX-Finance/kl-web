@@ -5,8 +5,8 @@ import {getRequestDetails} from 'kl-web-common/utils/pxModel';
 
 import {getConfig, getSource} from './cached/pxConfig';
 import {getSourceInfo} from './cached/sourceInfo';
-import {getMomentum} from './momentum';
 import {getCalculatedPxSingle} from './pxCalc';
+import {getMomentum} from '../redis/momentum';
 
 
 export const getInitPxSingle = async (request: PxRequestModel): Promise<PxData> => {

@@ -3,7 +3,7 @@ import {PxDataBarModel} from 'kl-web-common/models/pxDataBar';
 import {SourceInfoModel} from 'kl-web-common/models/sourceInfo';
 import {SrLevelModel} from 'kl-web-common/models/srLevel';
 
-import {Mongo} from '../const';
+import {Mongo} from '../../const';
 
 
 const px = Mongo.db('px');

@@ -8,7 +8,7 @@ require('newrelic');
 
 
 import {Logger} from './const';
-import {initMongoDataCache} from './controllers/cached/init';
+import {initMongoDataCache} from './controllers/mongo/cached/init';
 import {bindGrpcCalls} from './init/grpc/calls';
 import {runGrpcServiceAsync} from './init/grpc/run';
 import {initRedis} from './init/redis/main';

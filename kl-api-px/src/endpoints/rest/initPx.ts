@@ -3,7 +3,7 @@ import {PxInit, PxInitSchema} from 'kl-web-common/models/pxInit';
 import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/pxRequest';
 
 import {RestApiServer} from '../../const';
-import {getInitPx} from '../../controllers/pxInit';
+import {getInitPx} from '../../controllers/mongo/pxInit';
 
 
 export const restAddPxInitRequestHandler = () => {
@@ -18,8 +18,6 @@ export const restAddPxInitRequestHandler = () => {
       },
     },
     async (request) => {
-      // DRAFT: [ApiPath.PxInit] Check token here
-
       return await getInitPx(request.body.requests);
     },
   );

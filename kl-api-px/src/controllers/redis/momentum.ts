@@ -1,6 +1,6 @@
 import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
 
-import {Logger, RedisLastPx} from '../const';
+import {Logger, RedisLastPx} from '../../const';
 
 
 export const getMomentum = async (symbol: string): Promise<PxMomentumIndex> => {

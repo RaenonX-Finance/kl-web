@@ -2,7 +2,7 @@ import {ApiPath} from 'kl-web-common/enums/endpoints';
 import {AppInitData, AppInitDataSchema, AppInitRequest} from 'kl-web-common/models/appInit';
 
 import {RestApiServer} from '../../const';
-import {getConfig} from '../../controllers/cached/pxConfig';
+import {getConfig} from '../../controllers/mongo/cached/pxConfig';
 
 
 export const restAddInitAppRequestHandler = () => {

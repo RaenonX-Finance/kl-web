@@ -3,7 +3,7 @@ import {PxHistory, PxHistorySchema} from 'kl-web-common/models/pxHistory';
 import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/pxRequest';
 
 import {RestApiServer} from '../../const';
-import {getCalculatedPx} from '../../controllers/pxCalc';
+import {getCalculatedPx} from '../../controllers/mongo/pxCalc';
 
 
 export const restAddPxRequestHandler = () => {
