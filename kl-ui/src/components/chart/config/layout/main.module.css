@@ -1,6 +1,11 @@
-button.config-button:hover {
+button.config-button:active, button.config-button[class*=active] {
   color: white;
   background-color: #06667a;
+  border-color: #0aaecf;
+}
+button.config-button:hover {
+  color: black;
+  background-color: #0aaecf;
   border-color: #0aaecf;
 }
 button.config-button:hover:active, button.config-button:hover[class*=active] {

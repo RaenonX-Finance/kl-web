@@ -47,7 +47,7 @@ export const PxChartLayoutConfigEntries = ({
               <Button
                 key={key}
                 className={`w-100 mb-3 bg-gradient ${styles['config-button']}`}
-                variant="outline-mild-info"
+                variant="secondary"
                 onClick={() => updateConfig(configKey, !value)}
                 disabled={disabled}
                 active={value}
