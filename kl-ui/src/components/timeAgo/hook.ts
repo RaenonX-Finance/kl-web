@@ -51,7 +51,7 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
 
   const ping = () => {
     pingStart.current = Date.now();
-    socket.emit('ping', '');
+    socket.emit('ping');
   };
 
   const start = () => {

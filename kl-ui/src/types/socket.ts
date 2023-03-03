@@ -13,6 +13,7 @@ export type GeneralSocketC2SEvents = {
 
 export type GeneralSocketS2CEvents = {
   init: (initData: InitAccountData) => void,
+  ping: () => void,
   error: (message: string) => void,
   auth: () => void,
 };
