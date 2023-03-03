@@ -2,6 +2,7 @@ import {DataSocketC2SEvents, DataSocketS2CEvents} from 'kl-web-common/models/soc
 import {Socket} from 'socket.io';
 
 import {Logger} from '../../const';
+import {isTokenValid} from '../../controllers/account/token';
 
 
 export const sioSubscribeHandler = (
@@ -9,7 +10,10 @@ export const sioSubscribeHandler = (
 ): DataSocketC2SEvents['subscribe'] => async (
   data,
 ) => {
-  // DRAFT: [Socket - subscribe] check token
+  const tokenErrorMessage = await isTokenValid(data.token);
+  if (!!tokenErrorMessage) {
+    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  }
 
   const rooms = data.identifiers.map((identifier) => identifier.split('@')[0]);
   socket.join(rooms);
@@ -23,7 +27,10 @@ export const sioUnsubscribeHandler = (
 ): DataSocketC2SEvents['unsubscribe'] => async (
   data,
 ) => {
-  // DRAFT: [Socket - unsubscribe] check token
+  const tokenErrorMessage = await isTokenValid(data.token);
+  if (!!tokenErrorMessage) {
+    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  }
 
   const rooms = data.identifiers.map((identifier) => identifier.split('@')[0]);
 

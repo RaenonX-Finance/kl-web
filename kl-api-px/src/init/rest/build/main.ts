@@ -3,14 +3,15 @@ import fastify from 'fastify';
 import {getEnvironment} from 'kl-web-common/utils/env';
 
 import {envToLogger} from './loggerOpts';
-import {registerMiddlewares} from './middleware';
+import {registerCors, registerBearerAuthCheck} from './middleware';
 
 
 export const buildRestApi = () => {
   const server = fastify({logger: envToLogger[getEnvironment().toLowerCase()] ?? true})
     .withTypeProvider<TypeBoxTypeProvider>();
 
-  registerMiddlewares(server);
+  registerCors(server);
+  registerBearerAuthCheck(server);
 
   return server;
 };

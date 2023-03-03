@@ -16,7 +16,6 @@ export const restAddInitAppRequestHandler = () => {
       },
     },
     async () => {
-      // DRAFT: [ApiPath.AppInit] Check token here
       const {sources, periods} = getConfig();
 
       return {

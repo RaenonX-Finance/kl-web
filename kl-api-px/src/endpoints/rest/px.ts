@@ -18,8 +18,6 @@ export const restAddPxRequestHandler = () => {
       },
     },
     async (request) => {
-      // DRAFT: [ApiPath.PxRequest] Check token here
-
       return await getCalculatedPx(request.body.requests);
     },
   );

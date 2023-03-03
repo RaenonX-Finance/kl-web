@@ -12,8 +12,9 @@ export type AppInitAppOpts = {
 export const apiInitApp = ({token}: AppInitAppOpts): Promise<AxiosResponse<AppInitData>> => (
   dataApiPost({
     apiPath: ApiPath.AppInit,
-    token,
-    data: {},
+    data: {
+      token,
+    },
     contentType: 'application/json',
   })
 );
