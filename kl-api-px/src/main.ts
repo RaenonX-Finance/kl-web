@@ -27,7 +27,7 @@ import {runFastify} from './init/rest/run';
 
   runGrpcServiceAsync();
 
-  runFastify();
+  await runFastify();
 })().catch((error) => {
   Logger.error({error}, `Application start up error (%s)`, error.toString());
   process.exit(1);
