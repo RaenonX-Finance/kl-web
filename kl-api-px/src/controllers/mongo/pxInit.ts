@@ -40,7 +40,7 @@ export const getInitPxSingle = async (request: PxRequestModel): Promise<PxData> 
       l: last.low,
       c: last.close,
       diffVal: last.diff,
-      diffPct: last.open,
+      diffPct: (last.close / last.open - 1) * 100,
       momentum,
     },
   };
