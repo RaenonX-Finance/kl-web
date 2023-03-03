@@ -1,8 +1,18 @@
-import {JsonValue} from '../utils/types';
+import {InitAccountData} from './init';
 
 
-export type SocketMessage = string | Uint8Array | JsonValue;
+export type PxCheckAuthMessage = {
+  token: string | undefined,
+};
 
-export type SocketMessageHandler = (message: SocketMessage) => void;
+export type GeneralSocketC2SEvents = {
+  init: (token: string) => void,
+  ping: () => void,
+  auth: (auth: PxCheckAuthMessage) => void,
+};
 
-export type SocketEvent<E extends string> = {[key in E]: SocketMessageHandler};
+export type GeneralSocketS2CEvents = {
+  init: (initData: InitAccountData) => void,
+  error: (message: string) => void,
+  auth: () => void,
+};

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
-import {GeneralSocket, PxCheckAuthMessage} from './type';
+import {GeneralSocket} from './type';
 import {useNextAuthCall} from '../../auth';
 
 
@@ -35,8 +35,7 @@ export const useAuthHandler = ({socket}: UsePxInitHandlerOpts) => {
     socket.on('auth', clearTimeout);
 
     intervalId.current = window.setInterval(() => {
-      const message: PxCheckAuthMessage = {token: data?.user?.token};
-      socket.emit('auth', message);
+      socket.emit('auth', {token: data?.user?.token});
 
       timeoutId.current = window.setTimeout(signIn, AUTH_CHECK_TIMEOUT_MS);
     }, AUTH_CHECK_INTERVAL_MS);

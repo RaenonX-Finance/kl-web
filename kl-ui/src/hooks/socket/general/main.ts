@@ -11,10 +11,8 @@ import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
 import {InitAccountData} from '../../../types/init';
-import {SocketMessage} from '../../../types/socket';
 import {generateAccountSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
-import {ensureStringMessage, useSocketEventHandler} from '../utils';
 
 
 export const useGeneralSocket = (): GeneralSocket | undefined => {
@@ -38,26 +36,17 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
   };
 
   // Custom events
-  const onInit = React.useCallback((message: SocketMessage) => {
-    const initData: InitAccountData = JSON.parse(ensureStringMessage(message));
-
+  const onInit = (initData: InitAccountData) => {
     if (!session || !!session.error) {
       return;
     }
 
     dispatch(mergedDispatchers[MergedDispatcherName.INIT_ACCOUNT](initData));
-  }, []);
-  const onError = useSocketEventHandler({
-    dispatch,
-    action: errorDispatchers[ErrorDispatcherName.UPDATE],
-  });
-  const onSignIn = (message: SocketMessage) => {
-    if (typeof message !== 'string') {
-      console.error(`Socket event [signIn] does not have [string] message: ${message}`);
-      return;
-    }
-
+  };
+  const onError = (message: string) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
+
+    // Trigger `next-auth.signIn()` to recheck user auth validity
     signIn();
   };
 
@@ -72,7 +61,6 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
     // Custom events
     socket.on('init', onInit);
     socket.on('error', onError);
-    socket.on('signIn', onSignIn);
 
     socket.emit('init', session?.user?.token || '');
 
@@ -84,7 +72,6 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
 
       socket.off('init', onInit);
       socket.off('error', onError);
-      socket.off('signIn', onSignIn);
 
       socket.close();
     };

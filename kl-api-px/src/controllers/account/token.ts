@@ -29,7 +29,6 @@ export const isTokenValid = async (token: string | null | undefined): Promise<st
       timeoutErrorMessage: `POST request to check token timed out after 10 secs`,
     });
 
-    console.log(res.data);
     if (!res.data.ok) {
       return 'Server did not return OK';
     }
