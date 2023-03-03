@@ -29,8 +29,9 @@ export const registerCors = (server: FastifyInstance) => {
 };
 
 export const registerBearerAuthCheck = (server: FastifyInstance) => {
-  server.addHook<{Body: {token?: string}}>('preHandler', async ({body, routerPath}, reply) => {
-    if (!routerPath.startsWith(ApiAuthEndpointPrefix)) {
+  server.addHook<{Body: {token?: string}}>('preHandler', async ({body, routerPath, url}, reply) => {
+    console.log(routerPath, url);
+    if (!url.startsWith(ApiAuthEndpointPrefix)) {
       return;
     }
 
