@@ -4,7 +4,6 @@ import {ApiHost, ApiPort} from '../../env';
 
 export const runFastify = async () => {
   try {
-    // `host` is needed for socket.io server to work
     await RestApiServer.listen({host: ApiHost, port: ApiPort});
     const addresses = RestApiServer.addresses();
     Logger.info(

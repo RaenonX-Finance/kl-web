@@ -1,4 +1,5 @@
 import fastifyCors from '@fastify/cors';
+import fastifyHelmet from '@fastify/helmet';
 import {HttpStatusCode} from 'axios';
 import {FastifyInstance} from 'fastify';
 import fastifySocketIo from 'fastify-socket.io';
@@ -8,10 +9,11 @@ import {isTokenValid} from '../../../controllers/account/token';
 import {CorsAllowedOrigins} from '../../../env';
 
 
-export const registerCors = (server: FastifyInstance) => {
+export const registerMiddlewares = (server: FastifyInstance) => {
   const logObj = {origins: CorsAllowedOrigins};
   server.log.info(logObj, 'CORS allowed origins: %s', logObj.origins);
 
+  server.register(fastifyHelmet);
   server.register(
     fastifyCors,
     {

@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^8.2.0",
+    "@fastify/helmet": "^10.1.0",
     "@fastify/type-provider-typebox": "^2.4.0",
     "@grpc/grpc-js": "^1.8.11",
     "@newrelic/pino-enricher": "^1.1.1",
