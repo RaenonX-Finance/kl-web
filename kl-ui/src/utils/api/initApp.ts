@@ -6,7 +6,7 @@ import {dataApiPost} from './common/post';
 
 
 export type AppInitAppOpts = {
-  token?: string,
+  token: string,
 };
 
 export const apiInitApp = ({token}: AppInitAppOpts): Promise<AxiosResponse<AppInitData>> => (

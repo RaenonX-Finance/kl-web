@@ -28,7 +28,7 @@ export const useHistoryDataRequestHandler = ({identifiers}: UseHistoryDataReques
 
     const intervalId = setInterval(() => {
       if (!token) {
-        throw new Error('Token unavailable - unable to periodically request Px data.');
+        throw new Error('Token unavailable - unable to periodically request Px data');
       }
 
       apiRequestPxData({
@@ -44,7 +44,7 @@ export const useHistoryDataRequestHandler = ({identifiers}: UseHistoryDataReques
   // Immediate px data request on `identifiers` changed
   React.useEffect(() => {
     if (!token) {
-      throw new Error('Token unavailable - unable to immediately request Px data on identifier change.');
+      throw new Error('Token unavailable - unable to immediately request Px data on identifier change');
     }
 
     if (!identifiers.length) {
@@ -85,7 +85,7 @@ export const useOlderHistoryDataFetcher = ({slot}: UseOlderHistoryDataFetchOpts)
       return;
     }
     if (!token) {
-      throw new Error('Token unavailable - unable to request older Px data.');
+      throw new Error('Token unavailable - unable to request older Px data');
     }
 
     requesting.current = true;
