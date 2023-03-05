@@ -2,7 +2,7 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
-import {GeneralSocket} from './type';
+import {AccountSocket} from './type';
 import {useNextAuthCall} from '../../auth';
 
 
@@ -10,7 +10,7 @@ const AUTH_CHECK_TIMEOUT_MS = 10000;
 const AUTH_CHECK_INTERVAL_MS = 20000;
 
 type UsePxInitHandlerOpts = {
-  socket: GeneralSocket | undefined,
+  socket: AccountSocket | undefined,
 };
 
 export const useAuthHandler = ({socket}: UsePxInitHandlerOpts) => {

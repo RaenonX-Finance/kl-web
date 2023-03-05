@@ -34,7 +34,9 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
   // System events
   const onConnectionError = (err: Error) => {
     console.error(err);
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: getErrorMessage({err})}));
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+      message: `報價 Socket 連線錯誤: ${getErrorMessage({err})}`,
+    }));
   };
 
   // Custom events

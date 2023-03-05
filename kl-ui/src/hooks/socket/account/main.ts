@@ -4,19 +4,20 @@ import {useSession} from 'next-auth/react';
 import {Socket} from 'socket.io-client';
 
 import {useAuthHandler} from './auth';
-import {GeneralSocket} from './type';
+import {AccountSocket} from './type';
 import {mergedDispatchers} from '../../../state/aggregated/dispatchers';
 import {MergedDispatcherName} from '../../../state/aggregated/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
 import {InitAccountData} from '../../../types/init';
+import {getErrorMessage} from '../../../utils/error';
 import {generateAccountSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
 
 
-export const useGeneralSocket = (): GeneralSocket | undefined => {
-  const [socket, setSocket] = React.useState<GeneralSocket>();
+export const useAccountSocket = (): AccountSocket | undefined => {
+  const [socket, setSocket] = React.useState<AccountSocket>();
   const {data: session} = useSession();
   const dispatch = useDispatch();
   const {signIn} = useNextAuthCall();
@@ -25,7 +26,9 @@ export const useGeneralSocket = (): GeneralSocket | undefined => {
   // System events
   const onConnectionError = (err: Error) => {
     console.error(err);
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+      message: `帳號管理 Socket 連線錯誤: ${getErrorMessage({err})}`,
+    }));
   };
   const onDisconnect = (reason: Socket.DisconnectReason) => {
     if (reason === 'io server disconnect') {

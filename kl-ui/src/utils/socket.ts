@@ -1,6 +1,6 @@
 import {io} from 'socket.io-client';
 
-import {GeneralSocket} from '../hooks/socket/general/type';
+import {AccountSocket} from '../hooks/socket/account/type';
 import {PxDataSocket} from '../hooks/socket/px/type';
 
 
@@ -14,7 +14,7 @@ export const generateDataSocketClient = (): PxDataSocket => {
   return io(url, {path: '/socket.io/'});
 };
 
-export const generateAccountSocketClient = (): GeneralSocket => {
+export const generateAccountSocketClient = (): AccountSocket => {
   const url = process.env.NEXT_PUBLIC_ACCOUNT_SOCKET_URL;
 
   if (!url) {
