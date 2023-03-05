@@ -46,12 +46,6 @@ class NextDocument extends Document<Props> {
           <link href="/favicon.ico" rel="icon"/>
           <link href="/logo512.png" rel="apple-touch-icon"/>
 
-          {/*
-          manifest.json provides metadata used when your web app is installed on a user's mobile device or desktop.
-          See https://developers.google.com/web/fundamentals/web-app-manifest/
-          */}
-          <link href="/manifest.json" rel="manifest"/>
-
           {/* New Relic Browser monitoring */}
           <script async type="text/javascript" src="/js/newRelicBrowser.js"/>
           <script
