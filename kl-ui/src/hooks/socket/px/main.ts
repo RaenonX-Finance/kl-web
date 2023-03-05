@@ -15,6 +15,7 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {PxDataDispatcherName, PxDataSubscriptionInfo} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {apiRequestPxData} from '../../../utils/api/px';
+import {getErrorMessage} from '../../../utils/error';
 import {generateDataSocketClient} from '../../../utils/socket';
 
 
@@ -33,7 +34,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
   // System events
   const onConnectionError = (err: Error) => {
     console.error(err);
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: err.message}));
+    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: getErrorMessage({err})}));
   };
 
   // Custom events

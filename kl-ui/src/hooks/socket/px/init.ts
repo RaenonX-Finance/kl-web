@@ -9,6 +9,7 @@ import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {apiInitPxData} from '../../../utils/api/px';
+import {useHandleAxiosError} from '../../axios';
 
 
 export const usePxInitHandler = () => {
@@ -16,6 +17,7 @@ export const usePxInitHandler = () => {
   const layoutType = useLayoutTypeConfigSelector();
   const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
+  const {onError} = useHandleAxiosError();
   const token = data?.user?.token;
 
   // Hooks
@@ -32,6 +34,7 @@ export const usePxInitHandler = () => {
       requests: (getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) || Object.values(slotMap))
         .map((identifier) => ({identifier})),
     })
-      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)));
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
+      .catch(onError);
   }, [layoutType]);
 };

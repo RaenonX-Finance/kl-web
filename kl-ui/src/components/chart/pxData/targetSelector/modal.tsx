@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import {PeriodSelector} from './period';
 import {ProductSelector} from './product';
 import {TargetSelectorCommonProps} from './type';
+import {useHandleAxiosError} from '../../../../hooks/axios';
 import {pxDataDispatchers} from '../../../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../../../state/pxData/types';
 import {useDispatch} from '../../../../state/store';
@@ -24,6 +25,7 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
   const {data} = useSession();
   const dispatch = useDispatch();
   const [disabled, setDisabled] = React.useState(false);
+  const {onError} = useHandleAxiosError();
 
   const token = data?.user?.token;
 
@@ -43,7 +45,8 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
       token,
       requests: [{identifier}],
     })
-      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)));
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
+      .catch(onError);
   };
 
   return (
