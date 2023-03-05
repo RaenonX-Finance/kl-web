@@ -7,14 +7,14 @@
     "npm": "^9.5.1"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "SET NODE_OPTIONS='-r @newrelic/next' && next dev",
     "build": "next build",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "lint:css": "stylelint **/*.scss",
     "test": "jest --config jest.config.ts --maxWorkers=50% --colors",
     "test:ci": "node --max-old-space-size=8192 ../node_modules/jest/bin/jest.js --config jest.config.ts --maxWorkers=50% --colors --ci --reporters=default --reporters=jest-junit --coverage",
-    "start": "next start"
+    "start": "SET NODE_OPTIONS='-r @newrelic/next' && next start"
   },
   "dependencies": {
     "@blaumaus/react-alert": "^7.0.5",
@@ -45,6 +45,7 @@
     "@types/chroma-js": "^2.1.3",
     "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
+    "@types/newrelic": "^9.4.0",
     "@types/node": "^18.14.1",
     "@types/pako": "^2.0.0",
     "@types/react": "^18.0.15",
@@ -78,6 +79,7 @@
   "peerDependencies": {
     "@types/node": "*",
     "axios": "*",
+    "newrelic": "*",
     "typescript": "*"
   },
   "browserslist": {

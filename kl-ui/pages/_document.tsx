@@ -1,14 +1,33 @@
 import React from 'react';
 
-import Document, {Head, Html, Main, NextScript} from 'next/document';
+import newrelic from 'newrelic';
+import Document, {DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript} from 'next/document';
 
 
-type Props = {};
+type Props = {browserTimingHeader: string};
 
 /**
  * Base react app document component.
  */
 class NextDocument extends Document<Props> {
+  /**
+   * @inheritDoc
+   */
+  static async getInitialProps(
+    ctx: DocumentContext,
+  ): Promise<DocumentInitialProps & Props> {
+    const initialProps = await Document.getInitialProps(ctx);
+
+    const browserTimingHeader = newrelic.getBrowserTimingHeader({
+      hasToRemoveScriptWrapper: true,
+    });
+
+    return {
+      ...initialProps,
+      browserTimingHeader,
+    };
+  }
+
   /**
    * @inheritDoc
    */
@@ -35,6 +54,10 @@ class NextDocument extends Document<Props> {
 
           {/* New Relic Browser monitoring */}
           <script async type="text/javascript" src="/js/newRelicBrowser.js"/>
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{__html: this.props.browserTimingHeader}}
+          />
 
           {/* NOTE: Bootstrap CSS already imported via `bootstrap.css` in `_app.tsx` */}
           {/* Bootstrap Icons */}

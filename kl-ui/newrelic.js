@@ -1,5 +1,4 @@
 'use strict';
-const {getEnvironment} = require('kl-web-common/utils/env');
 /**
  * New Relic agent configuration.
  *
@@ -7,7 +6,6 @@ const {getEnvironment} = require('kl-web-common/utils/env');
  * description of configuration variables and their potential values.
  */
 exports.config = {
-  app_name: [`KL.UI.${getEnvironment()}`],
   logging: {
     level: 'info',
   },
