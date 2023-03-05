@@ -33,7 +33,8 @@ export const grpcRealtimeHandler: ISystemEventServer['realtime'] = ({request}): 
   const {dataMap} = request.toObject();
   const symbols = dataMap.map(([symbol]) => symbol);
 
-  Logger.info({symbols}, 'Sending `market` socket event of [%s]', symbols);
+  const event = 'market';
+  Logger.info({symbols, event}, 'Sending `%s` socket event of [%s]', event, symbols);
 
   const pxMarket: PxMarket = Object.fromEntries(dataMap.map((([symbol, obj]) => {
     const pxMarketSingle: PxMarketSingle = {
