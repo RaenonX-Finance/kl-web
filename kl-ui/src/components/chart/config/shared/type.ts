@@ -7,7 +7,6 @@ export type PxSharedConfigUI = PxConfigUI<PxSharedConfigKeys, string, PxSharedCo
 
 export type PxSharedConfig = {
   intervalMarketPxSec: number,
-  intervalHistoryPxSec: number,
 };
 
 export type PxSharedConfigGroup = PxConfigEntriesGroup<PxSharedConfigKeys, string, PxSharedConfig>;

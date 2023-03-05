@@ -2,8 +2,6 @@ import React from 'react';
 
 import {useSession} from 'next-auth/react';
 
-import {useSharedConfigSelector} from '../../../state/config/selector';
-import {getSharedConfig} from '../../../state/config/utils';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotIdentifier} from '../../../state/pxData/selector';
 import {PxDataDispatcherName, PxDataSubscriptionInfo} from '../../../state/pxData/types';
@@ -17,29 +15,7 @@ type UseHistoryDataRequestHandlerOpts = Pick<PxDataSubscriptionInfo, 'identifier
 export const useHistoryDataRequestHandler = ({identifiers}: UseHistoryDataRequestHandlerOpts) => {
   const {data} = useSession();
   const dispatch = useDispatch();
-  const sharedConfig = useSharedConfigSelector();
   const token = data?.user?.token;
-
-  // Periodic px data request
-  React.useEffect(() => {
-    if (!identifiers.length || !sharedConfig) {
-      return;
-    }
-
-    const intervalId = setInterval(() => {
-      if (!token) {
-        throw new Error('Token unavailable - unable to periodically request Px data');
-      }
-
-      apiRequestPxData({
-        token,
-        requests: identifiers.map((identifier) => ({identifier, limit: 10})),
-      })
-        .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)));
-    }, getSharedConfig(sharedConfig, 'intervalHistoryPxSec') * 1000);
-
-    return () => clearInterval(intervalId);
-  }, [identifiers, sharedConfig?.intervalHistoryPxSec]);
 
   // Immediate px data request on `identifiers` changed
   React.useEffect(() => {

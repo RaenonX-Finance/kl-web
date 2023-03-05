@@ -9,11 +9,4 @@ export const sharedConfigEntries: PxSharedConfigUI = {
     min: 0.1,
     tips: '秒數越低，系統資源消耗量越大；報價更新頻率越快。',
   },
-  intervalHistoryPxSec: {
-    group: '資料處理',
-    title: '歷史資料要求頻率 (秒)',
-    step: 0.1,
-    min: 0.1,
-    tips: '秒數越低，網路流量消耗越大；資料準確度更高。',
-  },
 };
