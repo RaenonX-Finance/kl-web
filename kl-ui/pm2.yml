@@ -1,5 +1,6 @@
 apps:
-  - name: 'KL.UI'
+  - namespace: 'KL'
+    name: 'KL.UI'
     # Entry point
     # `yarn run start` / `npm run start` won't work here - or additional work required
     script: './node_modules/next/dist/bin/next'

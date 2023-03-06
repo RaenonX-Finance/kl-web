@@ -1,5 +1,6 @@
 apps:
-  - name: 'KL.Api.Px'
+  - namespace: 'KL'
+    name: 'KL.Api.Px'
     # Entry point
     script: './dist/main.js'
     # Execution configs
