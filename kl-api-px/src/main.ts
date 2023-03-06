@@ -15,11 +15,14 @@ import {initRedis} from './init/redis/main';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
 import {bindRestEventHandlers} from './init/rest/events';
 import {runFastify} from './init/rest/run';
+import {setupSocketIoSticky} from './init/socket/sticky';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
   await Promise.all([initMongoDataCache(), initRedis()]);
+
+  setupSocketIoSticky();
 
   bindGrpcCalls();
   bindRestEndpointHandlers();
