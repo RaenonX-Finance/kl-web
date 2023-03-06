@@ -12,18 +12,20 @@ import {DataDispatcherName} from '../../../state/data/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
-import {PxDataDispatcherName, PxDataSubscriptionInfo} from '../../../state/pxData/types';
+import {usePxDataSubscriptionInfoSelector} from '../../../state/pxData/selector';
+import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {apiRequestPxData} from '../../../utils/api/px';
 import {getErrorMessage} from '../../../utils/error';
 import {generateDataSocketClient} from '../../../utils/socket';
+import {useHandleAxiosError} from '../../axios';
 
 
-type UsePxSocketOpts = PxDataSubscriptionInfo;
-
-export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | undefined => {
+export const usePxSocket = (): PxDataSocket | undefined => {
   const {data} = useSession();
   const [socket, setSocket] = React.useState<PxDataSocket>();
+  const {onError: onAxiosError} = useHandleAxiosError();
+  const {identifiers} = usePxDataSubscriptionInfoSelector();
   useMarketPxUpdateHandler({socket, identifiers});
   useHistoryDataRequestHandler({identifiers});
   usePxInitHandler();
@@ -53,6 +55,11 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
       .filter((identifier) => socketRequesting.has(identifier.split('@')[0]));
 
     if (!actualToRequest.length) {
+      console.warn(
+        'Received request to get Px data (1), but no matching identifiers to fetch the data (2)',
+        symbols,
+        identifiers,
+      );
       return;
     }
 
@@ -60,7 +67,8 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
       token,
       requests: actualToRequest.map((identifier) => ({identifier, limit: 2})),
     })
-      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)));
+      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)))
+      .catch(onAxiosError);
   };
   const onMinChanged: DataSocketS2CEvents['minChange'] = (data) => (
     dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data))
@@ -94,7 +102,7 @@ export const usePxSocket = ({identifiers}: UsePxSocketOpts): PxDataSocket | unde
 
       socket.close();
     };
-  }, []);
+  }, [identifiers]); // `identifiers` could be empty when Px socket is already initialized
 
   return socket;
 };

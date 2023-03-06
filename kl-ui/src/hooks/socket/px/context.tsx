@@ -3,7 +3,6 @@ import React from 'react';
 import {PxSocketContext} from './const';
 import {usePxSocket} from './main';
 import {MainLoading} from '../../../components/common/loading/main';
-import {usePxDataSubscriptionInfoSelector} from '../../../state/pxData/selector';
 
 
 type Props = {
@@ -11,8 +10,7 @@ type Props = {
 };
 
 export const PxSocketProvider = ({children}: Props) => {
-  const subscriptionInfo = usePxDataSubscriptionInfoSelector();
-  const socket = usePxSocket(subscriptionInfo);
+  const socket = usePxSocket();
 
   return (
     <PxSocketContext.Provider value={socket}>
