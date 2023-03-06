@@ -38,6 +38,14 @@ const commonOptions: FastifyLoggerOptions & PinoLoggerOptions = {
       return context;
     },
   },
+  serializers: {
+    res: (reply) => {
+      return {
+        statusCode: reply.statusCode,
+        url: reply.request.url,
+      };
+    },
+  },
 };
 
 export const envToLogger: {[environment in string]?: FastifyServerOptions['logger']} = {
