@@ -6,11 +6,17 @@ export const grpcMinuteChangeHandler: ISystemEventServer['minuteChange'] = ({req
   const epochSec = request.getEpochsec();
 
   if (!epochSec) {
-    throw new Error('`epochSec` is undefined but gRPC minute change is called');
+    throw new Error('gRPC minute change - `epochSec` is undefined');
+  }
+
+  const symbols = request.getSymbolsList();
+
+  if (!symbols.length) {
+    throw new Error(`gRPC minute change - Symbols of minute change to ${new Date(epochSec * 1000)} is undefined`);
   }
 
   const event = 'minChange';
-  Logger.info({epochSec, event}, 'Sending `%s` socket event at %d', event, epochSec);
+  Logger.info({epochSec, symbols, event}, 'Sending `%s` socket event of [%s] at %d', event, symbols, epochSec);
 
-  RestApiServer.io.emit('minChange', {epochSec});
+  RestApiServer.io.to(symbols).emit('minChange', {epochSec});
 };
