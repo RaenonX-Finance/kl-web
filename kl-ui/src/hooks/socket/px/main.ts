@@ -17,7 +17,7 @@ import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {apiRequestPxData} from '../../../utils/api/px';
 import {getErrorMessage} from '../../../utils/error';
-import {generateDataSocketClient} from '../../../utils/socket';
+import {generatePxSocketClient} from '../../../utils/socket';
 import {useHandleAxiosError} from '../../axios';
 
 
@@ -80,7 +80,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
 
   // Hooks
   React.useEffect(() => {
-    const socket = generateDataSocketClient();
+    const socket = generatePxSocketClient();
 
     // System events
     socket.on('connect_error', onConnectionError);
