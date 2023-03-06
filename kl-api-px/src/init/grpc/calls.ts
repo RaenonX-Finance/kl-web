@@ -8,6 +8,7 @@ import {grpcMinuteChangeHandler} from '../../endpoints/grpc/minuteChange';
 import {grpcRealtimeHandler} from '../../endpoints/grpc/realtime';
 import {SystemEventService} from '../../protos/systemEvent_grpc_pb';
 import {SystemEventReply} from '../../protos/systemEvent_pb';
+import {PxSocketEmitter} from '../../types/socket';
 
 
 let grpcRequestCount = 0;
@@ -63,14 +64,14 @@ const grpcHandlersAddLogging = () => {
   };
 };
 
-export const bindGrpcCalls = () => {
+export const bindGrpcCalls = (emitter: PxSocketEmitter) => {
   GrpcService.addService(
     SystemEventService,
     {
-      realtime: grpcRealtimeHandler,
-      minuteChange: grpcMinuteChangeHandler,
-      calculated: grpcCalculatedHandler,
-      error: grpcErrorHandler,
+      realtime: grpcRealtimeHandler(emitter),
+      minuteChange: grpcMinuteChangeHandler(emitter),
+      calculated: grpcCalculatedHandler(emitter),
+      error: grpcErrorHandler(emitter),
     },
   );
 

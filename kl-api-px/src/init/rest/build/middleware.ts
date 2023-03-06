@@ -2,7 +2,6 @@ import fastifyCors from '@fastify/cors';
 import fastifyHelmet from '@fastify/helmet';
 import {HttpStatusCode} from 'axios';
 import {FastifyInstance} from 'fastify';
-import fastifySocketIo from 'fastify-socket.io';
 import {ApiAuthEndpointPrefix} from 'kl-web-common/enums/endpoints';
 
 import {isTokenValid} from '../../../controllers/account/token';
@@ -19,15 +18,6 @@ export const registerMiddlewares = (server: FastifyInstance) => {
     {
       origin: CorsAllowedOrigins,
       methods: ['GET', 'POST'],
-    },
-  );
-  server.register(
-    fastifySocketIo,
-    {
-      cors: {
-        origin: CorsAllowedOrigins,
-        methods: ['GET', 'POST'],
-      },
     },
   );
 };

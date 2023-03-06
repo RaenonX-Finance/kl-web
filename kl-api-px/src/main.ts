@@ -13,25 +13,28 @@ import {bindGrpcCalls} from './init/grpc/calls';
 import {runGrpcServiceAsync} from './init/grpc/run';
 import {initRedis} from './init/redis/main';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
-import {bindRestEventHandlers} from './init/rest/events';
+import {addFastifyHooks} from './init/rest/hooks';
 import {runFastify} from './init/rest/run';
-import {setupSocketIoSticky} from './init/socket/sticky';
+import {bindSocketEvents} from './init/socket/events';
+import {setupSocketIoServer} from './init/socket/setup';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
   await Promise.all([initMongoDataCache(), initRedis()]);
 
-  setupSocketIoSticky();
+  const {emitter} = await setupSocketIoServer();
 
-  bindGrpcCalls();
+  bindGrpcCalls(emitter);
   bindRestEndpointHandlers();
-  bindRestEventHandlers();
+  bindSocketEvents();
+
+  addFastifyHooks();
 
   runGrpcServiceAsync();
-
   await runFastify();
 })().catch((error) => {
   Logger.error({error}, `Application start up error (%s)`, error.toString());
+  console.error(error);
   process.exit(1);
 });

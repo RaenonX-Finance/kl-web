@@ -1,11 +1,11 @@
-import {Logger, RestApiServer} from '../../const';
+import {Logger, SocketIoServer} from '../../const';
 import {sioDisconnectHandler} from '../../endpoints/socket/disconnect';
 import {sioErrorHandler} from '../../endpoints/socket/error';
 import {sioSubscribeHandler, sioUnsubscribeHandler} from '../../endpoints/socket/subscription';
 
 
 export const bindSocketEvents = () => {
-  RestApiServer.io.on('connect', (serverSocket) => {
+  SocketIoServer.on('connect', (serverSocket) => {
     const logObj = {session: serverSocket.id};
 
     // System event

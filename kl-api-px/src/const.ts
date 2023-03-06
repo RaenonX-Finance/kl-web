@@ -5,9 +5,12 @@ import {RedisDbId} from './enums/redisDb';
 import {MongoUri} from './env';
 import {buildGrpcService} from './init/grpc/build';
 import {buildRestApi} from './init/rest/build/main';
+import {buildSocketIoServer} from './init/socket/build';
 
 
 export const RestApiServer = buildRestApi();
+
+export const SocketIoServer = buildSocketIoServer(RestApiServer.server);
 
 export const GrpcService = buildGrpcService();
 

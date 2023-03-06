@@ -11,7 +11,15 @@ export const generatePxSocketClient = (): PxDataSocket => {
     throw new Error('Px socket URL not set.');
   }
 
-  return io(url, {path: '/socket.io/'});
+  // `withCredentials` is needed because Px socket is load balanced: https://socket.io/docs/v4/using-multiple-nodes/
+  return io(
+    url,
+    {
+      path: '/socket.io/',
+      withCredentials: true,
+      transports: ['websocket', 'polling'],
+    },
+  );
 };
 
 export const generateAccountSocketClient = (): AccountSocket => {

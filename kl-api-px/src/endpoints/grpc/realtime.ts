@@ -1,9 +1,10 @@
 import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
 import {PxMarket, PxMarketSingle} from 'kl-web-common/models/pxMarket';
 
-import {Logger, RestApiServer} from '../../const';
+import {Logger} from '../../const';
 import {ISystemEventServer} from '../../protos/systemEvent_grpc_pb';
 import {RealtimeDataSingle} from '../../protos/systemEvent_pb';
+import {PxSocketEmitter} from '../../types/socket';
 import {decimalValueToNumber} from '../../utils/grpcDecimalValue';
 
 
@@ -29,7 +30,11 @@ export const getDecimalValue = (
   return decimalValueToNumber(decimalValue);
 };
 
-export const grpcRealtimeHandler: ISystemEventServer['realtime'] = ({request}): void => {
+export const grpcRealtimeHandler = (
+  emitter: PxSocketEmitter,
+): ISystemEventServer['realtime'] => ({
+  request,
+}): void => {
   const {dataMap} = request.toObject();
   const symbols = dataMap.map(([symbol]) => symbol);
 
@@ -50,5 +55,5 @@ export const grpcRealtimeHandler: ISystemEventServer['realtime'] = ({request}): 
     return [symbol, pxMarketSingle];
   })));
 
-  RestApiServer.io.to(symbols).emit('market', pxMarket);
+  emitter.to(symbols).emit('market', pxMarket);
 };

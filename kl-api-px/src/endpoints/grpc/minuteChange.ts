@@ -1,8 +1,13 @@
-import {Logger, RestApiServer} from '../../const';
+import {Logger} from '../../const';
 import {ISystemEventServer} from '../../protos/systemEvent_grpc_pb';
+import {PxSocketEmitter} from '../../types/socket';
 
 
-export const grpcMinuteChangeHandler: ISystemEventServer['minuteChange'] = ({request}): void => {
+export const grpcMinuteChangeHandler = (
+  emitter: PxSocketEmitter,
+): ISystemEventServer['minuteChange'] => ({
+  request,
+}): void => {
   const epochSec = request.getEpochsec();
 
   if (!epochSec) {
@@ -18,5 +23,5 @@ export const grpcMinuteChangeHandler: ISystemEventServer['minuteChange'] = ({req
   const event = 'minChange';
   Logger.info({epochSec, symbols, event}, 'Sending `%s` socket event of [%s] at %d', event, symbols, epochSec);
 
-  RestApiServer.io.to(symbols).emit('minChange', {epochSec});
+  emitter.to(symbols).emit('minChange', {epochSec});
 };

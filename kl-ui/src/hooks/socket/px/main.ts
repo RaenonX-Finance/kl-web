@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {DataSocketS2CEvents} from 'kl-web-common/models/socket/socket';
+import {DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {useSession} from 'next-auth/react';
 
 import {useHistoryDataRequestHandler} from './historyRequest';
