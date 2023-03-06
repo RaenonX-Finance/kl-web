@@ -41,7 +41,7 @@ Should be something like `http://localhost:5999`.
 `NEXT_PUBLIC_ACCOUNT_SOCKET_URL`: KL Account socket URL.
 Should be something like `ws://localhost:8000/`.
 
-`NEXT_PUBLIC_DATA_SOCKET_URL`: KL Px socket URL.
+`NEXT_PUBLIC_PX_SOCKET_URL`: KL Px socket URL.
 Should be something like `ws://localhost:5999/`.
 
 `NEW_RELIC_LICENSE_KEY`: New Relic license key.

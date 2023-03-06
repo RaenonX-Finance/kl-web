@@ -5,7 +5,7 @@ import {PxDataSocket} from '../hooks/socket/px/type';
 
 
 export const generateDataSocketClient = (): PxDataSocket => {
-  const url = process.env.NEXT_PUBLIC_DATA_SOCKET_URL;
+  const url = process.env.NEXT_PUBLIC_PX_SOCKET_URL;
 
   if (!url) {
     throw new Error('Data socket URL not set.');
