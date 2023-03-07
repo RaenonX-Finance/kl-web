@@ -34,9 +34,7 @@ export const PxChartLegend = ({data, legend, slot}: Props) => {
     tiePoint,
   } = legend;
 
-  const elemRef = useAnimation({
-    deps: [momentum],
-  });
+  const animationRef = useAnimation({deps: [momentum]});
   const {ref, height} = useResizeObserver<HTMLDivElement>();
 
   let diffClassName: LegendDataCellProps['useValueClass'] = 'neutral';
@@ -57,7 +55,7 @@ export const PxChartLegend = ({data, legend, slot}: Props) => {
           className={`${styles['momentum-indicator']} ${momentumIndicatorStyleLookup[momentum]}`}
           style={{fontSize: !!height ? (height * 0.65) : '2rem'}}
         >
-          <span ref={elemRef}>
+          <span ref={animationRef}>
             {Math.abs(momentum)}
           </span>
         </Col>

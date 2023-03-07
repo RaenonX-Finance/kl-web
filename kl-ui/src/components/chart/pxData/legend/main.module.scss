@@ -59,23 +59,11 @@ span {
       /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
       @keyframes momentum-indicator-#{$suffix}-animation {  /* stylelint-disable-line keyframes-name-pattern */
         0% {
-          color: $color-text;
-        }
-
-        25% {
-          color: transparent;
-        }
-
-        50% {
-          color: $color-text;
-        }
-
-        75% {
-          color: transparent;
+          background-color: $color;
         }
 
         100% {
-          color: $color-text;
+          background-color: transparent;
         }
       }
 
@@ -84,7 +72,12 @@ span {
         border-radius: 0.5rem;
         box-shadow: inset 0 0 1.25rem $color;
         color: $color-text;
-        animation: 750ms momentum-indicator-#{$suffix}-animation;
+
+        // Animation ref is attached to the internal `span`, so the animation should be on that element
+        & > span {
+          width: 100%;
+          animation: ease-out 500ms momentum-indicator-#{$suffix}-animation;
+        }
       }
     }
 
