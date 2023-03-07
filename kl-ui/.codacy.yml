@@ -8,6 +8,7 @@ engines:
 
 exclude_paths:
   # New Relic Browser monitoring js
-  - 'public/js/newRelicBrowser.js'
+  - 'public/js/newRelicBrowser.Dev.js'
+  - 'public/js/newRelicBrowser.Prod.js'
   # CSS files - those are compiled from .scss
   - '**.css'

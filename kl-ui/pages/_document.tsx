@@ -1,10 +1,14 @@
 import React from 'react';
 
+import {isProduction} from 'kl-web-common/utils/env';
 import newrelic from 'newrelic';
 import Document, {DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript} from 'next/document';
 
 
-type Props = {browserTimingHeader: string};
+type Props = {
+  browserTimingHeader: string,
+  isProduction: boolean,
+};
 
 /**
  * Base react app document component.
@@ -25,6 +29,7 @@ class NextDocument extends Document<Props> {
     return {
       ...initialProps,
       browserTimingHeader,
+      isProduction: isProduction(),
     };
   }
 
@@ -47,7 +52,11 @@ class NextDocument extends Document<Props> {
           <link href="/logo512.png" rel="apple-touch-icon"/>
 
           {/* New Relic Browser monitoring */}
-          <script async type="text/javascript" src="/js/newRelicBrowser.js"/>
+          {this.props.isProduction ?
+            <script async type="text/javascript" src="/js/newRelicBrowser.Prod.js"/> :
+            <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
+          }
+          <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{__html: this.props.browserTimingHeader}}

@@ -22,7 +22,6 @@ next-env.d.ts
 .DS_Store
 .wakatime-project
 newrelic_agent.log
-newRelicBrowser.js
 
 # Debug
 npm-debug.log*

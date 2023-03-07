@@ -39,9 +39,9 @@ Should with slash `/`.
 
 `NEW_RELIC_APP_NAME`: New Relic app name.
 
-#### `./public/js/newRelicBrowser.js`
+#### `./public/js/newRelicBrowser.{Prod|Dev}.js`
 
-Grab from New Relic One using `Browser` and manual install.
+Grab from New Relic One using `Browser` and manually install it.
 
 ### `kl-api-px`
 
