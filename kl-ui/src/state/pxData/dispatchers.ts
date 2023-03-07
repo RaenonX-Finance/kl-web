@@ -3,11 +3,12 @@ import {PxHistory} from 'kl-web-common/models/pxHistory';
 import {PxInit} from 'kl-web-common/models/pxInit';
 import {PxMarket} from 'kl-web-common/models/pxMarket';
 
+
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
 import {PxDataMap, PxSlotName} from '../../types/pxData';
-import {updatePxDataBar} from '../../utils/calc';
 import {overrideObject} from '../../utils/override';
+import {updatePxDataBar} from '../../utils/px';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {createConfigAsyncThunk, getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
