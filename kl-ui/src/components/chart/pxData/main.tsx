@@ -2,7 +2,6 @@ import React from 'react';
 
 import {PxData} from 'kl-web-common/models/pxData';
 
-
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
@@ -53,13 +52,15 @@ export const PxDataChart = (props: Props) => {
       renderObjects={{
         legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} slot={slot}/>,
       }}
-      renderLayoutConfig={(security, config, setConfig) => (
+      renderLayoutConfig={({security, layoutConfig, setLayoutConfig, show, setShow}) => (
         <PxLayoutConfigPanel
           security={security}
           title={title}
           slot={slot}
-          config={config}
-          setConfig={setConfig}
+          config={layoutConfig}
+          setConfig={setLayoutConfig}
+          show={show}
+          setShow={setShow}
         />
       )}
       getPeriodSec={({periodSec}) => periodSec}

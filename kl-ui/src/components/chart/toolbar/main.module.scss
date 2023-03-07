@@ -1,11 +1,32 @@
 @mixin common-button {
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   margin-right: 0.5rem;
+  padding: 0 0.3rem;
+  font-size: 1.25rem;
+
+  & > i[class*="bi"]::before {
+    // Make icon graphic bolder for visibility
+    font-weight: 1000 !important;
+  }
 }
 
 button {
-  &.to-realtime {
+  &.action-button {
     @include common-button;
+  }
+
+  &.setting-button {
+    border-radius: 0.5rem;
+    margin: 0 0.5rem;
+    padding: 0.1rem;
+    font-size: 1.75rem;
+    line-height: 1.5rem;
+
+    --bs-btn-border-color: transparent;
+
+    & > i[class*="bi"]::before {
+      font-weight: 500 !important;
+    }
   }
 }
 
