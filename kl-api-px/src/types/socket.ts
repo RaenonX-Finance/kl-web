@@ -1,5 +1,5 @@
 import {Emitter} from '@socket.io/redis-emitter';
-import {DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 
 
-export type PxSocketEmitter = Emitter<DataSocketS2CEvents>;
+export type PxSocketEmitter = Emitter<PxSocketS2CEvents>;

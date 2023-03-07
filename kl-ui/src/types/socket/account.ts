@@ -1,14 +1,8 @@
-import {InitAccountData} from './init';
+import {InitAccountData} from '../init';
 
 
 export type PxCheckAuthMessage = {
   token: string | undefined,
-};
-
-export type AccountSocketC2SEvents = {
-  init: (token: string) => void,
-  ping: () => void,
-  auth: (auth: PxCheckAuthMessage) => void,
 };
 
 export type AccountSocketS2CEvents = {
@@ -16,4 +10,10 @@ export type AccountSocketS2CEvents = {
   ping: () => void,
   error: (message: string) => void,
   auth: () => void,
+};
+
+export type AccountSocketC2SEvents = {
+  init: (token: string) => void,
+  ping: () => void,
+  auth: (auth: PxCheckAuthMessage) => void,
 };

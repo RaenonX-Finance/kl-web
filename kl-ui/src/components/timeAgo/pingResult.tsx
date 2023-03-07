@@ -11,15 +11,25 @@ import {avg} from '../../utils/calc';
 
 
 type Props = {
+  title: string,
   pingCount: number,
   pingMs: number[],
 };
 
-export const SocketPingResult = ({pingCount, pingMs}: Props) => {
+export const SocketPingResult = ({title, pingCount, pingMs}: Props) => {
   const avgPing = avg(pingMs);
 
   return (
     <>
+      <Row className="mb-2 text-center">
+        <Col>
+          <h5>
+            <span className="badge text-bg-dark-primary">
+              {title}
+            </span>
+          </h5>
+        </Col>
+      </Row>
       <Row className="mb-2 text-center">
         <Col>
           <Table striped bordered hover responsive variant="dark">

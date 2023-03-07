@@ -1,4 +1,4 @@
-import {DataSocketC2SEvents, DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {Socket} from 'socket.io';
 
 import {Logger} from '../../const';
@@ -6,8 +6,8 @@ import {isTokenValid} from '../../controllers/account/token';
 
 
 export const sioSubscribeHandler = (
-  socket: Socket<DataSocketC2SEvents, DataSocketS2CEvents>,
-): DataSocketC2SEvents['subscribe'] => async (
+  socket: Socket<PxSocketC2SEvents, PxSocketS2CEvents>,
+): PxSocketC2SEvents['subscribe'] => async (
   data,
 ) => {
   const tokenErrorMessage = await isTokenValid(data.token);
@@ -23,8 +23,8 @@ export const sioSubscribeHandler = (
 
 
 export const sioUnsubscribeHandler = (
-  socket: Socket<DataSocketC2SEvents, DataSocketS2CEvents>,
-): DataSocketC2SEvents['unsubscribe'] => async (
+  socket: Socket<PxSocketC2SEvents, PxSocketS2CEvents>,
+): PxSocketC2SEvents['unsubscribe'] => async (
   data,
 ) => {
   const tokenErrorMessage = await isTokenValid(data.token);

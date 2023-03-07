@@ -1,6 +1,6 @@
 import {createAdapter} from '@socket.io/redis-adapter';
 import {Emitter} from '@socket.io/redis-emitter';
-import {DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {createClient} from 'redis';
 
 import {SocketIoServer} from '../../const';
@@ -26,6 +26,6 @@ export const setupSocketIoServer = async (): Promise<SocketIoSetupReturn> => {
   SocketIoServer.adapter(createAdapter(redisPubClient, redisSubClient));
 
   return {
-    emitter: new Emitter<DataSocketS2CEvents>(redisEmitterClient),
+    emitter: new Emitter<PxSocketS2CEvents>(redisEmitterClient),
   };
 };

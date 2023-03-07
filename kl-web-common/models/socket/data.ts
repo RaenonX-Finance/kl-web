@@ -3,14 +3,16 @@ import {MinChangeData} from './minChange';
 import {PxMarket} from '../pxMarket';
 
 
-export type DataSocketS2CEvents = {
+export type PxSocketS2CEvents = {
   market: (data: PxMarket) => void,
   minChange: (data: MinChangeData) => void,
   request: (symbols: string[]) => void,
   error: (message: string) => void,
+  ping: () => void,
 };
 
-export type DataSocketC2SEvents = {
+export type PxSocketC2SEvents = {
   subscribe: (data: MarketPxSubscriptionData) => void,
   unsubscribe: (data: MarketPxSubscriptionData) => void,
+  ping: () => void,
 };

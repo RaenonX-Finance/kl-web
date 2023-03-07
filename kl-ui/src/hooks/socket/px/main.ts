@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {useSession} from 'next-auth/react';
 
 import {useHistoryDataRequestHandler} from './historyRequest';
@@ -42,10 +42,10 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   };
 
   // Custom events
-  const onMarket: DataSocketS2CEvents['market'] = (data) => (
+  const onMarket: PxSocketS2CEvents['market'] = (data) => (
     dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET](data))
   );
-  const onRequested: DataSocketS2CEvents['request'] = (symbols) => {
+  const onRequested: PxSocketS2CEvents['request'] = (symbols) => {
     if (!token) {
       throw new Error('Received px data request socket event, but token is unavailable');
     }
@@ -70,11 +70,11 @@ export const usePxSocket = (): PxDataSocket | undefined => {
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)))
       .catch(onAxiosError);
   };
-  const onMinChanged: DataSocketS2CEvents['minChange'] = (data) => (
+  const onMinChanged: PxSocketS2CEvents['minChange'] = (data) => (
     dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data))
   );
 
-  const onError: DataSocketS2CEvents['error'] = (message) => {
+  const onError: PxSocketS2CEvents['error'] = (message) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
   };
 
