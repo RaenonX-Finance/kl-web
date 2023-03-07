@@ -4,6 +4,7 @@ import {NavItemCollection} from './type';
 import {AdminPath, GeneralPath} from '../../const/path';
 import {managementPermissions} from '../../types/auth/user';
 import {LogoutNavButton} from '../auth/logout/main';
+import {PxChartSharedConfig} from '../chart/config/shared/main';
 
 
 export const navItemsAtLeft: NavItemCollection = [
@@ -33,6 +34,10 @@ export const navItemsAtLeft: NavItemCollection = [
 ];
 
 export const navItemsAtRight: NavItemCollection = [
+  {
+    type: 'component',
+    renderComponent: () => <PxChartSharedConfig/>,
+  },
   {
     type: 'component',
     renderComponent: () => <LogoutNavButton/>,

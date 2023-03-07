@@ -7,7 +7,6 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import styles from './main.module.scss';
 import {LayoutConfigUpdatePayload} from '../../../state/config/type';
-import {PxChartSharedConfig} from '../config/shared/main';
 
 
 export type PxChartToolbarProps<A> = {
@@ -38,7 +37,6 @@ export const PxChartToolbar = <A extends unknown>({
         menuVariant="dark"
         drop="up"
       >
-        <PxChartSharedConfig/>
         {
           layoutConfig &&
           renderLayoutConfig(security, layoutConfig, setLayoutConfig)

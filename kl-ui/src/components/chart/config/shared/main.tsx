@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {useSession} from 'next-auth/react';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from 'react-bootstrap/Modal';
+import Nav from 'react-bootstrap/Nav';
 
 import styles from './main.module.scss';
 import {PxChartSharedConfigTabs} from './tabs';
@@ -10,6 +10,7 @@ import {configDispatchers} from '../../../../state/config/dispatchers';
 import {useSharedConfigSelector} from '../../../../state/config/selector';
 import {ConfigDispatcherName} from '../../../../state/config/type';
 import {useDispatch} from '../../../../state/store';
+import navStyles from '../../../nav/main.module.scss';
 
 
 export const PxChartSharedConfig = () => {
@@ -48,9 +49,9 @@ export const PxChartSharedConfig = () => {
 
   return (
     <>
-      <Dropdown.Item onClick={openModal}>
+      <Nav.Link className={navStyles['nav-item']} onClick={openModal}>
         版面設定
-      </Dropdown.Item>
+      </Nav.Link>
       <Modal show={show} size="lg" onHide={closeModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>版面相關設定</Modal.Title>
