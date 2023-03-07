@@ -31,7 +31,12 @@ export const usePxInitHandler = () => {
 
     apiInitPxData({
       token,
-      requests: (getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) || Object.values(slotMap))
+      requests: [
+        ...new Set(
+          getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) ||
+          Object.values(slotMap),
+        ),
+      ]
         .map((identifier) => ({identifier})),
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))

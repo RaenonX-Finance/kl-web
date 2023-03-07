@@ -16,10 +16,7 @@ export type PxRequestModel = Static<typeof PxRequestSchema> & {
 
 export const PxRequestBodySchema = Type.Object({
   token: Type.String(),
-  requests: Type.Array(
-    PxRequestSchema,
-    {minItems: 1},
-  ),
+  requests: Type.Array(PxRequestSchema, {minItems: 1, uniqueItems: true}),
 });
 
 export type PxRequestBodyModel = Static<typeof PxRequestBodySchema> & {
