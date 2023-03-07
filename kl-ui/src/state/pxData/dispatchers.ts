@@ -3,7 +3,6 @@ import {PxHistory} from 'kl-web-common/models/pxHistory';
 import {PxInit} from 'kl-web-common/models/pxInit';
 import {PxMarket} from 'kl-web-common/models/pxMarket';
 
-
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
 import {PxDataMap, PxSlotName} from '../../types/pxData';
@@ -64,6 +63,7 @@ export const pxDataDispatchers = {
         C: null,
         D: null,
       };
+      let updatedAny = false;
 
       for (const slotStr of Object.keys(pxData.data)) {
         const slot = slotStr as PxSlotName;
@@ -103,11 +103,16 @@ export const pxDataDispatchers = {
           });
         }
 
+        updatedAny = true;
         pxDataMap[slot] = {
           ...pxDataInSlot,
           data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.c)]),
           latestMarket,
         };
+      }
+
+      if (!updatedAny) {
+        return rejectWithValue('Nothing new from market updated');
       }
 
       updateCurrentPxDataTitle(pxData.data);
