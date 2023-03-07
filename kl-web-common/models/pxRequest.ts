@@ -18,7 +18,7 @@ export const PxRequestBodySchema = Type.Object({
   token: Type.String(),
   requests: Type.Array(
     PxRequestSchema,
-    {uniqueItems: true, minItems: 1},
+    {minItems: 1},
   ),
 });
 
