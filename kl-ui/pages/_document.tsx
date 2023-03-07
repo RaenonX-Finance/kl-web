@@ -56,7 +56,6 @@ class NextDocument extends Document<Props> {
             <script async type="text/javascript" src="/js/newRelicBrowser.Prod.js"/> :
             <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
           }
-          <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{__html: this.props.browserTimingHeader}}
