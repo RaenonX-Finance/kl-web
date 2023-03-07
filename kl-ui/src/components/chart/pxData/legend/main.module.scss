@@ -1,0 +1,96 @@
+@use "sass:color";
+@use "../../../../../styles/colors";
+
+div,
+span {
+  @mixin value-style($name, $color) {
+    &.val-#{$name} {
+      color: $color;
+    }
+  }
+
+  &.data-cell {
+    display: inline;
+    padding: 0.1rem 0.75rem 0.1rem 0;
+    white-space: nowrap;
+  }
+
+  &.legend {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+
+  &.main-content {
+    padding: 0.25rem 0.5rem;
+  }
+
+  @include value-style(neutral, colors.$color-neutral);
+  @include value-style(up, colors.$color-up);
+  @include value-style(down, colors.$color-down);
+
+  &.price-lg {
+    font-size: 1.2rem;
+  }
+
+  &.title {
+    font-size: 1.2rem;
+  }
+
+  &.tie-point {
+    align-self: end;
+    color: #ff9141;
+  }
+
+  &.momentum-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    text-align: center;
+    width: 3.5rem;
+
+    @mixin momentum-indicator-theme($suffix, $color) {
+      $color-text: if(
+        color.red($color) == color.green($color) and color.red($color) == color.blue($color),
+        $color,
+        color.change($color, $lightness: 85%)
+      );
+
+      /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+      @keyframes momentum-indicator-#{$suffix}-animation {  /* stylelint-disable-line keyframes-name-pattern */
+        0% {
+          color: $color-text;
+        }
+
+        25% {
+          color: transparent;
+        }
+
+        50% {
+          color: $color-text;
+        }
+
+        75% {
+          color: transparent;
+        }
+
+        100% {
+          color: $color-text;
+        }
+      }
+
+      &.momentum-indicator-#{$suffix} {
+        border: 2px solid $color;
+        border-radius: 0.5rem;
+        box-shadow: inset 0 0 1.25rem $color;
+        color: $color-text;
+        animation: 750ms momentum-indicator-#{$suffix}-animation;
+      }
+    }
+
+    @include momentum-indicator-theme(bull, colors.$color-up-strong);
+    @include momentum-indicator-theme(neutral, colors.$color-neutral);
+    @include momentum-indicator-theme(bear, colors.$color-down-strong);
+    @include momentum-indicator-theme(na, colors.$color-neutral);
+  }
+}

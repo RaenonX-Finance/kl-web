@@ -1,0 +1,14 @@
+---
+engines:
+  duplication:
+    exclude_paths:
+      # Test files
+      - '**.test.ts'
+      - '**.test.tsx'
+
+exclude_paths:
+  # New Relic Browser monitoring js
+  - 'public/js/newRelicBrowser.Dev.js'
+  - 'public/js/newRelicBrowser.Prod.js'
+  # CSS files - those are compiled from .scss
+  - '**.css'

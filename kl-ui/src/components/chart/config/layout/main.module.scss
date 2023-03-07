@@ -1,0 +1,52 @@
+@use "sass:color";
+@use "../../../../../styles/colors";
+
+button {
+  &.config-button {
+    // This has to be the same as the config button variant
+    $theme-color: colors.$color-mild-info;
+
+    &:active,
+    &[class*="active"] {
+      color: white;
+      background-color: color.change($theme-color, $lightness: 25%);
+      border-color: $theme-color;
+    }
+
+    &:hover {
+      color: black;
+      background-color: $theme-color;
+      border-color: $theme-color;
+
+      &:active,
+      &[class*="active"] {
+        background-color: $theme-color;
+        border-color: $theme-color;
+      }
+    }
+  }
+}
+
+div {
+  @mixin offcanvas-width-override() {
+    $width: 18rem;
+
+    width: $width;
+
+    --bs-offcanvas-width: #{$width};
+  }
+
+  &.config-panel {
+    @include offcanvas-width-override;
+  }
+
+  &.updating {
+    @include offcanvas-width-override;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: colors.$color-chart-status-bg;
+  }
+}

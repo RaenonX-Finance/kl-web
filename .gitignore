@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Built source
+dist/
+protos/
+
 # Dependencies
 node_modules/
 
@@ -36,3 +40,6 @@ yarn-error.log*
 
 # Project files
 .idea/
+
+# Exclusions
+!kl-api-px/src/init/rest/build

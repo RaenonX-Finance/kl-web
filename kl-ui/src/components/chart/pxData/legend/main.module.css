@@ -1,0 +1,155 @@
+div.data-cell,
+span.data-cell {
+  display: inline;
+  padding: 0.1rem 0.75rem 0.1rem 0;
+  white-space: nowrap;
+}
+div.legend,
+span.legend {
+  font-size: 0.95rem;
+  padding: 0.5rem;
+}
+div.main-content,
+span.main-content {
+  padding: 0.25rem 0.5rem;
+}
+div.val-neutral,
+span.val-neutral {
+  color: #d7d7d7;
+}
+div.val-up,
+span.val-up {
+  color: #ef5350;
+}
+div.val-down,
+span.val-down {
+  color: #26a69a;
+}
+div.price-lg,
+span.price-lg {
+  font-size: 1.2rem;
+}
+div.title,
+span.title {
+  font-size: 1.2rem;
+}
+div.tie-point,
+span.tie-point {
+  align-self: end;
+  color: #ff9141;
+}
+div.momentum-indicator,
+span.momentum-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  text-align: center;
+  width: 3.5rem;
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+}
+@keyframes momentum-indicator-bull-animation { /* stylelint-disable-line keyframes-name-pattern */
+  0% {
+    color: #f9b8c0;
+  }
+  25% {
+    color: transparent;
+  }
+  50% {
+    color: #f9b8c0;
+  }
+  75% {
+    color: transparent;
+  }
+  100% {
+    color: #f9b8c0;
+  }
+}
+div.momentum-indicator.momentum-indicator-bull,
+span.momentum-indicator.momentum-indicator-bull {
+  border: 2px solid #ed213a;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 1.25rem #ed213a;
+  color: #f9b8c0;
+  animation: 750ms momentum-indicator-bull-animation;
+}
+@keyframes momentum-indicator-neutral-animation { /* stylelint-disable-line keyframes-name-pattern */
+  0% {
+    color: #d7d7d7;
+  }
+  25% {
+    color: transparent;
+  }
+  50% {
+    color: #d7d7d7;
+  }
+  75% {
+    color: transparent;
+  }
+  100% {
+    color: #d7d7d7;
+  }
+}
+div.momentum-indicator.momentum-indicator-neutral,
+span.momentum-indicator.momentum-indicator-neutral {
+  border: 2px solid #d7d7d7;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 1.25rem #d7d7d7;
+  color: #d7d7d7;
+  animation: 750ms momentum-indicator-neutral-animation;
+}
+@keyframes momentum-indicator-bear-animation { /* stylelint-disable-line keyframes-name-pattern */
+  0% {
+    color: #b3ffd9;
+  }
+  25% {
+    color: transparent;
+  }
+  50% {
+    color: #b3ffd9;
+  }
+  75% {
+    color: transparent;
+  }
+  100% {
+    color: #b3ffd9;
+  }
+}
+div.momentum-indicator.momentum-indicator-bear,
+span.momentum-indicator.momentum-indicator-bear {
+  border: 2px solid #00e071;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 1.25rem #00e071;
+  color: #b3ffd9;
+  animation: 750ms momentum-indicator-bear-animation;
+}
+@keyframes momentum-indicator-na-animation { /* stylelint-disable-line keyframes-name-pattern */
+  0% {
+    color: #d7d7d7;
+  }
+  25% {
+    color: transparent;
+  }
+  50% {
+    color: #d7d7d7;
+  }
+  75% {
+    color: transparent;
+  }
+  100% {
+    color: #d7d7d7;
+  }
+}
+div.momentum-indicator.momentum-indicator-na,
+span.momentum-indicator.momentum-indicator-na {
+  border: 2px solid #d7d7d7;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 1.25rem #d7d7d7;
+  color: #d7d7d7;
+  animation: 750ms momentum-indicator-na-animation;
+}
+
+/*# sourceMappingURL=main.module.css.map */
