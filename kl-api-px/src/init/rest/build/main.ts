@@ -3,7 +3,7 @@ import fastify from 'fastify';
 import {getEnvironment} from 'kl-web-common/utils/env';
 
 import {envToLogger} from './loggerOpts';
-import {registerMiddlewares, registerTokenCheck} from './middleware';
+import {registerMiddlewares} from './middleware';
 
 
 export const buildRestApi = () => {
@@ -14,7 +14,6 @@ export const buildRestApi = () => {
     .withTypeProvider<TypeBoxTypeProvider>();
 
   registerMiddlewares(server);
-  registerTokenCheck(server);
 
   return server;
 };
