@@ -52,7 +52,8 @@ export const PxChartSharedConfig = () => {
       <Nav.Link className={navStyles['nav-item']} onClick={openModal}>
         版面設定
       </Nav.Link>
-      <Modal show={show} size="lg" onHide={closeModal} centered>
+      {/* Setting z-index because navbar canvas in portrait could overlap the config modal */}
+      <Modal show={show} size="lg" onHide={closeModal} centered style={{zIndex: 2000}}>
         <Modal.Header closeButton>
           <Modal.Title>版面相關設定</Modal.Title>
         </Modal.Header>
