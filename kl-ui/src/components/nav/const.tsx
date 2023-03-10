@@ -3,7 +3,7 @@ import React from 'react';
 import {NavItemCollection} from './type';
 import {AdminPath, GeneralPath} from '../../const/path';
 import {managementPermissions} from '../../types/auth/user';
-import {LogoutNavButton} from '../auth/logout/main';
+import {UserControlNavButton} from '../auth/user/main';
 import {PxChartSharedConfig} from '../chart/config/shared/main';
 
 
@@ -40,6 +40,6 @@ export const navItemsAtRight: NavItemCollection = [
   },
   {
     type: 'component',
-    renderComponent: () => <LogoutNavButton/>,
+    renderComponent: () => <UserControlNavButton/>,
   },
 ];

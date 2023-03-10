@@ -1,0 +1,11 @@
+div {
+  &.user-button {
+    & > button {
+      border: none;
+      border-radius: 0;
+
+      // Copy the padding of `nav-item`
+      padding: 0.5rem 1rem;
+    }
+  }
+}

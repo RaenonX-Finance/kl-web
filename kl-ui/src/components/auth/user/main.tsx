@@ -1,18 +1,19 @@
 import React from 'react';
 
 import {signOut, useSession} from 'next-auth/react';
-import Nav from 'react-bootstrap/Nav';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
+import styles from './main.module.scss';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
 import {TextWithLoading} from '../../common/loading/text';
-import styles from '../../nav/main.module.scss';
 
 
-export const LogoutNavButton = () => {
+export const UserControlNavButton = () => {
   const [disabled, setDisabled] = React.useState(false);
-  const {status} = useSession();
+  const {status, data} = useSession();
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -28,8 +29,17 @@ export const LogoutNavButton = () => {
   }
 
   return (
-    <Nav.Link className={styles['nav-item']} disabled={status === 'loading'} onClick={onClick}>
-      <TextWithLoading show={disabled} text="登出"/>
-    </Nav.Link>
+    <DropdownButton
+      variant={data?.user.isAdmin ? 'outline-warning' : 'outline-success'}
+      title={`@${data?.user.username}`}
+      menuVariant="dark"
+      disabled={status === 'loading'}
+      drop="down-centered"
+      className={styles['user-button']}
+    >
+      <Dropdown.Item onClick={onClick}>
+        <TextWithLoading show={disabled} text="登出"/>
+      </Dropdown.Item>
+    </DropdownButton>
   );
 };
