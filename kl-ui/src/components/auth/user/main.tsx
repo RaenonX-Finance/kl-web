@@ -24,7 +24,7 @@ export const UserControlNavButton = () => {
     });
   };
 
-  if (status === 'unauthenticated') {
+  if (status === 'unauthenticated' || status === 'loading') {
     return <></>;
   }
 
@@ -33,7 +33,6 @@ export const UserControlNavButton = () => {
       variant={data?.user.isAdmin ? 'outline-warning' : 'outline-success'}
       title={`@${data?.user.username}`}
       menuVariant="dark"
-      disabled={status === 'loading'}
       drop="down-centered"
       className={styles['user-button']}
     >
