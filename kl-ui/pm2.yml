@@ -7,7 +7,7 @@ apps:
     args: 'start'
     # Execution configs
     exec_mode: 'cluster'
-    instances: 3
+    instances: 4
     # Environments
     env:
       NODE_ENV: 'production'
