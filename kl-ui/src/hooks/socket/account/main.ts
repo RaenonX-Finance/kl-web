@@ -27,19 +27,20 @@ export const useAccountSocket = (): AccountSocket | undefined => {
   });
 
   // Custom events
-  const onInit = (initData: InitAccountData) => {
+  const onInit = React.useCallback((initData: InitAccountData) => {
     if (!session || !!session.error) {
       return;
     }
 
     dispatch(mergedDispatchers[MergedDispatcherName.INIT_ACCOUNT](initData));
-  };
-  const onError = (message: string) => {
+  }, [session]);
+
+  const onError = React.useCallback((message: string) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
 
     // Trigger `next-auth.signIn()` to recheck user auth validity
     signIn();
-  };
+  }, []);
 
   // Hooks
   React.useEffect(() => {

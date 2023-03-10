@@ -39,10 +39,10 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   });
 
   // Custom events
-  const onMarket: PxSocketS2CEvents['market'] = (data) => (
+  const onMarket: PxSocketS2CEvents['market'] = React.useCallback((data) => (
     dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET](data))
-  );
-  const onRequested: PxSocketS2CEvents['request'] = (symbols) => {
+  ), []);
+  const onRequested: PxSocketS2CEvents['request'] = React.useCallback((symbols) => {
     if (!token) {
       throw new Error('Received px data request socket event, but token is unavailable');
     }
@@ -66,13 +66,13 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)))
       .catch(onAxiosError);
-  };
-  const onMinChanged: PxSocketS2CEvents['minChange'] = (data) => (
+  }, [identifiers, token]);
+  const onMinChanged: PxSocketS2CEvents['minChange'] = React.useCallback((data) => (
     dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data))
-  );
-  const onError: PxSocketS2CEvents['error'] = (message) => {
+  ), []);
+  const onError: PxSocketS2CEvents['error'] = React.useCallback((message) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
-  };
+  }, []);
 
   // Hooks
   React.useEffect(() => {
