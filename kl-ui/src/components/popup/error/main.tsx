@@ -3,10 +3,10 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import styles from './main.module.scss';
-import {errorDispatchers} from '../../state/error/dispatchers';
-import {useErrorSelector} from '../../state/error/selector';
-import {ErrorDispatcherName} from '../../state/error/types';
-import {useDispatch} from '../../state/store';
+import {errorDispatchers} from '../../../state/error/dispatchers';
+import {useErrorSelector} from '../../../state/error/selector';
+import {ErrorDispatcherName} from '../../../state/error/types';
+import {useDispatch} from '../../../state/store';
 
 
 export const ErrorPopup = () => {
