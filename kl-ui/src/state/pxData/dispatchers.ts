@@ -133,4 +133,5 @@ export const pxDataDispatchers = {
     ),
     getPayload: ({slot}) => slot,
   }),
+  [PxDataDispatcherName.CLEAR_SR_LEVELS]: createAction<string[]>(PxDataDispatcherName.CLEAR_SR_LEVELS),
 };

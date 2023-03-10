@@ -59,7 +59,7 @@ export const handleSrCommon = ({
     return;
   }
 
-  const leftoverLevels = new Set(levels);
+  const leftoverLevels = new Set(Object.keys(lineRecord).map(parseFloat));
 
   for (const level of levels) {
     const priceLine = lineRecord[level];

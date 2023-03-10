@@ -11,6 +11,7 @@ export enum PxDataDispatcherName {
   UPDATE_COMPLETE = 'PxData/UpdateComplete',
   UPDATE_MARKET = 'PxData/UpdateMarket',
   UPDATE_SLOT_MAP = 'PxData/UpdateSlotMap',
+  CLEAR_SR_LEVELS = 'PxData/ClearSrLevels'
 }
 
 export type PxSlotMap = {[name in PxSlotName]: PxUniqueIdentifier};

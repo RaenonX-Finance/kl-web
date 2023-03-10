@@ -69,6 +69,14 @@ const slice = createSlice({
       ),
     );
     builder.addCase(
+      pxDataDispatchers[PxDataDispatcherName.CLEAR_SR_LEVELS],
+      (state, {payload}) => (
+        recordPxUpdateReducer({
+          state, securities: payload, last: true, complete: true,
+        })
+      ),
+    );
+    builder.addCase(
       dataDispatchers[DataDispatcherName.MIN_CHANGE],
       (state, {payload}) => ({
         ...state,

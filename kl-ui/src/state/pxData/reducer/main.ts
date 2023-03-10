@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {pxSrLevelClearer} from './clearSrLevel';
 import {pxDataStateUpdater} from './stateUpdater';
 import {pxDataStateUpdaterOnHistory} from './stateUpdaterOnHistory';
 import {pxDataStateUpdaterOnInit} from './stateUpdaterOnInit';
@@ -82,6 +83,9 @@ const slice = createSlice({
           })) as PxDataMap,
         },
       };
+    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.CLEAR_SR_LEVELS], (state, {payload}) => {
+      pxSrLevelClearer(state, payload);
     });
   },
 });

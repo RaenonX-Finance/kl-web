@@ -3,7 +3,6 @@ import React from 'react';
 import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {useSession} from 'next-auth/react';
 
-
 import {useHistoryDataRequestHandler} from './historyRequest';
 import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
@@ -67,9 +66,12 @@ export const usePxSocket = (): PxDataSocket | undefined => {
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE](data)))
       .catch(onAxiosError);
   }, [identifiers, token]);
-  const onMinChanged: PxSocketS2CEvents['minChange'] = React.useCallback((data) => (
-    dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data))
-  ), []);
+  const onMinChanged: PxSocketS2CEvents['minChange'] = React.useCallback((data) => {
+    dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data));
+  }, []);
+  const onMarketDateCutoff: PxSocketS2CEvents['marketDateCutoff'] = React.useCallback((symbols) => {
+    dispatch(pxDataDispatchers[PxDataDispatcherName.CLEAR_SR_LEVELS](symbols));
+  }, []);
   const onError: PxSocketS2CEvents['error'] = React.useCallback((message) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
   }, []);
@@ -82,6 +84,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     socket.on('market', onMarket);
     socket.on('request', onRequested);
     socket.on('minChange', onMinChanged);
+    socket.on('marketDateCutoff', onMarketDateCutoff);
     socket.on('error', onError);
 
     setSocket(socket);
@@ -90,6 +93,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
       socket.off('market', onMarket);
       socket.off('request', onRequested);
       socket.off('minChange', onMinChanged);
+      socket.off('marketDateCutoff', onMarketDateCutoff);
       socket.off('error', onError);
 
       socket.close();

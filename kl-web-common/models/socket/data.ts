@@ -7,6 +7,7 @@ export type PxSocketS2CEvents = {
   market: (data: PxMarket) => void,
   minChange: (data: MinChangeData) => void,
   request: (symbols: string[]) => void,
+  marketDateCutoff: (symbols: string[]) => void,
   error: (message: string) => void,
   ping: () => void,
 };
