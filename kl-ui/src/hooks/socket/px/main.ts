@@ -3,6 +3,7 @@ import React from 'react';
 import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {useSession} from 'next-auth/react';
 
+
 import {useHistoryDataRequestHandler} from './historyRequest';
 import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
@@ -16,9 +17,9 @@ import {usePxDataSubscriptionInfoSelector} from '../../../state/pxData/selector'
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {apiRequestPxData} from '../../../utils/api/px';
-import {getErrorMessage} from '../../../utils/error';
 import {generatePxSocketClient} from '../../../utils/socket';
 import {useHandleAxiosError} from '../../axios';
+import {useCommonSocketEventHandlers} from '../common/event/main';
 
 
 export const usePxSocket = (): PxDataSocket | undefined => {
@@ -32,14 +33,10 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const dispatch = useDispatch();
 
   const token = data?.user?.token;
-
-  // System events
-  const onConnectionError = (err: Error) => {
-    console.error(err);
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
-      message: `報價 Socket 連線錯誤: ${getErrorMessage({err})}`,
-    }));
-  };
+  useCommonSocketEventHandlers({
+    name: '報價',
+    socket,
+  });
 
   // Custom events
   const onMarket: PxSocketS2CEvents['market'] = (data) => (
@@ -73,7 +70,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const onMinChanged: PxSocketS2CEvents['minChange'] = (data) => (
     dispatch(dataDispatchers[DataDispatcherName.MIN_CHANGE](data))
   );
-
   const onError: PxSocketS2CEvents['error'] = (message) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
   };
@@ -81,9 +77,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   // Hooks
   React.useEffect(() => {
     const socket = generatePxSocketClient();
-
-    // System events
-    socket.on('connect_error', onConnectionError);
 
     // Custom events
     socket.on('market', onMarket);
@@ -94,7 +87,6 @@ export const usePxSocket = (): PxDataSocket | undefined => {
     setSocket(socket);
 
     return () => {
-      socket.off('connect_error', onConnectionError);
       socket.off('market', onMarket);
       socket.off('request', onRequested);
       socket.off('minChange', onMinChanged);
