@@ -29,6 +29,8 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
   };
 
   const onConnected = React.useCallback(() => {
+    console.info(`Socket [${socket?.id}] connected`);
+
     timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
     setTimeoutIds([]);
 
@@ -36,7 +38,7 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
   }, [timeoutIds]);
 
   const onConnectionError = React.useCallback((err: Error) => {
-    console.error(err);
+    console.error(`Socket [${socket?.id}] connection error - reconnecting...`, err);
 
     let errorMessage = getErrorMessage({err});
     if (errorMessage === 'xhr poll error') {
@@ -48,6 +50,8 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
   }, []);
 
   const onDisconnect = React.useCallback((reason: Socket.DisconnectReason) => {
+    console.warn(`Socket [${socket?.id}] disconnected (${reason}) - reconnecting...`);
+
     if (reason === 'io server disconnect') {
       dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: '連線已中斷。請檢查帳戶是否多開。'}));
       return;
@@ -72,7 +76,7 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
       socket.off('connect_error', onConnectionError);
       socket.off('disconnect', onDisconnect);
     };
-  });
+  }, [!!socket]);
 
   return {onConnected, onConnectionError, onDisconnect};
 };

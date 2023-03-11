@@ -70,7 +70,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
 
       socket.close();
     };
-  }, [identifiers]); // `identifiers` could be empty when Px socket is already initialized
+  }, []);
 
   return socket;
 };
