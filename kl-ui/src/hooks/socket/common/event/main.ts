@@ -17,6 +17,7 @@ const RECONNECT_INTERVAL_MS = 5000;
 export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends EventsMap>({
   name,
   socket,
+  onConnected,
 }: UseCommonSocketEventHandlersOpts<S2C, C2S>): UseCommonSocketEventHandlersReturn => {
   const dispatch = useDispatch();
   const [timeoutIds, setTimeoutIds] = React.useState<number[]>([]);
@@ -51,7 +52,7 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
     ]);
   }, []);
 
-  const onConnected = React.useCallback(() => {
+  const onConnectedInternal = React.useCallback(() => {
     console.info(`${name} Socket [${socket?.id}] connected`);
 
     timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
@@ -61,6 +62,10 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
     setReconnectId(undefined);
 
     dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]());
+
+    if (onConnected) {
+      onConnected();
+    }
   }, dependencies);
 
   const onConnectionError = (err: Error) => {
@@ -93,16 +98,16 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
     }
 
     // System events
-    socket.on('connect', onConnected);
+    socket.on('connect', onConnectedInternal);
     socket.on('connect_error', onConnectionError);
     socket.on('disconnect', onDisconnect);
 
     return () => {
-      socket.off('connect', onConnected);
+      socket.off('connect', onConnectedInternal);
       socket.off('connect_error', onConnectionError);
       socket.off('disconnect', onDisconnect);
     };
   }, dependencies);
 
-  return {onConnected, onConnectionError, onDisconnect};
+  return {onConnected: onConnectedInternal, onConnectionError, onDisconnect};
 };

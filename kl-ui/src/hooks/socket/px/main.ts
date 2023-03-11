@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {useSession} from 'next-auth/react';
+
 
 import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
@@ -10,6 +12,7 @@ import {DataDispatcherName} from '../../../state/data/types';
 import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
+import {usePxDataSubscriptionInfoSelector} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {generatePxSocketClient} from '../../../utils/socket';
@@ -18,6 +21,8 @@ import {useCommonSocketEventHandlers} from '../common/event/main';
 
 export const usePxSocket = (): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
+  const {data} = useSession();
+  const {identifiers} = usePxDataSubscriptionInfoSelector();
   const dispatch = useDispatch();
 
   usePxInitHandler();
@@ -25,6 +30,22 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   useCommonSocketEventHandlers({
     name: '報價',
     socket,
+    onConnected: () => {
+      const token = data?.user?.token;
+
+      if (!token) {
+        throw new Error('Token unavailable when resubscribing market data on connected');
+      }
+      if (!socket) {
+        throw new Error('Socket undefined when resubscribing market data on connected');
+      }
+      if (!identifiers.length) {
+        console.warn('No identifiers to subscribe for market data on connected');
+        return;
+      }
+
+      socket.emit('subscribe', {token, identifiers});
+    },
   });
 
   // Custom events

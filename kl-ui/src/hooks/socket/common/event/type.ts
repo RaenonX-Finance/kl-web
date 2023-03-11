@@ -5,6 +5,7 @@ import {Socket} from 'socket.io-client';
 export type UseCommonSocketEventHandlersOpts<S2C extends EventsMap, C2S extends EventsMap> = {
   name: string,
   socket: Socket<S2C, C2S> | undefined,
+  onConnected?: () => void,
 };
 
 export type UseCommonSocketEventHandlersReturn = {
