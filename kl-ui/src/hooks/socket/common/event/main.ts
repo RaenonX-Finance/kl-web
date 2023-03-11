@@ -12,33 +12,59 @@ import {getErrorMessage} from '../../../../utils/error';
 
 const ERROR_POPUP_TIMEOUT_MS = 7000;
 
+const RECONNECT_INTERVAL_MS = 5000;
+
 export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends EventsMap>({
   name,
   socket,
 }: UseCommonSocketEventHandlersOpts<S2C, C2S>): UseCommonSocketEventHandlersReturn => {
   const dispatch = useDispatch();
   const [timeoutIds, setTimeoutIds] = React.useState<number[]>([]);
+  const [reconnectId, setReconnectId] = React.useState<number>();
 
-  const queueError = (message: string) => {
+  // `timeoutIds` and `reconnectId` is needed because handlers is using these variables, which could be updated
+  const dependencies = [!!socket, socket?.connected, timeoutIds, reconnectId];
+
+  const reconnect = React.useCallback(() => {
+    if (reconnectId) {
+      // Already has periodic reconnect
+      return;
+    }
+    if (!socket) {
+      throw new Error('Socket is `undefined` during reconnection');
+    }
+
+    setReconnectId(window.setInterval(
+      () => {
+        console.log(`Reconnecting ${name} socket...`);
+        socket.connect();
+      }, RECONNECT_INTERVAL_MS));
+  }, dependencies);
+
+  const queueError = React.useCallback((message: string) => {
     setTimeoutIds((timeoutIds) => [
       ...timeoutIds,
-      window.setTimeout(() => {
-        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
-      }, ERROR_POPUP_TIMEOUT_MS),
+      window.setTimeout(
+        () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message})),
+        ERROR_POPUP_TIMEOUT_MS,
+      ),
     ]);
-  };
+  }, []);
 
   const onConnected = React.useCallback(() => {
-    console.info(`Socket [${socket?.id}] connected`);
+    console.info(`${name} Socket [${socket?.id}] connected`);
 
     timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
     setTimeoutIds([]);
 
-    dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]());
-  }, [timeoutIds]);
+    window.clearInterval(reconnectId);
+    setReconnectId(undefined);
 
-  const onConnectionError = React.useCallback((err: Error) => {
-    console.error(`Socket [${socket?.id}] connection error - reconnecting...`, err);
+    dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]());
+  }, dependencies);
+
+  const onConnectionError = (err: Error) => {
+    console.error(`${name} Socket connection error - reconnecting...`, err);
 
     let errorMessage = getErrorMessage({err});
     if (errorMessage === 'xhr poll error') {
@@ -46,11 +72,11 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
     }
 
     queueError(`${name} Socket 連線錯誤 (${errorMessage})，嘗試重新連線中...`);
-    socket?.connect();
-  }, []);
+    reconnect();
+  };
 
   const onDisconnect = React.useCallback((reason: Socket.DisconnectReason) => {
-    console.warn(`Socket [${socket?.id}] disconnected (${reason}) - reconnecting...`);
+    console.warn(`${name} Socket disconnected (${reason}) - reconnecting...`);
 
     if (reason === 'io server disconnect') {
       dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: '連線已中斷。請檢查帳戶是否多開。'}));
@@ -58,8 +84,8 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
     }
 
     queueError(`${name} Socket 連線中斷 (${reason})，嘗試重新連線中...`);
-    socket?.connect();
-  }, []);
+    reconnect();
+  }, dependencies);
 
   React.useEffect(() => {
     if (!socket) {
@@ -76,7 +102,7 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
       socket.off('connect_error', onConnectionError);
       socket.off('disconnect', onDisconnect);
     };
-  }, [!!socket]);
+  }, dependencies);
 
   return {onConnected, onConnectionError, onDisconnect};
 };
