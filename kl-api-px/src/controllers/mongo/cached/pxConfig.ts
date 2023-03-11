@@ -8,6 +8,8 @@ let configCache: PxConfigModel | undefined = undefined;
 
 const sourceMap: {[internalSymbol in string]?: PxSourceModel} = {};
 
+const periods: number[] = [];
+
 export const initPxConfigCache = async () => {
   const configModel = await pxConfig.findOne();
 
@@ -18,6 +20,7 @@ export const initPxConfigCache = async () => {
   configCache = configModel;
 
   configModel.sources.forEach((source) => sourceMap[source.internalSymbol] = source);
+  periods.push(...configModel.periods.map(({periodMin}) => periodMin));
 };
 
 export const getSource = (symbol: string): PxSourceModel => {
@@ -28,6 +31,14 @@ export const getSource = (symbol: string): PxSourceModel => {
   }
 
   return ret;
+};
+
+export const getPeriods = (): number[] => {
+  if (!periods.length) {
+    throw new Error(`Periods in Px config is likely not loaded yet`);
+  }
+
+  return periods;
 };
 
 export const getConfig = (): PxConfigModel => {

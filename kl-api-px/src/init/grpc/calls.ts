@@ -44,11 +44,12 @@ const grpcHandlersAddLogging = () => {
 
     return {
       ...handler,
-      func: (call, callback) => {
+      func: async (call, callback) => {
         const start = nowMs();
 
         try {
-          func(call, callback);
+          // `func` could be async handler
+          await func(call, callback);
         } catch (error) {
           Logger.error({error, endpoint}, 'Error occurred in gRPC handler of `%s`', endpoint);
           throw error;
