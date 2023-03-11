@@ -2,7 +2,6 @@ import React from 'react';
 
 import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 
-import {useHistoryDataRequestHandler} from './historyRequest';
 import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
 import {PxDataSocket} from './type';
@@ -21,11 +20,10 @@ import {useCommonSocketEventHandlers} from '../common/event/main';
 export const usePxSocket = (): PxDataSocket | undefined => {
   const [socket, setSocket] = React.useState<PxDataSocket>();
   const {identifiers} = usePxDataSubscriptionInfoSelector();
-  useMarketPxUpdateHandler({socket, identifiers});
-  useHistoryDataRequestHandler({identifiers});
-  usePxInitHandler();
   const dispatch = useDispatch();
 
+  usePxInitHandler();
+  useMarketPxUpdateHandler({socket, identifiers});
   useCommonSocketEventHandlers({
     name: '報價',
     socket,

@@ -53,6 +53,14 @@ const slice = createSlice({
       },
     );
     builder.addCase(
+      pxDataDispatchers[PxDataDispatcherName.INIT],
+      (state, {payload}) => (
+        recordPxUpdateReducer({
+          state, securities: payload.map(({symbol}) => symbol), last: true, complete: true,
+        })
+      ),
+    );
+    builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled,
       (state, {meta}) => (
         recordPxUpdateReducer({
