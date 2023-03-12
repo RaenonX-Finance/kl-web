@@ -18,7 +18,7 @@ export const getInitPxSingle = async (request: PxRequestModel): Promise<PxData> 
   const last = historySingle.data.at(-1);
 
   if (!last) {
-    throw new Error(`Request ${request} does not have history data available`);
+    throw new Error(`Request ${JSON.stringify(request)} does not have history data available`);
   }
 
   return {

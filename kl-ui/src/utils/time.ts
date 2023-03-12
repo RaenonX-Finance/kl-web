@@ -20,3 +20,21 @@ export const getLocalTimezone = (): ISOTimezoneString => {
 
   return `+${hour}:${minutes}`;
 };
+
+export const formatTotalSecs = (secLeft: number): string => {
+  if (secLeft < 60) {
+    return Math.floor(secLeft).toFixed(0);
+  }
+
+  if (secLeft < 3600) {
+    const min = Math.floor(secLeft / 60);
+    const sec = Math.floor(secLeft % 60);
+    return `${min.toFixed(0)}:${sec.toFixed(0).padStart(2, '0')}`;
+  }
+
+  const hour = Math.floor(secLeft / 3600);
+  const min = Math.floor(secLeft % 3600 / 60);
+  const sec = Math.floor(secLeft % 60);
+
+  return `${hour}:${min.toFixed(0).padStart(2, '0')}:${sec.toFixed(0).padStart(2, '0')}`;
+};
