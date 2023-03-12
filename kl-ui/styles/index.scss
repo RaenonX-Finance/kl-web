@@ -22,8 +22,10 @@ body {
   background: #212626;
   color: #fafafa;
   font-size: 14px;
-  height: 100vh;
   overflow-x: hidden;
+
+  // Should not be `vh` because it will count the height of address bar
+  height: 100%;
 }
 
 a {

@@ -11687,8 +11687,8 @@ body {
   background: #212626;
   color: #fafafa;
   font-size: 14px;
-  height: 100vh;
   overflow-x: hidden;
+  height: 100%;
 }
 
 a {
