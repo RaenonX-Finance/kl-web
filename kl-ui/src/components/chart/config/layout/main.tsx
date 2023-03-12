@@ -12,7 +12,6 @@ import {PxSlotName} from '../../../../types/pxData';
 
 
 export type LayoutConfigPanelProps = {
-  security: string,
   title: string,
   slot: PxSlotName,
   config: PxLayoutConfigSingle,
@@ -22,7 +21,6 @@ export type LayoutConfigPanelProps = {
 };
 
 export const PxLayoutConfigPanel = ({
-  security,
   title,
   slot,
   config,
@@ -45,7 +43,6 @@ export const PxLayoutConfigPanel = ({
       <Offcanvas.Body>
         {updating && <PxChartLayoutConfigUpdating/>}
         <PxChartLayoutConfigEntries
-          security={security}
           config={config}
           updating={updating}
           updateConfig={(configKey, value) => {

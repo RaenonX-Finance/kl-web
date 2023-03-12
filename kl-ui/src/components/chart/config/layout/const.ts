@@ -39,16 +39,19 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
     title: '趨勢濾網',
     group: '標籤',
     isDisabled: ({emaNet}) => !emaNet,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   emaStrongSrLabel: {
     title: '趨勢控盤',
     group: '標籤',
     isDisabled: ({emaStrongSr}) => !emaStrongSr,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   srLevelLabel: {
     title: '黃金撐壓線',
     group: '標籤',
     isDisabled: ({srLevel}) => !srLevel,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   inChartExtremaLabel: {
     title: '圖內高低點',

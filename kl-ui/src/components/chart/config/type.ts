@@ -1,7 +1,11 @@
+import {User} from 'next-auth';
+
+
 export type PxConfigEntry<G extends string, T> = {
   title: string,
   group: G,
   isDisabled?: (config: T) => boolean,
+  isHidden?: (user: User | undefined) => boolean,
   step?: number,
   min?: number,
   tips?: string,
