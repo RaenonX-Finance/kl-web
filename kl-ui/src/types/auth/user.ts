@@ -60,7 +60,8 @@ export type UserModel = {
   username: UserModelOriginal['username'],
   email: UserModelOriginal['email'],
   isAdmin: UserModelOriginal['admin'],
-  expiry: Date | null,
+  // Can't use Date type here because it still gets stored in ISOTimestamp
+  expiry: ISOTimestampWithTimezone | null,
   permissions: UserModelOriginal['permissions'],
   token: string | undefined,
 };

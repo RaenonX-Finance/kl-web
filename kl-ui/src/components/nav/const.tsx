@@ -17,7 +17,6 @@ export const navItemsAtLeft: NavItemCollection = [
     type: 'path',
     path: GeneralPath.ACCOUNT_INFO,
     text: '會員資訊',
-    disabled: true,
   },
   {
     type: 'path',

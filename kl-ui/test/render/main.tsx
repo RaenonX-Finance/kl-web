@@ -9,6 +9,7 @@ import {RenderAppReturns, RenderOptions} from './types';
 import {ReduxProvider} from '../../src/state/provider';
 import {createStore} from '../../src/state/store';
 import {ReduxStore} from '../../src/state/types';
+import {ISOTimestampWithTimezone} from '../../src/types/time';
 
 
 type WrapperProps = {
@@ -24,7 +25,7 @@ const RenderWrapper = ({store, options, children}: React.PropsWithChildren<Wrapp
       username: 'username',
       email: 'email@example.com',
       isAdmin: false,
-      expiry: new Date(),
+      expiry: new Date().toISOString() as ISOTimestampWithTimezone,
       permissions: ['chart:view'],
       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
         'eyJzdWIiOiJ0ZXN0IiwiZXhwIjo5OTk5OTk5OTk5fQ.' +

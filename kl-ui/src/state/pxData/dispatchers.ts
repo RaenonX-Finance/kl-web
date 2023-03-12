@@ -77,7 +77,7 @@ export const pxDataDispatchers = {
         }
 
         if (
-          // Check if the `pxData` is potentially update-able
+          // Check if the `pxData` can be updated
           !latestMarket ||
           // Check if the `pxData` in slot is has the matching security symbol
           !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||

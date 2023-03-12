@@ -1,6 +1,6 @@
 export enum GeneralPath {
   CHART = '/',
-  ACCOUNT_INFO = '/info',
+  ACCOUNT_INFO = '/account/info',
 }
 
 export enum AdminPath {
