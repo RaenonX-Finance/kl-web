@@ -8,5 +8,6 @@ export const sharedConfigEntries: PxSharedConfigUI = {
     step: 0.05,
     min: 0,
     tips: '秒數越低，系統資源消耗量越大；報價更新頻率越快。',
+    isHidden: (user) => !user || !user.isAdmin,
   },
 };

@@ -7,7 +7,7 @@ import {OnPxChartUpdatedEvent} from '../../type';
 
 
 export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
-  const {chartDataRef, chartObjectRef, layoutConfig, partial} = e;
+  const {chartDataRef, chartObjectRef, layoutConfig, partial, user} = e;
   const periodPair = chartDataRef.current.indicator.ema.net;
 
   if (!chartObjectRef.current) {
@@ -28,7 +28,7 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
       series: chartSeries,
       periodType: key as keyof PxEmaPeriodPair,
       periodPair,
-      keyofConfig: 'emaNet',
+      keyOfConfig: 'emaNet',
       keyOfConfigLabel: 'emaNetLabel',
       lastPx,
     });
@@ -49,5 +49,5 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
       ),
     ));
   }
-  series.fill.applyOptions({visible: getLayoutConfig(layoutConfig, 'emaNet')});
+  series.fill.applyOptions({visible: getLayoutConfig({config: layoutConfig, key: 'emaNet', user})});
 };

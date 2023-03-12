@@ -9,6 +9,7 @@ import {getPriceFormat} from '../../utils';
 export const addPxLine = ({
   chartRef,
   chartDataRef,
+  user,
   layoutConfig,
   keyOfConfig,
   keyOfConfigLabel,
@@ -21,8 +22,8 @@ export const addPxLine = ({
     throw new Error(`Adding ${title} while the chart is not ready`);
   }
 
-  const visibleLine = getLayoutConfig(layoutConfig, keyOfConfig);
-  const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
+  const visibleLine = getLayoutConfig({config: layoutConfig, key: keyOfConfig, user});
+  const visibleLabel = getLayoutConfig({config: layoutConfig, key: keyOfConfigLabel, user});
 
   const series = chartRef.current.addLineSeries({
     ...props,

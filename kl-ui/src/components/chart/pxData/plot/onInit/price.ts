@@ -8,7 +8,7 @@ import {getPriceFormat} from '../utils';
 
 
 export const handlePrice = ({
-  chartRef, chartDataRef, layoutConfig,
+  chartRef, chartDataRef, layoutConfig, user,
 }: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
   if (!chartRef.current) {
     throw new Error('Adding price while the chart is not ready');
@@ -18,7 +18,7 @@ export const handlePrice = ({
 
   const price = chartRef.current.addCandlestickSeries({
     title: contract.symbol,
-    priceLineVisible: getLayoutConfig(layoutConfig, 'currentPxLine'),
+    priceLineVisible: getLayoutConfig({config: layoutConfig, key: 'currentPxLine', user}),
     priceLineWidth: 1,
     priceLineStyle: LineStyle.Dotted,
     upColor: bullColor,
@@ -30,7 +30,13 @@ export const handlePrice = ({
     priceLineColor: currentPxColor,
     priceFormat: getPriceFormat(contract),
   });
-  price.setData(data.map(toCandlestick(getLayoutConfig(layoutConfig, 'candlestickColor'))));
+  price.setData(
+    data.map(
+      toCandlestick(
+        getLayoutConfig({config: layoutConfig, key: 'candlestickColor', user}),
+      ),
+    ),
+  );
 
   return price;
 };

@@ -15,7 +15,7 @@ type UpdateEmaOptions = {
   series: ISeriesApi<'Line'>,
   periodType: keyof PxEmaPeriodPair,
   periodPair: PxEmaPeriodPair,
-  keyofConfig: PxLayoutConfigBoolValKeys,
+  keyOfConfig: PxLayoutConfigBoolValKeys,
   keyOfConfigLabel: PxLayoutConfigBoolValKeys,
   lastPx: PxDataBar,
   colorOverride?: ColorOverridder,
@@ -26,15 +26,15 @@ export const updateEma = ({
   series,
   periodType,
   periodPair,
-  keyofConfig,
+  keyOfConfig,
   keyOfConfigLabel,
   lastPx,
   colorOverride,
 }: UpdateEmaOptions) => {
-  const {chartDataRef, layoutConfig, partial} = e;
+  const {chartDataRef, layoutConfig, partial, user} = e;
 
-  const visible = getLayoutConfig(layoutConfig, keyofConfig);
-  const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
+  const visible = getLayoutConfig({config: layoutConfig, key: keyOfConfig, user});
+  const visibleLabel = getLayoutConfig({config: layoutConfig, key: keyOfConfigLabel, user});
 
   if (partial) {
     series.update(toLineData((bar) => bar.ema[periodPair[periodType]], colorOverride)(lastPx));

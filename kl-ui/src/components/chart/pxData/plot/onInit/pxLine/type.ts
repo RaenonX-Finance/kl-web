@@ -5,7 +5,10 @@ import {ValidKeyForLineData} from '../../../dataConvert';
 import {OnPxChartInitEvent} from '../../../type';
 
 
-export type AddPxLineOptionsFromInitEvent = Pick<OnPxChartInitEvent, 'chartRef' | 'chartDataRef' | 'layoutConfig'>;
+export type AddPxLineOptionsFromInitEvent = Pick<
+  OnPxChartInitEvent,
+  'chartRef' | 'chartDataRef' | 'layoutConfig' | 'user'
+>;
 
 export type AddPxLineOptions =
   AddPxLineOptionsFromInitEvent &

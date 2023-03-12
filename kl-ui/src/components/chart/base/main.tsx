@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -61,6 +62,7 @@ export const TradingViewChart = <T, P, R, L>({
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const layoutConfig = useSingleLayoutConfigSelector(slot);
   const dispatch = useDispatch();
+  const {data} = useSession();
   // Need to be explicit because empty object `{}` is also falsy
   const isLayoutConfigReady = layoutConfig !== null;
 
@@ -78,7 +80,16 @@ export const TradingViewChart = <T, P, R, L>({
       return;
     }
 
-    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig, partial});
+    onDataUpdated({
+      chartRef,
+      chartDataRef,
+      chartObjectRef,
+      setObject,
+      payload,
+      layoutConfig,
+      partial,
+      user: data?.user,
+    });
   };
 
   const onLoad = () => {

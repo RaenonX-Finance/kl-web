@@ -12,7 +12,7 @@ import {getSharedConfig} from '../../../../state/config/utils';
 import {FloatingInput} from '../../../common/form/floating/input';
 import {TextWithLoading} from '../../../common/loading/text';
 import {ChartLayoutSelector} from '../../layoutSelector/main';
-import {groupedSharedConfigEntries} from '../const';
+import {useGroupedSharedConfigEntries} from '../hook';
 
 
 type Props = {
@@ -23,6 +23,8 @@ type Props = {
 };
 
 export const PxChartSharedConfigTabs = ({configLocal, setConfigLocal, closeModal, updating}: Props) => {
+  const configEntryGroups = useGroupedSharedConfigEntries();
+
   return (
     <Tab.Container defaultActiveKey="layout">
       <Row className="g-3 p-3">
@@ -31,7 +33,7 @@ export const PxChartSharedConfigTabs = ({configLocal, setConfigLocal, closeModal
             <Nav.Item>
               <Nav.Link eventKey="layout" className={styles['tab-group']}>版面配置</Nav.Link>
             </Nav.Item>
-            {Object.keys(groupedSharedConfigEntries).map((group) => (
+            {Object.keys(configEntryGroups).map((group) => (
               <Nav.Item key={group}>
                 <Nav.Link eventKey={group} className={styles['tab-group']}>{group}</Nav.Link>
               </Nav.Item>
@@ -43,7 +45,7 @@ export const PxChartSharedConfigTabs = ({configLocal, setConfigLocal, closeModal
             <Tab.Pane eventKey="layout">
               <ChartLayoutSelector onSelect={closeModal}/>
             </Tab.Pane>
-            {Object.entries(groupedSharedConfigEntries).map(([group, entries]) => (
+            {Object.entries(configEntryGroups).map(([group, entries]) => (
               <Tab.Pane key={group} eventKey={group}>
                 {Object.entries(entries).map(([key, entry]) => {
                   const configKey = key as PxSharedConfigKeys;

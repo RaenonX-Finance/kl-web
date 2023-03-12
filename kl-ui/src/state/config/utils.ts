@@ -1,7 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {User} from 'next-auth';
 
 import {defaultLayoutConfig, defaultSharedConfig} from './const';
 import {ApiUpdateConfigCommonPayload, PxLayoutConfig} from './type';
+import {layoutConfigEntries} from '../../components/chart/config/layout/const';
 import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/config/layout/type';
 import {PxSharedConfig, PxSharedConfigKeys} from '../../components/chart/config/shared/type';
 import {LayoutType} from '../../components/chart/layoutSelector/type';
@@ -22,10 +24,22 @@ export const generateLayoutConfig = () : PxLayoutConfig => ({
 
 export const generateSharedConfig = () : PxSharedConfig => ({...defaultSharedConfig});
 
-export const getLayoutConfig = <K extends PxLayoutConfigKeys>(
+type GetLayoutConfigOpts<K extends PxLayoutConfigKeys> = {
   config: PxLayoutConfigSingle,
   key: K,
-): PxLayoutConfigSingle[K] => {
+  user: User | undefined
+};
+
+export const getLayoutConfig = <K extends PxLayoutConfigKeys>({
+  config,
+  key,
+  user,
+}: GetLayoutConfigOpts<K>): PxLayoutConfigSingle[K] => {
+  const isHiddenCheck = layoutConfigEntries[key].isHidden;
+  if (isHiddenCheck && isHiddenCheck(user)) {
+    return false;
+  }
+
   return config[key] ?? defaultLayoutConfig[key];
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {IChartApi} from 'lightweight-charts';
+import {User} from 'next-auth';
 
 
 export type ChartSetState<T> = (updateFunc: (prevLegend: T) => T) => void;
@@ -54,6 +55,7 @@ export type OnChartChangedEventCommon<T, R, L, A> = {
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
   setObject: ChartSetStateObjects<L>,
   layoutConfig: A,
+  user: User | undefined,
 };
 
 export type OnChartInitEvent<T, R, L, A, P = {}> =

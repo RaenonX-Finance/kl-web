@@ -34,14 +34,14 @@ export const createEmaLine = ({
   colorOverride,
   specialStyleOnSlow = false,
 }: CreateEmaLineOptions): ISeriesApi<'Line'> => {
-  const {chartRef, chartDataRef, layoutConfig} = e;
+  const {chartRef, chartDataRef, layoutConfig, user} = e;
 
   if (!chartRef.current) {
     throw new Error('Adding EMA net lines while the chart is not ready');
   }
 
-  const visible = getLayoutConfig(layoutConfig, keyOfConfig);
-  const visibleLabel = getLayoutConfig(layoutConfig, keyOfConfigLabel);
+  const visible = getLayoutConfig({config: layoutConfig, key: keyOfConfig, user});
+  const visibleLabel = getLayoutConfig({config: layoutConfig, key: keyOfConfigLabel, user});
 
   const emaLine = chartRef.current.addLineSeries({
     color: emaLineColors[periodType],
