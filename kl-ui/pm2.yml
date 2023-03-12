@@ -1,5 +1,5 @@
 apps:
-  - namespace: 'KL'
+  - namespace: 'KL.Web'
     name: 'KL.UI'
     # Entry point
     # `yarn run start` / `npm run start` won't work here - or additional work required
