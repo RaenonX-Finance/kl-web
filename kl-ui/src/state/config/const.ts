@@ -8,13 +8,11 @@ export const defaultLayoutConfig: PxLayoutConfigSingle = {
   emaNetLabel: false,
   emaStrongSrLabel: false,
   srLevelLabel: true,
-  srLevelBasicLabel: true,
   candlestickColor: false,
   tiePoint: false,
   emaNet: false,
   emaStrongSr: false,
   srLevel: false,
-  srLevelBasic: false,
   inChartExtrema: true,
   inChartExtremaLabel: true,
 };

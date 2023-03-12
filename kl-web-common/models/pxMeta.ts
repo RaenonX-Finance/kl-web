@@ -15,12 +15,9 @@ export const PxContractSchema = Type.Object({
 
 export type PxContract = Static<typeof PxContractSchema>;
 
-export const PxSupportResistanceSchema = Type.Object({
-  groups: Type.Array(
-    Type.Array(Type.Number({exclusiveMinimum: 0})),
-    {minItems: 5, maxItems: 5},
-  ),
-  basic: Type.Array(Type.Number({exclusiveMinimum: 0})),
-});
+export const PxSupportResistanceSchema = Type.Array(
+  Type.Array(Type.Number({exclusiveMinimum: 0})),
+  {minItems: 5, maxItems: 5},
+);
 
 export type PxSupportResistance = Static<typeof PxSupportResistanceSchema>;

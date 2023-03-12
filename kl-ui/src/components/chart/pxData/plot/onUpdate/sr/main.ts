@@ -1,6 +1,6 @@
 import {handleSrCommon} from './common';
 import {OnPxChartUpdatedEvent} from '../../../type';
-import {getSrLevelGroupColor, srLevelBasicColor, srLevelBasicCommonOptions, srLevelCommonOptions} from '../../const';
+import {getSrLevelColor, srLevelCommonOptions} from '../../const';
 
 
 export const handleSR = (e: OnPxChartUpdatedEvent) => {
@@ -9,14 +9,11 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
     return;
   }
 
-  const {groups, basic} = chartDataRef.current.supportResistance;
+  for (const [idx, levels] of chartDataRef.current.supportResistance.entries()) {
+    const srLevelLines = chartObjectRef.current.initData.lines.srLevelLines[idx];
 
-  // Grouped SR
-  for (const [idxGroup, levels] of groups.entries()) {
-    const srLevelLinesGroup = chartObjectRef.current.initData.lines.srLevelLines.group[idxGroup];
-
-    if (!srLevelLinesGroup) {
-      chartObjectRef.current.initData.lines.srLevelLines.group[idxGroup] = {};
+    if (!srLevelLines) {
+      chartObjectRef.current.initData.lines.srLevelLines[idx] = {};
     }
 
     handleSrCommon({
@@ -24,20 +21,9 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
       keyOfConfig: 'srLevel',
       keyOfConfigLabel: 'srLevelLabel',
       levels,
-      lineRecord: chartObjectRef.current.initData.lines.srLevelLines.group[idxGroup],
-      color: getSrLevelGroupColor(idxGroup),
+      lineRecord: chartObjectRef.current.initData.lines.srLevelLines[idx],
+      color: getSrLevelColor(idx),
       commonOptions: srLevelCommonOptions,
     });
   }
-
-  // Basic SR
-  handleSrCommon({
-    e,
-    keyOfConfig: 'srLevelBasic',
-    keyOfConfigLabel: 'srLevelBasicLabel',
-    levels: basic,
-    lineRecord: chartObjectRef.current.initData.lines.srLevelLines.basic,
-    color: srLevelBasicColor,
-    commonOptions: srLevelBasicCommonOptions,
-  });
 };

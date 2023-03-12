@@ -32,10 +32,7 @@ export type PxChartExtremaSeries = {
 };
 
 export type PxChartLines = {
-  srLevelLines: {
-    group: Record<number, Record<number, IPriceLine>>,
-    basic: Record<number, IPriceLine>,
-  },
+  srLevelLines: Record<number, Record<number, IPriceLine>>,
   extrema: PxChartExtremaSeries,
 };
 

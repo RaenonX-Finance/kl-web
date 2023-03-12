@@ -8,13 +8,11 @@ export type PxLayoutConfigSingle = {
   emaNetLabel: boolean,
   emaStrongSrLabel: boolean,
   srLevelLabel: boolean,
-  srLevelBasicLabel: boolean,
   candlestickColor: boolean,
   tiePoint: boolean,
   emaNet: boolean,
   emaStrongSr: boolean,
   srLevel: boolean,
-  srLevelBasic: boolean,
   inChartExtrema: boolean,
   inChartExtremaLabel: boolean,
 };

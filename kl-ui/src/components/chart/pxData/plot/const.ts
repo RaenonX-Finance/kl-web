@@ -32,9 +32,7 @@ export const emaLineColors: {[key in keyof PxEmaPeriodPair]: string} = {
   slow: bearColor,
 };
 
-export const srLevelBasicColor = '#cacaca';
-
-export const srLevelGroupColors = [
+export const srLevelColors = [
   '#f23645',
   '#deb900',
   '#ad49c0',
@@ -42,8 +40,8 @@ export const srLevelGroupColors = [
   '#1ca8b6',
 ];
 
-export const getSrLevelGroupColor = (idx: number): string => {
-  return srLevelGroupColors[idx % srLevelGroupColors.length];
+export const getSrLevelColor = (idx: number): string => {
+  return srLevelColors[idx % srLevelColors.length];
 };
 
 export const srLevelCommonOptions: SrLevelCommonOptions = {
@@ -51,11 +49,6 @@ export const srLevelCommonOptions: SrLevelCommonOptions = {
   lineStyle: LineStyle.Solid,
   lineWidth: 1,
   lineVisible: true,
-};
-
-export const srLevelBasicCommonOptions: SrLevelCommonOptions = {
-  ...srLevelCommonOptions,
-  lineStyle: LineStyle.Dashed,
 };
 
 export const tiePointLabel = 'L/S';

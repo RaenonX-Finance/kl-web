@@ -14,11 +14,8 @@ export const pxSrLevelClearer = (state: PxDataState, symbols: string[]) => {
 
     state.data[slot as PxSlotName] = {
       ...data,
-      supportResistance: {
-        // SR levels have 5 groups
-        groups: [[], [], [], [], []],
-        basic: [],
-      },
+      // SR levels have 5 groups
+      supportResistance: [[], [], [], [], []],
     };
   });
 };
