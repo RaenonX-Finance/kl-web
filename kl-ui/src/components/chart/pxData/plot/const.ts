@@ -36,7 +36,7 @@ export const srLevelBasicColor = '#cacaca';
 
 export const srLevelGroupColors = [
   '#f23645',
-  '#f5d52f',
+  '#deb900',
   '#ad49c0',
   '#3aa13e',
   '#1ca8b6',

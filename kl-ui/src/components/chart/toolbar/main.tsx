@@ -38,12 +38,6 @@ export const PxChartToolbar = <A extends unknown>({
       <Button size="sm" variant="outline-warning" className={styles['setting-button']} onClick={() => setShow(true)}>
         <i className="bi bi-gear"></i>
       </Button>
-      <Button size="sm" variant="outline-info" className={styles['action-button']} onClick={() => {
-        chartRef.current?.timeScale().resetTimeScale();
-        chartRef.current?.priceScale().applyOptions({autoScale: true});
-      }}>
-        <i className="bi bi-arrow-clockwise"></i>
-      </Button>
       <Button size="sm" variant="outline-success" className={styles['action-button']} onClick={() => {
         chartRef.current?.timeScale().scrollToRealTime();
       }}>

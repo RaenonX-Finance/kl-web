@@ -25,4 +25,7 @@ export const chartOptions: DeepPartial<ChartOptions> = {
     timeVisible: true,
     rightOffset: 12,
   },
+  handleScale: {
+    axisDoubleClickReset: true,
+  },
 };

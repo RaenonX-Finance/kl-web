@@ -28,7 +28,6 @@ div {
   &.status {
     @include overlay;
 
-    width: 100%;
     bottom: 0.1rem;
     right: 0.2rem;
   }
