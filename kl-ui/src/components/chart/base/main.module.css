@@ -5,12 +5,10 @@ div.chart {
 div.legend {
   position: absolute;
   z-index: 1000;
-  width: calc(100% - 5rem);
 }
 div.toolbar {
   position: absolute;
   z-index: 1000;
-  width: 100%;
   bottom: 2rem;
   margin: 0.5rem;
 }

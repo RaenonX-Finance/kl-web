@@ -13,14 +13,11 @@ div {
 
   &.legend {
     @include overlay;
-
-    width: calc(100% - 5rem);
   }
 
   &.toolbar {
     @include overlay;
 
-    width: 100%;
     bottom: 2rem;
     margin: 0.5rem;
   }
