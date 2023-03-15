@@ -1,3 +1,5 @@
+import {DependencyList} from 'react';
+
 import {EventsMap} from '@socket.io/component-emitter';
 import {Socket} from 'socket.io-client';
 
@@ -6,6 +8,7 @@ export type UseCommonSocketEventHandlersOpts<S2C extends EventsMap, C2S extends 
   name: string,
   socket: Socket<S2C, C2S> | undefined,
   onConnected?: () => void,
+  deps?: DependencyList,
 };
 
 export type UseCommonSocketEventHandlersReturn = {

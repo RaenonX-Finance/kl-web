@@ -12,7 +12,11 @@ import {apiInitPxData} from '../../../utils/api/px';
 import {useHandleAxiosError} from '../../axios';
 
 
-export const usePxInitHandler = () => {
+type UsePxInitHandlerReturn = {
+  init: () => void,
+};
+
+export const usePxInitHandler = (): UsePxInitHandlerReturn => {
   const {data} = useSession();
   const layoutType = useLayoutTypeConfigSelector();
   const slotMap = usePxSlotMap();
@@ -20,8 +24,7 @@ export const usePxInitHandler = () => {
   const {onError} = useHandleAxiosError();
   const token = data?.user?.token;
 
-  // Hooks
-  React.useEffect(() => {
+  const init = React.useCallback(() => {
     if (!layoutType || !slotMap) {
       return;
     }
@@ -41,5 +44,12 @@ export const usePxInitHandler = () => {
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
       .catch(onError);
+  }, [layoutType, slotMap, token]);
+
+  // Hooks
+  React.useEffect(() => {
+    init();
   }, [layoutType]);
+
+  return {init};
 };

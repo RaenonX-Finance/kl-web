@@ -3,7 +3,6 @@ import React from 'react';
 import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {useSession} from 'next-auth/react';
 
-
 import {usePxInitHandler} from './init';
 import {useMarketPxUpdateHandler} from './market';
 import {PxDataSocket} from './type';
@@ -25,14 +24,14 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const {identifiers} = usePxDataSubscriptionInfoSelector();
   const dispatch = useDispatch();
 
-  usePxInitHandler();
+  const token = data?.user?.token;
+
+  const {init} = usePxInitHandler();
   useMarketPxUpdateHandler({socket});
   useCommonSocketEventHandlers({
     name: '報價',
     socket,
     onConnected: () => {
-      const token = data?.user?.token;
-
       if (!token) {
         throw new Error('Token unavailable when resubscribing market data on connected');
       }
@@ -45,7 +44,10 @@ export const usePxSocket = (): PxDataSocket | undefined => {
       }
 
       socket.emit('subscribe', {token, identifiers});
+
+      init();
     },
+    deps: [token, identifiers],
   });
 
   // Custom events

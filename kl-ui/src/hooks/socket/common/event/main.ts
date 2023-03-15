@@ -18,13 +18,14 @@ export const useCommonSocketEventHandlers = <S2C extends EventsMap, C2S extends 
   name,
   socket,
   onConnected,
+  deps,
 }: UseCommonSocketEventHandlersOpts<S2C, C2S>): UseCommonSocketEventHandlersReturn => {
   const dispatch = useDispatch();
   const [timeoutIds, setTimeoutIds] = React.useState<number[]>([]);
   const [reconnectId, setReconnectId] = React.useState<number>();
 
   // `timeoutIds` and `reconnectId` is needed because handlers is using these variables, which could be updated
-  const dependencies = [!!socket, socket?.connected, timeoutIds, reconnectId];
+  const dependencies = [!!socket, socket?.connected, timeoutIds, reconnectId, ...(deps || [])];
 
   const reconnect = React.useCallback(() => {
     if (reconnectId) {
