@@ -4,7 +4,7 @@ import {Logger, RedisLastPx} from '../../const';
 
 
 export const getMomentum = async (symbol: string): Promise<PxMomentumIndex> => {
-  const momentumString = await RedisLastPx.get(`${symbol}:Momentum`);
+  const momentumString = await RedisLastPx.get(`Momentum:${symbol}`);
 
   if (!momentumString) {
     Logger.error({symbol}, 'Momentum of symbol [%s] is unavailable', symbol);
