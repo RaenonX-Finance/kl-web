@@ -4,7 +4,7 @@ import {PxInit} from 'kl-web-common/models/pxInit';
 import {PxMarket} from 'kl-web-common/models/pxMarket';
 
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
-import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
+import {generateInitialSlotMap} from './utils';
 import {PxDataMap, PxSlotName} from '../../types/pxData';
 import {overrideObject} from '../../utils/override';
 import {updatePxDataBar} from '../../utils/px';
@@ -45,7 +45,7 @@ export const pxDataDispatchers = {
   >(
     PxDataDispatcherName.UPDATE_MARKET,
     async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
-      const {config, data, pxData} = getState();
+      const {config, pxData} = getState();
       const {sharedConfig} = config;
 
       if (!sharedConfig) {
@@ -80,14 +80,7 @@ export const pxDataDispatchers = {
           // Check if the `pxData` can be updated
           !latestMarket ||
           // Check if the `pxData` in slot is has the matching security symbol
-          !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||
-          // Check if it's OK to update
-          !isMarketPxUpdateOk({
-            sharedConfig,
-            lastUpdated: data.lastPxUpdate[pxDataInSlot.contract.symbol],
-            lastBar,
-            last: latestMarket.c,
-          })
+          !payload.hasOwnProperty(pxDataInSlot.contract.symbol)
         ) {
           pxDataMap[slot] = {...pxDataInSlot};
           continue;

@@ -5,7 +5,7 @@ import {defaultLayoutConfig, defaultSharedConfig} from './const';
 import {ApiUpdateConfigCommonPayload, PxLayoutConfig} from './type';
 import {layoutConfigEntries} from '../../components/chart/config/layout/const';
 import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/config/layout/type';
-import {PxSharedConfig, PxSharedConfigKeys} from '../../components/chart/config/shared/type';
+import {PxSharedConfig} from '../../components/chart/config/shared/type';
 import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxSlotName} from '../../types/pxData';
 import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
@@ -41,13 +41,6 @@ export const getLayoutConfig = <K extends PxLayoutConfigKeys>({
   }
 
   return config[key] ?? defaultLayoutConfig[key];
-};
-
-export const getSharedConfig = <K extends PxSharedConfigKeys>(
-  config: PxSharedConfig,
-  key: K,
-): PxSharedConfig[K] => {
-  return config[key] ?? defaultSharedConfig[key];
 };
 
 type CreateConfigAsyncThunkReturn<K extends ApiUpdateConfigKeys, P> = {

@@ -17,6 +17,4 @@ export const defaultLayoutConfig: PxLayoutConfigSingle = {
   inChartExtremaLabel: true,
 };
 
-export const defaultSharedConfig: PxSharedConfig = {
-  intervalMarketPxSec: 0.25,
-};
+export const defaultSharedConfig: PxSharedConfig = {};
