@@ -9,6 +9,6 @@ export type PxConfigModel = {
   emaNet: PxEmaPeriodPair,
   emaStrongSr: PxEmaPeriodPair[],
   srLevel: SrLevelConfigModel,
-  sources: PxSourceModel[],
+  sources: Record<string, PxSourceModel>,
   periods: DataPeriodModel[],
 };

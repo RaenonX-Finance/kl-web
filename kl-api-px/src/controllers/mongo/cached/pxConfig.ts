@@ -19,7 +19,7 @@ export const initPxConfigCache = async () => {
 
   configCache = configModel;
 
-  configModel.sources.forEach((source) => sourceMap[source.internalSymbol] = source);
+  Object.values(configModel.sources).forEach((source) => sourceMap[source.internalSymbol] = source);
   periods.push(...configModel.periods.map(({periodMin}) => periodMin));
 };
 
