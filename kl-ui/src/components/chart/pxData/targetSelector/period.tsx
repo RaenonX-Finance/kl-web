@@ -3,7 +3,6 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-import {titleStyle} from './const';
 import {TargetSelectorButtonProps} from './type';
 import {usePeriodDataSelector} from '../../../../state/data/selector';
 import {errorDispatchers} from '../../../../state/error/dispatchers';
@@ -50,9 +49,6 @@ export const PeriodSelector = ({
 
   return (
     <ButtonGroup className="w-100 flex-wrap">
-      <Button variant="outline-light" disabled style={titleStyle}>
-        週期
-      </Button>
       {Object.values(periods).map(({name, min: periodMin}) => (
         <Button
           key={periodMin}

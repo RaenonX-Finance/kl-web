@@ -1,15 +1,14 @@
-import {PxData} from 'kl-web-common/models/pxData';
 import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
 import isEqual from 'lodash/isEqual';
 import {useSelector} from 'react-redux';
 
 import {PxDataSubscriptionInfo, PxSlotMap} from './types';
-import {PxSlotName} from '../../types/pxData';
+import {PxDataMapValue, PxSlotName} from '../../types/pxData';
 import {getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
 
 
-export const usePxDataSelector = (slot: PxSlotName): PxData | null => (
+export const usePxDataSelector = (slot: PxSlotName): PxDataMapValue => (
   useSelector(({pxData}: ReduxState) => pxData.data[slot], isEqual)
 );
 

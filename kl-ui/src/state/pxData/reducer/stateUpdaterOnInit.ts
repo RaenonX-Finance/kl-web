@@ -6,7 +6,7 @@ import {StateUpdateFuncOpts} from './stateUpdater';
 export const pxDataStateUpdaterOnInit = <T extends PxData>({
   state,
   slotName,
-  response,
+  payload,
 }: StateUpdateFuncOpts<T>) => {
-  state.data[slotName] = response;
+  state.data[slotName] = payload.data;
 };

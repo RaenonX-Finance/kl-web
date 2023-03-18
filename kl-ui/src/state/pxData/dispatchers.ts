@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {PxHistory} from 'kl-web-common/models/pxHistory';
-import {PxInit} from 'kl-web-common/models/pxInit';
+import {PxInitApi} from 'kl-web-common/models/pxInit';
 import {PxMarket} from 'kl-web-common/models/pxMarket';
 
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
@@ -15,7 +15,7 @@ import {onAsyncThunkError} from '../utils';
 
 
 export const pxDataDispatchers = {
-  [PxDataDispatcherName.INIT]: createAction<PxInit>(PxDataDispatcherName.INIT),
+  [PxDataDispatcherName.INIT]: createAction<PxInitApi>(PxDataDispatcherName.INIT),
   [PxDataDispatcherName.UPDATE_COMPLETE]: createAsyncThunk<
     PxHistory,
     PxHistory,
@@ -72,7 +72,8 @@ export const pxDataDispatchers = {
         const latestMarket = pxDataInSlot ? payload[pxDataInSlot.contract.symbol] : undefined;
 
         if (!pxDataInSlot) {
-          pxDataMap[slot] = null;
+          // `pxData` in `pxDataMap` is falsy - keep it as is and continue processing the next
+          pxDataMap[slot] = pxDataInSlot;
           continue;
         }
 

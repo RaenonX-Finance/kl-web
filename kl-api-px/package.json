@@ -48,8 +48,7 @@
     "grpc_tools_node_protoc_ts": "^5.3.3",
     "nodemon": "^2.0.20",
     "pino-pretty": "^9.4.0",
-    "ts-node": "^10.9.1",
-    "types-fastify-socket.io": "^0.0.1"
+    "ts-node": "^10.9.1"
   },
   "peerDependencies": {
     "@types/node": "*",

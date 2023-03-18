@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 import {dataDispatchers} from './dispatchers';
 import {DATA_STATE_NAME, DataDispatcherName, DataState} from './types';
@@ -56,7 +57,10 @@ const slice = createSlice({
       pxDataDispatchers[PxDataDispatcherName.INIT],
       (state, {payload}) => (
         recordPxUpdateReducer({
-          state, securities: payload.map(({symbol}) => symbol), last: true, complete: true,
+          state,
+          securities: [...new Set(payload.map(({request}) => getIdentifierDetails(request.identifier).symbol))],
+          last: true,
+          complete: true,
         })
       ),
     );

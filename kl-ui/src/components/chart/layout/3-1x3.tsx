@@ -3,7 +3,7 @@ import React from 'react';
 import useResizeObserver from 'use-resize-observer';
 
 import {LayoutBase} from './base';
-import {PxDataLayoutPane} from './pxData';
+import {PxLayoutContainer} from './render/container';
 import {LayoutProps} from './type';
 
 
@@ -14,9 +14,9 @@ export const Layout3of1x3 = ({}: LayoutProps) => {
     <LayoutBase refCallback={ref}>
       {!!width && !!height && (
         <>
-          <PxDataLayoutPane slot="A" x={0} y={0} width={width} height={height / 3}/>
-          <PxDataLayoutPane slot="B" x={0} y={height * (1 / 3)} width={width} height={height / 3}/>
-          <PxDataLayoutPane slot="C" x={0} y={height * (2 / 3)} width={width} height={height / 3}/>
+          <PxLayoutContainer slot="A" x={0} y={0} width={width} height={height / 3}/>
+          <PxLayoutContainer slot="B" x={0} y={height * (1 / 3)} width={width} height={height / 3}/>
+          <PxLayoutContainer slot="C" x={0} y={height * (2 / 3)} width={width} height={height / 3}/>
         </>
       )}
     </LayoutBase>

@@ -50,14 +50,14 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
   };
 
   return (
-    <Modal show={show} size="lg" onHide={() => setShow(false)} centered>
+    <Modal show={show} onHide={() => setShow(false)} centered>
       <Modal.Header closeButton>
         <Modal.Title>商品、週期選擇</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row className="mb-3">
           <Col>
-            <ProductSelector
+            <PeriodSelector
               disabled={disabled} token={token}
               beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
               {...props}
@@ -66,7 +66,7 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
         </Row>
         <Row>
           <Col>
-            <PeriodSelector
+            <ProductSelector
               disabled={disabled} token={token}
               beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
               {...props}

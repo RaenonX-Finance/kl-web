@@ -1,5 +1,6 @@
 import {PxHistory, PxHistorySingle} from 'kl-web-common/models/pxHistory';
 import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/pxRequest';
+import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 import {pxCalc} from './const';
 import {DefaultRequestLimit} from './env';
@@ -8,8 +9,7 @@ import {getSrLevelBody} from './srLevel';
 
 export const getCalculatedPxSingle = async (request: PxRequestModel): Promise<PxHistorySingle> => {
   const {offset, limit, identifier} = request;
-  const [symbol, periodMinStr] = identifier.split('@');
-  const periodMin = parseInt(periodMinStr);
+  const {symbol, periodMin} = getIdentifierDetails(identifier);
 
   let cursor = pxCalc.find({symbol, periodMin}).sort('epochSecond', 'desc');
 

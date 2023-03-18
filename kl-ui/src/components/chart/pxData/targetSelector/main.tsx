@@ -16,7 +16,7 @@ export const TargetSelector = (props: TargetSelectorCommonProps) => {
   // `products` and `periods` could be an empty map on init because the product info returns slower
   const symbol = products[pxData.contract.symbol]?.name ?? pxData.contract.symbol;
   const periodMin = pxData.periodSec / 60;
-  const period = periods[pxData.periodSec / 60]?.name ?? periodMin;
+  const period = periods[periodMin]?.name ?? periodMin;
 
   return (
     <>

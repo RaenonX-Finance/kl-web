@@ -1,14 +1,14 @@
-import {PxRequestModel} from '../models/pxRequest';
+import {PxUniqueIdentifier} from '../models/pxMeta';
 
 
-type PxRequestDetails = PxRequestModel & {
+type PxIdentifierDetails = {
   symbol: string,
   periodMin: number,
 };
 
-export const getRequestDetails = (request: PxRequestModel): PxRequestDetails => {
-  const [symbol, periodMinStr] = request.identifier.split('@');
+export const getIdentifierDetails = (identifier: PxUniqueIdentifier): PxIdentifierDetails => {
+  const [symbol, periodMinStr] = identifier.split('@');
   const periodMin = parseInt(periodMinStr);
 
-  return {...request, symbol, periodMin};
+  return {symbol, periodMin};
 };

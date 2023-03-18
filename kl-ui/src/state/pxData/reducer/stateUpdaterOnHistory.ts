@@ -7,20 +7,26 @@ import {StateUpdateFuncOpts} from './stateUpdater';
 export const pxDataStateUpdaterOnHistory = <T extends PxHistorySingle>({
   state,
   slotName,
-  identifier,
-  response,
+  payload,
 }: StateUpdateFuncOpts<T>) => {
   const originalData = state.data[slotName];
+  const {data, identifier} = payload;
+
   if (!originalData) {
     console.warn(`Received px response to update the data of [${identifier}], but it's uninitialized`);
     return;
   }
 
+  if (!data) {
+    state.data[slotName] = null;
+    return;
+  }
+
   state.data[slotName] = {
     ...originalData,
-    ...response,
+    ...data,
     data: mergePxDataBars({
-      newBars: response.data,
+      newBars: data.data,
       original: state.data[slotName]?.data,
       noLastOverwrite: false,
     }),

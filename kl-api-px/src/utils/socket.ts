@@ -1,9 +1,10 @@
 import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
+import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 
 export const identifiersToRooms = (identifiers: PxUniqueIdentifier[]) => {
   return [
-    ...new Set(identifiers.map((identifier) => identifier.split('@')[0])),
+    ...new Set(identifiers.map((identifier) => getIdentifierDetails(identifier).symbol)),
     ...identifiers,
   ];
 };
