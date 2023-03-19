@@ -12,7 +12,8 @@ export const getInitPxSingle = async (request: PxRequestModel): Promise<PxInitAp
   const {symbol, periodMin} = getIdentifierDetails(request.identifier);
   const [historySingle, momentum] = await Promise.all([getCalculatedPxSingle(request), getMomentum(symbol)]);
 
-  if (!momentum) {
+  // `momentum` could be 0, needs explicit comparison
+  if (momentum === null) {
     return {
       request,
       data: null,
