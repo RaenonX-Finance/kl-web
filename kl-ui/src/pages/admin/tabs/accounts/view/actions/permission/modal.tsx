@@ -86,7 +86,9 @@ export const PermissionUpdateModal = ({account, show, setShow, updateSingleAccou
         <Row className="text-end">
           <Col>
             <Button onClick={onSendChange} disabled={updating}>
-              <TextWithLoading show={updating} text="套用變更"/>
+              <TextWithLoading show={updating}>
+                套用變更
+              </TextWithLoading>
             </Button>
           </Col>
         </Row>

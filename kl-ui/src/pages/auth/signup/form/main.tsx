@@ -89,7 +89,9 @@ export const AuthSignupForm = () => {
         feedbackOnInvalid="密碼不相符。"
       />
       <Button className="w-100" variant="info" disabled={signupDisabled} type="submit">
-        <TextWithLoading show={disabled} text="註冊"/>
+        <TextWithLoading show={disabled}>
+          註冊
+        </TextWithLoading>
       </Button>
     </AjaxForm>
   );

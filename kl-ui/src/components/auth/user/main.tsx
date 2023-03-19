@@ -37,7 +37,9 @@ export const UserControlNavButton = () => {
       className={styles['user-button']}
     >
       <Dropdown.Item onClick={onClick}>
-        <TextWithLoading show={disabled} text="登出"/>
+        <TextWithLoading show={disabled}>
+          登出
+        </TextWithLoading>
       </Dropdown.Item>
     </DropdownButton>
   );

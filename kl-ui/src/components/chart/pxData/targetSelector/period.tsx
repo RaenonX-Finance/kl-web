@@ -57,7 +57,9 @@ export const PeriodSelector = ({
           disabled={disabled}
           onClick={onClick(periodMin)}
         >
-          <TextWithLoading show={disabled && periodMin === updatingPeriodMin} text={name}/>
+          <TextWithLoading show={disabled && periodMin === updatingPeriodMin}>
+            {name}
+          </TextWithLoading>
         </Button>
       ))}
     </ButtonGroup>

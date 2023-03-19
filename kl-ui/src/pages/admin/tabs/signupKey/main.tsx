@@ -63,7 +63,9 @@ export const AdminTabGenerateSignupKey = () => {
           required
         />
         <Button type="submit" className="w-100" variant="outline-warning" disabled={!accountExpiry || disabled}>
-          <TextWithLoading show={disabled} text="產生註冊金鑰"/>
+          <TextWithLoading show={disabled}>
+            產生註冊金鑰
+          </TextWithLoading>
         </Button>
       </AjaxForm>
       <hr/>
