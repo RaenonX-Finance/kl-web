@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {PxData} from 'kl-web-common/models/pxData';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import useResizeObserver from 'use-resize-observer';
@@ -9,19 +8,15 @@ import {LegendDataCell, LegendDataCellProps} from './cell';
 import {momentumIndicatorStyleLookup} from './const';
 import styles from './main.module.scss';
 import {useAnimation} from '../../../../hooks/animation';
-import {PxSlotName} from '../../../../types/pxData';
 import {formatSignedNumber} from '../../../../utils/string';
-import {TargetSelector} from '../targetSelector/main';
 import {PxChartLegendData} from '../type';
 
 
 type Props = {
-  data: PxData,
   legend: PxChartLegendData,
-  slot: PxSlotName,
 };
 
-export const PxChartLegend = ({data, legend, slot}: Props) => {
+export const PxChartLegend = ({legend}: Props) => {
   const {
     open,
     high,
@@ -61,9 +56,6 @@ export const PxChartLegend = ({data, legend, slot}: Props) => {
         </Col>
         <Col className={styles['main-content']}>
           <Row className="g-2 mb-2">
-            <Col xs="auto" className={styles['title']}>
-              <TargetSelector pxData={data} slot={slot}/>
-            </Col>
             <Col xs="auto" className={styles['tie-point']}>
               <LegendDataCell value={tiePoint} decimals={decimals} title="多空" large/>
             </Col>

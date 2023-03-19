@@ -18,10 +18,10 @@ export type ChartCalcObjects<T, L> = ChartStatefulObjects<
   ChartInitCalcObject<T, L>
 >;
 
-export type ChartRenderObject<T, D> = (chartData: T, object: D) => React.ReactNode;
+export type ChartRenderObject<D> = (object: D) => React.ReactNode;
 
-export type ChartRenderObjects<T, L> = {
-  legend: ChartRenderObject<T, L>,
+export type ChartRenderObjects<L> = {
+  legend: ChartRenderObject<L>,
 };
 
 export type ChartObjectRef<T> = {

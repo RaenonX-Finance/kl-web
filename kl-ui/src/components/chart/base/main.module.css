@@ -1,7 +1,3 @@
-div.chart {
-  position: relative;
-  height: 100%;
-}
 div.legend {
   position: absolute;
   z-index: 1000;

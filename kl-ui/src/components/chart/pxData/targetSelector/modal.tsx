@@ -1,52 +1,67 @@
 import React from 'react';
 
-import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
-import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 
 import {PeriodSelector} from './period';
 import {ProductSelector} from './product';
-import {TargetSelectorCommonProps} from './type';
+import {TargetSelectorButtonProps, TargetSelectorCommonProps, TargetState} from './type';
 import {useHandleAxiosError} from '../../../../hooks/axios';
+import {errorDispatchers} from '../../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../../state/error/types';
 import {pxDataDispatchers} from '../../../../state/pxData/dispatchers';
 import {PxDataDispatcherName} from '../../../../state/pxData/types';
 import {useDispatch} from '../../../../state/store';
 import {apiInitPxData} from '../../../../utils/api/px';
 
 
-type Props = TargetSelectorCommonProps & {
+type Props = Pick<TargetSelectorCommonProps, 'slot'> & {
   show: boolean,
   setShow: (show: boolean) => void,
+  token: string,
+  target: TargetState,
+  setTarget: React.Dispatch<React.SetStateAction<TargetState>>,
 };
 
-export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
-  const {data} = useSession();
+export const TargetSelectorModal = ({slot, show, setShow, token, target, setTarget}: Props) => {
   const dispatch = useDispatch();
-  const [disabled, setDisabled] = React.useState(false);
+  const [updating, setUpdating] = React.useState(false);
   const {onError} = useHandleAxiosError();
 
-  const token = data?.user?.token;
+  const onClick: TargetSelectorButtonProps['onClick'] = async (update) => {
+    const newTargetSelected: TargetState = {
+      selected: {...target.selected, ...update},
+      queued: {...target.queued, ...update},
+    };
+    setTarget(newTargetSelected);
 
-  if (!token) {
-    return <></>;
-  }
+    const {symbol, periodMin} = newTargetSelected.queued;
 
-  const beforeUpdate = () => {
-    setDisabled(true);
-  };
+    if (!symbol || !periodMin) {
+      return;
+    }
 
-  const afterUpdate = (identifier: PxUniqueIdentifier) => {
-    setShow(false);
-    setDisabled(false);
+    setUpdating(true);
 
-    apiInitPxData({
-      token,
-      requests: [{identifier}],
-    })
-      .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
-      .catch(onError);
+    try {
+      dispatch(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP]({token, slot, symbol, periodMin}));
+    } catch (error) {
+      if (typeof error === 'string') {
+        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: error}));
+      }
+      console.error(error);
+    } finally {
+      setShow(false);
+      setUpdating(false);
+
+      apiInitPxData({
+        token,
+        requests: [{identifier: `${symbol}@${periodMin}`}],
+      })
+        .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
+        .catch(onError);
+    }
   };
 
   return (
@@ -57,20 +72,12 @@ export const TargetSelectorModal = ({show, setShow, ...props}: Props) => {
       <Modal.Body>
         <Row className="mb-3">
           <Col>
-            <PeriodSelector
-              disabled={disabled} token={token}
-              beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
-              {...props}
-            />
+            <PeriodSelector updating={updating} onClick={onClick} target={target}/>
           </Col>
         </Row>
         <Row>
           <Col>
-            <ProductSelector
-              disabled={disabled} token={token}
-              beforeUpdate={beforeUpdate} afterUpdate={afterUpdate}
-              {...props}
-            />
+            <ProductSelector updating={updating} onClick={onClick} target={target}/>
           </Col>
         </Row>
       </Modal.Body>

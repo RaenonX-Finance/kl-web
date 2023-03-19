@@ -33,7 +33,7 @@ export type TradingViewChartProps<T, P, R, L, A> = {
   payload: P,
   onDataUpdated: ChartDataUpdatedEventHandler<T, P, R, L, A>,
   calcObjects: ChartCalcObjects<T, L>,
-  renderObjects: ChartRenderObjects<T, L>,
+  renderObjects: ChartRenderObjects<L>,
   renderLayoutConfig: PxChartToolbarProps<A>['renderLayoutConfig'],
   getPeriodSec: (data: T) => number,
   getDataSecurity: (data: T) => string,
@@ -129,9 +129,9 @@ export const TradingViewChart = <T, P, R, L>({
   );
 
   return (
-    <div className={styles['chart']} ref={chartContainerRef}>
+    <div ref={chartContainerRef}>
       <div className={styles['legend']}>
-        {renderObjects.legend(chartData, legend)}
+        {renderObjects.legend(legend)}
       </div>
       <div className={styles['toolbar']}>
         <Row className="g-2 align-items-center">

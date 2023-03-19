@@ -1,7 +1,7 @@
 import {PxUniqueIdentifier} from '../models/pxMeta';
 
 
-type PxIdentifierDetails = {
+export type PxIdentifierDetails = {
   symbol: string,
   periodMin: number,
 };

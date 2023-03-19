@@ -18,8 +18,7 @@ export const PxLayoutContent = ({slot, height, width}: PxLayoutContainerProps) =
   }
 
   if (pxData === null) {
-    // TODO: Target select
-    return <></>;
+    return <>TARGET SELECT</>;
   }
 
   return (

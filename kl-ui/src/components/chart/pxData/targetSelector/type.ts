@@ -1,17 +1,23 @@
-import {PxData} from 'kl-web-common/models/pxData';
-import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
-
-import {PxSlotName} from '../../../../types/pxData';
+import {PxDataMapValue, PxSlotName} from '../../../../types/pxData';
 
 
 export type TargetSelectorCommonProps = {
-  pxData: PxData,
+  pxData: PxDataMapValue,
   slot: PxSlotName,
 };
 
-export type TargetSelectorButtonProps = TargetSelectorCommonProps & {
-  token: string,
-  disabled: boolean,
-  beforeUpdate: () => void,
-  afterUpdate: (identifier: PxUniqueIdentifier) => void,
+export type TargetSelectorButtonProps = {
+  updating: boolean,
+  onClick: (update: Partial<TargetSelected>) => PromiseLike<void>,
+  target: TargetState,
+};
+
+export type TargetSelected = {
+  symbol: string | null,
+  periodMin: number | null,
+};
+
+export type TargetState = {
+  selected: TargetSelected,
+  queued: TargetSelected,
 };
