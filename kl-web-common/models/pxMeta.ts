@@ -1,10 +1,17 @@
 /* eslint-disable new-cap */
-import {Static, Type} from '@sinclair/typebox';
+import {Static, TString, Type} from '@sinclair/typebox';
 
 
-export const PxUniqueIdentifierSchema = Type.String({pattern: `(\\w+)@(\\d+)`});
+export interface TUniqueIdentifier extends TString {
+  static: `${string}@${number}`;
+}
 
-export type PxUniqueIdentifier = `${string}@${number}`;
+export const PxUniqueIdentifierSchema = Type.Unsafe<Static<TUniqueIdentifier>>(Type.String({
+  type: 'string',
+  pattern: `(\\w+)@(\\d+)`,
+}));
+
+export type PxUniqueIdentifier = Static<typeof PxUniqueIdentifierSchema>;
 
 export const PxContractSchema = Type.Object({
   symbol: Type.String(),
@@ -19,5 +26,3 @@ export const PxSupportResistanceSchema = Type.Array(
   Type.Array(Type.Number({exclusiveMinimum: 0})),
   {minItems: 5, maxItems: 5},
 );
-
-export type PxSupportResistance = Static<typeof PxSupportResistanceSchema>;

@@ -4,7 +4,7 @@ import {Static, Type} from '@sinclair/typebox';
 import {PxIndicatorConfigSchema} from './pxConfig';
 import {PxHistorySingleSchemaBase} from './pxHistory';
 import {PxMarketSingleSchema} from './pxMarket';
-import {PxContractSchema, PxUniqueIdentifier} from './pxMeta';
+import {PxContractSchema} from './pxMeta';
 
 
 export const PxDataSchema = Type.Object({
@@ -15,6 +15,4 @@ export const PxDataSchema = Type.Object({
   indicator: PxIndicatorConfigSchema,
 });
 
-export type PxData = Static<typeof PxDataSchema> & {
-  uniqueIdentifier: PxUniqueIdentifier
-};
+export type PxData = Static<typeof PxDataSchema>;

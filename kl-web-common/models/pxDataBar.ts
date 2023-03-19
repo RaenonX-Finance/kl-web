@@ -2,7 +2,7 @@
 import {Static, Type} from '@sinclair/typebox';
 
 
-const PxMomentumIndexSchemaBase = [
+export const PxMomentumIndexSchema = Type.Union([
   Type.Literal(3),
   Type.Literal(2),
   Type.Literal(1),
@@ -10,9 +10,7 @@ const PxMomentumIndexSchemaBase = [
   Type.Literal(-1),
   Type.Literal(-2),
   Type.Literal(-3),
-];
-
-export const PxMomentumIndexSchema = Type.Union(PxMomentumIndexSchemaBase);
+]);
 
 export type PxMomentumIndex = Static<typeof PxMomentumIndexSchema>;
 

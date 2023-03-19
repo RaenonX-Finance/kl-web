@@ -1,8 +1,8 @@
-import {Type} from '@sinclair/typebox';
+import {Static, Type} from '@sinclair/typebox';
 
-import {PxData, PxDataSchema} from './pxData';
+import {PxDataSchema} from './pxData';
 
 
 export const PxInitSchema = Type.Array(PxDataSchema);
 
-export type PxInit = PxData[];
+export type PxInit = Static<typeof PxInitSchema>;
