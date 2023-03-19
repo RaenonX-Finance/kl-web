@@ -36,7 +36,7 @@ export const PxLayoutContainer = (props: PxLayoutContainerProps) => {
 
   return (
     <div className={styles['container']} style={containerCss}>
-      <div className={styles['container']} ref={ref}>
+      <div className={styles['container']} style={{width}} ref={ref}>
         <TargetSelector pxData={pxData} slot={slot} identifier={identifier}/>
       </div>
       <div className={styles['container']} style={{width, height: heightOfChart}}>

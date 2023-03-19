@@ -1,7 +1,7 @@
 div.data-cell,
 span.data-cell {
   display: inline;
-  padding: 0.1rem 0.75rem 0.1rem 0;
+  padding: 0.1rem 0.35rem;
   white-space: nowrap;
 }
 div.legend,
@@ -31,7 +31,6 @@ span.price-lg {
 }
 div.tie-point,
 span.tie-point {
-  align-self: end;
   color: #ff9141;
 }
 div.momentum-indicator,
@@ -40,8 +39,9 @@ span.momentum-indicator {
   align-items: center;
   justify-content: center;
   font-weight: 900;
+  font-size: 2.2rem;
   text-align: center;
-  width: 3.5rem;
+  width: 2.5rem;
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
   /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
