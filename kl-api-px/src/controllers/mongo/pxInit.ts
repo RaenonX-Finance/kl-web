@@ -2,7 +2,7 @@ import {PxInitApi, PxInitApiSingle} from 'kl-web-common/models/pxInit';
 import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/pxRequest';
 import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
-import {getConfig, getSource} from './cached/pxConfig';
+import {getConfig, getPeriods, getSource} from './cached/pxConfig';
 import {getSourceInfo} from './cached/sourceInfo';
 import {getCalculatedPxSingle} from './pxCalc';
 import {getMomentum} from '../redis/momentum';
@@ -10,6 +10,15 @@ import {getMomentum} from '../redis/momentum';
 
 export const getInitPxSingle = async (request: PxRequestModel): Promise<PxInitApiSingle> => {
   const {symbol, periodMin} = getIdentifierDetails(request.identifier);
+
+  // Check if period is available
+  if (!getPeriods().some((periodMinOfPeriods) => periodMinOfPeriods === periodMin)) {
+    return {
+      request,
+      data: null,
+    };
+  }
+
   const [historySingle, momentum] = await Promise.all([getCalculatedPxSingle(request), getMomentum(symbol)]);
 
   // `momentum` could be 0, needs explicit comparison
