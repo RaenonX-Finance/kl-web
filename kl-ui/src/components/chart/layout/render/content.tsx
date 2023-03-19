@@ -1,6 +1,9 @@
 import React from 'react';
 
+import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
+
 import {PxLayoutContainerProps} from './container';
+import {PxDataError} from './error';
 import {useOlderHistoryDataFetcher} from '../../../../hooks/socket/px/historyRequest';
 import {useProductDataSelector} from '../../../../state/data/selector';
 import {usePxDataSelector} from '../../../../state/pxData/selector';
@@ -8,7 +11,11 @@ import {MainLoading} from '../../../common/loading/main';
 import {PxDataChart} from '../../pxData/main';
 
 
-export const PxLayoutContent = ({slot, height, width}: PxLayoutContainerProps) => {
+export type PxLayoutContentProps = PxLayoutContainerProps & {
+  identifier: PxUniqueIdentifier | null,
+};
+
+export const PxLayoutContent = ({slot, height, width, identifier}: PxLayoutContentProps) => {
   const pxData = usePxDataSelector(slot);
   const products = useProductDataSelector();
   const {requestPxData} = useOlderHistoryDataFetcher({slot});
@@ -18,7 +25,7 @@ export const PxLayoutContent = ({slot, height, width}: PxLayoutContainerProps) =
   }
 
   if (pxData === null) {
-    return <>TARGET SELECT</>;
+    return <PxDataError identifier={identifier}/>;
   }
 
   return (

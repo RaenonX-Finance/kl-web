@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
 import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
@@ -7,16 +8,18 @@ import Button from 'react-bootstrap/Button';
 import {TargetSelectorModal} from './modal';
 import {TargetSelectorCommonProps, TargetState} from './type';
 import {usePeriodDataSelector, useProductDataSelector} from '../../../../state/data/selector';
-import {usePxSlotIdentifier} from '../../../../state/pxData/selector';
 
 
-export const TargetSelector = (props: TargetSelectorCommonProps) => {
-  const {pxData, slot} = props;
+type Props = TargetSelectorCommonProps & {
+  identifier: PxUniqueIdentifier | null
+};
+
+export const TargetSelector = (props: Props) => {
+  const {pxData, slot, identifier} = props;
 
   const {data} = useSession();
   const products = useProductDataSelector();
   const periods = usePeriodDataSelector();
-  const identifier = usePxSlotIdentifier(slot);
 
   const identifierDetails = identifier ? getIdentifierDetails(identifier) : null;
 

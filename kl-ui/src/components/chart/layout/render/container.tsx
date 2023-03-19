@@ -4,7 +4,7 @@ import useResizeObserver from 'use-resize-observer';
 
 import {PxLayoutContent} from './content';
 import styles from './main.module.scss';
-import {usePxDataSelector} from '../../../../state/pxData/selector';
+import {usePxDataSelector, usePxSlotIdentifier} from '../../../../state/pxData/selector';
 import {PxSlotName} from '../../../../types/pxData';
 import {TargetSelector} from '../../pxData/targetSelector/main';
 
@@ -22,6 +22,7 @@ export const PxLayoutContainer = (props: PxLayoutContainerProps) => {
 
   const {ref, height: selectorHeight} = useResizeObserver<HTMLDivElement>();
   const pxData = usePxDataSelector(slot);
+  const identifier = usePxSlotIdentifier(slot);
 
   const containerCss: React.CSSProperties = {
     position: 'absolute',
@@ -36,10 +37,10 @@ export const PxLayoutContainer = (props: PxLayoutContainerProps) => {
   return (
     <div className={styles['container']} style={containerCss}>
       <div className={styles['container']} ref={ref}>
-        <TargetSelector pxData={pxData} slot={slot}/>
+        <TargetSelector pxData={pxData} slot={slot} identifier={identifier}/>
       </div>
       <div className={styles['container']} style={{width, height: heightOfChart}}>
-        <PxLayoutContent {...props} height={heightOfChart}/>
+        <PxLayoutContent {...props} height={heightOfChart} identifier={identifier}/>
       </div>
     </div>
   );
