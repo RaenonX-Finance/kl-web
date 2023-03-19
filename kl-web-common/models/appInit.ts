@@ -1,6 +1,8 @@
 /* eslint-disable new-cap */
 import {Static, Type} from '@sinclair/typebox';
 
+import {SourceInfoSchema} from './sourceInfo';
+
 
 export const AppInitRequestSchema = Type.Object({
   token: Type.String(),
@@ -11,6 +13,7 @@ export type AppInitRequest = Static<typeof AppInitRequestSchema>;
 export const ProductInfoSchema = Type.Object({
   name: Type.String(),
   symbol: Type.String(),
+  sourceInfo: SourceInfoSchema,
 });
 
 export type ProductInfo = Static<typeof ProductInfoSchema>;

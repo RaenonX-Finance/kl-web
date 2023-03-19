@@ -1,4 +1,12 @@
-import {PxContract} from './pxMeta';
+import {Static, Type} from '@sinclair/typebox';
+
+import {PxContractSchemaBase} from './pxMeta';
 
 
-export type SourceInfoModel = Pick<PxContract, 'symbol' | 'minTick' | 'decimals'>;
+export const SourceInfoSchema = Type.Object({
+  ...PxContractSchemaBase,
+  exchangeName: Type.String(),
+  exchangeSymbol: Type.String(),
+});
+
+export type SourceInfo = Static<typeof SourceInfoSchema>;

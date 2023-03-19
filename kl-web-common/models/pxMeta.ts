@@ -13,11 +13,15 @@ export const PxUniqueIdentifierSchema = Type.Unsafe<Static<TUniqueIdentifier>>(T
 
 export type PxUniqueIdentifier = Static<typeof PxUniqueIdentifierSchema>;
 
-export const PxContractSchema = Type.Object({
+export const PxContractSchemaBase = {
   symbol: Type.String(),
-  name: Type.String(),
   minTick: Type.Number({exclusiveMinimum: 0}),
   decimals: Type.Integer({minimum: 0}),
+};
+
+export const PxContractSchema = Type.Object({
+  ...PxContractSchemaBase,
+  name: Type.String(),
 });
 
 export type PxContract = Static<typeof PxContractSchema>;
