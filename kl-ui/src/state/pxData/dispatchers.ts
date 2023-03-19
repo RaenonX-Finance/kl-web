@@ -89,7 +89,7 @@ export const pxDataDispatchers = {
         if (!lastBar) {
           return onAsyncThunkError({
             message: (
-              `Last data of the PxData ${pxDataInSlot.contract.symbol} @ ${pxDataInSlot.periodSec / 60} undefined.`
+              `Last data of the PxData ${pxDataInSlot.contract.symbol} @ ${pxDataInSlot.periodSec / 60} undefined`
             ),
             data: pxDataInSlot,
             rejectWithValue,
