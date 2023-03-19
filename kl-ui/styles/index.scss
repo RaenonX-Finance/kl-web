@@ -1,5 +1,3 @@
-@use "sass:color";
-@use "colors";
 @use "bootstrap";
 
 html,
@@ -50,8 +48,6 @@ div {
   }
 
   &.tv-lightweight-charts {
-    border: 1px solid colors.$color-bw-140;
-
     // `<React.StrictMode>` renders everything twice
     // This hides the first render, which is not updated once rendered
     &:not(:last-child) {

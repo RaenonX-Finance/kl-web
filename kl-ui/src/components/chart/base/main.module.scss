@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../../../styles/colors";
 
 @mixin overlay {
@@ -40,6 +41,7 @@ span.update-animation {
 
   background-color: colors.$color-chart-status-bg;
   border: 1px solid $update-theme;
+  color: color.change($update-theme, $lightness: 90%);
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;

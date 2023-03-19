@@ -25,10 +25,12 @@ span.period-timer.period-timer-running {
 }
 span.period-timer.period-timer-warning {
   border: 1px solid #9ca62b;
+  color: #f2f5d6;
   animation: 1s warning-light;
 }
 span.period-timer.period-timer-closing {
   border: 1px solid #c20000;
+  color: #ffcccc;
   animation: 1s closing-light;
 }
 

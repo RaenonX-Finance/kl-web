@@ -11705,9 +11705,6 @@ div#__next { /* stylelint-disable-line selector-id-pattern */
   flex-flow: column;
   height: 100%;
 }
-div.tv-lightweight-charts {
-  border: 1px solid #8c8c8c;
-}
 div.tv-lightweight-charts:not(:last-child) {
   display: none;
 }

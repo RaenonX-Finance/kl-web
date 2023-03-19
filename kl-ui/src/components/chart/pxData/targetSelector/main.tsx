@@ -77,7 +77,7 @@ export const TargetSelector = (props: Props) => {
         />
       }
       <Button
-        className={styles['selector']} variant="dark"
+        className={styles['selector']} variant="secondary"
         size="sm" disabled={!token} onClick={() => setShow(true)}
       >
         <Row className="text-start">
