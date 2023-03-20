@@ -1,4 +1,4 @@
-import {ApiPath} from 'kl-web-common/enums/endpoints';
+import {PxApiPath} from 'kl-web-common/enums/endpoints';
 import {AppInitData, AppInitDataSchema, AppInitRequest, AppInitRequestSchema} from 'kl-web-common/models/appInit';
 
 import {RestApiServer} from '../../const';
@@ -8,7 +8,7 @@ import {getSourceInfo} from '../../controllers/mongo/cached/sourceInfo';
 
 export const restAddInitAppRequestHandler = () => {
   RestApiServer.post<{Body: AppInitRequest, Reply: AppInitData}>(
-    ApiPath.AppInit,
+    PxApiPath.AppInit,
     {
       schema: {
         body: AppInitRequestSchema,

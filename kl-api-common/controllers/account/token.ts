@@ -1,7 +1,7 @@
 import axios, {AxiosError} from 'axios';
+import {FastifyBaseLogger} from 'fastify';
 
 import {accountApiUrl} from './const';
-import {Logger} from '../../const';
 
 
 type TokenCheckResult = {
@@ -12,7 +12,9 @@ type TokenAuthError = {
   detail: string
 };
 
-export const isTokenValid = async (token: string | null | undefined): Promise<string | null> => {
+export const isTokenValid = async (
+  logger: FastifyBaseLogger, token: string | null | undefined,
+): Promise<string | null> => {
   if (!token) {
     return 'Token is undefined';
   }
@@ -43,7 +45,7 @@ export const isTokenValid = async (token: string | null | undefined): Promise<st
       }
 
       const errorBody = errorResponse.data;
-      Logger.warn({error: errorBody}, 'Token validation failed (%s)', err.message);
+      logger.warn({error: errorBody}, 'Token validation failed (%s)', err.message);
 
       return errorBody.detail;
     }

@@ -1,8 +1,8 @@
+import {isTokenValid} from 'kl-api-common/controllers/account/token';
 import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {Socket} from 'socket.io';
 
 import {Logger} from '../../const';
-import {isTokenValid} from '../../controllers/account/token';
 import {identifiersToRooms} from '../../utils/socket';
 
 
@@ -11,7 +11,7 @@ export const sioSubscribeHandler = (
 ): PxSocketC2SEvents['subscribe'] => async ({
   token, identifiers,
 }) => {
-  const tokenErrorMessage = await isTokenValid(token);
+  const tokenErrorMessage = await isTokenValid(Logger, token);
   if (!!tokenErrorMessage) {
     socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
   }
@@ -28,7 +28,7 @@ export const sioUnsubscribeHandler = (
 ): PxSocketC2SEvents['unsubscribe'] => async ({
   token, identifiers,
 }) => {
-  const tokenErrorMessage = await isTokenValid(token);
+  const tokenErrorMessage = await isTokenValid(Logger, token);
   if (!!tokenErrorMessage) {
     socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
   }

@@ -1,8 +1,7 @@
 import * as http from 'http';
 
+import {CorsAllowedOrigins} from 'kl-api-common/env';
 import {Server} from 'socket.io';
-
-import {CorsAllowedOrigins} from '../../env';
 
 
 export const buildSocketIoServer = (server: http.Server): Server => {

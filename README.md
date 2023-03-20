@@ -43,11 +43,24 @@ Should with slash `/`.
 
 Grab from New Relic One using `Browser` and manually install it.
 
+### `kl-api-*`
+
+These variables are required for both `kl-api-px` and `kl-api-info`.
+
+`KL_API_ALLOWED_ORIGINS`: CORS allowed origins. Use comma `,` to split multiple origins.
+Should NOT end with slash `/`; should have protocol included.
+
+`KL_API_MONGO_URI`: MongoDB connection string.
+
+`KL_API_ACCOUNT_URL`: URL to account API.
+
 ### `kl-api-px`
 
 #### `./env`
 
 All variables are required besides `NEW_RELIC_*`.
+
+> Variables of `kl-api-*` are also required.
 
 `NEW_RELIC_LICENSE_KEY`: New Relic license key.
 
@@ -59,11 +72,20 @@ All variables are required besides `NEW_RELIC_*`.
 
 `KL_PX_API_LOGGING_DIR`: App logging directory.
 
-`KL_PX_API_ALLOWED_ORIGINS`: CORS allowed origins. Use comma `,` to split multiple origins.
-Should NOT end with slash `/`; should have protocol included.
-
-`KL_PX_API_MONGO_URI`: MongoDB connection string.
-
-`KL_PX_ACCOUNT_API_URL`: URL to account API.
-
 `KL_PX_REQUEST_LIMIT`: Maximum count of data to get for `/px-init`.
+
+### `kl-api-info`
+
+#### `./env`
+
+All variables are required besides `NEW_RELIC_*`.
+
+> Variables of `kl-api-*` are also required.
+
+`NEW_RELIC_LICENSE_KEY`: New Relic license key.
+
+`KL_INFO_API_HOST`: API listening host.
+
+`KL_INFO_API_PORT_REST`: REST API listening port.
+
+`KL_INFO_API_LOGGING_DIR`: App logging directory.

@@ -1,4 +1,4 @@
-import {ApiPath} from 'kl-web-common/enums/endpoints';
+import {PxApiPath} from 'kl-web-common/enums/endpoints';
 import {PxInitApi, PxInitApiSchema} from 'kl-web-common/models/pxInit';
 import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/pxRequest';
 
@@ -8,7 +8,7 @@ import {getInitPx} from '../../controllers/mongo/pxInit';
 
 export const restAddPxInitRequestHandler = () => {
   RestApiServer.post<{Body: PxRequestBodyModel, Reply: PxInitApi}>(
-    ApiPath.PxInit,
+    PxApiPath.PxInit,
     {
       schema: {
         body: PxRequestBodySchema,

@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'path';
 
 import {FastifyLoggerOptions, FastifyServerOptions} from 'fastify';
 // eslint-disable-next-line import/no-unresolved
@@ -6,17 +6,22 @@ import {PinoLoggerOptions} from 'fastify/types/logger';
 import {getEnvironment} from 'kl-web-common/utils/env';
 import {TransportTargetOptions} from 'pino';
 
-import {LogDir} from '../../../env';
 
+type GetPinoFileTransportOpts = {
+  appName: string,
+  logDir: string,
+};
 
 // `transport` for `pino-pretty` disables the `file` option of `fastify` in logger options
-const pinoFileTransport: TransportTargetOptions = {
-  level: 'info',
-  target: 'pino/file',
-  options: {
-    destination: path.join(LogDir, `KL.Api.Px.${getEnvironment()}.log`),
-    mkdir: true,
-  },
+const getPinoFileTransport = ({appName, logDir}: GetPinoFileTransportOpts): TransportTargetOptions => {
+  return {
+    level: 'info',
+    target: 'pino/file',
+    options: {
+      destination: path.join(logDir, `${appName}.${getEnvironment()}.log`),
+      mkdir: true,
+    },
+  };
 };
 
 const commonOptions: FastifyLoggerOptions & PinoLoggerOptions = {
@@ -48,25 +53,37 @@ const commonOptions: FastifyLoggerOptions & PinoLoggerOptions = {
   },
 };
 
-export const envToLogger: {[environment in string]?: FastifyServerOptions['logger']} = {
-  development: {
-    transport: {
-      targets: [
-        pinoFileTransport,
-        {
-          level: 'info',
-          target: 'pino-pretty',
-          options: {
-            translateTime: 'yyyy-mm-dd HH:MM:ss Z',
+type GetLogOptionsOpts = GetPinoFileTransportOpts & {
+  environment: string,
+};
+
+export const getLogOptions = ({environment, ...opts}: GetLogOptionsOpts): FastifyServerOptions['logger'] => {
+  const transportOpts = getPinoFileTransport(opts);
+
+  if (environment === 'development') {
+    return {
+      transport: {
+        targets: [
+          transportOpts,
+          {
+            level: 'info',
+            target: 'pino-pretty',
+            options: {
+              translateTime: 'yyyy-mm-dd HH:MM:ss Z',
+            },
           },
-        },
-      ],
-    },
-    ...commonOptions,
-  },
-  production: {
-    transport: pinoFileTransport,
-    ...commonOptions,
-  },
-  test: false,
+        ],
+      },
+      ...commonOptions,
+    };
+  }
+
+  if (environment === 'production') {
+    return {
+      transport: transportOpts,
+      ...commonOptions,
+    };
+  }
+
+  return environment !== 'test';
 };
