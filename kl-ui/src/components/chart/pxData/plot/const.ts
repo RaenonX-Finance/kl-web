@@ -1,5 +1,5 @@
+import {PxCandleDirection} from 'kl-web-common/models/api/px/pxDataBar';
 import {PxEmaPeriodPair} from 'kl-web-common/models/config/emaPair';
-import {PxCandleDirection} from 'kl-web-common/models/pxDataBar';
 import {LineStyle} from 'lightweight-charts';
 
 import {ExtremaCommonOptions, SrLevelCommonOptions} from './type';

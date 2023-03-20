@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 import {PxApiPath} from 'kl-web-common/enums/endpoints';
-import {AppInitData} from 'kl-web-common/models/appInit';
+import {AppInitData} from 'kl-web-common/models/api/px/appInit';
 
 import {dataApiPost} from './common/post';
 

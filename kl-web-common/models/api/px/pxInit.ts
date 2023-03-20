@@ -3,7 +3,7 @@ import {Static, Type} from '@sinclair/typebox';
 
 import {PxDataSchema} from './pxData';
 import {PxRequestSchema} from './pxRequest';
-import {Nullable} from './schema/nullable';
+import {Nullable} from '../../schema/nullable';
 
 
 export const PxInitApiSingleSchema = Type.Object({

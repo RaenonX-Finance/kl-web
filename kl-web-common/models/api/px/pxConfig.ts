@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import {Type} from '@sinclair/typebox';
 
-import {PxEmaPeriodPairSchema} from './config/emaPair';
+import {PxEmaPeriodPairSchema} from '../../config/emaPair';
 
 
 export const PxEmaConfigSchema = Type.Object({

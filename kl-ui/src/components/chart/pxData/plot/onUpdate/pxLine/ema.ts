@@ -1,5 +1,5 @@
+import {PxDataBar} from 'kl-web-common/models/api/px/pxDataBar';
 import {PxEmaPeriodPair} from 'kl-web-common/models/config/emaPair';
-import {PxDataBar} from 'kl-web-common/models/pxDataBar';
 import {ISeriesApi} from 'lightweight-charts';
 
 import {getLayoutConfig} from '../../../../../../state/config/utils';

@@ -1,4 +1,4 @@
-import {ProductInfo, PeriodInfo} from 'kl-web-common/models/appInit';
+import {ProductInfo, PeriodInfo} from 'kl-web-common/models/api/px/appInit';
 
 import {StateBase} from '../types';
 

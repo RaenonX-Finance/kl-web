@@ -1,4 +1,4 @@
-import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
+import {PxUniqueIdentifier} from 'kl-web-common/models/api/px/pxMeta';
 
 import {PxDataMap, PxSlotName} from '../../types/pxData';
 import {StateBase} from '../types';

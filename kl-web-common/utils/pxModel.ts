@@ -1,4 +1,4 @@
-import {PxUniqueIdentifier} from '../models/pxMeta';
+import {PxUniqueIdentifier} from '../models/api/px/pxMeta';
 
 
 export type PxIdentifierDetails = {

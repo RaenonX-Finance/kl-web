@@ -1,4 +1,4 @@
-import {PxData} from 'kl-web-common/models/pxData';
+import {PxData} from 'kl-web-common/models/api/px/pxData';
 
 
 export type PxSlotName = 'A' | 'B' | 'C' | 'D';

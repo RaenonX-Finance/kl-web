@@ -1,5 +1,5 @@
-import {PxHistory, PxHistorySingle} from 'kl-web-common/models/pxHistory';
-import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/pxRequest';
+import {PxHistory, PxHistorySingle} from 'kl-web-common/models/api/px/pxHistory';
+import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/api/px/pxRequest';
 import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 import {pxCalc} from './const';

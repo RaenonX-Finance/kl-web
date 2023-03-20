@@ -1,5 +1,5 @@
-import {PxInitApi, PxInitApiSingle} from 'kl-web-common/models/pxInit';
-import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/pxRequest';
+import {PxInitApi, PxInitApiSingle} from 'kl-web-common/models/api/px/pxInit';
+import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/api/px/pxRequest';
 import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 import {getConfig, getPeriods, getSource} from './cached/pxConfig';

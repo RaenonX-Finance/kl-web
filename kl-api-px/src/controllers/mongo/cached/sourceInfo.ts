@@ -1,4 +1,4 @@
-import {SourceInfo} from 'kl-web-common/models/sourceInfo';
+import {SourceInfo} from 'kl-web-common/models/api/px/sourceInfo';
 
 import {pxInfo} from '../const';
 

@@ -1,4 +1,4 @@
-import {PxDataBar} from 'kl-web-common/models/pxDataBar';
+import {PxDataBar} from 'kl-web-common/models/api/px/pxDataBar';
 import {IChartApi, ISeriesApi, PriceLineOptions} from 'lightweight-charts';
 
 

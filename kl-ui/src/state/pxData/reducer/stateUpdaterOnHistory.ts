@@ -1,4 +1,4 @@
-import {PxHistorySingle} from 'kl-web-common/models/pxHistory';
+import {PxHistorySingle} from 'kl-web-common/models/api/px/pxHistory';
 
 import {mergePxDataBars} from './mergePxBars';
 import {StateUpdateFuncOpts} from './stateUpdater';

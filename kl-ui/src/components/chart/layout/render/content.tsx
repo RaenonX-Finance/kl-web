@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
+import {PxUniqueIdentifier} from 'kl-web-common/models/api/px/pxMeta';
 
 import {PxLayoutContainerProps} from './container';
 import {PxDataError} from './error';

@@ -1,5 +1,5 @@
-import {PxDataBar} from 'kl-web-common/models/pxDataBar';
-import {PxContract} from 'kl-web-common/models/pxMeta';
+import {PxDataBar} from 'kl-web-common/models/api/px/pxDataBar';
+import {PxContract} from 'kl-web-common/models/api/px/pxMeta';
 import {BarsInfo, LastPriceAnimationMode, PriceFormat} from 'lightweight-charts';
 
 import {bearColor, bullColor} from './const';

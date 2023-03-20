@@ -1,6 +1,6 @@
 import {PxApiPath} from 'kl-web-common/enums/endpoints';
-import {PxHistory, PxHistorySchema} from 'kl-web-common/models/pxHistory';
-import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/pxRequest';
+import {PxHistory, PxHistorySchema} from 'kl-web-common/models/api/px/pxHistory';
+import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/api/px/pxRequest';
 
 import {RestApiServer} from '../../const';
 import {getCalculatedPx} from '../../controllers/mongo/pxCalc';

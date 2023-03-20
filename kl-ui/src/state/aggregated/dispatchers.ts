@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {AppInitData} from 'kl-web-common/models/appInit';
+import {AppInitData} from 'kl-web-common/models/api/px/appInit';
 
 import {MergedDispatcherName} from './types';
 import {InitAccountData} from '../../types/init';

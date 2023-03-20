@@ -1,4 +1,4 @@
-import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
+import {PxMomentumIndex} from 'kl-web-common/models/api/px/pxDataBar';
 
 import {RedisLastPx} from '../../const';
 

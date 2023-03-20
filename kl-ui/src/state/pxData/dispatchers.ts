@@ -1,7 +1,7 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {PxHistory} from 'kl-web-common/models/pxHistory';
-import {PxInitApi} from 'kl-web-common/models/pxInit';
-import {PxMarket} from 'kl-web-common/models/pxMarket';
+import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
+import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
+import {PxMarket} from 'kl-web-common/models/api/px/pxMarket';
 
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap} from './utils';

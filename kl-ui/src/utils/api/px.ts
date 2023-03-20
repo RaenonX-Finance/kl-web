@@ -1,8 +1,8 @@
 import {AxiosResponse} from 'axios';
 import {PxApiPath} from 'kl-web-common/enums/endpoints';
-import {PxHistory} from 'kl-web-common/models/pxHistory';
-import {PxInitApi} from 'kl-web-common/models/pxInit';
-import {PxRequestBodyModel} from 'kl-web-common/models/pxRequest';
+import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
+import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
+import {PxRequestBodyModel} from 'kl-web-common/models/api/px/pxRequest';
 
 import {dataApiPost} from './common/post';
 

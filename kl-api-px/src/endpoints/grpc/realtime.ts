@@ -1,5 +1,5 @@
-import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
-import {PxMarket, PxMarketSingle} from 'kl-web-common/models/pxMarket';
+import {PxMomentumIndex} from 'kl-web-common/models/api/px/pxDataBar';
+import {PxMarket, PxMarketSingle} from 'kl-web-common/models/api/px/pxMarket';
 
 import {Logger} from '../../const';
 import {ISystemEventServer} from '../../protos/systemEvent_grpc_pb';

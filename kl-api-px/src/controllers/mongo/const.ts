@@ -1,8 +1,8 @@
 import {Mongo} from 'kl-api-common/const';
+import {PxDataBarModel} from 'kl-web-common/models/api/px/pxDataBar';
+import {SourceInfo} from 'kl-web-common/models/api/px/sourceInfo';
+import {SrLevelModel} from 'kl-web-common/models/api/px/srLevel';
 import {PxConfigModel} from 'kl-web-common/models/config/main';
-import {PxDataBarModel} from 'kl-web-common/models/pxDataBar';
-import {SourceInfo} from 'kl-web-common/models/sourceInfo';
-import {SrLevelModel} from 'kl-web-common/models/srLevel';
 
 
 const px = Mongo.db('px');

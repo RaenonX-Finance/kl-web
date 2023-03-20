@@ -1,5 +1,5 @@
-import {PxData} from 'kl-web-common/models/pxData';
-import {PxDataBar} from 'kl-web-common/models/pxDataBar';
+import {PxData} from 'kl-web-common/models/api/px/pxData';
+import {PxDataBar} from 'kl-web-common/models/api/px/pxDataBar';
 
 import {PxChartLegendData} from '../components/chart/pxData/type';
 

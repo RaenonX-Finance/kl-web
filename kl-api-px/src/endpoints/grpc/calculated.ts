@@ -1,6 +1,6 @@
 import fastJson from 'fast-json-stringify';
-import {PxHistorySchema} from 'kl-web-common/models/pxHistory';
-import {PxUniqueIdentifier} from 'kl-web-common/models/pxMeta';
+import {PxHistorySchema} from 'kl-web-common/models/api/px/pxHistory';
+import {PxUniqueIdentifier} from 'kl-web-common/models/api/px/pxMeta';
 
 import {Logger} from '../../const';
 import {getPeriods} from '../../controllers/mongo/cached/pxConfig';
