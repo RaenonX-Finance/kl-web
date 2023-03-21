@@ -22,7 +22,7 @@ export const usePxInitHandler = (): UsePxInitHandlerReturn => {
   const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
   const {onError} = useHandleAxiosError();
-  const token = data?.user?.token;
+  const token = data?.user.token;
 
   const init = React.useCallback(() => {
     if (!layoutType || !slotMap) {

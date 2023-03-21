@@ -24,7 +24,7 @@ export const useOlderHistoryDataFetcher = ({slot}: UseOlderHistoryDataFetchOpts)
   const identifier = usePxSlotIdentifier(slot);
   const requesting = React.useRef(false); // To debounce
 
-  const token = data?.user?.token;
+  const token = data?.user.token;
   const onCompletedRequest = () => requesting.current = false;
 
   const requestPxData = (offset: number) => {

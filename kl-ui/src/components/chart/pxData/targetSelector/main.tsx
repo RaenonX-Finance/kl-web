@@ -66,7 +66,7 @@ export const TargetSelector = (props: Props) => {
     buttonText = `${target.selected.symbol} @ ${target.selected.periodMin}`;
   }
 
-  const token = data?.user?.token;
+  const token = data?.user.token;
 
   return (
     <>

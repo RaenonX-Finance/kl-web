@@ -3,6 +3,7 @@ import React from 'react';
 import format from 'date-fns/format';
 import {ISODateString} from 'kl-web-common/types/time';
 import {dateOnlyToString, stringToDateOnly, toDateOnly} from 'kl-web-common/utils/date';
+import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
+  const {data} = useSession();
   const [request, setRequest] = React.useState<OptionsOiRequestParams>({
     ...toDateOnly(new Date()),
     forceScrape: false,
@@ -43,12 +45,15 @@ export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
           }
         }}
       />
-      <Button
-        variant="outline-danger" active={forceScrape} disabled={loading} className={styles['force-scrape']}
-        onClick={() => setRequest({...request, forceScrape: !forceScrape})}
-      >
-        強制更新
-      </Button>
+      {
+        data?.user.isAdmin &&
+        <Button
+          variant="outline-danger" active={forceScrape} disabled={loading} className={styles['force-scrape']}
+          onClick={() => setRequest({...request, forceScrape: !forceScrape})}
+        >
+          強制更新
+        </Button>
+      }
       <Button variant="outline-light" disabled={loading} onClick={() => fetchOptionsOi(request)}>
         <i className="bi bi-search"/>
       </Button>

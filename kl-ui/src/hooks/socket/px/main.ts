@@ -24,7 +24,7 @@ export const usePxSocket = (): PxDataSocket | undefined => {
   const {identifiers} = usePxDataSubscriptionInfoSelector();
   const dispatch = useDispatch();
 
-  const token = data?.user?.token;
+  const token = data?.user.token;
 
   const {init} = usePxInitHandler();
   useMarketPxUpdateHandler({socket});
