@@ -3,7 +3,7 @@ import React from 'react';
 import {managementPermissions} from 'kl-web-common/models/api/account/permission';
 
 import {NavItemCollection} from './type';
-import {AdminPath, GeneralPath} from '../../const/path';
+import {AdminPath, GeneralPath, SmcAnalysisPath} from '../../const/path';
 import {UserControlNavButton} from '../auth/user/main';
 import {PxChartSharedConfig} from '../chart/config/shared/main';
 
@@ -13,6 +13,11 @@ export const navItemsAtLeft: NavItemCollection = [
     type: 'path',
     path: GeneralPath.CHART,
     text: '價格圖表',
+  },
+  {
+    type: 'path',
+    path: SmcAnalysisPath.OPTIONS_OI,
+    text: '籌碼分析',
   },
   {
     type: 'path',
@@ -26,7 +31,7 @@ export const navItemsAtLeft: NavItemCollection = [
   },
   {
     type: 'path',
-    path: AdminPath.GENERATE_SIGNUP_KEY,
+    path: AdminPath.ACCOUNT_VIEW,
     text: '管理會員',
     pathActiveBasis: Object.values(AdminPath),
     requiredPermissions: managementPermissions,

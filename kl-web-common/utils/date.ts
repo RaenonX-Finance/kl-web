@@ -1,4 +1,6 @@
+import {getNumber} from './parse';
 import {DateOnly} from '../models/dateOnly';
+import {ISODateString} from '../types/time';
 
 
 export const toDateOnly = (date: Date): DateOnly => {
@@ -11,4 +13,10 @@ export const toDateOnly = (date: Date): DateOnly => {
 
 export const dateOnlyToString = (date: DateOnly) => {
   return `${date.year}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
+};
+
+export const stringToDateOnly = (dateString: ISODateString): DateOnly => {
+  const [year, month, day] = dateString.split('-', 3);
+
+  return {year: getNumber(year), month: getNumber(month), day: getNumber(day)};
 };

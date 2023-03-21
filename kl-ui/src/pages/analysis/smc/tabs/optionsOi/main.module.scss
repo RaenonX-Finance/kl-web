@@ -1,0 +1,10 @@
+@use "sass:color";
+@use "../../../../../../styles/colors";
+
+button {
+  &.force-scrape {
+    &[class*="active"] {
+      color: white;
+    }
+  }
+}
