@@ -30,13 +30,16 @@ export const registerTokenCheck = (server: FastifyInstance) => {
   server.addHook<{Body: RequestWithToken | undefined, Querystring: RequestWithToken | undefined}>(
     'preHandler',
     async (req, reply) => {
-      const {body, query, url} = req;
+      const {body, query, url, headers} = req;
 
       if (!url.startsWith(ApiAuthEndpointPrefix)) {
         return;
       }
 
-      const tokenCheckResult = await isTokenValid(server.log, body?.token || query?.token);
+      const tokenCheckResult = await isTokenValid(
+        server.log,
+        body?.token || query?.token || headers.authorization?.split('Bearer ', 2)[1],
+      );
 
       if (!tokenCheckResult.ok) {
         reply
