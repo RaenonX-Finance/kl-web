@@ -9,5 +9,5 @@ export enum PxApiPath {
 
 export enum InfoApiPath {
   Ping = '/',
-  OptionsOi = '/options-oi'
+  OptionsOi = '/auth/options-oi'
 }

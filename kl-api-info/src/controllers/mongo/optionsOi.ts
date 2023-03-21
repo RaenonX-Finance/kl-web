@@ -33,7 +33,11 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
   const scrapeFunc = optionsOiScrapingFunc[symbol];
 
   if (!scrapeFunc) {
-    Logger.info({symbol}, 'No Options OI data for %s because there is no corresponding scraping function', symbol);
+    Logger.info(
+      {symbol, result: 'noScrapeFunc'},
+      'No Options OI data for %s because there is no corresponding scraping function',
+      symbol,
+    );
     return [];
   }
 
@@ -42,7 +46,7 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
 
     if (lastUpdate && (new Date().getTime() - lastUpdate.lastUpdate.getTime()) / 1000 < OptionsOiExpirySec) {
       Logger.info(
-        {...opts, lastUpdate: lastUpdate.lastUpdate},
+        {...opts, lastUpdate: lastUpdate.lastUpdate, result: 'cached'},
         'Returning cached Options OI of %s at %s (last updated at %s)',
         symbol, dateString, lastUpdate.lastUpdate,
       );
@@ -50,7 +54,6 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
     }
   }
 
-  Logger.info({symbol, date}, 'Scraping Options OI data of %s at %s', symbol, dateString);
   const scrapedOptionsOi = await scrapeFunc(date);
 
   await infoOptionsOi.deleteMany({
@@ -65,5 +68,6 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
     infoOptionsOiLastUpdate.updateOne({symbol, date}, {$set: {lastUpdate: new Date()}}, {upsert: true}),
   ]);
 
+  Logger.info({symbol, date, result: 'scraped'}, 'Returning scraped Options OI data of %s at %s', symbol, dateString);
   return scrapedOptionsOi;
 };

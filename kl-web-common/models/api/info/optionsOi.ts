@@ -7,6 +7,7 @@ import {DateOnly, DateOnlySchemaBase} from '../../dateOnly';
 export const OptionsOiRequestSchema = Type.Object({
   ...DateOnlySchemaBase,
   symbol: Type.String(),
+  forceScrape: Type.Optional(Type.Boolean()),
 });
 
 export type OptionsOiRequest = Static<typeof OptionsOiRequestSchema>;
