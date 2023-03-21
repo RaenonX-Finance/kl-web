@@ -8,7 +8,7 @@ import {PxLayoutConfigKeys, PxLayoutConfigSingle} from '../../components/chart/c
 import {PxSharedConfig} from '../../components/chart/config/shared/type';
 import {LayoutType} from '../../components/chart/layoutSelector/type';
 import {PxSlotName} from '../../types/pxData';
-import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/user';
+import {apiUpdateConfig, ApiUpdateConfigKeys, ApiUpdateConfigOpts} from '../../utils/api/account/user';
 import {getErrorMessage} from '../../utils/error';
 import {layoutCountToSlotNames} from '../pxData/utils';
 import {ReduxState} from '../types';

@@ -7,7 +7,7 @@ import {usePxSlotIdentifier} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
 import {PxSlotName} from '../../../types/pxData';
-import {apiRequestPxData} from '../../../utils/api/px';
+import {apiRequestPxData} from '../../../utils/api/px/data';
 
 
 type UseOlderHistoryDataFetchOpts = {

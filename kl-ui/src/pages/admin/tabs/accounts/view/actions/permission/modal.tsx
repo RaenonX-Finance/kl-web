@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import {PermissionUpdateSelection} from './selection';
 import {PermissionChangeState} from './type';
 import {TextWithLoading} from '../../../../../../../components/common/loading/text';
-import {apiUpdatePermissions} from '../../../../../../../utils/api/admin';
+import {apiUpdatePermissions} from '../../../../../../../utils/api/account/admin';
 import {useUpdateAccountData} from '../../../hook';
 import {AccountCellUpdatableProps} from '../../type';
 import {generatePermissionMap} from '../../utils';

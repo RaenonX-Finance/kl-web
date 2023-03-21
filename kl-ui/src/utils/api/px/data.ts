@@ -4,7 +4,7 @@ import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
 import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
 import {PxRequestBodyModel} from 'kl-web-common/models/api/px/pxRequest';
 
-import {dataApiPost} from './common/post';
+import {pxApiPost} from '../common/post';
 
 
 type ApiRequestPxDataOpts = PxRequestBodyModel;
@@ -13,7 +13,7 @@ export const apiRequestPxData = ({
   token,
   requests,
 }: ApiRequestPxDataOpts): Promise<AxiosResponse<PxHistory>> => (
-  dataApiPost({
+  pxApiPost({
     apiPath: PxApiPath.PxRequest,
     data: {
       token,
@@ -27,7 +27,7 @@ export const apiInitPxData = ({
   token,
   requests,
 }: ApiRequestPxDataOpts): Promise<AxiosResponse<PxInitApi>> => (
-  dataApiPost({
+  pxApiPost({
     apiPath: PxApiPath.PxInit,
     data: {
       token,

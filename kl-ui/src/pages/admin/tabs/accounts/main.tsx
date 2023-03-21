@@ -10,7 +10,7 @@ import {UpdateSingleAccount} from './view/type';
 import {MainLoading} from '../../../../components/common/loading/main';
 import {PermissionLayout} from '../../../../components/layout/permission';
 import {AccountDataMap} from '../../../../types/admin';
-import {apiGetAccountList} from '../../../../utils/api/admin';
+import {apiGetAccountList} from '../../../../utils/api/account/admin';
 import {isNotFetched, useFetchStateProcessed} from '../../../../utils/fetch';
 
 

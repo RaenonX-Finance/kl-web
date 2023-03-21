@@ -9,7 +9,7 @@ type ApiGetOpts = {
   token?: string,
 };
 
-export const dataApiGet = <R>(opts: ApiGetOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+export const pxApiGet = <R>(opts: ApiGetOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
   return apiGet({
     apiUrl: process.env.NEXT_PUBLIC_PX_API_URL,
     ...opts,

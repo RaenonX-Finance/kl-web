@@ -1,11 +1,11 @@
 import {AxiosResponse} from 'axios';
 
-import {accountApiPost} from './common/post';
-import {ApiRequestRequiresTokenOpts} from './common/types';
-import {PxSharedConfig} from '../../components/chart/config/shared/type';
-import {LayoutType} from '../../components/chart/layoutSelector/type';
-import {PxLayoutConfig} from '../../state/config/type';
-import {PxSlotMap} from '../../state/pxData/types';
+import {PxSharedConfig} from '../../../components/chart/config/shared/type';
+import {LayoutType} from '../../../components/chart/layoutSelector/type';
+import {PxLayoutConfig} from '../../../state/config/type';
+import {PxSlotMap} from '../../../state/pxData/types';
+import {accountApiPost} from '../common/post';
+import {ApiRequestRequiresTokenOpts} from '../common/types';
 
 
 /**

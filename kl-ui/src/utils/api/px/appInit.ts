@@ -2,7 +2,7 @@ import {AxiosResponse} from 'axios';
 import {PxApiPath} from 'kl-web-common/enums/endpoints';
 import {AppInitData} from 'kl-web-common/models/api/px/appInit';
 
-import {dataApiPost} from './common/post';
+import {pxApiPost} from '../common/post';
 
 
 export type AppInitAppOpts = {
@@ -10,7 +10,7 @@ export type AppInitAppOpts = {
 };
 
 export const apiInitApp = ({token}: AppInitAppOpts): Promise<AxiosResponse<AppInitData>> => (
-  dataApiPost({
+  pxApiPost({
     apiPath: PxApiPath.AppInit,
     data: {
       token,

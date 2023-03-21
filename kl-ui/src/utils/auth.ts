@@ -2,7 +2,7 @@ import {AxiosError} from 'axios';
 import * as env from 'env-var';
 import {JWT} from 'next-auth/jwt';
 
-import {apiRefreshOAuth2Token} from './api/auth';
+import {apiRefreshOAuth2Token} from './api/account/auth';
 import {UserJwt} from '../types/auth/jwt';
 
 

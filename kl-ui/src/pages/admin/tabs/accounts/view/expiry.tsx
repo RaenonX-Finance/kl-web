@@ -8,7 +8,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 import {AccountCellUpdatableProps} from './type';
 import {ISODateString, ISOTimestampWithTimezone} from '../../../../../types/time';
-import {apiUpdateExpiry} from '../../../../../utils/api/admin';
+import {apiUpdateExpiry} from '../../../../../utils/api/account/admin';
 import {isAllowed} from '../../../../../utils/permission';
 import {useUpdateAccountData} from '../hook';
 

@@ -1,11 +1,11 @@
 import {AxiosResponse} from 'axios';
 import * as env from 'env-var';
 
-import {accountApiPost} from './common/post';
-import {ApiRequestRequiresTokenOpts} from './common/types';
-import {CUSTOM_PROVIDER_ID} from '../../types/auth/const';
-import {OAuth2TokenResponse} from '../../types/auth/oauth';
-import {SignupKeyModel, UserModelOriginal} from '../../types/auth/user';
+import {CUSTOM_PROVIDER_ID} from '../../../types/auth/const';
+import {OAuth2TokenResponse} from '../../../types/auth/oauth';
+import {SignupKeyModel, UserModelOriginal} from '../../../types/auth/user';
+import {accountApiPost} from '../common/post';
+import {ApiRequestRequiresTokenOpts} from '../common/types';
 
 
 export const apiGetNextAuthCallbackUrl = (accessToken: string): string => {

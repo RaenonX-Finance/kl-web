@@ -8,7 +8,7 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
-import {apiInitPxData} from '../../../utils/api/px';
+import {apiInitPxData} from '../../../utils/api/px/data';
 import {useHandleAxiosError} from '../../axios';
 
 

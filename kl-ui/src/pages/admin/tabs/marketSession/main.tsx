@@ -12,7 +12,7 @@ import {errorDispatchers} from '../../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../../state/error/types';
 import {useDispatch} from '../../../../state/store';
 import {FuturesMarketClosedSession} from '../../../../types/admin';
-import {apiDeleteMarketClosedSession, apiGetMarketClosedSessions} from '../../../../utils/api/admin';
+import {apiDeleteMarketClosedSession, apiGetMarketClosedSessions} from '../../../../utils/api/account/admin';
 import {getErrorMessage} from '../../../../utils/error';
 import {isNotFetched, useFetchStateProcessed} from '../../../../utils/fetch';
 

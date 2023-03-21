@@ -9,7 +9,7 @@ import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {GeneralPath} from '../../../../const/path';
-import {apiSignupUser} from '../../../../utils/api/auth';
+import {apiSignupUser} from '../../../../utils/api/account/auth';
 import {getErrorFromResponse} from '../../common/utils';
 
 

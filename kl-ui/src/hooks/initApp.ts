@@ -6,7 +6,7 @@ import {useHandleAxiosError} from './axios';
 import {mergedDispatchers} from '../state/aggregated/dispatchers';
 import {MergedDispatcherName} from '../state/aggregated/types';
 import {useDispatch} from '../state/store';
-import {apiInitApp} from '../utils/api/initApp';
+import {apiInitApp} from '../utils/api/px/appInit';
 
 
 export const useAppInitHandler = () => {

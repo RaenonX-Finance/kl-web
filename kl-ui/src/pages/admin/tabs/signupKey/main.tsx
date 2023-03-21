@@ -11,7 +11,7 @@ import {FormLikeOutput} from '../../../../components/common/form/output/main';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {PermissionLayout} from '../../../../components/layout/permission';
-import {apiGenerateSignupKey} from '../../../../utils/api/auth';
+import {apiGenerateSignupKey} from '../../../../utils/api/account/auth';
 
 
 export const AdminTabGenerateSignupKey = () => {

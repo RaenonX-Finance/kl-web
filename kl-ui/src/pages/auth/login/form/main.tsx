@@ -10,7 +10,7 @@ import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {AuthPath} from '../../../../const/path';
-import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/auth';
+import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/account/auth';
 import {getErrorFromResponse} from '../../common/utils';
 
 
