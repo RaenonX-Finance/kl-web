@@ -1,9 +1,9 @@
 import React from 'react';
 
+import {Permission} from 'kl-web-common/models/api/account/permission';
 import Badge from 'react-bootstrap/Badge';
 
 import styles from './main.module.scss';
-import {Permission} from '../../../../../types/auth/user';
 
 
 export const permissionBadge: {[permission in Permission]: React.ReactNode} = {

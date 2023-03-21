@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {availablePermissions} from 'kl-web-common/models/api/account/permission';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +10,6 @@ import Row from 'react-bootstrap/Row';
 import {PermissionUpdateSelection} from './selection';
 import {PermissionChangeState} from './type';
 import {TextWithLoading} from '../../../../../../../components/common/loading/text';
-import {availablePermissions} from '../../../../../../../types/auth/user';
 import {apiUpdatePermissions} from '../../../../../../../utils/api/admin';
 import {useUpdateAccountData} from '../../../hook';
 import {AccountCellUpdatableProps} from '../../type';

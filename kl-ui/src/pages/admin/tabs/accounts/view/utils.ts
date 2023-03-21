@@ -1,7 +1,8 @@
+import {availablePermissions, Permission, PermissionMap} from 'kl-web-common/models/api/account/permission';
+
 import styles from './main.module.scss';
 import {AccountFilterConditions} from './type';
 import {AccountData} from '../../../../../types/admin';
-import {availablePermissions, Permission, PermissionMap} from '../../../../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../../../../types/time';
 
 

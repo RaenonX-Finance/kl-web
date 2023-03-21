@@ -1,4 +1,6 @@
-import {isPermissionManagement, Permission, UserModel} from '../types/auth/user';
+import {isPermissionManagement, Permission} from 'kl-web-common/models/api/account/permission';
+
+import {UserModel} from '../types/auth/user';
 
 
 type IsAllowedOpts = Pick<UserModel, 'isAdmin' | 'permissions'> & {

@@ -1,4 +1,4 @@
-import {PermissionMap} from '../../../../../../../types/auth/user';
+import {PermissionMap} from 'kl-web-common/models/api/account/permission';
 
 
 export type PermissionChangeState = {

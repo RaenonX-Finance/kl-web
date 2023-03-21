@@ -1,12 +1,12 @@
 import React from 'react';
 
+import {availablePermissions, Permission} from 'kl-web-common/models/api/account/permission';
 import {User} from 'next-auth';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import {ButtonVariant} from 'react-bootstrap/types';
 
 import {PermissionChangeState, PermissionChangeType} from './type';
-import {availablePermissions, Permission} from '../../../../../../../types/auth/user';
 import {isAllowed} from '../../../../../../../utils/permission';
 import {permissionBadge} from '../../badges';
 import styles from '../main.module.scss';

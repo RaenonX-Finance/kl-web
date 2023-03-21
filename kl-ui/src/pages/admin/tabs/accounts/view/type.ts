@@ -1,5 +1,6 @@
+import {PermissionMap} from 'kl-web-common/models/api/account/permission';
+
 import {AccountData} from '../../../../../types/admin';
-import {PermissionMap} from '../../../../../types/auth/user';
 import {ISODateString} from '../../../../../types/time';
 
 

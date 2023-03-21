@@ -1,8 +1,9 @@
 import React from 'react';
 
+import {managementPermissions} from 'kl-web-common/models/api/account/permission';
+
 import {NavItemCollection} from './type';
 import {AdminPath, GeneralPath} from '../../const/path';
-import {managementPermissions} from '../../types/auth/user';
 import {UserControlNavButton} from '../auth/user/main';
 import {PxChartSharedConfig} from '../chart/config/shared/main';
 

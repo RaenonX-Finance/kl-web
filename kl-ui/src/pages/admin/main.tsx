@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {managementPermissions} from 'kl-web-common/models/api/account/permission';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import Col from 'react-bootstrap/Col';
@@ -13,7 +14,6 @@ import {AdminTabKey} from './type';
 import {NarrowLayout} from '../../components/layout/narrow';
 import {PermissionLayout} from '../../components/layout/permission';
 import {AdminPath} from '../../const/path';
-import {managementPermissions} from '../../types/auth/user';
 
 
 export const AdminPanel = () => {

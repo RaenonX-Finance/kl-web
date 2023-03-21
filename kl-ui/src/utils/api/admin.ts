@@ -1,10 +1,10 @@
 import {AxiosResponse} from 'axios';
+import {Permission} from 'kl-web-common/models/api/account/permission';
 
 import {accountApiGet} from './common/get';
 import {accountApiPost} from './common/post';
 import {ApiRequestRequiresTokenOpts} from './common/types';
 import {AccountData, FuturesMarketClosedSession} from '../../types/admin';
-import {Permission} from '../../types/auth/user';
 import {ISOTimestampWithTimezone} from '../../types/time';
 
 

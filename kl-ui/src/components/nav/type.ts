@@ -1,7 +1,8 @@
 import React from 'react';
 
+import {Permission} from 'kl-web-common/models/api/account/permission';
+
 import {PagePath, PagePathAdminOnly, PagePathNormal} from '../../const/path';
-import {Permission} from '../../types/auth/user';
 
 
 export type NavItemCommon = {

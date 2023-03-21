@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {availablePermissions} from 'kl-web-common/models/api/account/permission';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +8,6 @@ import Row from 'react-bootstrap/Row';
 
 import styles from './main.module.scss';
 import {FloatingInput} from '../../../../../../components/common/form/floating/input';
-import {availablePermissions} from '../../../../../../types/auth/user';
 import {ISODateString} from '../../../../../../types/time';
 import {permissionBadge} from '../badges';
 import {AccountFilterConditions, AccountStatus} from '../type';
