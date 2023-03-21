@@ -1,4 +1,4 @@
-import {getNumber} from './parse';
+import {getNumberThrow} from './parse';
 import {DateOnly} from '../models/dateOnly';
 import {ISODateString} from '../types/time';
 
@@ -18,5 +18,5 @@ export const dateOnlyToString = (date: DateOnly) => {
 export const stringToDateOnly = (dateString: ISODateString): DateOnly => {
   const [year, month, day] = dateString.split('-', 3);
 
-  return {year: getNumber(year), month: getNumber(month), day: getNumber(day)};
+  return {year: getNumberThrow(year), month: getNumberThrow(month), day: getNumberThrow(day)};
 };

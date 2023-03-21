@@ -47,7 +47,7 @@ export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
         variant="outline-danger" active={forceScrape} disabled={loading} className={styles['force-scrape']}
         onClick={() => setRequest({...request, forceScrape: !forceScrape})}
       >
-        強制下載
+        強制更新
       </Button>
       <Button variant="outline-light" disabled={loading} onClick={() => fetchOptionsOi(request)}>
         <i className="bi bi-search"/>
