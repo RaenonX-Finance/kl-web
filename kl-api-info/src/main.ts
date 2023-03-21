@@ -11,12 +11,15 @@ require('newrelic');
 import {runFastify} from 'kl-api-common/init/rest/run';
 
 import {Logger, RestApiServer} from './const';
+import {initMongoIndexes} from './controllers/mongo/init';
 import {ApiHost, ApiPort} from './env';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
+  await initMongoIndexes();
+
   bindRestEndpointHandlers();
 
   await runFastify({server: RestApiServer, host: ApiHost, port: ApiPort});

@@ -1,4 +1,4 @@
-import {DateOnly} from './dateOnly';
+import {DateOnly} from '../../dateOnly';
 
 
 export type SrLevelModel = {

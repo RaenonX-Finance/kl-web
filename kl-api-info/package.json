@@ -18,6 +18,8 @@
   "author": "RaenonX",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.29.3",
     "kl-api-common": "*",
     "kl-web-common": "*"
   },

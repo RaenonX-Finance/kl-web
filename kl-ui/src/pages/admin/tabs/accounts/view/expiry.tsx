@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {format} from 'date-fns';
+import format from 'date-fns/format';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
