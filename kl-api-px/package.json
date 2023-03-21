@@ -38,7 +38,8 @@
     "pino": "^8.11.0",
     "pm2": "^5.2.2",
     "redis": "^4.6.5",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "socket.io-adapter": "^2.5.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.53.0",
