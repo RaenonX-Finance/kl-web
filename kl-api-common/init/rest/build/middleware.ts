@@ -22,22 +22,30 @@ export const registerMiddlewares = (server: FastifyInstance) => {
   );
 };
 
+type RequestWithToken = {
+  token?: string
+};
+
 export const registerTokenCheck = (server: FastifyInstance) => {
-  server.addHook<{Body: {token?: string}}>('preHandler', async ({body, url}, reply) => {
-    server.decorateRequest('test', new Date());
+  server.addHook<{Body: RequestWithToken | undefined, Querystring: RequestWithToken | undefined}>(
+    'preHandler',
+    async (req, reply) => {
+      const {body, query, url} = req;
 
-    if (!url.startsWith(ApiAuthEndpointPrefix)) {
-      return;
-    }
+      if (!url.startsWith(ApiAuthEndpointPrefix)) {
+        return;
+      }
 
-    const tokenCheckError = await isTokenValid(server.log, body.token);
+      const tokenCheckResult = await isTokenValid(server.log, body?.token || query?.token);
 
-    if (!tokenCheckError) {
-      return;
-    }
+      if (!tokenCheckResult.ok) {
+        reply
+          .status(HttpStatusCode.Unauthorized)
+          .send({error: tokenCheckResult.error});
+        return;
+      }
 
-    reply
-      .status(HttpStatusCode.Unauthorized)
-      .send({error: tokenCheckError});
-  });
+      req.user = tokenCheckResult;
+    },
+  );
 };

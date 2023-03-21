@@ -2,11 +2,8 @@ import axios, {AxiosError} from 'axios';
 import {FastifyBaseLogger} from 'fastify';
 
 import {accountApiUrl} from './const';
+import {TokenCheckResult, TokenCheckResultFromApi} from '../../models/token';
 
-
-type TokenCheckResult = {
-  ok: boolean,
-};
 
 type TokenAuthError = {
   detail: string
@@ -14,13 +11,13 @@ type TokenAuthError = {
 
 export const isTokenValid = async (
   logger: FastifyBaseLogger, token: string | null | undefined,
-): Promise<string | null> => {
+): Promise<TokenCheckResult> => {
   if (!token) {
-    return 'Token is undefined';
+    return {ok: false, error: 'Token is undefined'};
   }
 
   try {
-    const res = await axios.request<TokenCheckResult>({
+    const res = await axios.request<TokenCheckResultFromApi>({
       url: `${accountApiUrl}/auth/token-check`,
       method: 'POST',
       headers: {
@@ -32,10 +29,10 @@ export const isTokenValid = async (
     });
 
     if (!res.data.ok) {
-      return 'Server did not return OK';
+      return {ok: false, error: 'Server did not truthy OK'};
     }
 
-    return null;
+    return res.data;
   } catch (err) {
     if (err instanceof AxiosError) {
       const errorResponse = (err as AxiosError<TokenAuthError>).response;
@@ -47,7 +44,7 @@ export const isTokenValid = async (
       const errorBody = errorResponse.data;
       logger.warn({error: errorBody}, 'Token validation failed (%s)', err.message);
 
-      return errorBody.detail;
+      return {ok: false, error: errorBody.detail};
     }
 
     throw err;

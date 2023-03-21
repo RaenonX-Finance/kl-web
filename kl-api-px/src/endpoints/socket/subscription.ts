@@ -11,9 +11,9 @@ export const sioSubscribeHandler = (
 ): PxSocketC2SEvents['subscribe'] => async ({
   token, identifiers,
 }) => {
-  const tokenErrorMessage = await isTokenValid(Logger, token);
-  if (!!tokenErrorMessage) {
-    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  const tokenCheckResult = await isTokenValid(Logger, token);
+  if (!tokenCheckResult.ok) {
+    socket.emit('error', `Token validation failed: ${tokenCheckResult.error}`);
   }
 
   const rooms = identifiersToRooms(identifiers);
@@ -28,9 +28,9 @@ export const sioUnsubscribeHandler = (
 ): PxSocketC2SEvents['unsubscribe'] => async ({
   token, identifiers,
 }) => {
-  const tokenErrorMessage = await isTokenValid(Logger, token);
-  if (!!tokenErrorMessage) {
-    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  const tokenCheckResult = await isTokenValid(Logger, token);
+  if (!tokenCheckResult.ok) {
+    socket.emit('error', `Token validation failed: ${tokenCheckResult.error}`);
   }
 
   const rooms = identifiersToRooms(identifiers);

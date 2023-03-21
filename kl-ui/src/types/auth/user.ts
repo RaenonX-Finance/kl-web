@@ -6,7 +6,7 @@ import {ISOTimestampWithTimezone} from '../time';
 /**
  * User data model returned by calling the `userinfo` URL defined in `next-auth` custom OAuth provider config.
  *
- * This should have the same schema as `UserDataModel` in the backend.
+ * This should have the same schema as `UserDataModel` in the account API.
  */
 export type UserModelOriginal = {
   _id: string,
