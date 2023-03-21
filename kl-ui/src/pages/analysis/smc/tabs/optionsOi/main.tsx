@@ -6,7 +6,7 @@ import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import {OptionsOiChart} from './chart';
+import {OptionsOiChart} from './chart/main';
 import {OptionsOiRequestMaker} from './request';
 import {OptionsOiFetchPayload} from './type';
 import {MainLoading} from '../../../../../components/common/loading/main';

@@ -1,0 +1,23 @@
+div.chart-container {
+  height: 70vh;
+  width: 100%;
+}
+div.tooltip {
+  border-radius: 3px;
+  border: 1px solid #777;
+  background-color: #19191a;
+  padding: 0.5rem;
+}
+div.tooltip > table > tbody > tr > td {
+  border: none;
+  background-color: transparent;
+  width: 4rem;
+  line-height: 1.2rem;
+}
+div.tooltip > table > tbody > tr > td.strike {
+  font-size: 1.5rem;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/*# sourceMappingURL=main.module.css.map */

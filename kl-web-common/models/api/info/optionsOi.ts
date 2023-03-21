@@ -27,10 +27,14 @@ export const OptionsOiSchema = Type.Object({
 
 export type OptionsOi = Static<typeof OptionsOiSchema>;
 
-export const OptionsOiDataSchema = Type.Array(Type.Object({
+export const OptionsOiSingleDataSchema = Type.Object({
   contractSymbol: Type.String(),
   data: Type.Array(OptionsOiSchema),
-}));
+});
+
+export type OptionsOiSingleData = Static<typeof OptionsOiSingleDataSchema>;
+
+export const OptionsOiDataSchema = Type.Array(OptionsOiSingleDataSchema);
 
 export type OptionsOiData = Static<typeof OptionsOiDataSchema>;
 
