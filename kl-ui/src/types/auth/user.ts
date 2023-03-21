@@ -1,6 +1,5 @@
 import {Permission} from 'kl-web-common/models/api/account/permission';
-
-import {ISOTimestampWithTimezone} from '../time';
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
 
 
 /**

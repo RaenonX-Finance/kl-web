@@ -1,4 +1,4 @@
-import {ISOTimezoneString} from '../types/time';
+import {ISOTimezoneString} from 'kl-web-common/types/time';
 
 
 export const getTzOffsetSeconds = (): number => {

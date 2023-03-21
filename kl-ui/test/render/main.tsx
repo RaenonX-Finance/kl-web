@@ -2,6 +2,7 @@ import React from 'react';
 
 import {render} from '@testing-library/react';
 import {renderHook} from '@testing-library/react-hooks';
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
 import {Session} from 'next-auth';
 import {SessionProvider} from 'next-auth/react';
 
@@ -9,7 +10,6 @@ import {RenderAppReturns, RenderOptions} from './types';
 import {ReduxProvider} from '../../src/state/provider';
 import {createStore} from '../../src/state/store';
 import {ReduxStore} from '../../src/state/types';
-import {ISOTimestampWithTimezone} from '../../src/types/time';
 
 
 type WrapperProps = {

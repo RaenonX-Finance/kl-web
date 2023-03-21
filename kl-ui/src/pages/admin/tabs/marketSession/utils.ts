@@ -1,5 +1,6 @@
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
+
 import {DatetimeLocalValue} from '../../../../types/misc';
-import {ISOTimestampWithTimezone} from '../../../../types/time';
 import {getTzOffsetSeconds} from '../../../../utils/time';
 
 
