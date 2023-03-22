@@ -2,6 +2,7 @@ import React from 'react';
 
 import {AxiosResponse} from 'axios';
 
+import {getErrorMessage} from './error';
 import {errorDispatchers} from '../state/error/dispatchers';
 import {ErrorDispatcherName} from '../state/error/types';
 import {useDispatch} from '../state/store';
@@ -81,15 +82,17 @@ export const useFetchStateProcessed = <D, R, P>(
           data: fnProcessData(data),
         }));
       })
-      .catch((e) => {
+      .catch((err) => {
         setFetchStatus((status) => ({
           ...status,
           fetched: true,
           fetching: false,
           fetchError: true,
         }));
-        console.warn(messageOnFetchFailed, e);
-        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: messageOnFetchFailed}));
+        console.warn(messageOnFetchFailed, err);
+        dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+          message: `${messageOnFetchFailed}\n${getErrorMessage({err})}`,
+        }));
       });
   };
 

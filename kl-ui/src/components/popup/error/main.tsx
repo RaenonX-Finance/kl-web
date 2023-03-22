@@ -22,7 +22,11 @@ export const ErrorPopup = () => {
         <Modal.Title>錯誤</Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles['error-modal']}>
-        {message}
+        {message.split('\n').map((str, idx) => (
+          <React.Fragment key={idx}>
+            {idx > 0 ? <br/> : <></>}{str}
+          </React.Fragment>
+        ))}
       </Modal.Body>
     </Modal>
   );
