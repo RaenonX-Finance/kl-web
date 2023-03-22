@@ -52,8 +52,7 @@ span {
         color.change($color, $lightness: 85%)
       );
 
-      /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-      @keyframes momentum-indicator-#{$suffix}-animation {  /* stylelint-disable-line keyframes-name-pattern */
+      @keyframes momentum-indicator-#{$suffix}-animation {
         0% {
           background-color: $color;
         }

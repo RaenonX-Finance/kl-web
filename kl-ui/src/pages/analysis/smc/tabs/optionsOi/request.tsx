@@ -31,6 +31,7 @@ export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
       <Form.Control
         type="date"
         value={dateString}
+        max={format(new Date(Date.now() + 86400000), 'yyyy-MM-dd')}
         onChange={({target}) => {
           try {
             // Test if `target.value` is a valid value

@@ -78,6 +78,7 @@ export const useFetchStateProcessed = <D, R, P>(
           ...status,
           fetched: true,
           fetching: false,
+          fetchError: false,
           lastSuccessEpochMs: Date.now(),
           data: fnProcessData(data),
         }));

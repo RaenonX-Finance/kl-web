@@ -10,7 +10,6 @@ import {Logger} from '../../../../const';
 import {OptionsOiScarpingFunction} from '../type';
 
 
-// TODO: `scrapeFitxOptionsOiData` should only take +/- 15 strikes from current
 export const scrapeFitxOptionsOiData: OptionsOiScarpingFunction = async (date) => {
   const startHttpReq = nowMs();
 
@@ -18,6 +17,11 @@ export const scrapeFitxOptionsOiData: OptionsOiScarpingFunction = async (date) =
   const response = await fetch(
     `https://www.optree.tw/home/tools/option_t?date=${dateString}&item_type=week`,
   );
+
+  if (!response.ok) {
+    Logger.error({date}, 'FITX Options OI at %s unavailable', dateString);
+    throw new Error('Data unavailable');
+  }
 
   const html = await response.text();
 
@@ -31,13 +35,13 @@ export const scrapeFitxOptionsOiData: OptionsOiScarpingFunction = async (date) =
   const currentPx = getNumber({
     str: $('div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > p:nth-child(2) > span')
       .text().trim().split('（', 1)[0],
-    onNaN: (str) => Logger.warn(
-      {stringToParse: str},
-      'Unable to convert current Px to number (%s), getting all strikes',
-      str,
-    ),
+    onNaN: (str) => Logger.error({stringToParse: str}, 'Unable to convert current Px to number (%s)', str),
     onNaNReturn: null,
   });
+
+  if (!currentPx) {
+    throw new Error('Unable to convert current Px to number (check log for details)');
+  }
 
   const table = $('div:nth-child(4) table');
 
@@ -83,5 +87,5 @@ export const scrapeFitxOptionsOiData: OptionsOiScarpingFunction = async (date) =
     dateString, (elapsedHttpReq + elapsedScrape).toFixed(2), elapsedHttpReq.toFixed(2), elapsedScrape.toFixed(2),
   );
 
-  return [{contractSymbol, data}];
+  return [{contractSymbol, currentPx, lastUpdate: new Date().toISOString(), data}];
 };

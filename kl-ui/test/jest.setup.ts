@@ -22,7 +22,6 @@ if (isCi()) {
 }
 
 // Set findBy* and waitFor, etc. to 5 secs timeout
-// https://github.com/testing-library/react-testing-library/issues/899#issuecomment-819761678
 configure({asyncUtilTimeout: 5000});
 
 initMockWindowMethods();

@@ -42,12 +42,8 @@ span.momentum-indicator {
   font-size: 2.2rem;
   text-align: center;
   width: 2.5rem;
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
 }
-@keyframes momentum-indicator-bull-animation { /* stylelint-disable-line keyframes-name-pattern */
+@keyframes momentum-indicator-bull-animation {
   0% {
     background-color: #ed213a;
   }
@@ -67,7 +63,7 @@ span.momentum-indicator.momentum-indicator-bull > span {
   width: 100%;
   animation: ease-out 500ms momentum-indicator-bull-animation;
 }
-@keyframes momentum-indicator-neutral-animation { /* stylelint-disable-line keyframes-name-pattern */
+@keyframes momentum-indicator-neutral-animation {
   0% {
     background-color: #d7d7d7;
   }
@@ -87,7 +83,7 @@ span.momentum-indicator.momentum-indicator-neutral > span {
   width: 100%;
   animation: ease-out 500ms momentum-indicator-neutral-animation;
 }
-@keyframes momentum-indicator-bear-animation { /* stylelint-disable-line keyframes-name-pattern */
+@keyframes momentum-indicator-bear-animation {
   0% {
     background-color: #00e071;
   }
@@ -107,7 +103,7 @@ span.momentum-indicator.momentum-indicator-bear > span {
   width: 100%;
   animation: ease-out 500ms momentum-indicator-bear-animation;
 }
-@keyframes momentum-indicator-na-animation { /* stylelint-disable-line keyframes-name-pattern */
+@keyframes momentum-indicator-na-animation {
   0% {
     background-color: #d7d7d7;
   }

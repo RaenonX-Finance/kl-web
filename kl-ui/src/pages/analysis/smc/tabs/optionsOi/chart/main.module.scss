@@ -1,26 +1,274 @@
-div {
-  &.chart-container {
-    height: 70vh;
-    width: 100%;
-  }
+@use "sass:color";
+@use "../../../../../../../styles/colors";
 
-  &.tooltip {
-    border-radius: 3px;
-    border: 1px solid #777;
-    background-color: #19191a;
-    padding: 0.5rem;
+@mixin text-glow-animation($side, $color) {
+  @keyframes text-glow-animation-#{$side} {
+    from {
+      text-shadow: 0 0 0.5rem color.change($color, $alpha: 0.4), 0 0 0.5rem color.change($color, $alpha: 0.4);
+    }
 
-    & > table > tbody > tr > td {
-      &.strike {
-        font-size: 1.5rem;
-        font-weight: bold;
-        vertical-align: middle;
-      }
-
-      border: none;
-      background-color: transparent;
-      width: 4rem;
-      line-height: 1.2rem;
+    to {
+      text-shadow: none;
     }
   }
+
+  animation: text-glow-animation-#{$side} 1.5s ease-in-out infinite alternate;
+}
+
+@mixin text-color-animation($side, $color) {
+  @keyframes text-color-animation-#{$side} {
+    from {
+      color: white;
+    }
+
+    to {
+      color: $color;
+    }
+  }
+
+  animation: text-color-animation-#{$side} 1s ease-in-out infinite alternate;
+}
+
+@mixin background-animation($name, $color) {
+  @keyframes background-animation-#{$name} {
+    from {
+      background-color: $color;
+    }
+
+    to {
+      background-color: color.change($color, $alpha: 0.5);
+    }
+  }
+
+  animation: background-animation-#{$name} 1s ease-in-out infinite alternate;
+}
+
+@mixin border-animation($name, $color) {
+  @keyframes border-animation-#{$name} {
+    from {
+      border: 1px solid $color;
+    }
+
+    to {
+      border: 1px solid color.change($color, $alpha: 0.5);
+    }
+  }
+
+  animation: border-animation-#{$name} 1s ease-in-out infinite alternate;
+}
+
+@mixin bs-progress-bar($side, $color, $max-animation) {
+  & > div[class*="progress-bar"] {
+    &.oi-bar-inc {
+      background-color: colors.$color-bw-215;
+    }
+
+    &.oi-bar-dec {
+      background-color: color.change(colors.$color-bw-215, $alpha: 0.2);
+    }
+
+    &.oi-bar-main {
+      @if $max-animation {
+        @include background-animation($side, $color);
+      }
+
+      background-color: $color;
+    }
+
+    height: 0.75rem;
+  }
+}
+
+@mixin oi-call-reverse($side) {
+  @if $side == "call" {
+    // To put OI texts at the left of the bar
+    flex-direction: row-reverse;
+
+    // To reverse progress bar direction
+    justify-content: end;
+  }
+}
+
+@mixin oi-bs-progress-bar($side, $color) {
+  &.oi-bar-#{$side} {
+    @include bs-progress-bar($side, $color, $max-animation: false);
+    @include oi-call-reverse($side);
+  }
+
+  &.oi-bar-#{$side}-max {
+    @include bs-progress-bar($side, $color, $max-animation: true);
+    @include oi-call-reverse($side);
+  }
+}
+
+button {
+  &.toggle-diff-bar:hover {
+    color: white;
+  }
+}
+
+span,
+td {
+  @mixin pc-ratio($side, $color) {
+    @include text-glow-animation($side, $color);
+
+    color: $color;
+    vertical-align: middle;
+  }
+
+  &.pc-ratio-bull {
+    @include pc-ratio(bull, colors.$color-up);
+  }
+
+  &.pc-ratio-bear {
+    @include pc-ratio(bear, colors.$color-down);
+  }
+}
+
+div {
+  @mixin oi-max-div($side, $color) {
+    &.oi-max-#{$side} {
+      align-self: center;
+      border-radius: 0.5rem;
+      color: $color;
+      padding: 0.3rem 1rem;
+
+      & > span {
+        @include text-glow-animation($side, $color);
+
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &.chart-container {
+    background-color: colors.$color-bw-20;
+    padding: 0.5rem;
+
+    & > table.oi-chart {
+      & > tbody > tr {
+        & > td {
+          @mixin cell-common() {
+            border: none;
+            background-color: colors.$color-bw-20;
+            text-align: center;
+            padding: 0;
+            line-height: 1.1rem;
+            vertical-align: middle;
+          }
+
+          &.oi {
+            @include cell-common;
+
+            & > div[class*="progress"] {
+              align-items: center;
+              background-color: transparent;
+              border-radius: 0;
+
+              @include oi-bs-progress-bar(call, colors.$color-up);
+              @include oi-bs-progress-bar(put, colors.$color-down);
+            }
+          }
+
+          &.oi-text {
+            @include cell-common;
+
+            font-size: 0.75rem;
+          }
+
+          &.strike {
+            @include cell-common;
+          }
+
+          &.strike-both {
+            @include cell-common;
+            @include text-color-animation(both, color.change(colors.$color-primary, $lightness: 72%));
+          }
+
+          &.strike-call {
+            @include cell-common;
+            @include text-color-animation(call, colors.$color-up);
+          }
+
+          &.strike-put {
+            @include cell-common;
+            @include text-color-animation(put, colors.$color-down);
+          }
+        }
+
+        &.current-strike {
+          @include border-animation(current-strike, colors.$color-bw-80);
+
+          & > td.current-strike {
+            @include background-animation(current-strike, colors.$color-bw-80);
+          }
+        }
+      }
+
+      & > thead > tr > th {
+        @mixin header-common() {
+          border: none;
+          padding: 0.25rem 0;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        &.oi-header {
+          @include header-common;
+
+          width: 46%;
+        }
+
+        &.oi-text-header {
+          @include header-common;
+        }
+
+        &.strike-header {
+          @include header-common;
+
+          width: 8%;
+        }
+      }
+    }
+  }
+
+  &.chart-tab {
+    cursor: pointer;
+  }
+
+  @include oi-max-div(call, colors.$color-up);
+  @include oi-max-div(put, colors.$color-down);
+}
+
+span {
+  @mixin oi-change-text($name, $color) {
+    &.oi-#{$name} {
+      @media (min-width: 768px) {
+        color: $color;
+      }
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  &.oi-info {
+    margin: 0 0.2rem;
+
+    & > span {
+      &.max-call {
+        background-color: color.adjust(colors.$color-up, $lightness: -20%);
+      }
+
+      &.max-put {
+        background-color: color.adjust(colors.$color-down, $lightness: -9%);
+      }
+    }
+  }
+
+  @include oi-change-text(inc, colors.$color-up);
+  @include oi-change-text(dec, colors.$color-down);
+  @include oi-change-text(neut, colors.$color-bw-101);
 }

@@ -9,8 +9,7 @@
   $color-og: $color;
   $color-lighter: color.adjust($color, $lightness: 10%);
 
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  @keyframes status-glow-#{$name} {  /* stylelint-disable-line keyframes-name-pattern */
+  @keyframes status-glow-#{$name} {
     from {
       text-shadow: 0 0 0.25rem $color-og, 0 0 0.5rem $color-og;
     }

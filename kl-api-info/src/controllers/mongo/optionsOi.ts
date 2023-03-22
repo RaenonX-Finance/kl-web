@@ -3,7 +3,7 @@ import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {dateOnlyToString} from 'kl-web-common/utils/date';
 import groupBy from 'lodash/groupBy';
 
-import {infoOptionsOi, infoOptionsOiLastUpdate} from './const';
+import {infoOptionsOi, infoOptionsOiMeta} from './const';
 import {Logger} from '../../const';
 import {OptionsOiExpirySec} from '../../env';
 import {optionsOiScrapingFunc} from '../scraper/optionsOi/const';
@@ -15,16 +15,27 @@ type GetOptionsOiOpts = {
   forceScrape?: boolean,
 };
 
-const getOptionsOiFromDb = async ({symbol, date}: GetOptionsOiOpts): Promise<OptionsOiData> => {
-  const data = groupBy(
-    await infoOptionsOi.find({symbol, date}).toArray(),
-    ({contractSymbol}) => contractSymbol,
-  );
+const getOptionsOiFromDb = async ({symbol, date}: GetOptionsOiOpts): Promise<OptionsOiData | null> => {
+  const [meta, oiData] = await Promise.all([
+    infoOptionsOiMeta.findOne({symbol, date}),
+    infoOptionsOi.find({symbol, date}).toArray(),
+  ]);
 
-  return Object.entries(data).map(([contractSymbol, data]) => ({contractSymbol, data}));
+  if (!meta) {
+    return null;
+  }
+
+  return Object
+    .entries(groupBy(oiData, ({contractSymbol}) => contractSymbol))
+    .map(([contractSymbol, data]) => ({
+      contractSymbol,
+      data,
+      currentPx: meta.px,
+      lastUpdate: meta.lastUpdate.toISOString(),
+    }));
 };
 
-export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiData> => {
+export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiData | null> => {
   const {symbol, date, forceScrape} = opts;
   const dateString = dateOnlyToString(date);
 
@@ -42,19 +53,33 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
   }
 
   if (!forceScrape) {
-    const lastUpdate = await infoOptionsOiLastUpdate.findOne({symbol, date});
+    const meta = await infoOptionsOiMeta.findOne({symbol, date});
 
-    if (lastUpdate && (new Date().getTime() - lastUpdate.lastUpdate.getTime()) / 1000 < OptionsOiExpirySec) {
-      Logger.info(
-        {...opts, lastUpdate: lastUpdate.lastUpdate, result: 'cached'},
-        'Returning cached Options OI of %s at %s (last updated at %s)',
-        symbol, dateString, lastUpdate.lastUpdate,
-      );
-      return await getOptionsOiFromDb(opts);
+    if (meta && (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 < OptionsOiExpirySec) {
+      const dataInDb = await getOptionsOiFromDb(opts);
+
+      if (dataInDb) {
+        Logger.info(
+          {...opts, lastUpdate: meta.lastUpdate, result: 'cached'},
+          'Returning cached Options OI of %s at %s (last updated at %s)',
+          symbol, dateString, meta.lastUpdate,
+        );
+
+        return dataInDb;
+      }
     }
   }
 
   const scrapedOptionsOi = await scrapeFunc(date);
+
+  if (!scrapedOptionsOi.length) {
+    Logger.info(
+      {symbol, result: 'noResult'},
+      'No Options OI data available for %s at %s',
+      symbol, dateString,
+    );
+    return null;
+  }
 
   await infoOptionsOi.deleteMany({
     symbol,
@@ -65,7 +90,11 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
     infoOptionsOi.insertMany(scrapedOptionsOi.flatMap(({contractSymbol, data}) => (
       data.map((oiData) => ({...oiData, contractSymbol, symbol, date}))
     ))),
-    infoOptionsOiLastUpdate.updateOne({symbol, date}, {$set: {lastUpdate: new Date()}}, {upsert: true}),
+    infoOptionsOiMeta.updateOne(
+      {symbol, date},
+      {$set: {lastUpdate: new Date(), px: scrapedOptionsOi[0].currentPx}},
+      {upsert: true},
+    ),
   ]);
 
   Logger.info({symbol, date, result: 'scraped'}, 'Returning scraped Options OI data of %s at %s', symbol, dateString);

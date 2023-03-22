@@ -7,6 +7,7 @@ import {
   OptionsOiRequest,
   OptionsOiRequestSchema,
 } from 'kl-web-common/models/api/info/optionsOi';
+import {dateOnlyToString} from 'kl-web-common/utils/date';
 
 import {RestApiServer} from '../../const';
 import {getOptionsOi} from '../../controllers/mongo/optionsOi';
@@ -21,6 +22,7 @@ export const restAddOptionsOiHandler = () => {
         response: {
           200: OptionsOiDataSchema,
           401: FastifyErrorSchema,
+          404: FastifyErrorSchema,
         },
       },
     },
@@ -34,7 +36,16 @@ export const restAddOptionsOiHandler = () => {
         return;
       }
 
-      return await getOptionsOi({symbol, date: {year, month, day}, forceScrape});
+      const result = await getOptionsOi({symbol, date: {year, month, day}, forceScrape});
+
+      if (!result) {
+        reply
+          .status(HttpStatusCode.NotFound)
+          .send({error: `No Options OI data available for ${symbol} at ${dateOnlyToString(query)}`});
+        return;
+      }
+
+      return result;
     },
   );
 };

@@ -29,6 +29,8 @@ export type OptionsOi = Static<typeof OptionsOiSchema>;
 
 export const OptionsOiSingleDataSchema = Type.Object({
   contractSymbol: Type.String(),
+  currentPx: Type.Number({exclusiveMinimum: 0}),
+  lastUpdate: Type.String({format: 'date-time'}),
   data: Type.Array(OptionsOiSchema),
 });
 
@@ -44,8 +46,9 @@ export type OptionsOiModel = OptionsOi & {
   date: DateOnly,
 };
 
-export type OptionsOiLastUpdateModel = {
+export type OptionsOiMetaModel = {
   symbol: string,
   date: DateOnly,
+  px: number,
   lastUpdate: Date,
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import {OptionsOiData} from 'kl-web-common/models/api/info/optionsOi';
 import {toDateOnly} from 'kl-web-common/utils/date';
 import {useSession} from 'next-auth/react';
+import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -24,22 +25,26 @@ export const SmcTabOptionsOi = () => {
     (payload) => apiGetOptionsOi({symbol: 'FITX', ...payload}),
     `無法獲取選擇權 OI 資料。`,
   );
-  const {fetching, data} = fetchStatus;
+  const {fetching, fetchError, data} = fetchStatus;
   const token = session?.user.token;
 
   if (!token) {
-    return <></>;
+    return (
+      <Alert variant="warning">
+        無法取得使用者權杖，請重新登入後重試。
+      </Alert>
+    );
   }
 
   fetchOptionsOiData({payload: {token, ...toDateOnly(new Date())}});
 
   if (isNotFetched(fetchStatus)) {
-    return <></>;
+    return <MainLoading text="獲取初始選擇權 OI 資料中..."/>;
   }
 
   return (
     <>
-      <Row>
+      <Row className="mb-3">
         <Col>
           <OptionsOiRequestMaker
             loading={fetching}
@@ -50,15 +55,18 @@ export const SmcTabOptionsOi = () => {
           />
         </Col>
       </Row>
-      <hr/>
       {
         fetching ?
           <MainLoading/> :
-          <Row>
-            <Col>
-              <OptionsOiChart data={data}/>
-            </Col>
-          </Row>
+          fetchError ?
+            <Alert variant="danger">
+              獲取選擇權 OI 資料時發生錯誤。
+            </Alert> :
+            <Row>
+              <Col>
+                <OptionsOiChart data={data}/>
+              </Col>
+            </Row>
       }
     </>
   );

@@ -17,6 +17,8 @@ $custom-theme-colors: (
   "dark-orange": colors.$color-dark-orange,
   "dark-danger": colors.$color-dark-danger,
   "theme-dark": colors.$color-theme-dark,
+  "bull": colors.$color-up,
+  "bear": colors.$color-down,
   // Overridden
   "secondary": colors.$color-secondary,
 );
