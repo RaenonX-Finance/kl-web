@@ -37,9 +37,7 @@ export const Panel = <K extends string, P extends string>({
             <Nav variant="pills" className="flex-column">
               {tabs.map(({tabKey, name, link}) => (
                 <Nav.Item key={tabKey} className={styles['panel-tab']}>
-                  <Link href={link}>
-                    <Nav.Link eventKey={tabKey}>{name}</Nav.Link>
-                  </Link>
+                  <Nav.Link eventKey={tabKey} href={link} as={Link}>{name}</Nav.Link>
                 </Nav.Item>
               ))}
             </Nav>
