@@ -18,7 +18,7 @@ type GetOptionsOiOpts = {
 const getOptionsOiFromDb = async ({symbol, date}: GetOptionsOiOpts): Promise<OptionsOiData | null> => {
   const [meta, oiData] = await Promise.all([
     infoOptionsOiMeta.findOne({symbol, date}),
-    infoOptionsOi.find({symbol, date}).toArray(),
+    infoOptionsOi.find({symbol, date}, {sort: ['strike', -1]}).toArray(),
   ]);
 
   if (!meta) {
