@@ -26,14 +26,14 @@ Needs to be the same as `FASTAPI_AUTH_SECRET` of Account API.
 `NEXT_PUBLIC_HOST_URL`: Should be the same as `NEXTAUTH_URL`.
 
 `NEXT_PUBLIC_ACCOUNT_SOCKET_URL`: Account socket URL. Can be either `wss://` or `https://`.
-Should with slash `/`.
 
 `NEXT_PUBLIC_ACCOUNT_API_URL`: Account REST API URL. Should NOT end with slash `/`.
 
 `NEXT_PUBLIC_PX_SOCKET_URL`: Px socket URL. Can be either `wss://` or `https://`.
 
 `NEXT_PUBLIC_PX_API_URL`: Account REST API URL. Should NOT end with slash `/`.
-Should with slash `/`.
+
+`NEXT_PUBLIC_INFO_API_URL`: Info REST API URL. Should NOT end with slash `/`.
 
 `NEW_RELIC_LICENSE_KEY`: New Relic license key.
 
@@ -89,3 +89,27 @@ All variables are required besides `NEW_RELIC_*`.
 `KL_INFO_API_PORT_REST`: REST API listening port.
 
 `KL_INFO_API_LOGGING_DIR`: App logging directory.
+
+## Usage
+
+### Install dependencies
+
+```shell
+yarn install
+```
+
+### Start the dev server
+
+The processes listed below are executable:
+- `kl-ui`
+- `kl-api-px`
+- `kl-api-info`
+
+Run the command below in the corresponding `package.json` to start the dev server:
+
+```shell
+yarn run dev
+```
+
+> For example, to run the dev server of `kl-api-px`, 
+> run `yarn run dev` from `kl-api-px/package.json`.
