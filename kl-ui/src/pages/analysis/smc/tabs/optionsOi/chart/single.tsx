@@ -39,11 +39,11 @@ export const OptionsOiChartSingle = (props: OptionsOiChartSingleProps) => {
         <Table className={styles['oi-chart']}>
           <thead>
             <tr>
-              <th className={styles['oi-header']}>Call OI</th>
+              <th className={styles['oi-header']}>Call 未平倉</th>
               <th className={styles['oi-text-header']}/>
               <th className={styles['strike-header']}>行權價</th>
               <th className={styles['oi-text-header']}/>
-              <th className={styles['oi-header']}>Put OI</th>
+              <th className={styles['oi-header']}>Put 未平倉</th>
             </tr>
           </thead>
           <tbody>

@@ -6,7 +6,7 @@ import {SmcAnalysisPath} from '../../../const/path';
 export const smcAnalysisTabs: SmcAnalysisTab[] = [
   {
     tabKey: 'optionsOi',
-    name: '台指周選',
+    name: '台指選擇權未平倉量',
     link: SmcAnalysisPath.OPTIONS_OI,
     Component: SmcTabOptionsOi,
   },
