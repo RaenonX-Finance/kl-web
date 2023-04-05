@@ -125,6 +125,24 @@ td {
   }
 }
 
+span {
+  @mixin oi-change-text($name, $color) {
+    &.oi-#{$name} {
+      @media (min-width: 768px) {
+        color: $color;
+      }
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  @include oi-change-text(inc, colors.$color-up);
+  @include oi-change-text(dec, colors.$color-down);
+  @include oi-change-text(neut, colors.$color-bw-101);
+}
+
 div {
   @mixin oi-max-div($side, $color) {
     &.oi-max-#{$side} {
@@ -147,62 +165,91 @@ div {
     padding: 0.5rem;
 
     & > table.oi-chart {
-      & > tbody > tr {
-        & > td {
-          @mixin cell-common() {
-            border: none;
-            background-color: colors.$color-bw-20;
-            text-align: center;
-            padding: 0;
-            line-height: 1.1rem;
-            vertical-align: middle;
-          }
+      & > tbody {
+        & > tr {
+          & > td {
+            @mixin cell-common() {
+              border: none;
+              background-color: colors.$color-bw-20;
+              text-align: center;
+              padding: 0;
+              line-height: 1.1rem;
+              vertical-align: middle;
+            }
 
-          &.oi {
-            @include cell-common;
+            &.oi {
+              @include cell-common;
 
-            & > div[class*="progress"] {
-              align-items: center;
-              background-color: transparent;
-              border-radius: 0;
+              & > div[class*="progress"] {
+                align-items: center;
+                background-color: transparent;
+                border-radius: 0;
 
-              @include oi-bs-progress-bar(call, colors.$color-up);
-              @include oi-bs-progress-bar(put, colors.$color-down);
+                @include oi-bs-progress-bar(call, colors.$color-up);
+                @include oi-bs-progress-bar(put, colors.$color-down);
+              }
+            }
+
+            @mixin oi-text {
+              @include cell-common;
+
+              font-size: 0.85rem;
+              padding: 0 0.25rem;
+
+              & > span {
+                &.max-call {
+                  background-color: color.adjust(colors.$color-up, $lightness: -20%);
+                }
+
+                &.max-put {
+                  background-color: color.adjust(colors.$color-down, $lightness: -9%);
+                }
+              }
+            }
+
+            &.oi-text-call {
+              @include oi-text;
+
+              text-align: end;
+            }
+
+            &.oi-text-put {
+              @include oi-text;
+
+              text-align: start;
+            }
+
+            &.strike {
+              @include cell-common;
+            }
+
+            &.strike-both {
+              @include cell-common;
+              @include text-color-animation(both, color.change(colors.$color-primary, $lightness: 72%));
+            }
+
+            &.strike-call {
+              @include cell-common;
+              @include text-color-animation(call, colors.$color-up);
+            }
+
+            &.strike-put {
+              @include cell-common;
+              @include text-color-animation(put, colors.$color-down);
             }
           }
 
-          &.oi-text {
-            @include cell-common;
+          &.current-strike {
+            @include border-animation(current-strike, colors.$color-bw-80);
 
-            font-size: 0.75rem;
-          }
-
-          &.strike {
-            @include cell-common;
-          }
-
-          &.strike-both {
-            @include cell-common;
-            @include text-color-animation(both, color.change(colors.$color-primary, $lightness: 72%));
-          }
-
-          &.strike-call {
-            @include cell-common;
-            @include text-color-animation(call, colors.$color-up);
-          }
-
-          &.strike-put {
-            @include cell-common;
-            @include text-color-animation(put, colors.$color-down);
+            & > td.current-strike {
+              @include background-animation(current-strike, colors.$color-bw-80);
+            }
           }
         }
 
-        &.current-strike {
-          @include border-animation(current-strike, colors.$color-bw-80);
-
-          & > td.current-strike {
-            @include background-animation(current-strike, colors.$color-bw-80);
-          }
+        & > tr:nth-of-type(odd) > td {
+          background-color: #202020;
         }
       }
 
@@ -239,36 +286,4 @@ div {
 
   @include oi-max-div(call, colors.$color-up);
   @include oi-max-div(put, colors.$color-down);
-}
-
-span {
-  @mixin oi-change-text($name, $color) {
-    &.oi-#{$name} {
-      @media (min-width: 768px) {
-        color: $color;
-      }
-
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
-  }
-
-  &.oi-info {
-    margin: 0 0.2rem;
-
-    & > span {
-      &.max-call {
-        background-color: color.adjust(colors.$color-up, $lightness: -20%);
-      }
-
-      &.max-put {
-        background-color: color.adjust(colors.$color-down, $lightness: -9%);
-      }
-    }
-  }
-
-  @include oi-change-text(inc, colors.$color-up);
-  @include oi-change-text(dec, colors.$color-down);
-  @include oi-change-text(neut, colors.$color-bw-101);
 }

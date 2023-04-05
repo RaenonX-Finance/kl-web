@@ -17,7 +17,7 @@ export const navItemsAtLeft: NavItemCollection = [
   {
     type: 'path',
     path: SmcAnalysisPath.OPTIONS_OI,
-    text: '籌碼分析',
+    text: '選擇權',
   },
   {
     type: 'path',

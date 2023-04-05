@@ -1,18 +1,25 @@
 import React from 'react';
 
-import {smcAnalysisPathToTabKey, smcAnalysisTabs, tabKeyToSmcAnalysisPath} from './const';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
+import {SmcTabOptionsOi} from './tabs/optionsOi/main';
 import {ProtectedLayout} from '../../../components/layout/protected';
-import {Panel} from '../../../components/panel/main';
 
 
 export const SmcAnalysisPanel = () => {
   return (
     <ProtectedLayout>
-      <Panel
-        keyToPathMap={tabKeyToSmcAnalysisPath}
-        pathToKeyMap={smcAnalysisPathToTabKey}
-        tabs={smcAnalysisTabs}
-      />
+      <Container className="mt-3">
+        <Row>
+          <Col xs={1}/>
+          <Col>
+            <SmcTabOptionsOi/>
+          </Col>
+          <Col xs={1}/>
+        </Row>
+      </Container>
     </ProtectedLayout>
   );
 };

@@ -44,17 +44,20 @@ export const SmcTabOptionsOi = () => {
 
   return (
     <>
-      <Row className="mb-3">
-        <Col>
-          <OptionsOiRequestMaker
-            loading={fetching}
-            fetchOptionsOi={(request) => fetchOptionsOiData({
-              force: true,
-              payload: {token, ...request},
-            })}
-          />
-        </Col>
-      </Row>
+      {
+        session.user.isAdmin &&
+        <Row className="mb-3">
+          <Col>
+            <OptionsOiRequestMaker
+              loading={fetching}
+              fetchOptionsOi={(request) => fetchOptionsOiData({
+                force: true,
+                payload: {token, ...request},
+              })}
+            />
+          </Col>
+        </Row>
+      }
       {
         fetching ?
           <MainLoading/> :

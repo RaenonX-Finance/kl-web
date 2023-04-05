@@ -9,9 +9,10 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
-import {OptionsOiInfoText} from './info';
 import styles from './main.module.scss';
 import {OptionsOiMeta} from './meta';
+import {OptionsOiChangeText} from './oiChange';
+import {OptionsOiValueText} from './oiValue';
 import {OptionsOiStats} from './stats';
 
 
@@ -39,11 +40,13 @@ export const OptionsOiChartSingle = (props: OptionsOiChartSingleProps) => {
         <Table className={styles['oi-chart']}>
           <thead>
             <tr>
+              <th className={styles['oi-text-header']}/>
+              <th className={styles['oi-text-header']}/>
               <th className={styles['oi-header']}>Call 未平倉</th>
-              <th className={styles['oi-text-header']}/>
               <th className={styles['strike-header']}>行權價</th>
-              <th className={styles['oi-text-header']}/>
               <th className={styles['oi-header']}>Put 未平倉</th>
+              <th className={styles['oi-text-header']}/>
+              <th className={styles['oi-text-header']}/>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +68,12 @@ export const OptionsOiChartSingle = (props: OptionsOiChartSingleProps) => {
 
               return (
                 <tr key={strike} className={isClosestStrike ? styles['current-strike'] : undefined}>
+                  <td className={styles['oi-text-call']}>
+                    <OptionsOiValueText value={call.oiCurrent} isMaxCall={isMaxCall}/>
+                  </td>
+                  <td className={styles['oi-text-call']}>
+                    <OptionsOiChangeText change={call.oiChangeVal}/>
+                  </td>
                   <td className={styles['oi']}>
                     <ProgressBar className={isMaxCall ? styles['oi-bar-call-max'] : styles['oi-bar-call']}>
                       <ProgressBar
@@ -81,14 +90,8 @@ export const OptionsOiChartSingle = (props: OptionsOiChartSingleProps) => {
                       }
                     </ProgressBar>
                   </td>
-                  <td className={styles['oi-text']}>
-                    <OptionsOiInfoText data={call} isMaxCall={isMaxCall}/>
-                  </td>
                   <td className={`${strikeTextClass} ${styles['current-strike']}`}>
                     {strike}
-                  </td>
-                  <td className={styles['oi-text']}>
-                    <OptionsOiInfoText data={put} isMaxPut={isMaxPut}/>
                   </td>
                   <td className={styles['oi']}>
                     <ProgressBar className={isMaxPut ? styles['oi-bar-put-max'] : styles['oi-bar-put']}>
@@ -105,6 +108,12 @@ export const OptionsOiChartSingle = (props: OptionsOiChartSingleProps) => {
                         <ProgressBar now={-Math.min(put.oiChangeVal, 0)} max={max} className={styles['oi-bar-dec']}/>
                       }
                     </ProgressBar>
+                  </td>
+                  <td className={styles['oi-text-put']}>
+                    <OptionsOiValueText value={put.oiCurrent} isMaxPut={isMaxPut}/>
+                  </td>
+                  <td className={styles['oi-text-put']}>
+                    <OptionsOiChangeText change={put.oiChangeVal}/>
                   </td>
                 </tr>
               );

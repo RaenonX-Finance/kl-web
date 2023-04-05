@@ -31,6 +31,37 @@ td.pc-ratio-bear {
   }
 }
 
+@media (min-width: 768px) {
+  span.oi-inc {
+    color: #ef5350;
+  }
+}
+@media (max-width: 768px) {
+  span.oi-inc {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  span.oi-dec {
+    color: #26a69a;
+  }
+}
+@media (max-width: 768px) {
+  span.oi-dec {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  span.oi-neut {
+    color: #656565;
+  }
+}
+@media (max-width: 768px) {
+  span.oi-neut {
+    display: none;
+  }
+}
+
 div.chart-container {
   background-color: #141414;
   padding: 0.5rem;
@@ -122,14 +153,39 @@ div.chart-container > table.oi-chart > tbody > tr > td.oi > div[class*=progress]
     background-color: rgba(38, 166, 154, 0.5);
   }
 }
-div.chart-container > table.oi-chart > tbody > tr > td.oi-text {
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-call {
   border: none;
   background-color: #141414;
   text-align: center;
   padding: 0;
   line-height: 1.1rem;
   vertical-align: middle;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  padding: 0 0.25rem;
+  text-align: end;
+}
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-call > span.max-call {
+  background-color: #c71612;
+}
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-call > span.max-put {
+  background-color: #1d8177;
+}
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-put {
+  border: none;
+  background-color: #141414;
+  text-align: center;
+  padding: 0;
+  line-height: 1.1rem;
+  vertical-align: middle;
+  font-size: 0.85rem;
+  padding: 0 0.25rem;
+  text-align: start;
+}
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-put > span.max-call {
+  background-color: #c71612;
+}
+div.chart-container > table.oi-chart > tbody > tr > td.oi-text-put > span.max-put {
+  background-color: #1d8177;
 }
 div.chart-container > table.oi-chart > tbody > tr > td.strike {
   border: none;
@@ -212,6 +268,9 @@ div.chart-container > table.oi-chart > tbody > tr.current-strike > td.current-st
     background-color: rgba(80, 80, 80, 0.5);
   }
 }
+div.chart-container > table.oi-chart > tbody > tr:nth-of-type(odd) > td {
+  background-color: #202020;
+}
 div.chart-container > table.oi-chart > thead > tr > th.oi-header {
   border: none;
   padding: 0.25rem 0;
@@ -271,46 +330,6 @@ div.oi-max-put > span {
   }
   to {
     text-shadow: none;
-  }
-}
-
-span.oi-info {
-  margin: 0 0.2rem;
-}
-span.oi-info > span.max-call {
-  background-color: #c71612;
-}
-span.oi-info > span.max-put {
-  background-color: #1d8177;
-}
-@media (min-width: 768px) {
-  span.oi-inc {
-    color: #ef5350;
-  }
-}
-@media (max-width: 768px) {
-  span.oi-inc {
-    display: none;
-  }
-}
-@media (min-width: 768px) {
-  span.oi-dec {
-    color: #26a69a;
-  }
-}
-@media (max-width: 768px) {
-  span.oi-dec {
-    display: none;
-  }
-}
-@media (min-width: 768px) {
-  span.oi-neut {
-    color: #656565;
-  }
-}
-@media (max-width: 768px) {
-  span.oi-neut {
-    display: none;
   }
 }
 
