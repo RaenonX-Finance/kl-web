@@ -9,6 +9,7 @@ export const authErrorTranslation: {[detail in string]: string} = {
   'Incorrect password': '密碼不正確。',
   'Duplicated account ID': '帳號 ID 已有人使用。',
   'Invalid signup key': '無效的註冊金鑰。',
+  'Membership expired': '會籍已過期。',
 };
 
 
