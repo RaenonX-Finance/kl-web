@@ -2,7 +2,7 @@ import {PxHistory, PxHistorySingle} from 'kl-web-common/models/api/px/pxHistory'
 import {PxRequestBodyModel, PxRequestModel} from 'kl-web-common/models/api/px/pxRequest';
 import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
-import {pxCalc} from './const';
+import {getCalcCollection} from './const';
 import {DefaultRequestLimit} from './env';
 import {getSrLevelBody} from './srLevel';
 
@@ -11,7 +11,7 @@ export const getCalculatedPxSingle = async (request: PxRequestModel): Promise<Px
   const {offset, limit, identifier} = request;
   const {symbol, periodMin} = getIdentifierDetails(identifier);
 
-  let cursor = pxCalc.find({symbol, periodMin}).sort('epochSecond', 'desc');
+  let cursor = getCalcCollection(symbol).find({periodMin}).sort('epochSecond', 'desc');
 
   if (offset) {
     cursor = cursor.skip(offset);
