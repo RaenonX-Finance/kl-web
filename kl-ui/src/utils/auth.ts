@@ -2,11 +2,11 @@ import {AxiosError} from 'axios';
 import * as env from 'env-var';
 import {JWT} from 'next-auth/jwt';
 
-import {apiRefreshOAuth2Token} from './api/auth';
+import {apiRefreshOAuth2Token} from './api/account/auth';
 import {UserJwt} from '../types/auth/jwt';
 
 
-export const unsecureDecodeJWT = (jwt: string): UserJwt => {
+export const insecureDecodeJWT = (jwt: string): UserJwt => {
   return JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString());
 };
 
@@ -36,7 +36,7 @@ export const refreshAccessToken = async (token: JWT): Promise<JWT> => {
       };
     }
 
-    const refreshedToken = unsecureDecodeJWT(data.access_token);
+    const refreshedToken = insecureDecodeJWT(data.access_token);
 
     if (!refreshedToken) {
       return {

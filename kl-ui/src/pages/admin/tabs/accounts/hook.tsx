@@ -32,7 +32,7 @@ export const useUpdateAccountData = <P, >({
   const sendApiUpdateRequest = async (payload: P) => {
     setUpdating(true);
     try {
-      const updatedAccountData = await apiRequest(data?.user?.token || '', payload);
+      const updatedAccountData = await apiRequest(data?.user.token || '', payload);
       updateSingleAccount(updatedAccountData.data);
     } catch (err) {
       const message = getErrorMessage({err});

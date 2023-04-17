@@ -1,12 +1,15 @@
+import {availablePermissions, Permission, PermissionMap} from 'kl-web-common/models/api/account/permission';
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
+
 import styles from './main.module.scss';
 import {AccountFilterConditions} from './type';
 import {AccountData} from '../../../../../types/admin';
-import {availablePermissions, Permission, PermissionMap} from '../../../../../types/auth/user';
-import {ISOTimestampWithTimezone} from '../../../../../types/time';
 
 
 export const isExpired = (expiry: Date | ISOTimestampWithTimezone | null): boolean => {
   if (expiry) {
+    // `expiry` can be string for sure (check typing definition)
+    // noinspection SuspiciousTypeOfGuard
     if (typeof expiry === 'string') {
       return new Date() > new Date(expiry);
     }

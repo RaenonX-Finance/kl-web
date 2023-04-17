@@ -9,7 +9,7 @@ import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {GeneralPath} from '../../../../const/path';
-import {apiSignupUser} from '../../../../utils/api/auth';
+import {apiSignupUser} from '../../../../utils/api/account/auth';
 import {getErrorFromResponse} from '../../common/utils';
 
 
@@ -89,7 +89,9 @@ export const AuthSignupForm = () => {
         feedbackOnInvalid="密碼不相符。"
       />
       <Button className="w-100" variant="info" disabled={signupDisabled} type="submit">
-        <TextWithLoading show={disabled} text="註冊"/>
+        <TextWithLoading show={disabled}>
+          註冊
+        </TextWithLoading>
       </Button>
     </AjaxForm>
   );

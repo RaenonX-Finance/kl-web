@@ -1,5 +1,5 @@
+import {PxCandleDirection} from 'kl-web-common/models/api/px/pxDataBar';
 import {PxEmaPeriodPair} from 'kl-web-common/models/config/emaPair';
-import {PxCandleDirection} from 'kl-web-common/models/pxDataBar';
 import {LineStyle} from 'lightweight-charts';
 
 import {ExtremaCommonOptions, SrLevelCommonOptions} from './type';
@@ -32,18 +32,16 @@ export const emaLineColors: {[key in keyof PxEmaPeriodPair]: string} = {
   slow: bearColor,
 };
 
-export const srLevelBasicColor = '#cacaca';
-
-export const srLevelGroupColors = [
+export const srLevelColors = [
   '#f23645',
-  '#f5d52f',
+  '#deb900',
   '#ad49c0',
   '#3aa13e',
   '#1ca8b6',
 ];
 
-export const getSrLevelGroupColor = (idx: number): string => {
-  return srLevelGroupColors[idx % srLevelGroupColors.length];
+export const getSrLevelColor = (idx: number): string => {
+  return srLevelColors[idx % srLevelColors.length];
 };
 
 export const srLevelCommonOptions: SrLevelCommonOptions = {
@@ -51,11 +49,6 @@ export const srLevelCommonOptions: SrLevelCommonOptions = {
   lineStyle: LineStyle.Solid,
   lineWidth: 1,
   lineVisible: true,
-};
-
-export const srLevelBasicCommonOptions: SrLevelCommonOptions = {
-  ...srLevelCommonOptions,
-  lineStyle: LineStyle.Dashed,
 };
 
 export const tiePointLabel = 'L/S';

@@ -2,6 +2,7 @@ import React from 'react';
 
 import {render} from '@testing-library/react';
 import {renderHook} from '@testing-library/react-hooks';
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
 import {Session} from 'next-auth';
 import {SessionProvider} from 'next-auth/react';
 
@@ -24,7 +25,7 @@ const RenderWrapper = ({store, options, children}: React.PropsWithChildren<Wrapp
       username: 'username',
       email: 'email@example.com',
       isAdmin: false,
-      expiry: new Date(),
+      expiry: new Date().toISOString() as ISOTimestampWithTimezone,
       permissions: ['chart:view'],
       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
         'eyJzdWIiOiJ0ZXN0IiwiZXhwIjo5OTk5OTk5OTk5fQ.' +

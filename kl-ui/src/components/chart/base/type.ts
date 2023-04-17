@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {IChartApi} from 'lightweight-charts';
+import {User} from 'next-auth';
 
 
 export type ChartSetState<T> = (updateFunc: (prevLegend: T) => T) => void;
@@ -17,10 +18,10 @@ export type ChartCalcObjects<T, L> = ChartStatefulObjects<
   ChartInitCalcObject<T, L>
 >;
 
-export type ChartRenderObject<T, D> = (chartData: T, object: D) => React.ReactNode;
+export type ChartRenderObject<D> = (object: D) => React.ReactNode;
 
-export type ChartRenderObjects<T, L> = {
-  legend: ChartRenderObject<T, L>,
+export type ChartRenderObjects<L> = {
+  legend: ChartRenderObject<L>,
 };
 
 export type ChartObjectRef<T> = {
@@ -54,6 +55,7 @@ export type OnChartChangedEventCommon<T, R, L, A> = {
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
   setObject: ChartSetStateObjects<L>,
   layoutConfig: A,
+  user: User | undefined,
 };
 
 export type OnChartInitEvent<T, R, L, A, P = {}> =

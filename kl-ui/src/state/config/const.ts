@@ -8,17 +8,13 @@ export const defaultLayoutConfig: PxLayoutConfigSingle = {
   emaNetLabel: false,
   emaStrongSrLabel: false,
   srLevelLabel: true,
-  srLevelBasicLabel: true,
   candlestickColor: false,
   tiePoint: false,
   emaNet: false,
   emaStrongSr: false,
   srLevel: false,
-  srLevelBasic: false,
   inChartExtrema: true,
   inChartExtremaLabel: true,
 };
 
-export const defaultSharedConfig: PxSharedConfig = {
-  intervalMarketPxSec: 0.25,
-};
+export const defaultSharedConfig: PxSharedConfig = {};

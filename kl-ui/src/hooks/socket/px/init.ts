@@ -8,20 +8,23 @@ import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
 import {useDispatch} from '../../../state/store';
-import {apiInitPxData} from '../../../utils/api/px';
+import {apiInitPxData} from '../../../utils/api/px/data';
 import {useHandleAxiosError} from '../../axios';
 
 
-export const usePxInitHandler = () => {
+type UsePxInitHandlerReturn = {
+  init: () => void,
+};
+
+export const usePxInitHandler = (): UsePxInitHandlerReturn => {
   const {data} = useSession();
   const layoutType = useLayoutTypeConfigSelector();
   const slotMap = usePxSlotMap();
   const dispatch = useDispatch();
   const {onError} = useHandleAxiosError();
-  const token = data?.user?.token;
+  const token = data?.user.token;
 
-  // Hooks
-  React.useEffect(() => {
+  const init = React.useCallback(() => {
     if (!layoutType || !slotMap) {
       return;
     }
@@ -31,10 +34,22 @@ export const usePxInitHandler = () => {
 
     apiInitPxData({
       token,
-      requests: (getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) || Object.values(slotMap))
+      requests: [
+        ...new Set(
+          getValidSlotNames(layoutType)?.map((slotName) => slotMap[slotName]) ||
+          Object.values(slotMap),
+        ),
+      ]
         .map((identifier) => ({identifier})),
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
       .catch(onError);
+  }, [layoutType, slotMap, token]);
+
+  // Hooks
+  React.useEffect(() => {
+    init();
   }, [layoutType]);
+
+  return {init};
 };

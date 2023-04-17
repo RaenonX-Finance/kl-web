@@ -1,15 +1,22 @@
-import {ApiPath} from 'kl-web-common/enums/endpoints';
-import {AppInitData, AppInitDataSchema, AppInitRequest} from 'kl-web-common/models/appInit';
+import {PxApiPath} from 'kl-web-common/enums/endpoints';
+import {
+  AppInitData,
+  AppInitDataSchema,
+  AppInitRequest,
+  AppInitRequestSchema,
+} from 'kl-web-common/models/api/px/appInit';
 
 import {RestApiServer} from '../../const';
 import {getConfig} from '../../controllers/mongo/cached/pxConfig';
+import {getSourceInfo} from '../../controllers/mongo/cached/sourceInfo';
 
 
 export const restAddInitAppRequestHandler = () => {
   RestApiServer.post<{Body: AppInitRequest, Reply: AppInitData}>(
-    ApiPath.AppInit,
+    PxApiPath.AppInit,
     {
       schema: {
+        body: AppInitRequestSchema,
         response: {
           200: AppInitDataSchema,
         },
@@ -19,9 +26,13 @@ export const restAddInitAppRequestHandler = () => {
       const {sources, periods} = getConfig();
 
       return {
-        products: sources
+        products: Object.values(sources)
           .filter(({enabled}) => enabled)
-          .map(({internalSymbol, name}) => ({symbol: internalSymbol, name})),
+          .map(({internalSymbol, name}) => ({
+            symbol: internalSymbol,
+            name,
+            sourceInfo: getSourceInfo(internalSymbol),
+          })),
         periods: periods.map(({name, periodMin}) => ({name, min: periodMin})),
       };
     },

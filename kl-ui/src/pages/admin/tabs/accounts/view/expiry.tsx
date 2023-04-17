@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {format} from 'date-fns';
+import format from 'date-fns/format';
+import {ISODateString, ISOTimestampWithTimezone} from 'kl-web-common/types/time';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 import {AccountCellUpdatableProps} from './type';
-import {ISODateString, ISOTimestampWithTimezone} from '../../../../../types/time';
-import {apiUpdateExpiry} from '../../../../../utils/api/admin';
+import {apiUpdateExpiry} from '../../../../../utils/api/account/admin';
 import {isAllowed} from '../../../../../utils/permission';
 import {useUpdateAccountData} from '../hook';
 

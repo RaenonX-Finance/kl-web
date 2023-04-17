@@ -1,5 +1,5 @@
 {
-  "name": "kl-site-web",
+  "name": "kl-web",
   "version": "1.0.0",
   "private": true,
   "author": "RaenonX",
@@ -11,6 +11,8 @@
   },
   "workspaces":[
     "kl-api-px",
+    "kl-api-common",
+    "kl-api-info",
     "kl-ui",
     "kl-web-common"
   ],

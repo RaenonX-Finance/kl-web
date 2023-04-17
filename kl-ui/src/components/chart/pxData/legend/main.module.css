@@ -1,7 +1,7 @@
 div.data-cell,
 span.data-cell {
   display: inline;
-  padding: 0.1rem 0.75rem 0.1rem 0;
+  padding: 0.1rem 0.35rem;
   white-space: nowrap;
 }
 div.legend,
@@ -29,13 +29,8 @@ div.price-lg,
 span.price-lg {
   font-size: 1.2rem;
 }
-div.title,
-span.title {
-  font-size: 1.2rem;
-}
 div.tie-point,
 span.tie-point {
-  align-self: end;
   color: #ff9141;
 }
 div.momentum-indicator,
@@ -44,28 +39,16 @@ span.momentum-indicator {
   align-items: center;
   justify-content: center;
   font-weight: 900;
+  font-size: 2.2rem;
   text-align: center;
-  width: 3.5rem;
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
-  /* False-negative Kebab case: https://github.com/stylelint/stylelint/issues/5997 */
+  width: 2.5rem;
 }
-@keyframes momentum-indicator-bull-animation { /* stylelint-disable-line keyframes-name-pattern */
+@keyframes momentum-indicator-bull-animation {
   0% {
-    color: #f9b8c0;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #f9b8c0;
-  }
-  75% {
-    color: transparent;
+    background-color: #ed213a;
   }
   100% {
-    color: #f9b8c0;
+    background-color: transparent;
   }
 }
 div.momentum-indicator.momentum-indicator-bull,
@@ -74,23 +57,18 @@ span.momentum-indicator.momentum-indicator-bull {
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #ed213a;
   color: #f9b8c0;
-  animation: 750ms momentum-indicator-bull-animation;
 }
-@keyframes momentum-indicator-neutral-animation { /* stylelint-disable-line keyframes-name-pattern */
+div.momentum-indicator.momentum-indicator-bull > span,
+span.momentum-indicator.momentum-indicator-bull > span {
+  width: 100%;
+  animation: ease-out 500ms momentum-indicator-bull-animation;
+}
+@keyframes momentum-indicator-neutral-animation {
   0% {
-    color: #d7d7d7;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #d7d7d7;
-  }
-  75% {
-    color: transparent;
+    background-color: #d7d7d7;
   }
   100% {
-    color: #d7d7d7;
+    background-color: transparent;
   }
 }
 div.momentum-indicator.momentum-indicator-neutral,
@@ -99,23 +77,18 @@ span.momentum-indicator.momentum-indicator-neutral {
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #d7d7d7;
   color: #d7d7d7;
-  animation: 750ms momentum-indicator-neutral-animation;
 }
-@keyframes momentum-indicator-bear-animation { /* stylelint-disable-line keyframes-name-pattern */
+div.momentum-indicator.momentum-indicator-neutral > span,
+span.momentum-indicator.momentum-indicator-neutral > span {
+  width: 100%;
+  animation: ease-out 500ms momentum-indicator-neutral-animation;
+}
+@keyframes momentum-indicator-bear-animation {
   0% {
-    color: #b3ffd9;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #b3ffd9;
-  }
-  75% {
-    color: transparent;
+    background-color: #00e071;
   }
   100% {
-    color: #b3ffd9;
+    background-color: transparent;
   }
 }
 div.momentum-indicator.momentum-indicator-bear,
@@ -124,23 +97,18 @@ span.momentum-indicator.momentum-indicator-bear {
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #00e071;
   color: #b3ffd9;
-  animation: 750ms momentum-indicator-bear-animation;
 }
-@keyframes momentum-indicator-na-animation { /* stylelint-disable-line keyframes-name-pattern */
+div.momentum-indicator.momentum-indicator-bear > span,
+span.momentum-indicator.momentum-indicator-bear > span {
+  width: 100%;
+  animation: ease-out 500ms momentum-indicator-bear-animation;
+}
+@keyframes momentum-indicator-na-animation {
   0% {
-    color: #d7d7d7;
-  }
-  25% {
-    color: transparent;
-  }
-  50% {
-    color: #d7d7d7;
-  }
-  75% {
-    color: transparent;
+    background-color: #d7d7d7;
   }
   100% {
-    color: #d7d7d7;
+    background-color: transparent;
   }
 }
 div.momentum-indicator.momentum-indicator-na,
@@ -149,7 +117,11 @@ span.momentum-indicator.momentum-indicator-na {
   border-radius: 0.5rem;
   box-shadow: inset 0 0 1.25rem #d7d7d7;
   color: #d7d7d7;
-  animation: 750ms momentum-indicator-na-animation;
+}
+div.momentum-indicator.momentum-indicator-na > span,
+span.momentum-indicator.momentum-indicator-na > span {
+  width: 100%;
+  animation: ease-out 500ms momentum-indicator-na-animation;
 }
 
 /*# sourceMappingURL=main.module.css.map */

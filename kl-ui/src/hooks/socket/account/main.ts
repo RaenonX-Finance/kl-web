@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {useSession} from 'next-auth/react';
-import {Socket} from 'socket.io-client';
 
 import {useAuthHandler} from './auth';
 import {AccountSocket} from './type';
@@ -11,9 +10,9 @@ import {errorDispatchers} from '../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../state/error/types';
 import {useDispatch} from '../../../state/store';
 import {InitAccountData} from '../../../types/init';
-import {getErrorMessage} from '../../../utils/error';
 import {generateAccountSocketClient} from '../../../utils/socket';
 import {useNextAuthCall} from '../../auth';
+import {useCommonSocketEventHandlers} from '../common/event/main';
 
 
 export const useAccountSocket = (): AccountSocket | undefined => {
@@ -22,44 +21,30 @@ export const useAccountSocket = (): AccountSocket | undefined => {
   const dispatch = useDispatch();
   const {signIn} = useNextAuthCall();
   useAuthHandler({socket});
-
-  // System events
-  const onConnectionError = (err: Error) => {
-    console.error(err);
-    dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
-      message: `帳號管理 Socket 連線錯誤: ${getErrorMessage({err})}`,
-    }));
-  };
-  const onDisconnect = (reason: Socket.DisconnectReason) => {
-    if (reason === 'io server disconnect') {
-      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: '連線已中斷。請檢查帳戶是否多開。'}));
-    } else {
-      dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message: reason}));
-    }
-  };
+  useCommonSocketEventHandlers({
+    name: '帳號管理',
+    socket,
+  });
 
   // Custom events
-  const onInit = (initData: InitAccountData) => {
+  const onInit = React.useCallback((initData: InitAccountData) => {
     if (!session || !!session.error) {
       return;
     }
 
     dispatch(mergedDispatchers[MergedDispatcherName.INIT_ACCOUNT](initData));
-  };
-  const onError = (message: string) => {
+  }, [session]);
+
+  const onError = React.useCallback((message: string) => {
     dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({message}));
 
     // Trigger `next-auth.signIn()` to recheck user auth validity
     signIn();
-  };
+  }, []);
 
   // Hooks
   React.useEffect(() => {
     const socket = generateAccountSocketClient();
-
-    // System events
-    socket.on('connect_error', onConnectionError);
-    socket.on('disconnect', onDisconnect);
 
     // Custom events
     socket.on('init', onInit);
@@ -70,9 +55,6 @@ export const useAccountSocket = (): AccountSocket | undefined => {
     setSocket(socket);
 
     return () => {
-      socket.off('connect_error', onConnectionError);
-      socket.off('disconnect', onDisconnect);
-
       socket.off('init', onInit);
       socket.off('error', onError);
 

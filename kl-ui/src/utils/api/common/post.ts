@@ -17,7 +17,7 @@ type ApiPostOpts = {
   data: URLSearchParams,
 });
 
-export const dataApiPost = <R>(opts: ApiPostOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+export const pxApiPost = <R>(opts: ApiPostOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
   return apiPost({
     apiUrl: process.env.NEXT_PUBLIC_PX_API_URL,
     ...opts,

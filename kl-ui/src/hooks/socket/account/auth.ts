@@ -35,7 +35,7 @@ export const useAuthHandler = ({socket}: UsePxInitHandlerOpts) => {
     socket.on('auth', clearTimeout);
 
     intervalId.current = window.setInterval(() => {
-      socket.emit('auth', {token: data?.user?.token});
+      socket.emit('auth', {token: data?.user.token});
 
       timeoutId.current = window.setTimeout(() => {
         console.log('Auth poll failed, redirecting to sign in page');

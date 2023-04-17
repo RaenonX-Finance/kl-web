@@ -26,7 +26,7 @@ export const customOAuthBackend: OAuthConfig<UserModelOriginal> = {
     username: profile.username,
     email: profile.email,
     isAdmin: profile.admin,
-    expiry: profile.expiry && new Date(profile.expiry),
+    expiry: profile.expiry,
     permissions: profile.permissions,
     token: tokens.access_token,
   }),
@@ -45,9 +45,7 @@ export default NextAuth({
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  jwt: {
-    secret: env.get('NEXTAUTH_SECRET').required().asString(),
-  },
+  secret: env.get('NEXTAUTH_SECRET').required().asString(),
   // UI customizations
   pages: {
     signIn: AuthPath.LOGIN_REDIRECT,

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import {Permission} from 'kl-web-common/models/api/account/permission';
 import Alert from 'react-bootstrap/Alert';
-
-import {Permission} from '../../../types/auth/user';
 
 
 type Props = {

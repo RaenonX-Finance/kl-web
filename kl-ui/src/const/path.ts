@@ -1,6 +1,10 @@
 export enum GeneralPath {
   CHART = '/',
-  ACCOUNT_INFO = '/info',
+  ACCOUNT_INFO = '/account/info',
+}
+
+export enum SmcAnalysisPath {
+  OPTIONS_OI = '/smc/options-oi',
 }
 
 export enum AdminPath {
@@ -17,12 +21,12 @@ export enum AuthPath {
 
 export type PagePathAdminOnly = AdminPath;
 
-export type PagePathNormal = GeneralPath;
+export type PagePathNormal = GeneralPath | SmcAnalysisPath;
 
 export type PagePath = PagePathNormal | PagePathAdminOnly | AuthPath;
 
 export const allPaths = ([] as Array<PagePath>).concat(
-  ...[GeneralPath, AdminPath, AuthPath].map(
+  ...[GeneralPath, SmcAnalysisPath, AdminPath, AuthPath].map(
     (paths) => Object.values(paths),
   ),
 );

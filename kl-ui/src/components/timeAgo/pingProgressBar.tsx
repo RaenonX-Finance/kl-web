@@ -18,7 +18,9 @@ export const SocketPingProgressBar = ({pingCount, pingCountMax}: Props) => {
     <>
       <Row className="text-center mb-2">
         <Col>
-          <TextWithLoading show={pingCount !== pingCountMax} text={getProgressText(pingCount, pingCountMax)}/>
+          <TextWithLoading show={pingCount !== pingCountMax}>
+            {getProgressText(pingCount, pingCountMax)}
+          </TextWithLoading>
         </Col>
       </Row>
       <Row>

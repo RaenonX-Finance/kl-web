@@ -1,14 +1,13 @@
-import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
+import {PxMomentumIndex} from 'kl-web-common/models/api/px/pxDataBar';
 
-import {Logger, RedisLastPx} from '../../const';
+import {RedisLastPx} from '../../const';
 
 
-export const getMomentum = async (symbol: string): Promise<PxMomentumIndex> => {
-  const momentumString = await RedisLastPx.get(`${symbol}:Momentum`);
+export const getMomentum = async (symbol: string): Promise<PxMomentumIndex | null> => {
+  const momentumString = await RedisLastPx.get(`Momentum:${symbol}`);
 
   if (!momentumString) {
-    Logger.error({symbol}, 'Momentum of symbol [%s] is unavailable', symbol);
-    throw new Error(`Momentum of symbol [${symbol}] is unavailable`);
+    return null;
   }
 
   return parseInt(momentumString) as PxMomentumIndex;

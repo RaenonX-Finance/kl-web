@@ -1,11 +1,11 @@
 apps:
-  - namespace: 'KL'
+  - namespace: 'KL.Web'
     name: 'KL.Api.Px'
     # Entry point
     script: './dist/main.js'
     # Execution configs
     exec_mode: 'cluster'
-    instances: 3
+    instances: max
     # Environments
     env:
       NODE_ENV: 'production'
@@ -14,5 +14,4 @@ apps:
     max_restarts: 5
     restart_delay: 10000
     # Others
-    cron_restart: '0 0 */3 * *'  # Restart every 3 days
     time: true  # Log timestamp in logs

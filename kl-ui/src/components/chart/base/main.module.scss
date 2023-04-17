@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../../../styles/colors";
 
 @mixin overlay {
@@ -6,21 +7,13 @@
 }
 
 div {
-  &.chart {
-    position: relative;
-    height: 100%;
-  }
-
   &.legend {
     @include overlay;
-
-    width: calc(100% - 5rem);
   }
 
   &.toolbar {
     @include overlay;
 
-    width: 100%;
     bottom: 2rem;
     margin: 0.5rem;
   }
@@ -28,7 +21,6 @@ div {
   &.status {
     @include overlay;
 
-    width: 100%;
     bottom: 0.1rem;
     right: 0.2rem;
   }
@@ -49,6 +41,7 @@ span.update-animation {
 
   background-color: colors.$color-chart-status-bg;
   border: 1px solid $update-theme;
+  color: color.change($update-theme, $lightness: 90%);
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;

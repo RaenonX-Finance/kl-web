@@ -1,6 +1,7 @@
+import {PermissionMap} from 'kl-web-common/models/api/account/permission';
+import {ISODateString} from 'kl-web-common/types/time';
+
 import {AccountData} from '../../../../../types/admin';
-import {PermissionMap} from '../../../../../types/auth/user';
-import {ISODateString} from '../../../../../types/time';
 
 
 export type UpdateSingleAccount = (account: AccountData) => void;

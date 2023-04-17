@@ -3,7 +3,7 @@ import React from 'react';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
-import {apiUpdateBlocked} from '../../../../../../utils/api/admin';
+import {apiUpdateBlocked} from '../../../../../../utils/api/account/admin';
 import {isAllowed} from '../../../../../../utils/permission';
 import {useUpdateAccountData} from '../../hook';
 import {AccountCellUpdatableProps} from '../type';

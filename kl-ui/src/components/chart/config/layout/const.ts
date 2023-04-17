@@ -1,10 +1,5 @@
-import {PxLayoutConfigKeys, PxLayoutConfigUI} from './type';
+import {PxLayoutConfigUI} from './type';
 
-
-export const configKeysToHideOfSecurity: {[security in string]?: PxLayoutConfigKeys[]} = {
-  'NQ': ['srLevelBasic', 'srLevelBasicLabel'],
-  'YM': ['srLevelBasic', 'srLevelBasicLabel'],
-};
 
 export const layoutConfigEntries: PxLayoutConfigUI = {
   currentPxLine: {
@@ -35,10 +30,6 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
     title: '黃金撐壓線',
     group: '指標',
   },
-  srLevelBasic: {
-    title: '基礎撐壓線',
-    group: '指標',
-  },
   tiePointLabel: {
     title: '多空線',
     group: '標籤',
@@ -48,21 +39,19 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
     title: '趨勢濾網',
     group: '標籤',
     isDisabled: ({emaNet}) => !emaNet,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   emaStrongSrLabel: {
     title: '趨勢控盤',
     group: '標籤',
     isDisabled: ({emaStrongSr}) => !emaStrongSr,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   srLevelLabel: {
     title: '黃金撐壓線',
     group: '標籤',
     isDisabled: ({srLevel}) => !srLevel,
-  },
-  srLevelBasicLabel: {
-    title: '基礎撐壓線',
-    group: '標籤',
-    isDisabled: ({srLevelBasic}) => !srLevelBasic,
+    isHidden: (user) => !user || !user.isAdmin,
   },
   inChartExtremaLabel: {
     title: '圖內高低點',

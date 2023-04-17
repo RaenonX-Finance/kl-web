@@ -1,9 +1,9 @@
-import {SourceInfoModel} from 'kl-web-common/models/sourceInfo';
+import {SourceInfo} from 'kl-web-common/models/api/px/sourceInfo';
 
 import {pxInfo} from '../const';
 
 
-const sourceInfoCache: {[internalSymbol in string]?: SourceInfoModel} = {};
+const sourceInfoCache: {[internalSymbol in string]?: SourceInfo} = {};
 
 
 export const initSourceInfoCache = async () => {
@@ -12,7 +12,7 @@ export const initSourceInfoCache = async () => {
   });
 };
 
-export const getSourceInfo = (symbol: string): SourceInfoModel => {
+export const getSourceInfo = (symbol: string): SourceInfo => {
   const ret = sourceInfoCache[symbol];
 
   if (!ret) {

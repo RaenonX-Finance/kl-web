@@ -13,6 +13,12 @@ export const chartOptions: DeepPartial<ChartOptions> = {
   },
   crosshair: {
     mode: CrosshairMode.Normal,
+    horzLine: {
+      labelBackgroundColor: 'rgb(60, 63, 77)',
+    },
+    vertLine: {
+      labelBackgroundColor: 'rgb(60, 63, 77)',
+    },
   },
   grid: {
     vertLines: {color: 'rgba(77, 77, 77, 0.5)'},
@@ -24,5 +30,8 @@ export const chartOptions: DeepPartial<ChartOptions> = {
   timeScale: {
     timeVisible: true,
     rightOffset: 12,
+  },
+  handleScale: {
+    axisDoubleClickReset: true,
   },
 };

@@ -56,7 +56,6 @@ class NextDocument extends Document<Props> {
             <script async type="text/javascript" src="/js/newRelicBrowser.Prod.js"/> :
             <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
           }
-          <script async type="text/javascript" src="/js/newRelicBrowser.Dev.js"/>
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{__html: this.props.browserTimingHeader}}
@@ -64,7 +63,7 @@ class NextDocument extends Document<Props> {
 
           {/* NOTE: Bootstrap CSS already imported via `bootstrap.css` in `_app.tsx` */}
           {/* Bootstrap Icons */}
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"/>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"/>
         </Head>
         <body>
           <Main/>

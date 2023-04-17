@@ -42,4 +42,4 @@ yarn-error.log*
 .idea/
 
 # Exclusions
-!kl-api-px/src/init/rest/build
+!kl-api-common/init/rest/build

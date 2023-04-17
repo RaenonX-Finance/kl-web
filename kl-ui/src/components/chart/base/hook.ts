@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {createChart, IChartApi} from 'lightweight-charts';
+import {useSession} from 'next-auth/react';
 
 import {chartOptions} from './options';
 import {ChartObjectRef, UseChartPayload, UseChartReturn} from './type';
@@ -12,6 +13,7 @@ export const useTradingViewChart = <T, R, L, A, P>({
   width,
   height,
 }: UseChartPayload<T, R, L, A, P>): UseChartReturn<T, R, L, A, P> => {
+  const {data} = useSession();
   const chartRef = React.useRef<IChartApi>();
   const chartObjectRef = React.useRef<ChartObjectRef<R>>();
 
@@ -26,7 +28,7 @@ export const useTradingViewChart = <T, R, L, A, P>({
 
     chartObjectRef.current = {
       chartContainer,
-      initData: initChart({chartRef, chartObjectRef, ...payload}),
+      initData: initChart({chartRef, chartObjectRef, user: data?.user, ...payload}),
     };
   };
 

@@ -9,7 +9,7 @@ import {ErrorDispatcherName} from '../../../../state/error/types';
 import {useDispatch} from '../../../../state/store';
 import {FuturesMarketClosedSession} from '../../../../types/admin';
 import {DatetimeLocalValue} from '../../../../types/misc';
-import {apiCreateMarketClosedSession} from '../../../../utils/api/admin';
+import {apiCreateMarketClosedSession} from '../../../../utils/api/account/admin';
 import {getErrorMessage} from '../../../../utils/error';
 import {getLocalTimezone} from '../../../../utils/time';
 

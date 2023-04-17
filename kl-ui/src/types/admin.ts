@@ -1,5 +1,5 @@
-import {Permission} from './auth/user';
-import {ISOTimestampWithTimezone} from './time';
+import {Permission} from 'kl-web-common/models/api/account/permission';
+import {ISOTimestampWithTimezone} from 'kl-web-common/types/time';
 
 
 export type AccountData = {

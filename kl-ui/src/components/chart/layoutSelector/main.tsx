@@ -54,10 +54,10 @@ export const ChartLayoutSelector = ({onSelect}: Props) => {
             icons={[
               () => <LayoutIcon3of1x3 onClick={onSelect}/>,
               () => <LayoutIcon3of3x1 onClick={onSelect}/>,
+              () => <LayoutIcon3ofTF onClick={onSelect}/>,
+              () => <LayoutIcon3ofRF onClick={onSelect}/>,
               () => <LayoutIcon3ofBF onClick={onSelect}/>,
               () => <LayoutIcon3ofLF onClick={onSelect}/>,
-              () => <LayoutIcon3ofRF onClick={onSelect}/>,
-              () => <LayoutIcon3ofTF onClick={onSelect}/>,
             ]}
           />
           <ChartLayoutOptions
@@ -66,14 +66,14 @@ export const ChartLayoutSelector = ({onSelect}: Props) => {
               () => <LayoutIcon4of1x4 onClick={onSelect}/>,
               () => <LayoutIcon4of2x2 onClick={onSelect}/>,
               () => <LayoutIcon4of4x1 onClick={onSelect}/>,
-              () => <LayoutIcon4ofB2 onClick={onSelect}/>,
-              () => <LayoutIcon4ofBF onClick={onSelect}/>,
-              () => <LayoutIcon4ofL2 onClick={onSelect}/>,
-              () => <LayoutIcon4ofLF onClick={onSelect}/>,
-              () => <LayoutIcon4ofR2 onClick={onSelect}/>,
-              () => <LayoutIcon4ofRF onClick={onSelect}/>,
-              () => <LayoutIcon4ofT2 onClick={onSelect}/>,
               () => <LayoutIcon4ofTF onClick={onSelect}/>,
+              () => <LayoutIcon4ofRF onClick={onSelect}/>,
+              () => <LayoutIcon4ofBF onClick={onSelect}/>,
+              () => <LayoutIcon4ofLF onClick={onSelect}/>,
+              () => <LayoutIcon4ofT2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofR2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofB2 onClick={onSelect}/>,
+              () => <LayoutIcon4ofL2 onClick={onSelect}/>,
             ]}
           />
         </>

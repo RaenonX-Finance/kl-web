@@ -1,13 +1,13 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {PxHistory} from 'kl-web-common/models/pxHistory';
-import {PxInit} from 'kl-web-common/models/pxInit';
-import {PxMarket} from 'kl-web-common/models/pxMarket';
+import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
+import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
+import {PxMarket} from 'kl-web-common/models/api/px/pxMarket';
 
 import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
-import {generateInitialSlotMap, isMarketPxUpdateOk} from './utils';
+import {generateInitialSlotMap} from './utils';
 import {PxDataMap, PxSlotName} from '../../types/pxData';
-import {updatePxDataBar} from '../../utils/calc';
 import {overrideObject} from '../../utils/override';
+import {updatePxDataBar} from '../../utils/px';
 import {updateCurrentPxDataTitle} from '../../utils/title';
 import {createConfigAsyncThunk, getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
@@ -15,7 +15,7 @@ import {onAsyncThunkError} from '../utils';
 
 
 export const pxDataDispatchers = {
-  [PxDataDispatcherName.INIT]: createAction<PxInit>(PxDataDispatcherName.INIT),
+  [PxDataDispatcherName.INIT]: createAction<PxInitApi>(PxDataDispatcherName.INIT),
   [PxDataDispatcherName.UPDATE_COMPLETE]: createAsyncThunk<
     PxHistory,
     PxHistory,
@@ -45,7 +45,7 @@ export const pxDataDispatchers = {
   >(
     PxDataDispatcherName.UPDATE_MARKET,
     async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
-      const {config, data, pxData} = getState();
+      const {config, pxData} = getState();
       const {sharedConfig} = config;
 
       if (!sharedConfig) {
@@ -63,6 +63,7 @@ export const pxDataDispatchers = {
         C: null,
         D: null,
       };
+      let updatedAny = false;
 
       for (const slotStr of Object.keys(pxData.data)) {
         const slot = slotStr as PxSlotName;
@@ -71,22 +72,16 @@ export const pxDataDispatchers = {
         const latestMarket = pxDataInSlot ? payload[pxDataInSlot.contract.symbol] : undefined;
 
         if (!pxDataInSlot) {
-          pxDataMap[slot] = null;
+          // `pxData` in `pxDataMap` is falsy - keep it as is and continue processing the next
+          pxDataMap[slot] = pxDataInSlot;
           continue;
         }
 
         if (
-          // Check if the `pxData` is potentially update-able
+          // Check if the `pxData` can be updated
           !latestMarket ||
           // Check if the `pxData` in slot is has the matching security symbol
-          !payload.hasOwnProperty(pxDataInSlot.contract.symbol) ||
-          // Check if it's OK to update
-          !isMarketPxUpdateOk({
-            sharedConfig,
-            lastUpdated: data.lastPxUpdate[pxDataInSlot.contract.symbol],
-            lastBar,
-            last: latestMarket.c,
-          })
+          !payload.hasOwnProperty(pxDataInSlot.contract.symbol)
         ) {
           pxDataMap[slot] = {...pxDataInSlot};
           continue;
@@ -94,7 +89,7 @@ export const pxDataDispatchers = {
         if (!lastBar) {
           return onAsyncThunkError({
             message: (
-              `Last data of the PxData ${pxDataInSlot.contract.symbol} @ ${pxDataInSlot.periodSec / 60} undefined.`
+              `Last data of the PxData ${pxDataInSlot.contract.symbol} @ ${pxDataInSlot.periodSec / 60} undefined`
             ),
             data: pxDataInSlot,
             rejectWithValue,
@@ -102,11 +97,16 @@ export const pxDataDispatchers = {
           });
         }
 
+        updatedAny = true;
         pxDataMap[slot] = {
           ...pxDataInSlot,
           data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.c)]),
           latestMarket,
         };
+      }
+
+      if (!updatedAny) {
+        return rejectWithValue('Nothing new from market updated');
       }
 
       updateCurrentPxDataTitle(pxData.data);
@@ -127,4 +127,5 @@ export const pxDataDispatchers = {
     ),
     getPayload: ({slot}) => slot,
   }),
+  [PxDataDispatcherName.CLEAR_SR_LEVELS]: createAction<string[]>(PxDataDispatcherName.CLEAR_SR_LEVELS),
 };

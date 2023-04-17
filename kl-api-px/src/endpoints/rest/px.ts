@@ -1,6 +1,6 @@
-import {ApiPath} from 'kl-web-common/enums/endpoints';
-import {PxHistory, PxHistorySchema} from 'kl-web-common/models/pxHistory';
-import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/pxRequest';
+import {PxApiPath} from 'kl-web-common/enums/endpoints';
+import {PxHistory, PxHistorySchema} from 'kl-web-common/models/api/px/pxHistory';
+import {PxRequestBodyModel, PxRequestBodySchema} from 'kl-web-common/models/api/px/pxRequest';
 
 import {RestApiServer} from '../../const';
 import {getCalculatedPx} from '../../controllers/mongo/pxCalc';
@@ -8,7 +8,7 @@ import {getCalculatedPx} from '../../controllers/mongo/pxCalc';
 
 export const restAddPxRequestHandler = () => {
   RestApiServer.post<{Body: PxRequestBodyModel, Reply: PxHistory}>(
-    ApiPath.PxRequest,
+    PxApiPath.PxRequest,
     {
       schema: {
         body: PxRequestBodySchema,

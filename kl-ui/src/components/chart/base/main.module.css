@@ -1,23 +1,16 @@
-div.chart {
-  position: relative;
-  height: 100%;
-}
 div.legend {
   position: absolute;
   z-index: 1000;
-  width: calc(100% - 5rem);
 }
 div.toolbar {
   position: absolute;
   z-index: 1000;
-  width: 100%;
   bottom: 2rem;
   margin: 0.5rem;
 }
 div.status {
   position: absolute;
   z-index: 1000;
-  width: 100%;
   bottom: 0.1rem;
   right: 0.2rem;
 }
@@ -25,6 +18,7 @@ div.status {
 span.update-animation {
   background-color: rgba(5, 5, 5, 0.77);
   border: 1px solid #325bc2;
+  color: #d6dff5;
   cursor: pointer;
   padding: 0 0.5rem;
   border-radius: 0.5rem;

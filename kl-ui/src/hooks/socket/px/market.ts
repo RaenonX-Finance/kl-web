@@ -4,15 +4,16 @@ import {MarketPxSubscriptionData} from 'kl-web-common/models/socket/marketData';
 import {useSession} from 'next-auth/react';
 
 import {PxDataSocket} from './type';
-import {PxDataSubscriptionInfo} from '../../../state/pxData/types';
+import {usePxDataSubscriptionInfoSelector} from '../../../state/pxData/selector';
 
 
-type UseMarketPxUpdateHandlerOpts = PxDataSubscriptionInfo & {
+type UseMarketPxUpdateHandlerOpts = {
   socket: PxDataSocket | undefined,
 };
 
-export const useMarketPxUpdateHandler = ({socket, identifiers}: UseMarketPxUpdateHandlerOpts) => {
+export const useMarketPxUpdateHandler = ({socket}: UseMarketPxUpdateHandlerOpts) => {
   const {data} = useSession();
+  const {identifiers} = usePxDataSubscriptionInfoSelector();
 
   React.useEffect(() => {
     const token = data?.user.token;

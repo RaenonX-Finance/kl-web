@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {AccountSocketContext} from '../../hooks/socket/account/const';
+import {PingableSocket} from '../../types/socket/pingable';
 
 
 type UsePingSocketOptions = {
+  socket: PingableSocket | undefined,
   count: number,
 };
 
@@ -15,9 +16,7 @@ type UsePingSocketReturn = {
   setInUse: (inUse: boolean) => void,
 };
 
-export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketReturn => {
-  // DEFAT: Add ping for px server also
-  const socket = React.useContext(AccountSocketContext);
+export const usePingSocket = ({socket, count}: UsePingSocketOptions): UsePingSocketReturn => {
   const [inUse, setInUse] = React.useState(false);
   const pingCountInternal = React.useRef(0);
   // Use state to intentionally trigger re-render on complete
@@ -44,9 +43,11 @@ export const usePingSocket = ({count}: UsePingSocketOptions): UsePingSocketRetur
     // This needs to place before `ping()` because `pingStart` resets in `ping()`
     pingDuration.current.push(Date.now() - pingStart.current);
 
-    if (pingCountInternal.current < count) {
-      ping();
+    if (pingCountInternal.current >= count) {
+      return;
     }
+
+    window.setTimeout(ping, 500);
   };
 
   const ping = () => {

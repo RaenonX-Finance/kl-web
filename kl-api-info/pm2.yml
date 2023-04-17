@@ -1,0 +1,17 @@
+apps:
+  - namespace: 'KL.Web'
+    name: 'KL.Api.Info'
+    # Entry point
+    script: './dist/main.js'
+    # Execution configs
+    exec_mode: 'cluster'
+    instances: 3
+    # Environments
+    env:
+      NODE_ENV: 'production'
+    # Restart options
+    min_uptime: 30000
+    max_restarts: 5
+    restart_delay: 10000
+    # Others
+    time: true  # Log timestamp in logs

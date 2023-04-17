@@ -1,21 +1,22 @@
-import {DataSocketC2SEvents, DataSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {isTokenValid} from 'kl-api-common/controllers/account/token';
+import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
 import {Socket} from 'socket.io';
 
 import {Logger} from '../../const';
-import {isTokenValid} from '../../controllers/account/token';
+import {identifiersToRooms} from '../../utils/socket';
 
 
 export const sioSubscribeHandler = (
-  socket: Socket<DataSocketC2SEvents, DataSocketS2CEvents>,
-): DataSocketC2SEvents['subscribe'] => async (
-  data,
-) => {
-  const tokenErrorMessage = await isTokenValid(data.token);
-  if (!!tokenErrorMessage) {
-    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  socket: Socket<PxSocketC2SEvents, PxSocketS2CEvents>,
+): PxSocketC2SEvents['subscribe'] => async ({
+  token, identifiers,
+}) => {
+  const tokenCheckResult = await isTokenValid(Logger, token);
+  if (!tokenCheckResult.ok) {
+    socket.emit('error', `Token validation failed: ${tokenCheckResult.error}`);
   }
 
-  const rooms = data.identifiers.map((identifier) => identifier.split('@')[0]);
+  const rooms = identifiersToRooms(identifiers);
   socket.join(rooms);
 
   Logger.info({session: socket.id, rooms}, 'Socket `%s` joined [%s]', socket.id, rooms);
@@ -23,16 +24,16 @@ export const sioSubscribeHandler = (
 
 
 export const sioUnsubscribeHandler = (
-  socket: Socket<DataSocketC2SEvents, DataSocketS2CEvents>,
-): DataSocketC2SEvents['unsubscribe'] => async (
-  data,
-) => {
-  const tokenErrorMessage = await isTokenValid(data.token);
-  if (!!tokenErrorMessage) {
-    socket.emit('error', `Token validation failed: ${tokenErrorMessage}`);
+  socket: Socket<PxSocketC2SEvents, PxSocketS2CEvents>,
+): PxSocketC2SEvents['unsubscribe'] => async ({
+  token, identifiers,
+}) => {
+  const tokenCheckResult = await isTokenValid(Logger, token);
+  if (!tokenCheckResult.ok) {
+    socket.emit('error', `Token validation failed: ${tokenCheckResult.error}`);
   }
 
-  const rooms = data.identifiers.map((identifier) => identifier.split('@')[0]);
+  const rooms = identifiersToRooms(identifiers);
 
   await Promise.all(rooms.map((room) => socket.leave(room)));
 

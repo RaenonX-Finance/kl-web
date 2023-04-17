@@ -6,14 +6,14 @@ import {useHandleAxiosError} from './axios';
 import {mergedDispatchers} from '../state/aggregated/dispatchers';
 import {MergedDispatcherName} from '../state/aggregated/types';
 import {useDispatch} from '../state/store';
-import {apiInitApp} from '../utils/api/initApp';
+import {apiInitApp} from '../utils/api/px/appInit';
 
 
 export const useAppInitHandler = () => {
   const {data} = useSession();
   const {onError} = useHandleAxiosError();
   const dispatch = useDispatch();
-  const token = data?.user?.token;
+  const token = data?.user.token;
 
   // Hooks
   React.useEffect(() => {

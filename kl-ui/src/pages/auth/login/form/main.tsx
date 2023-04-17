@@ -10,7 +10,7 @@ import {FloatingInput} from '../../../../components/common/form/floating/input';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {AuthPath} from '../../../../const/path';
-import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/auth';
+import {apiGetNextAuthCallbackUrl, apiRequestOAuth2Token} from '../../../../utils/api/account/auth';
 import {getErrorFromResponse} from '../../common/utils';
 
 
@@ -52,13 +52,17 @@ export const AuthCustomLoginForm = () => {
       <Row className="g-3">
         <Col>
           <Button className="w-100" variant="info" disabled={disabled} type="submit">
-            <TextWithLoading show={disabled} text="登入"/>
+            <TextWithLoading show={disabled}>
+              登入
+            </TextWithLoading>
           </Button>
         </Col>
         <Col>
           <Link href={AuthPath.SIGNUP}>
             <Button className="w-100" variant="outline-info" disabled={disabled}>
-              <TextWithLoading show={disabled} text="註冊"/>
+              <TextWithLoading show={disabled}>
+                註冊
+              </TextWithLoading>
             </Button>
           </Link>
         </Col>

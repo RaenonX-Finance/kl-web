@@ -1,6 +1,6 @@
+import {PxData} from 'kl-web-common/models/api/px/pxData';
+import {PxMomentumIndex} from 'kl-web-common/models/api/px/pxDataBar';
 import {PxEmaPeriodPair} from 'kl-web-common/models/config/emaPair';
-import {PxData} from 'kl-web-common/models/pxData';
-import {PxMomentumIndex} from 'kl-web-common/models/pxDataBar';
 import {IPriceLine, ISeriesApi} from 'lightweight-charts';
 
 import {
@@ -32,10 +32,7 @@ export type PxChartExtremaSeries = {
 };
 
 export type PxChartLines = {
-  srLevelLines: {
-    group: Record<number, Record<number, IPriceLine>>,
-    basic: Record<number, IPriceLine>,
-  },
+  srLevelLines: Record<number, Record<number, IPriceLine>>,
   extrema: PxChartExtremaSeries,
 };
 

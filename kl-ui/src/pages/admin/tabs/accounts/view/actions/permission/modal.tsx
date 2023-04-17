@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {availablePermissions} from 'kl-web-common/models/api/account/permission';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -9,8 +10,7 @@ import Row from 'react-bootstrap/Row';
 import {PermissionUpdateSelection} from './selection';
 import {PermissionChangeState} from './type';
 import {TextWithLoading} from '../../../../../../../components/common/loading/text';
-import {availablePermissions} from '../../../../../../../types/auth/user';
-import {apiUpdatePermissions} from '../../../../../../../utils/api/admin';
+import {apiUpdatePermissions} from '../../../../../../../utils/api/account/admin';
 import {useUpdateAccountData} from '../../../hook';
 import {AccountCellUpdatableProps} from '../../type';
 import {generatePermissionMap} from '../../utils';
@@ -86,7 +86,9 @@ export const PermissionUpdateModal = ({account, show, setShow, updateSingleAccou
         <Row className="text-end">
           <Col>
             <Button onClick={onSendChange} disabled={updating}>
-              <TextWithLoading show={updating} text="套用變更"/>
+              <TextWithLoading show={updating}>
+                套用變更
+              </TextWithLoading>
             </Button>
           </Col>
         </Row>

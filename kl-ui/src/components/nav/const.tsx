@@ -1,9 +1,11 @@
 import React from 'react';
 
+import {managementPermissions} from 'kl-web-common/models/api/account/permission';
+
 import {NavItemCollection} from './type';
-import {AdminPath, GeneralPath} from '../../const/path';
-import {managementPermissions} from '../../types/auth/user';
-import {LogoutNavButton} from '../auth/logout/main';
+import {AdminPath, GeneralPath, SmcAnalysisPath} from '../../const/path';
+import {UserControlNavButton} from '../auth/user/main';
+import {PxChartSharedConfig} from '../chart/config/shared/main';
 
 
 export const navItemsAtLeft: NavItemCollection = [
@@ -14,9 +16,13 @@ export const navItemsAtLeft: NavItemCollection = [
   },
   {
     type: 'path',
+    path: SmcAnalysisPath.OPTIONS_OI,
+    text: '選擇權',
+  },
+  {
+    type: 'path',
     path: GeneralPath.ACCOUNT_INFO,
     text: '會員資訊',
-    disabled: true,
   },
   {
     type: 'path',
@@ -25,7 +31,7 @@ export const navItemsAtLeft: NavItemCollection = [
   },
   {
     type: 'path',
-    path: AdminPath.GENERATE_SIGNUP_KEY,
+    path: AdminPath.ACCOUNT_VIEW,
     text: '管理會員',
     pathActiveBasis: Object.values(AdminPath),
     requiredPermissions: managementPermissions,
@@ -35,6 +41,10 @@ export const navItemsAtLeft: NavItemCollection = [
 export const navItemsAtRight: NavItemCollection = [
   {
     type: 'component',
-    renderComponent: () => <LogoutNavButton/>,
+    renderComponent: () => <PxChartSharedConfig/>,
+  },
+  {
+    type: 'component',
+    renderComponent: () => <UserControlNavButton/>,
   },
 ];

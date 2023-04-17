@@ -46,24 +46,24 @@ export const handleSrCommon = ({
   color,
   commonOptions,
 }: HandleSrCommonOptions) => {
-  const {layoutConfig, chartObjectRef} = e;
+  const {layoutConfig, chartObjectRef, user} = e;
   if (!chartObjectRef.current) {
     return;
   }
 
   const {price: priceSeries} = chartObjectRef.current.initData.series;
 
-  if (!getLayoutConfig(layoutConfig, keyOfConfig)) {
+  if (!getLayoutConfig({config: layoutConfig, key: keyOfConfig, user})) {
     // No data available / layout config not enabled, remove all Px lines
     removePxLines(new Set(levels), priceSeries, lineRecord);
     return;
   }
 
-  const leftoverLevels = new Set(levels);
+  const leftoverLevels = new Set(Object.keys(lineRecord).map(parseFloat));
 
   for (const level of levels) {
     const priceLine = lineRecord[level];
-    const axisLabelVisible = getLayoutConfig(layoutConfig, keyOfConfigLabel);
+    const axisLabelVisible = getLayoutConfig({config: layoutConfig, key: keyOfConfigLabel, user});
 
     if (priceLine) {
       priceLine.applyOptions({axisLabelVisible});

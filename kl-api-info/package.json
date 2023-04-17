@@ -1,0 +1,37 @@
+{
+  "name": "kl-api-info",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x",
+    "npm": "^9.5.1"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc -p .",
+    "start": "node ./dist/main.js",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "eslint src/ --ext .ts,.tsx --fix"
+  },
+  "author": "RaenonX",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.29.3",
+    "kl-api-common": "*",
+    "kl-web-common": "*"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "pino-pretty": "^9.4.0",
+    "ts-node": "^10.9.1"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "axios": "*",
+    "newrelic": "*",
+    "typescript": "*"
+  }
+}

@@ -1,12 +1,13 @@
 import React from 'react';
 
-import {PxData} from 'kl-web-common/models/pxData';
+import {PxData} from 'kl-web-common/models/api/px/pxData';
 
 import {PxChartLegend} from './legend/main';
 import {onPxChartInit} from './plot/onInit/main';
 import {onPxChartUpdated} from './plot/onUpdate/main';
 import {PxChartInitData, PxChartLegendData, PxChartPayload} from './type';
 import {useCompletePxUpdateSelector, useLastPxUpdateSelector} from '../../../state/data/selector';
+import {toLegendData} from '../../../utils/px';
 import {TradingViewChart, TradingViewChartProps} from '../base/main';
 import {PxLayoutConfigPanel} from '../config/layout/main';
 import {PxLayoutConfigSingle} from '../config/layout/type';
@@ -46,36 +47,19 @@ export const PxDataChart = (props: Props) => {
       initChart={onPxChartInit}
       onDataUpdated={onPxChartUpdated}
       calcObjects={{
-        legend: (data) => {
-          const lastHistory = data.data.at(-1);
-          const latestMarket = data.latestMarket;
-
-          const legend: PxChartLegendData = {
-            decimals: data.contract.decimals,
-            momentum: latestMarket.momentum,
-            hovered: false,
-            tiePoint: lastHistory?.tiePoint ?? NaN,
-            open: latestMarket.o,
-            high: latestMarket.h,
-            low: latestMarket.l,
-            close: latestMarket.c,
-            changeVal: latestMarket.diffVal,
-            changePct: latestMarket.diffPct,
-          };
-
-          return legend;
-        },
+        legend: toLegendData,
       }}
       renderObjects={{
-        legend: (chartData, legend) => <PxChartLegend data={chartData} legend={legend} slot={slot}/>,
+        legend: (legend) => <PxChartLegend legend={legend}/>,
       }}
-      renderLayoutConfig={(security, config, setConfig) => (
+      renderLayoutConfig={({layoutConfig, setLayoutConfig, show, setShow}) => (
         <PxLayoutConfigPanel
-          security={security}
           title={title}
           slot={slot}
-          config={config}
-          setConfig={setConfig}
+          config={layoutConfig}
+          setConfig={setLayoutConfig}
+          show={show}
+          setShow={setShow}
         />
       )}
       getPeriodSec={({periodSec}) => periodSec}

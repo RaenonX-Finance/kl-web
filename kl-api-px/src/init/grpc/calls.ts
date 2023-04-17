@@ -4,6 +4,7 @@ import {nowMs} from 'kl-web-common/utils/logging';
 import {GrpcService, Logger} from '../../const';
 import {grpcCalculatedHandler} from '../../endpoints/grpc/calculated';
 import {grpcErrorHandler} from '../../endpoints/grpc/error';
+import {grpcMarketDateCutoffHandler} from '../../endpoints/grpc/marketDateCutoff';
 import {grpcMinuteChangeHandler} from '../../endpoints/grpc/minuteChange';
 import {grpcRealtimeHandler} from '../../endpoints/grpc/realtime';
 import {SystemEventService} from '../../protos/systemEvent_grpc_pb';
@@ -43,11 +44,12 @@ const grpcHandlersAddLogging = () => {
 
     return {
       ...handler,
-      func: (call, callback) => {
+      func: async (call, callback) => {
         const start = nowMs();
 
         try {
-          func(call, callback);
+          // `func` could be async handler
+          await func(call, callback);
         } catch (error) {
           Logger.error({error, endpoint}, 'Error occurred in gRPC handler of `%s`', endpoint);
           throw error;
@@ -71,6 +73,7 @@ export const bindGrpcCalls = (emitter: PxSocketEmitter) => {
       realtime: grpcRealtimeHandler(emitter),
       minuteChange: grpcMinuteChangeHandler(emitter),
       calculated: grpcCalculatedHandler(emitter),
+      marketDateCutoff: grpcMarketDateCutoffHandler(emitter),
       error: grpcErrorHandler(emitter),
     },
   );

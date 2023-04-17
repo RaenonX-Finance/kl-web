@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {pxSrLevelClearer} from './clearSrLevel';
 import {pxDataStateUpdater} from './stateUpdater';
 import {pxDataStateUpdaterOnHistory} from './stateUpdaterOnHistory';
 import {pxDataStateUpdaterOnInit} from './stateUpdaterOnInit';
@@ -16,10 +17,10 @@ import {generateInitialSlotMap} from '../utils';
 
 const initialState: PxDataState = {
   data: {
-    A: null,
-    B: null,
-    C: null,
-    D: null,
+    A: undefined,
+    B: undefined,
+    C: undefined,
+    D: undefined,
   },
   map: null,
 };
@@ -39,14 +40,14 @@ const slice = createSlice({
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], (state, {payload}) => {
       pxDataStateUpdater({
         state,
-        payload,
+        payload: payload.map(({request, data}) => ({identifier: request.identifier, data})),
         fnUpdateState: pxDataStateUpdaterOnInit,
       });
     });
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled, (state, {payload, meta}) => {
       pxDataStateUpdater({
         state,
-        payload,
+        payload: payload.map((data) => ({identifier: data.uniqueIdentifier, data})),
         validSlotNames: meta.validSlotNames,
         fnUpdateState: pxDataStateUpdaterOnHistory,
       });
@@ -58,9 +59,10 @@ const slice = createSlice({
     builder.addCase(pxDataDispatchers[PxDataDispatcherName.UPDATE_SLOT_MAP].fulfilled, (state, {payload}) => ({
       data: {
         ...state.data,
-        // Need to set null to "reset" the chart
+        // Need to set `undefined` to "reset" the chart
         // Otherwise, the chart will use the old data, then the update will cause errors
-        [payload.payload]: null,
+        // Cannot use `null` here because `null` indicates erroneous Px data
+        [payload.payload]: undefined,
       },
       map: payload.data,
     }));
@@ -82,6 +84,9 @@ const slice = createSlice({
           })) as PxDataMap,
         },
       };
+    });
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.CLEAR_SR_LEVELS], (state, {payload}) => {
+      pxSrLevelClearer(state, payload);
     });
   },
 });

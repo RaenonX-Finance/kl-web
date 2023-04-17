@@ -2,22 +2,23 @@ import React from 'react';
 
 import {IChartApi} from 'lightweight-charts';
 import Button from 'react-bootstrap/Button';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import styles from './main.module.scss';
 import {LayoutConfigUpdatePayload} from '../../../state/config/type';
-import {PxChartSharedConfig} from '../config/shared/main';
 
+
+export type PxToolbarRenderLayoutConfigOpts<A> = {
+  security: string,
+  layoutConfig: A,
+  setLayoutConfig: (newConfig: LayoutConfigUpdatePayload) => Promise<void>,
+  show: boolean,
+  setShow: (show: boolean) => void,
+};
 
 export type PxChartToolbarProps<A> = {
   chartRef: React.MutableRefObject<IChartApi | undefined>,
   layoutConfig: A | null,
-  renderLayoutConfig: (
-    security: string,
-    config: A,
-    setConfig: (newConfig: LayoutConfigUpdatePayload) => Promise<void>,
-  ) => React.ReactNode,
+  renderLayoutConfig: (opts: PxToolbarRenderLayoutConfigOpts<A>) => React.ReactNode,
   setLayoutConfig: (newConfig: LayoutConfigUpdatePayload) => Promise<void>,
   security: string,
 };
@@ -29,28 +30,15 @@ export const PxChartToolbar = <A extends unknown>({
   setLayoutConfig,
   security,
 }: PxChartToolbarProps<A>) => {
+  const [show, setShow] = React.useState(false);
+
   return (
     <>
-      <DropdownButton
-        className={styles['dropdown']}
-        title={<i className="bi bi-three-dots"/>}
-        variant="outline-light"
-        menuVariant="dark"
-        drop="up"
-      >
-        <PxChartSharedConfig/>
-        {
-          layoutConfig &&
-          renderLayoutConfig(security, layoutConfig, setLayoutConfig)
-        }
-        <Dropdown.Item onClick={() => {
-          chartRef.current?.timeScale().resetTimeScale();
-          chartRef.current?.priceScale().applyOptions({autoScale: true});
-        }}>
-          重設比例
-        </Dropdown.Item>
-      </DropdownButton>
-      <Button size="sm" variant="outline-success" className={styles['to-realtime']} onClick={() => {
+      {layoutConfig && renderLayoutConfig({security, layoutConfig, setLayoutConfig, show, setShow})}
+      <Button size="sm" variant="outline-warning" className={styles['setting-button']} onClick={() => setShow(true)}>
+        <i className="bi bi-gear"></i>
+      </Button>
+      <Button size="sm" variant="outline-success" className={styles['action-button']} onClick={() => {
         chartRef.current?.timeScale().scrollToRealTime();
       }}>
         <i className="bi bi-chevron-right"/>

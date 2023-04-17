@@ -5,8 +5,8 @@ import Head from 'next/head';
 import {SessionProvider} from 'next-auth/react';
 import Container from 'react-bootstrap/Container';
 
-import {ErrorPopup} from '../src/components/error/popup';
 import {Navigation} from '../src/components/nav/main';
+import {ErrorPopup} from '../src/components/popup/error/main';
 import {ReduxProvider} from '../src/state/provider';
 import {store} from '../src/state/store';
 

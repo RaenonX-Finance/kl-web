@@ -14,7 +14,6 @@ const config: Config.InitialOptions = {
     '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': './test/transformers/file.js',
   },
   transformIgnorePatterns: [
-    // https://github.com/tradingview/lightweight-charts/issues/488
     './node_modules/(?!(lightweight-charts|fancy-canvas)/)',
   ],
   resetMocks: true,

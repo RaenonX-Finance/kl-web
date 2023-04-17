@@ -4,6 +4,7 @@ import styles from './main.module.scss';
 import {getCurrentEpochSec} from './utils';
 import {useAnimation} from '../../hooks/animation';
 import {useEpochSecOffsetSelector} from '../../state/data/selector';
+import {formatTotalSecs} from '../../utils/time';
 
 
 const getAnimationClassName = (secLeft: number): string => {
@@ -42,7 +43,7 @@ export const PeriodTimer = ({periodSec}: Props) => {
       className={`${styles['period-timer']} ${getAnimationClassName(secLeft)}`}
       ref={secLeftElemRef}
     >
-      <i className="bi bi-stopwatch"/>&nbsp;{secLeft.toFixed(0)}
+      <i className="bi bi-stopwatch"/>&nbsp;{formatTotalSecs(secLeft)}
     </span>
   );
 };

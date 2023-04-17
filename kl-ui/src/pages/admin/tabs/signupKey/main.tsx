@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {add, format} from 'date-fns';
+import add from 'date-fns/add';
+import format from 'date-fns/format';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 
@@ -10,7 +11,7 @@ import {FormLikeOutput} from '../../../../components/common/form/output/main';
 import {TextWithLoading} from '../../../../components/common/loading/text';
 import {AjaxForm} from '../../../../components/form/main';
 import {PermissionLayout} from '../../../../components/layout/permission';
-import {apiGenerateSignupKey} from '../../../../utils/api/auth';
+import {apiGenerateSignupKey} from '../../../../utils/api/account/auth';
 
 
 export const AdminTabGenerateSignupKey = () => {
@@ -63,7 +64,9 @@ export const AdminTabGenerateSignupKey = () => {
           required
         />
         <Button type="submit" className="w-100" variant="outline-warning" disabled={!accountExpiry || disabled}>
-          <TextWithLoading show={disabled} text="產生註冊金鑰"/>
+          <TextWithLoading show={disabled}>
+            產生註冊金鑰
+          </TextWithLoading>
         </Button>
       </AjaxForm>
       <hr/>

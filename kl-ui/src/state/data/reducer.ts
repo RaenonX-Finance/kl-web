@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {getIdentifierDetails} from 'kl-web-common/utils/pxModel';
 
 import {dataDispatchers} from './dispatchers';
 import {DATA_STATE_NAME, DataDispatcherName, DataState} from './types';
@@ -53,6 +54,17 @@ const slice = createSlice({
       },
     );
     builder.addCase(
+      pxDataDispatchers[PxDataDispatcherName.INIT],
+      (state, {payload}) => (
+        recordPxUpdateReducer({
+          state,
+          securities: [...new Set(payload.map(({request}) => getIdentifierDetails(request.identifier).symbol))],
+          last: true,
+          complete: true,
+        })
+      ),
+    );
+    builder.addCase(
       pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled,
       (state, {meta}) => (
         recordPxUpdateReducer({
@@ -65,6 +77,14 @@ const slice = createSlice({
       (state, {payload}) => (
         recordPxUpdateReducer({
           state, securities: payload.map(({symbol}) => symbol), last: true, complete: true,
+        })
+      ),
+    );
+    builder.addCase(
+      pxDataDispatchers[PxDataDispatcherName.CLEAR_SR_LEVELS],
+      (state, {payload}) => (
+        recordPxUpdateReducer({
+          state, securities: payload, last: true, complete: true,
         })
       ),
     );

@@ -10,6 +10,7 @@ export type LegendDataCellProps = {
   decimals: number,
   large?: boolean,
   useValueClass?: 'neutral' | 'up' | 'down' | boolean,
+  className?: string,
 };
 
 export const LegendDataCell = ({
@@ -18,6 +19,7 @@ export const LegendDataCell = ({
   decimals,
   large,
   useValueClass = false,
+  className = '',
 }: LegendDataCellProps) => {
   let valueClass = '';
 
@@ -38,7 +40,7 @@ export const LegendDataCell = ({
   }
 
   return (
-    <div className={`${styles['data-cell']} ${valueClass}`}>
+    <div className={`${styles['data-cell']} ${valueClass} ${className}`}>
       {title && <><span>{title}</span>&nbsp;</>}
       <span className={large ? styles['price-lg'] : ''}>
         {value ?

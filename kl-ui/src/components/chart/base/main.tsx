@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {useSession} from 'next-auth/react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -32,7 +33,7 @@ export type TradingViewChartProps<T, P, R, L, A> = {
   payload: P,
   onDataUpdated: ChartDataUpdatedEventHandler<T, P, R, L, A>,
   calcObjects: ChartCalcObjects<T, L>,
-  renderObjects: ChartRenderObjects<T, L>,
+  renderObjects: ChartRenderObjects<L>,
   renderLayoutConfig: PxChartToolbarProps<A>['renderLayoutConfig'],
   getPeriodSec: (data: T) => number,
   getDataSecurity: (data: T) => string,
@@ -61,6 +62,7 @@ export const TradingViewChart = <T, P, R, L>({
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const layoutConfig = useSingleLayoutConfigSelector(slot);
   const dispatch = useDispatch();
+  const {data} = useSession();
   // Need to be explicit because empty object `{}` is also falsy
   const isLayoutConfigReady = layoutConfig !== null;
 
@@ -78,7 +80,16 @@ export const TradingViewChart = <T, P, R, L>({
       return;
     }
 
-    onDataUpdated({chartRef, chartDataRef, chartObjectRef, setObject, payload, layoutConfig, partial});
+    onDataUpdated({
+      chartRef,
+      chartDataRef,
+      chartObjectRef,
+      setObject,
+      payload,
+      layoutConfig,
+      partial,
+      user: data?.user,
+    });
   };
 
   const onLoad = () => {
@@ -118,9 +129,9 @@ export const TradingViewChart = <T, P, R, L>({
   );
 
   return (
-    <div className={styles['chart']} ref={chartContainerRef}>
+    <div ref={chartContainerRef}>
       <div className={styles['legend']}>
-        {renderObjects.legend(chartData, legend)}
+        {renderObjects.legend(legend)}
       </div>
       <div className={styles['toolbar']}>
         <Row className="g-2 align-items-center">
