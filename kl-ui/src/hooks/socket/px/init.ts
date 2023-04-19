@@ -4,6 +4,8 @@ import {useSession} from 'next-auth/react';
 
 import {useLayoutTypeConfigSelector} from '../../../state/config/selector';
 import {getValidSlotNames} from '../../../state/config/utils';
+import {errorDispatchers} from '../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../state/error/types';
 import {pxDataDispatchers} from '../../../state/pxData/dispatchers';
 import {usePxSlotMap} from '../../../state/pxData/selector';
 import {PxDataDispatcherName} from '../../../state/pxData/types';
@@ -41,6 +43,10 @@ export const usePxInitHandler = (): UsePxInitHandlerReturn => {
         ),
       ]
         .map((identifier) => ({identifier})),
+      onRetryAttempt: () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+        message: '初始資料要求連線逾時，重試中...',
+      })),
+      onRetrySuccess: () => dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]()),
     })
       .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
       .catch(onError);

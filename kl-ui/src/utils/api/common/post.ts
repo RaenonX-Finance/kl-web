@@ -1,15 +1,11 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosResponse, AxiosError} from 'axios';
 
+import {ApiRequestCommonOpts} from './types';
+import {getCommonAxiosConfig} from './utils';
 import {JsonValue} from '../../types';
 
 
-type ApiPostOpts = {
-  /**
-   * This has to start with `/`.
-   */
-  apiPath: string,
-  token?: string,
-} & ({
+export type ApiPostOpts = ApiRequestCommonOpts & ({
   contentType: 'application/json',
   data: JsonValue,
 } | {
@@ -33,28 +29,36 @@ export const accountApiPost = <R>(opts: ApiPostOpts): Promise<AxiosResponse<R, U
 
 type ApiPostCommonOpts = ApiPostOpts & {
   apiUrl?: string,
+  isTimeoutRetry?: boolean,
 };
 
-const apiPost = <R>({
-  apiUrl,
-  apiPath,
-  token,
-  contentType,
-  data,
-}: ApiPostCommonOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+const apiPost = async <R>(opts: ApiPostCommonOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+  const {apiUrl, apiPath, data, onRetryAttempt, onRetrySuccess, isTimeoutRetry} = opts;
+
   if (!apiUrl) {
     throw new Error(`API URL unavailable for API POST call to ${apiPath}`);
   }
 
-  return axios.request({
-    url: `${apiUrl}${apiPath}`,
-    method: 'POST',
-    headers: {
-      ...(token ? {Authorization: `Bearer ${token}`} : {}),
-      'Content-Type': contentType,
-    },
-    data,
-    timeout: 10000,
-    timeoutErrorMessage: `POST request to \`${apiPath}\` timed out after 10 secs`,
-  });
+  try {
+    const response: AxiosResponse<R, URLSearchParams> = await axios.request({
+      ...getCommonAxiosConfig({
+        ...opts,
+        apiUrl,
+        method: 'POST',
+      }),
+      data,
+    });
+
+    if (isTimeoutRetry && onRetryAttempt && response.status === 200) {
+      onRetrySuccess();
+    }
+
+    return response;
+  } catch (err) {
+    if (err instanceof AxiosError && err.code === 'ECONNABORTED' && onRetryAttempt) {
+      onRetryAttempt(err);
+      return apiPost({...opts, isTimeoutRetry: true});
+    }
+    throw err;
+  }
 };

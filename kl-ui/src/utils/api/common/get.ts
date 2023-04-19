@@ -1,12 +1,10 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+
+import {ApiRequestCommonOpts} from './types';
+import {getCommonAxiosConfig} from './utils';
 
 
-type ApiGetOpts = {
-  /**
-   * This has to start with `/`.
-   */
-  apiPath: string,
-  token?: string,
+type ApiGetOpts = ApiRequestCommonOpts & {
   params?: AxiosRequestConfig['params'],
 };
 
@@ -33,27 +31,36 @@ export const accountApiGet = <R>(opts: ApiGetOpts): Promise<AxiosResponse<R, URL
 
 type ApiGetCommonOpts = ApiGetOpts & {
   apiUrl?: string,
+  isTimeoutRetry?: boolean,
 };
 
-const apiGet = <R>({
-  apiUrl,
-  apiPath,
-  token,
-  params,
-}: ApiGetCommonOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+const apiGet = async <R>(opts: ApiGetCommonOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+  const {apiUrl, apiPath, params, onRetryAttempt, onRetrySuccess, isTimeoutRetry} = opts;
+
   if (!apiUrl) {
     throw new Error(`API URL unavailable for API GET call to ${apiPath}`);
   }
 
-  return axios.request({
-    url: `${apiUrl}${apiPath}`,
-    method: 'GET',
-    headers: {
-      ...(token ? {Authorization: `Bearer ${token}`} : {}),
-      'Content-Type': 'application/json',
-    },
-    params,
-    timeout: 10000,
-    timeoutErrorMessage: `GET request to \`${apiPath}\` timed out after 10 secs`,
-  });
+  try {
+    const response: AxiosResponse<R, URLSearchParams> = await axios.request({
+      ...getCommonAxiosConfig({
+        ...opts,
+        apiUrl,
+        method: 'GET',
+      }),
+      params,
+    });
+
+    if (isTimeoutRetry && onRetryAttempt && response.status === 200) {
+      onRetrySuccess();
+    }
+
+    return response;
+  } catch (err) {
+    if (err instanceof AxiosError && err.code === 'ECONNABORTED' && onRetryAttempt) {
+      onRetryAttempt(err);
+      return apiGet(opts);
+    }
+    throw err;
+  }
 };

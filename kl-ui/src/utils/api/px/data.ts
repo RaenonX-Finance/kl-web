@@ -5,6 +5,7 @@ import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
 import {PxRequestBodyModel} from 'kl-web-common/models/api/px/pxRequest';
 
 import {pxApiPost} from '../common/post';
+import {ApiRetryableRequestOpts} from '../common/types';
 
 
 type ApiRequestPxDataOpts = PxRequestBodyModel;
@@ -23,10 +24,14 @@ export const apiRequestPxData = ({
   })
 );
 
+type ApiInitPxDataOpts = ApiRequestPxDataOpts & ApiRetryableRequestOpts;
+
 export const apiInitPxData = ({
   token,
   requests,
-}: ApiRequestPxDataOpts): Promise<AxiosResponse<PxInitApi>> => (
+  onRetryAttempt,
+  onRetrySuccess,
+}: ApiInitPxDataOpts): Promise<AxiosResponse<PxInitApi>> => (
   pxApiPost({
     apiPath: PxApiPath.PxInit,
     data: {
@@ -34,5 +39,7 @@ export const apiInitPxData = ({
       requests,
     },
     contentType: 'application/json',
+    onRetryAttempt,
+    onRetrySuccess,
   })
 );

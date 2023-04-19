@@ -11,18 +11,29 @@ import {OptionsOiChart} from './chart/main';
 import {OptionsOiRequestMaker} from './request';
 import {OptionsOiFetchPayload} from './type';
 import {MainLoading} from '../../../../../components/common/loading/main';
+import {errorDispatchers} from '../../../../../state/error/dispatchers';
+import {ErrorDispatcherName} from '../../../../../state/error/types';
+import {useDispatch} from '../../../../../state/store';
 import {apiGetOptionsOi} from '../../../../../utils/api/info/optionsOi';
 import {isNotFetched, useFetchState} from '../../../../../utils/fetch';
 
 
 export const SmcTabOptionsOi = () => {
   const {data: session} = useSession();
+  const dispatch = useDispatch();
   const {
     fetchStatus,
     fetchFunction: fetchOptionsOiData,
   } = useFetchState<OptionsOiData, OptionsOiFetchPayload>(
     [],
-    (payload) => apiGetOptionsOi({symbol: 'FITX', ...payload}),
+    (payload) => apiGetOptionsOi({
+      symbol: 'FITX',
+      onRetryAttempt: () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+        message: `OI 資料要求逾時，重試中...`,
+      })),
+      onRetrySuccess: () => dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]()),
+      ...payload,
+    }),
     `無法獲取選擇權 OI 資料。`,
   );
   const {fetching, fetchError, data} = fetchStatus;
