@@ -6,11 +6,11 @@ import {getSrLevelColor, srLevelCommonOptions} from '../../const';
 
 
 export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>): PxChartLines['srLevelLines'] => {
-  const {chartDataRef} = e;
+  const {chartData} = e;
 
   const srLevelLines: PxChartLines['srLevelLines'] = {};
 
-  chartDataRef.current.supportResistance.forEach((levels, idx) => {
+  chartData.supportResistance.forEach((levels, idx) => {
     srLevelLines[idx] = handleSrCommon({
       e,
       price,

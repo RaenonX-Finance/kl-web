@@ -3,7 +3,7 @@ import {OnPxChartUpdatedEvent} from '../../type';
 import {getCurrentChartExtremaPx} from '../utils';
 
 
-export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef, layoutConfig, user}: OnPxChartUpdatedEvent) => {
+export const handleExtrema = ({chartRef, chartObjectRef, chartData, layoutConfig, user}: OnPxChartUpdatedEvent) => {
   if (!chartRef.current || !chartObjectRef.current) {
     return;
   }
@@ -11,7 +11,7 @@ export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef, layoutCon
   const {min, max} = chartObjectRef.current.initData.lines.extrema;
   const {minPx, maxPx} = getCurrentChartExtremaPx({
     chart: chartRef.current,
-    data: chartDataRef.current.data,
+    data: chartData.data,
     price: chartObjectRef.current.initData.series.price,
   });
 

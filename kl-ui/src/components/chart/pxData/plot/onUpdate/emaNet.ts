@@ -7,8 +7,8 @@ import {OnPxChartUpdatedEvent} from '../../type';
 
 
 export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
-  const {chartDataRef, chartObjectRef, layoutConfig, partial, user} = e;
-  const periodPair = chartDataRef.current.indicator.ema.net;
+  const {chartData, chartObjectRef, layoutConfig, partial, user} = e;
+  const periodPair = chartData.indicator.ema.net;
 
   if (!chartObjectRef.current) {
     return;
@@ -16,7 +16,7 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
 
   const series = chartObjectRef.current.initData.series.emaNet;
 
-  const lastPx = chartDataRef.current.data.at(-1);
+  const lastPx = chartData.data.at(-1);
 
   if (!lastPx) {
     return;
@@ -42,7 +42,7 @@ export const handleEmaNet = (e: OnPxChartUpdatedEvent) => {
       )(lastPx),
     );
   } else {
-    series.fill.setData(chartDataRef.current.data.map(
+    series.fill.setData(chartData.data.map(
       toCandlestickForFill(
         (bar) => bar.ema[periodPair.slow],
         (bar) => bar.ema[periodPair.fast],

@@ -4,14 +4,14 @@ import {OnPxChartInitEvent, PxChartLegendData} from '../../type';
 
 
 export const handleCrosshairMove = ({
-  chartDataRef,
+  chartData,
   setObject,
 }: OnPxChartInitEvent): MouseEventHandler => ({
   time,
 }) => {
-  const pxData = chartDataRef.current.data;
-  const latestMarket = chartDataRef.current.latestMarket;
-  const last = chartDataRef.current.data.at(-1);
+  const pxData = chartData.data;
+  const latestMarket = chartData.latestMarket;
+  const last = chartData.data.at(-1);
 
   const hovered = pxData.find(({epochSecond}) => epochSecond === time);
 

@@ -4,9 +4,9 @@ import {getEmaColorOverridder} from '../utils';
 
 
 export const handleEmaStrongSr = (e: OnPxChartInitEvent): PxChartEmaLinePair[] => {
-  const {chartDataRef} = e;
+  const {chartData} = e;
 
-  return chartDataRef.current.indicator.ema.strongSr.map((periodPair) => ({
+  return chartData.indicator.ema.strongSr.map((periodPair) => ({
     fast: createEmaLine({
       e,
       periodType: 'fast',

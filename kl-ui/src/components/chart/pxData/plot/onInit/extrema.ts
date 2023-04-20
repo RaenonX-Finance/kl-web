@@ -7,7 +7,7 @@ import {getCurrentChartExtremaPx} from '../utils';
 
 
 export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>): PxChartExtremaSeries => {
-  const {chartRef, chartDataRef, layoutConfig, user} = e;
+  const {chartRef, chartData, layoutConfig, user} = e;
 
   if (!chartRef.current) {
     throw new Error('Attempt to initialize extrema lines but the chart is not ready');
@@ -15,7 +15,7 @@ export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlest
 
   const {minPx, maxPx} = getCurrentChartExtremaPx({
     chart: chartRef.current,
-    data: chartDataRef.current.data,
+    data: chartData.data,
     price,
   });
 

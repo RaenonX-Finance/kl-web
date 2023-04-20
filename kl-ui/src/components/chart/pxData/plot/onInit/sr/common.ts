@@ -25,10 +25,10 @@ export const handleSrCommon = ({
   color,
   commonOptions,
 }: HandleSrCommonOptions): Record<number, IPriceLine> => {
-  const {chartDataRef, layoutConfig, user} = e;
+  const {chartData, layoutConfig, user} = e;
 
   const lineRecord: Record<number, IPriceLine> = {};
-  const currentPx = chartDataRef.current.data.at(-1);
+  const currentPx = chartData.data.at(-1);
 
   if (!currentPx || !getLayoutConfig({config: layoutConfig, key: keyOfConfig, user})) {
     return {};

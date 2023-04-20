@@ -6,16 +6,16 @@ import {getEmaColorOverridder} from '../utils';
 
 
 export const handleEmaStrongSr = (e: OnPxChartUpdatedEvent) => {
-  const {chartDataRef, chartObjectRef} = e;
+  const {chartData, chartObjectRef} = e;
 
-  chartDataRef.current.indicator.ema.strongSr.forEach((periodPair, idx) => {
+  chartData.indicator.ema.strongSr.forEach((periodPair, idx) => {
     if (!chartObjectRef.current) {
       return;
     }
 
     const seriesCollection = chartObjectRef.current.initData.series.emaStrongSr;
 
-    const lastPx = chartDataRef.current.data.at(-1);
+    const lastPx = chartData.data.at(-1);
 
     if (!lastPx) {
       return;

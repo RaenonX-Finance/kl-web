@@ -30,7 +30,7 @@ export type ChartObjectRef<T> = {
 };
 
 export type InitChartPayload<T, L, A> = {
-  chartDataRef: React.MutableRefObject<T>,
+  chartData: T,
   setObject: ChartSetStateObjects<L>,
   chartContainer: HTMLDivElement,
   layoutConfig: A,
@@ -49,9 +49,8 @@ export type UseChartReturn<T, R, L, A, P> = {
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
 };
 
-export type OnChartChangedEventCommon<T, R, L, A> = {
+export type OnChartChangedEventCommon<T, R, L, A> = Pick<InitChartPayload<T, L, A>, 'chartData'> & {
   chartRef: React.MutableRefObject<IChartApi | undefined>,
-  chartDataRef: React.MutableRefObject<T>,
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
   setObject: ChartSetStateObjects<L>,
   layoutConfig: A,

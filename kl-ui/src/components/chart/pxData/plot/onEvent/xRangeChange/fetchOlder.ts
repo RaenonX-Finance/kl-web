@@ -8,5 +8,5 @@ export const handleXrangeChangeFetchOlder = ({e, barsInfo}: HandleXrangeChangeOp
 
   const {requestPxData} = e;
 
-  requestPxData(e.chartDataRef.current.data.length);
+  requestPxData(e.chartData.data.length);
 };

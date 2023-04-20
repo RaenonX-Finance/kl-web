@@ -3,14 +3,14 @@ import {getExtremaPxOfRange} from '../../utils';
 
 
 export const handleXrangeChangeExtrema = ({e, barsInfo}: HandleXrangeChangeOpts) => {
-  const {chartObjectRef, chartDataRef} = e;
+  const {chartObjectRef, chartData} = e;
 
   if (!barsInfo || !chartObjectRef.current) {
     return;
   }
 
   const {min, max} = chartObjectRef.current.initData.lines.extrema;
-  const {minPx, maxPx} = getExtremaPxOfRange(barsInfo, chartDataRef.current.data);
+  const {minPx, maxPx} = getExtremaPxOfRange(barsInfo, chartData.data);
 
   if (!minPx) {
     return;
