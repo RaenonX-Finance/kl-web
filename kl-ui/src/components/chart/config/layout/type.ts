@@ -15,6 +15,8 @@ export type PxLayoutConfigSingle = {
   srLevel: boolean,
   inChartExtrema: boolean,
   inChartExtremaLabel: boolean,
+  prevDayClose: boolean,
+  prevDayCloseLabel: boolean,
 };
 
 export type PxLayoutConfigKeys = keyof PxLayoutConfigSingle;

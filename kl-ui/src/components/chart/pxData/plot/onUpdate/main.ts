@@ -2,6 +2,7 @@ import {handleEmaNet} from './emaNet';
 import {handleEmaStrongSr} from './emaStrongSr';
 import {handleExtrema} from './extrema';
 import {handleLegend} from './legend';
+import {handlePrevDayClose} from './prevDayClose';
 import {handlePrice} from './price';
 import {handleSR} from './sr/main';
 import {handleTiePoint} from './tiePoint';
@@ -16,4 +17,5 @@ export const onPxChartUpdated: PxChartUpdatedEventHandler = (e) => {
   handleLegend(e);
   handleSR(e);
   handleExtrema(e);
+  handlePrevDayClose(e);
 };

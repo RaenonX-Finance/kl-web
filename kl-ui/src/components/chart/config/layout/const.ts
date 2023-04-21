@@ -6,6 +6,10 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
     title: '現價水平線',
     group: '圖表',
   },
+  prevDayClose: {
+    title: '昨日收盤價',
+    group: '圖表',
+  },
   inChartExtrema: {
     title: '圖內高低點',
     group: '圖表',
@@ -52,6 +56,10 @@ export const layoutConfigEntries: PxLayoutConfigUI = {
     group: '標籤',
     isDisabled: ({srLevel}) => !srLevel,
     isHidden: (user) => !user || !user.isAdmin,
+  },
+  prevDayCloseLabel: {
+    title: '昨日收盤價',
+    group: '標籤',
   },
   inChartExtremaLabel: {
     title: '圖內高低點',

@@ -11,11 +11,13 @@ export const neutralColor = '#c5c5c5';
 
 export const bearColor = '#26a69a';
 
-export const bullColorForFill = 'rgba(239,83,80,0.3)';
+export const bullColorForFill = 'rgba(239, 83, 80, 0.3)';
 
-export const bearColorForFill = 'rgba(38,166,154,0.3)';
+export const bearColorForFill = 'rgba(38, 166, 154, 0.3)';
 
 export const currentPxColor = '#d7d7d7';
+
+export const prevDayCloseColor = 'rgb(238,20,225)';
 
 export const colorOfCandlestickDirection: {[dir in PxCandleDirection]: string} = {
   [1]: bullColor,
@@ -35,7 +37,7 @@ export const emaLineColors: {[key in keyof PxEmaPeriodPair]: string} = {
 export const srLevelColors = [
   '#f23645',
   '#deb900',
-  '#ad49c0',
+  '#8c47bd',
   '#3aa13e',
   '#1ca8b6',
 ];

@@ -2,6 +2,7 @@ import {handleEmaNet} from './emaNet';
 import {handleEmaStrongSr} from './emaStrongSr';
 import {handleExtrema} from './extrema';
 import {handleLegend} from './legend';
+import {handlePrevDayClose} from './prevDayClose';
 import {handlePrice} from './price';
 import {handleSR} from './sr/main';
 import {handleTiePoint} from './tiePoint';
@@ -15,6 +16,7 @@ export const onPxChartInit: PxChartInitEventHandler = (e) => {
   const price = handlePrice(e);
   const tiePoint = handleTiePoint(e);
   const srLevelLines = handleSR(e, price);
+  const prevDayClose = handlePrevDayClose(e, price);
   const extrema = handleExtrema(e, price);
   handleLegend(e);
 
@@ -22,6 +24,6 @@ export const onPxChartInit: PxChartInitEventHandler = (e) => {
 
   return {
     series: {price, tiePoint, emaNet, emaStrongSr},
-    lines: {srLevelLines, extrema},
+    lines: {srLevelLines, prevDayClose, extrema},
   };
 };

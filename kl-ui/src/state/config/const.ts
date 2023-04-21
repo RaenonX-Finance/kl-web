@@ -15,6 +15,8 @@ export const defaultLayoutConfig: PxLayoutConfigSingle = {
   srLevel: false,
   inChartExtrema: true,
   inChartExtremaLabel: true,
+  prevDayClose: false,
+  prevDayCloseLabel: false,
 };
 
 export const defaultSharedConfig: PxSharedConfig = {};
