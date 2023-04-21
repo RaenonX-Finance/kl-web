@@ -33,7 +33,10 @@ span {
 
 td {
   &.username {
-    font-family: monospace;
+    font-family:
+      "Cascadia Mono",
+      Calibri,
+      monospace;
   }
 
   &.status-icon {

@@ -18,7 +18,7 @@ span.no-permission-badge {
 }
 
 td.username {
-  font-family: monospace;
+  font-family: "Cascadia Mono", Calibri, monospace;
 }
 td.status-icon {
   width: 1.2rem;
