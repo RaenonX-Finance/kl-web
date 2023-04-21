@@ -1,14 +1,21 @@
 import {Session} from 'next-auth';
 
 import {AccountData} from '../types/admin';
-import {PxDataMap} from '../types/pxData';
+import {PxDataMap, PxSlotName} from '../types/pxData';
 
 
-export const updateCurrentPxDataTitle = (pxDataMap: PxDataMap) => {
+type UpdateChartPageTitleOpts = {
+  validSlotNames: PxSlotName[] | null,
+  pxDataMap: PxDataMap,
+};
+
+export const updateChartPageTitle = ({validSlotNames, pxDataMap}: UpdateChartPageTitleOpts) => {
   const currentPx: {[symbol: string]: string} = {};
 
-  Object.values(pxDataMap).forEach((pxData) => {
-    if (!pxData) {
+  Object.entries(pxDataMap).forEach(([slotStr, pxData]) => {
+    const slot = slotStr as PxSlotName;
+
+    if (!pxData || !validSlotNames?.includes(slot)) {
       return;
     }
 

@@ -54,7 +54,7 @@ const slice = createSlice({
       },
     );
     builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.INIT],
+      pxDataDispatchers[PxDataDispatcherName.INIT].fulfilled,
       (state, {payload}) => (
         recordPxUpdateReducer({
           state,
@@ -65,18 +65,24 @@ const slice = createSlice({
       ),
     );
     builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled,
-      (state, {meta}) => (
+      pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled,
+      (state, {payload}) => (
         recordPxUpdateReducer({
-          state, securities: meta.securities, last: true, complete: false,
+          state,
+          securities: payload.map(({symbol}) => symbol),
+          last: true,
+          complete: true,
         })
       ),
     );
     builder.addCase(
-      pxDataDispatchers[PxDataDispatcherName.UPDATE_COMPLETE].fulfilled,
-      (state, {payload}) => (
+      pxDataDispatchers[PxDataDispatcherName.UPDATE_MARKET].fulfilled,
+      (state, {meta}) => (
         recordPxUpdateReducer({
-          state, securities: payload.map(({symbol}) => symbol), last: true, complete: true,
+          state,
+          securities: meta.securities,
+          last: true,
+          complete: false,
         })
       ),
     );

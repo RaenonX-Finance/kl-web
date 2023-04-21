@@ -37,10 +37,11 @@ const slice = createSlice({
 
       state.map = config.slot_map || generateInitialSlotMap();
     });
-    builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT], (state, {payload}) => {
+    builder.addCase(pxDataDispatchers[PxDataDispatcherName.INIT].fulfilled, (state, {payload, meta}) => {
       pxDataStateUpdater({
         state,
         payload: payload.map(({request, data}) => ({identifier: request.identifier, data})),
+        validSlotNames: meta.validSlotNames,
         fnUpdateState: pxDataStateUpdaterOnInit,
       });
     });
