@@ -1,5 +1,5 @@
 import {PxMomentumIndex} from 'kl-web-common/models/api/px/pxDataBar';
-import {PxMarket, PxMarketSingle} from 'kl-web-common/models/api/px/pxMarket';
+import {PxMarketForTransmit, PxMarketSingleForTransmit} from 'kl-web-common/models/api/px/pxMarket';
 
 import {Logger} from '../../const';
 import {ISystemEventServer} from '../../protos/systemEvent_grpc_pb';
@@ -41,8 +41,8 @@ export const grpcRealtimeHandler = (
   const event = 'market';
   Logger.info({symbols, event}, 'Sending `%s` socket event of [%s]', event, symbols);
 
-  const pxMarket: PxMarket = Object.fromEntries(dataMap.map((([symbol, obj]) => {
-    const pxMarketSingle: PxMarketSingle = {
+  const pxMarket: PxMarketForTransmit = Object.fromEntries(dataMap.map((([symbol, obj]) => {
+    const pxMarketSingle: PxMarketSingleForTransmit = {
       o: getDecimalValue(symbol, obj, 'open'),
       h: getDecimalValue(symbol, obj, 'high'),
       l: getDecimalValue(symbol, obj, 'low'),

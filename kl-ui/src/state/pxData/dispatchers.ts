@@ -1,7 +1,7 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
 import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
-import {PxMarket} from 'kl-web-common/models/api/px/pxMarket';
+import {PxMarketForTransmit} from 'kl-web-common/models/api/px/pxMarket';
 
 import {generateCompleteUpdateAsyncThunk} from './reducer/utils';
 import {PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
@@ -24,7 +24,7 @@ export const pxDataDispatchers = {
   ),
   [PxDataDispatcherName.UPDATE_MARKET]: createAsyncThunk<
     PxDataMap,
-    PxMarket,
+    PxMarketForTransmit,
     {state: ReduxState, rejectValue: string, fulfilledMeta: PxMarketUpdateMeta}
   >(
     PxDataDispatcherName.UPDATE_MARKET,
@@ -67,7 +67,7 @@ export const pxDataDispatchers = {
           // Check if the `pxData` in slot is has the matching security symbol
           !payload.hasOwnProperty(pxDataInSlot.contract.symbol)
         ) {
-          pxDataMap[slot] = {...pxDataInSlot};
+          pxDataMap[slot] = pxDataInSlot;
           continue;
         }
         if (!lastBar) {
@@ -85,12 +85,13 @@ export const pxDataDispatchers = {
         pxDataMap[slot] = {
           ...pxDataInSlot,
           data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.c)]),
+          momentum: latestMarket.momentum,
           latestMarket,
         };
       }
 
       if (!updatedAny) {
-        return rejectWithValue('Nothing new from market updated');
+        return rejectWithValue('Nothing new to update for market');
       }
 
       updateChartPageTitle({

@@ -1,12 +1,22 @@
-import {PxData} from 'kl-web-common/models/api/px/pxData';
+import {PxDataInit} from 'kl-web-common/models/api/px/pxData';
 
 import {StateUpdateFuncOpts} from './stateUpdater';
 
 
-export const pxDataStateUpdaterOnInit = <T extends PxData>({
+export const pxDataStateUpdaterOnInit = <T extends PxDataInit>({
   state,
   slotName,
   payload,
 }: StateUpdateFuncOpts<T>) => {
-  state.data[slotName] = payload.data;
+  const data = payload.data;
+
+  if (data === null) {
+    state.data[slotName] = null;
+    return;
+  }
+
+  state.data[slotName] = {
+    ...data,
+    latestMarket: null,
+  };
 };

@@ -1,6 +1,21 @@
+@use "sass:color";
+@use "../../../../../styles/colors";
+
 button {
   &.selector {
     width: 100%;
     border-radius: 0;
   }
+}
+
+span {
+  @mixin value-style($name, $color) {
+    &.val-#{$name} {
+      color: color.adjust($color, $lightness: 7%);
+    }
+  }
+
+  @include value-style(neutral, colors.$color-neutral);
+  @include value-style(up, colors.$color-up);
+  @include value-style(down, colors.$color-down);
 }

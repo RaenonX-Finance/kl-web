@@ -1,11 +1,11 @@
 import {MarketPxSubscriptionData} from './marketData';
 import {MinChangeData} from './minChange';
 import {PxHistory} from '../api/px/pxHistory';
-import {PxMarket} from '../api/px/pxMarket';
+import {PxMarketForTransmit} from '../api/px/pxMarket';
 
 
 export type PxSocketS2CEvents = {
-  market: (data: PxMarket) => void,
+  market: (data: PxMarketForTransmit) => void,
   minChange: (data: MinChangeData) => void,
   calculated: (data: PxHistory) => void,
   marketDateCutoff: (symbols: string[]) => void,

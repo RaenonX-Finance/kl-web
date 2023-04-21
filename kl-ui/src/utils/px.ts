@@ -4,34 +4,33 @@ import {PxDataBar} from 'kl-web-common/models/api/px/pxDataBar';
 import {PxChartLegendData} from '../components/chart/pxData/type';
 
 
-export const updatePxDataBar = (bar: PxDataBar, nextPx: number): PxDataBar => {
+export const updatePxDataBar = (bar: PxDataBar, latestPx: number): PxDataBar => {
   return {
     ...bar,
-    high: Math.max(bar.high, nextPx),
-    low: Math.min(bar.low, nextPx),
-    close: nextPx,
-    diff: nextPx - bar.open,
+    high: Math.max(bar.high, latestPx),
+    low: Math.min(bar.low, latestPx),
+    close: latestPx,
+    diff: latestPx - bar.open,
   };
 };
 
 export const toLegendData = (data: PxData): PxChartLegendData => {
   const lastHistory = data.data.at(-1);
-  const latestMarket = data.latestMarket;
+
+  const open = lastHistory?.open ?? NaN;
+  const close = lastHistory?.close ?? NaN;
+  const change = close - open;
 
   return {
     decimals: data.contract.decimals,
-    momentum: latestMarket.momentum,
+    momentum: data.momentum,
     hovered: false,
     tiePoint: lastHistory?.tiePoint ?? NaN,
-    open: latestMarket.o,
-    high: latestMarket.h,
-    low: latestMarket.l,
-    close: latestMarket.c,
-    changeVal: latestMarket.diffVal,
-    changePct: latestMarket.diffPct,
+    open,
+    high: lastHistory?.high ?? NaN,
+    low: lastHistory?.low ?? NaN,
+    close,
+    changeVal: change,
+    changePct: (change / open) * 100,
   };
-};
-
-export const forceMinTick = (val: number, tick: number): number => {
-  return val - val % tick;
 };

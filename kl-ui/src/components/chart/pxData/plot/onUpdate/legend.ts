@@ -9,6 +9,6 @@ export const handleLegend = ({chartData, setObject}: OnPxChartUpdatedEvent) => {
     // So even if the latest bar is updated, the legend won't change
     ...(legend.hovered ? {} : toLegendData(chartData)),
     // Always update momentum regardless the legend hovering status
-    momentum: chartData.latestMarket.momentum,
+    momentum: chartData.momentum,
   }));
 };

@@ -4,21 +4,27 @@ import {Static, Type} from '@sinclair/typebox';
 import {PxMomentumIndexSchema} from './pxDataBar';
 
 
-export const PxMarketSingleSchema = Type.Object({
+const PxMarketSingleSchemaBase = {
   o: Type.Number({exclusiveMinimum: 0}),
   h: Type.Number({exclusiveMinimum: 0}),
   l: Type.Number({exclusiveMinimum: 0}),
   c: Type.Number({exclusiveMinimum: 0}),
   diffVal: Type.Number(),
   diffPct: Type.Number(),
+};
+
+export const PxMarketSingleForTransmitSchema = Type.Object({
+  ...PxMarketSingleSchemaBase,
   momentum: PxMomentumIndexSchema,
 });
 
-export type PxMarketSingle = Static<typeof PxMarketSingleSchema>;
+export type PxMarketSingleForTransmit = Static<typeof PxMarketSingleForTransmitSchema>;
 
-export const PxMarketSchema = Type.Record(
+export const PxMarketForTransmitSchema = Type.Record(
   Type.Optional(Type.String()),
-  PxMarketSingleSchema,
+  PxMarketSingleForTransmitSchema,
 );
 
-export type PxMarket = Static<typeof PxMarketSchema>;
+export type PxMarketForTransmit = Static<typeof PxMarketForTransmitSchema>;
+
+export const PxMarketSingleSchema = Type.Object(PxMarketSingleSchemaBase);

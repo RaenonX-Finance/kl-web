@@ -1,14 +1,14 @@
 /* eslint-disable new-cap */
 import {Static, Type} from '@sinclair/typebox';
 
-import {PxDataSchema} from './pxData';
+import {PxDataInitSchema} from './pxData';
 import {PxRequestSchema} from './pxRequest';
 import {Nullable} from '../../schema/nullable';
 
 
 export const PxInitApiSingleSchema = Type.Object({
   request: PxRequestSchema,
-  data: Nullable(PxDataSchema),
+  data: Nullable(PxDataInitSchema),
 });
 
 export type PxInitApiSingle = Static<typeof PxInitApiSingleSchema>;
