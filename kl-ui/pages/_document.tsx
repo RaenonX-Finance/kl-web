@@ -39,7 +39,7 @@ class NextDocument extends Document<Props> {
   render() {
     // noinspection HtmlRequiredTitleElement,JSUnresolvedLibraryURL
     return (
-      <Html>
+      <Html lang="zh-Hant">
         <Head>
           <meta charSet="utf-8"/>
           <meta
