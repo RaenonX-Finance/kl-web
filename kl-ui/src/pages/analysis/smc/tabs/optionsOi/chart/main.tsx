@@ -6,6 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 import {OptionsOiChartSingle} from './single';
+import {updateOptionsOiTitle} from '../../../../../../utils/title';
 
 
 type Props = {
@@ -21,10 +22,14 @@ export const OptionsOiChart = ({data}: Props) => {
     );
   }
 
-  const initial = data.at(0);
+  const initialContractSymbol = data.at(0)?.contractSymbol;
+
+  React.useEffect(() => {
+    updateOptionsOiTitle(initialContractSymbol);
+  }, []);
 
   return (
-    <Tabs defaultActiveKey={initial?.contractSymbol}>
+    <Tabs defaultActiveKey={initialContractSymbol} onSelect={updateOptionsOiTitle}>
       {data.map((dataOfContract) => (
         <Tab
           key={dataOfContract.contractSymbol} className="mt-2"

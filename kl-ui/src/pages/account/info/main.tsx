@@ -8,10 +8,19 @@ import {AccountExpiry} from './sections/expiry';
 import {AccountPermissions} from './sections/permissions';
 import {AccountId} from './sections/userId';
 import {ProtectedLayout} from '../../../components/layout/protected';
+import {updateAccountInfoTitle} from '../../../utils/title';
 
 
 export const AccountInfoPage = () => {
   const {data} = useSession();
+
+  React.useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    updateAccountInfoTitle(data);
+  }, [data]);
 
   return (
     <ProtectedLayout>

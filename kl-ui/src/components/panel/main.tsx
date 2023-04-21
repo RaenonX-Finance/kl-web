@@ -24,14 +24,18 @@ export const Panel = <K extends string, P extends string>({
   tabs,
 }: Props<K, P>) => {
   const {push, pathname} = useRouter();
+  const [activeKey, setActiveKey] = React.useState(pathToKeyMap[pathname as P]);
 
   const onSelect = async (key: string | null) => {
-    await push(keyToPathMap[key as K]);
+    const tabKey = key as K;
+
+    setActiveKey(tabKey);
+    await push(keyToPathMap[tabKey]);
   };
 
   return (
     <NarrowLayout>
-      <Tab.Container activeKey={pathToKeyMap[pathname as P]} onSelect={onSelect}>
+      <Tab.Container activeKey={activeKey} onSelect={onSelect}>
         <Row className="g-3 p-3">
           <Col sm={3}>
             <Nav variant="pills" className="flex-column">
@@ -46,7 +50,7 @@ export const Panel = <K extends string, P extends string>({
             <Tab.Content>
               {tabs.map(({tabKey, Component}) => (
                 <Tab.Pane key={tabKey} eventKey={tabKey}>
-                  <Component/>
+                  <Component isActive={tabKey === activeKey}/>
                 </Tab.Pane>
               ))}
             </Tab.Content>
