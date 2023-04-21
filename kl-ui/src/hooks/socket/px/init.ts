@@ -44,7 +44,7 @@ export const usePxInitHandler = (): UsePxInitHandlerReturn => {
       ]
         .map((identifier) => ({identifier})),
       onRetryAttempt: () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
-        message: '初始資料要求連線逾時，重試中...',
+        message: '初始報價資料要求連線逾時，重試中...',
       })),
       onRetrySuccess: () => dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]()),
     })
