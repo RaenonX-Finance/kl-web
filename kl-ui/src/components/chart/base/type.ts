@@ -30,7 +30,8 @@ export type ChartObjectRef<T> = {
 };
 
 export type InitChartPayload<T, L, A> = {
-  chartData: T,
+  // Needs to be `ref` because crosshair move event subscription refers chart data
+  chartDataRef: React.MutableRefObject<T>,
   setObject: ChartSetStateObjects<L>,
   chartContainer: HTMLDivElement,
   layoutConfig: A,
@@ -49,8 +50,9 @@ export type UseChartReturn<T, R, L, A, P> = {
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
 };
 
-export type OnChartChangedEventCommon<T, R, L, A> = Pick<InitChartPayload<T, L, A>, 'chartData'> & {
+export type OnChartChangedEventCommon<T, R, L, A> = {
   chartRef: React.MutableRefObject<IChartApi | undefined>,
+  chartDataRef: React.MutableRefObject<T>,
   chartObjectRef: React.MutableRefObject<ChartObjectRef<R> | undefined>,
   setObject: ChartSetStateObjects<L>,
   layoutConfig: A,

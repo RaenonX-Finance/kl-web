@@ -1,9 +1,9 @@
 import {OnPxChartInitEvent} from '../../type';
 
 
-export const handleLegend = ({chartData, setObject}: OnPxChartInitEvent) => {
+export const handleLegend = ({chartDataRef, setObject}: OnPxChartInitEvent) => {
   setObject.legend((legend) => ({
     ...legend,
-    close: chartData.data.at(-1)?.close || legend.close,
+    close: chartDataRef.current.data.at(-1)?.close || legend.close,
   }));
 };

@@ -20,6 +20,9 @@ export const onPxChartInit: PxChartInitEventHandler = (e) => {
   const extrema = handleExtrema(e, price);
   handleLegend(e);
 
+  const lastBar = e.chartDataRef.current.data.at(-1);
+  console.log(lastBar?.date, lastBar?.close);
+
   handleChartEvent(e);
 
   return {

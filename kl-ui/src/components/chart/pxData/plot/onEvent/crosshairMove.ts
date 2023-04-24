@@ -4,15 +4,15 @@ import {OnPxChartInitEvent, PxChartLegendData} from '../../type';
 
 
 export const handleCrosshairMove = ({
-  chartData,
+  chartDataRef,
   setObject,
 }: OnPxChartInitEvent): MouseEventHandler => ({
   time,
 }) => {
-  const pxData = chartData.data;
-  const last = chartData.data.at(-1);
+  const data = chartDataRef.current.data;
+  const last = data.at(-1);
 
-  const hovered = pxData.find(({epochSecond}) => epochSecond === time);
+  const hovered = data.find(({epochSecond}) => epochSecond === time);
 
   // Using `last` because moving out of chart makes `lastPrice` undefined
   setObject.legend(({decimals, momentum}) => {

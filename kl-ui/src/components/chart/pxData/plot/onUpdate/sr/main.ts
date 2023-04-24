@@ -4,12 +4,12 @@ import {getSrLevelColor, srLevelCommonOptions} from '../../const';
 
 
 export const handleSR = (e: OnPxChartUpdatedEvent) => {
-  const {chartData, chartObjectRef} = e;
+  const {chartDataRef, chartObjectRef} = e;
   if (!chartObjectRef.current) {
     return;
   }
 
-  for (const [idx, levels] of chartData.supportResistance.entries()) {
+  for (const [idx, levels] of chartDataRef.current.supportResistance.entries()) {
     const srLevelLines = chartObjectRef.current.initData.lines.srLevelLines[idx];
 
     if (!srLevelLines) {

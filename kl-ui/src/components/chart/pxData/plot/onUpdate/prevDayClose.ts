@@ -3,8 +3,8 @@ import {OnPxChartUpdatedEvent} from '../../type';
 import {prevDayCloseColor} from '../const';
 
 
-export const handlePrevDayClose = ({chartObjectRef, chartData, layoutConfig, user}: OnPxChartUpdatedEvent) => {
-  const latestMarket = chartData.latestMarket;
+export const handlePrevDayClose = ({chartObjectRef, chartDataRef, layoutConfig, user}: OnPxChartUpdatedEvent) => {
+  const latestMarket = chartDataRef.current.latestMarket;
   if (!latestMarket) {
     return null;
   }

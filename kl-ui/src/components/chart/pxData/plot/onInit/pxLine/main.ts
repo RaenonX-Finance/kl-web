@@ -8,7 +8,7 @@ import {getPriceFormat} from '../../utils';
 
 export const addPxLine = ({
   chartRef,
-  chartData,
+  chartDataRef,
   user,
   layoutConfig,
   keyOfConfig,
@@ -31,9 +31,9 @@ export const addPxLine = ({
     priceLineVisible,
     visible: visibleLine,
     lastValueVisible: visibleLabel,
-    priceFormat: getPriceFormat(chartData.contract),
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
-  series.setData(chartData.data.map(toLineData((bar) => bar[keyForLineData])));
+  series.setData(chartDataRef.current.data.map(toLineData((bar) => bar[keyForLineData])));
 
   return series;
 };

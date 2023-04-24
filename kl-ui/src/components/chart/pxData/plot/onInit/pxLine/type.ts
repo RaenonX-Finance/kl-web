@@ -7,7 +7,7 @@ import {OnPxChartInitEvent} from '../../../type';
 
 export type AddPxLineOptionsFromInitEvent = Pick<
   OnPxChartInitEvent,
-  'chartRef' | 'chartData' | 'layoutConfig' | 'user'
+  'chartRef' | 'chartDataRef' | 'layoutConfig' | 'user'
 >;
 
 export type AddPxLineOptions =

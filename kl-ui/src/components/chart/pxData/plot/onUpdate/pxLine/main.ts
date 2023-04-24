@@ -6,7 +6,7 @@ import {getAnimationMode} from '../../utils';
 
 
 export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions) => {
-  const {chartData, chartObjectRef, setObject, layoutConfig, partial, user} = e;
+  const {chartDataRef, chartObjectRef, setObject, layoutConfig, partial, user} = e;
   const {title, keyOfConfig, keyOfConfigLabel, keyOfSeries, keyOfLegendData, keyForLineData} = opts;
 
   if (!chartObjectRef.current) {
@@ -15,7 +15,7 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
 
   const series = chartObjectRef.current.initData.series[keyOfSeries];
 
-  const lastPrice = chartData.data.at(-1);
+  const lastPrice = chartDataRef.current.data.at(-1);
 
   if (!lastPrice) {
     return;
@@ -29,7 +29,7 @@ export const handlePxLine = (e: OnPxChartUpdatedEvent, opts: HandlePxLineOptions
   if (partial) {
     series.update(pxLine);
   } else {
-    series.setData(chartData.data.map(toLineData((bar) => bar[keyForLineData])));
+    series.setData(chartDataRef.current.data.map(toLineData((bar) => bar[keyForLineData])));
   }
 
   series.applyOptions({

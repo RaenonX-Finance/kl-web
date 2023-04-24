@@ -6,8 +6,8 @@ import {getPriceFormat} from '../utils';
 
 
 export const handleEmaNet = (e: OnPxChartInitEvent): PxChartSeries['emaNet'] => {
-  const {chartRef, chartData} = e;
-  const periodPair = chartData.indicator.ema.net;
+  const {chartRef, chartDataRef} = e;
+  const periodPair = chartDataRef.current.indicator.ema.net;
 
   // ------- EMA lines
   const lines: PxChartEmaLinePair = {
@@ -42,10 +42,10 @@ export const handleEmaNet = (e: OnPxChartInitEvent): PxChartSeries['emaNet'] => 
     downColor: bearColorForFill,
     borderDownColor: bearColorForFill,
     wickDownColor: bearColorForFill,
-    priceFormat: getPriceFormat(chartData.contract),
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
   fill.setData(
-    chartData.data.map(
+    chartDataRef.current.data.map(
       toCandlestickForFill(
         (bar) => bar.ema[periodPair.slow],
         (bar) => bar.ema[periodPair.fast],

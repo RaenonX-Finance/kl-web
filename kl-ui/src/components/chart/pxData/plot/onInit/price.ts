@@ -8,13 +8,13 @@ import {getPriceFormat} from '../utils';
 
 
 export const handlePrice = ({
-  chartRef, chartData, layoutConfig, user,
+  chartRef, chartDataRef, layoutConfig, user,
 }: OnPxChartInitEvent): ISeriesApi<'Candlestick'> => {
   if (!chartRef.current) {
     throw new Error('Adding price while the chart is not ready');
   }
 
-  const {contract, data} = chartData;
+  const {contract, data} = chartDataRef.current;
 
   const price = chartRef.current.addCandlestickSeries({
     title: contract.symbol,

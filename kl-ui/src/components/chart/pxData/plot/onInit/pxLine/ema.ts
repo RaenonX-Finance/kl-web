@@ -34,7 +34,7 @@ export const createEmaLine = ({
   colorOverride,
   specialStyleOnSlow = false,
 }: CreateEmaLineOptions): ISeriesApi<'Line'> => {
-  const {chartRef, chartData, layoutConfig, user} = e;
+  const {chartRef, chartDataRef, layoutConfig, user} = e;
 
   if (!chartRef.current) {
     throw new Error('Adding EMA net lines while the chart is not ready');
@@ -53,9 +53,9 @@ export const createEmaLine = ({
     lastValueVisible: visibleLabel, // Disable label
     crosshairMarkerVisible: false,
     visible,
-    priceFormat: getPriceFormat(chartData.contract),
+    priceFormat: getPriceFormat(chartDataRef.current.contract),
   });
-  emaLine.setData(chartData.data.map(toLineData((bar) => bar.ema[periodPair[periodType]], colorOverride)));
+  emaLine.setData(chartDataRef.current.data.map(toLineData((bar) => bar.ema[periodPair[periodType]], colorOverride)));
 
   return emaLine;
 };

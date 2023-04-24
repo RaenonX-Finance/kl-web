@@ -2,7 +2,9 @@ import {toLegendData} from '../../../../../utils/px';
 import {OnPxChartUpdatedEvent} from '../../type';
 
 
-export const handleLegend = ({chartData, setObject}: OnPxChartUpdatedEvent) => {
+export const handleLegend = ({chartDataRef, setObject}: OnPxChartUpdatedEvent) => {
+  const chartData = chartDataRef.current;
+
   setObject.legend((legend) => ({
     ...legend,
     // Only update the legend on Px changed if not hovered,

@@ -3,19 +3,19 @@ import {toCandlestick} from '../../dataConvert';
 import {OnPxChartUpdatedEvent} from '../../type';
 
 
-export const handlePrice = ({chartData, chartObjectRef, layoutConfig, partial, user}: OnPxChartUpdatedEvent) => {
+export const handlePrice = ({chartDataRef, chartObjectRef, layoutConfig, partial, user}: OnPxChartUpdatedEvent) => {
   if (!chartObjectRef.current) {
     return;
   }
 
   const {price} = chartObjectRef.current.initData.series;
-  const lastPrice = chartData.data.at(-1);
+  const lastPrice = chartDataRef.current.data.at(-1);
 
   if (!lastPrice) {
     return;
   }
 
-  const {symbol} = chartData.contract;
+  const {symbol} = chartDataRef.current.contract;
   const title = symbol;
   const fnToCandlestick = toCandlestick(
     getLayoutConfig({config: layoutConfig, key: 'candlestickColor', user}),
@@ -24,7 +24,7 @@ export const handlePrice = ({chartData, chartObjectRef, layoutConfig, partial, u
   if (partial) {
     price.update(fnToCandlestick(lastPrice));
   } else {
-    price.setData(chartData.data.map(fnToCandlestick));
+    price.setData(chartDataRef.current.data.map(fnToCandlestick));
   }
   price.applyOptions({
     title,

@@ -9,9 +9,9 @@ export const handlePrevDayClose = (
   e: OnPxChartInitEvent,
   price: ISeriesApi<'Candlestick'>,
 ): PxChartLines['prevDayClose'] => {
-  const {chartData, layoutConfig, user} = e;
+  const {chartDataRef, layoutConfig, user} = e;
 
-  const latestMarket = chartData.latestMarket;
+  const latestMarket = chartDataRef.current.latestMarket;
 
   const axisLabelVisible = getLayoutConfig({config: layoutConfig, key: 'prevDayCloseLabel', user});
   const lineVisible = getLayoutConfig({config: layoutConfig, key: 'prevDayClose', user});

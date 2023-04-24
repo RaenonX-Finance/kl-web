@@ -58,6 +58,7 @@ export const TradingViewChart = <T, P, R, L>({
   getPartialUpdateDeps,
 }: TradingViewChartProps<T, P, R, L, PxLayoutConfigSingle>) => {
   const chartContainerRef = React.useRef<HTMLDivElement>(null);
+  const chartDataRef = React.useRef<T>(chartData);
   const [legend, setLegend] = React.useState<L>(calcObjects.legend(chartData));
   const layoutConfig = useSingleLayoutConfigSelector(slot);
   const dispatch = useDispatch();
@@ -74,13 +75,14 @@ export const TradingViewChart = <T, P, R, L>({
   };
 
   const onDataUpdatedInternal = (partial: boolean) => () => {
+    chartDataRef.current = chartData;
     if (!isLayoutConfigReady) {
       return;
     }
 
     onDataUpdated({
       chartRef,
-      chartData,
+      chartDataRef,
       chartObjectRef,
       setObject,
       payload,
@@ -95,8 +97,9 @@ export const TradingViewChart = <T, P, R, L>({
       return;
     }
 
+    chartDataRef.current = chartData;
     makeChart({
-      chartData,
+      chartDataRef,
       setObject,
       layoutConfig,
       chartContainer: chartContainerRef.current,
