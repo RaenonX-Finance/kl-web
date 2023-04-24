@@ -1,4 +1,4 @@
-import {DecimalValue} from '../protos/decimalValue_pb';
+import {DecimalValue} from '../protos/types/decimalValue_pb';
 
 
 export const decimalValueToNumber = ({units, nanos}: DecimalValue.AsObject): number => {

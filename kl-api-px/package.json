@@ -14,7 +14,7 @@
     "start": "node ./dist/main.js",
     "lint": "eslint src/ --ext .ts,.tsx",
     "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
-    "protoc": "mkdir src\\protos && grpc_tools_node_protoc --plugin=protoc-gen-ts=%CD%/node_modules/.bin/protoc-gen-ts.cmd --ts_out=grpc_js:%CD%/src/protos --js_out=import_style=commonjs:%CD%/src/protos --grpc_out=grpc_js:%CD%/src/protos --proto_path ../kl-proto ../kl-proto/*.proto"
+    "protoc": "scripts/protoc.bat ../kl-proto/*.proto & scripts/protoc.bat ../kl-proto/types/*.proto"
   },
   "author": "RaenonX",
   "license": "ISC",
