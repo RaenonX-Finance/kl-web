@@ -1,9 +1,9 @@
+import {buildGrpcService} from 'kl-api-common/init/grpc/build';
 import {buildRestApi} from 'kl-api-common/init/rest/build/main';
 import {createClient} from 'redis';
 
 import {RedisDbId} from './enums/redisDb';
 import {LogDir} from './env';
-import {buildGrpcService} from './init/grpc/build';
 import {buildSocketIoServer} from './init/socket/build';
 
 

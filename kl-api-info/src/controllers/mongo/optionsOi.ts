@@ -1,18 +1,16 @@
 import {OptionsOiData} from 'kl-web-common/models/api/info/optionsOi';
-import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {dateOnlyToString} from 'kl-web-common/utils/date';
 import groupBy from 'lodash/groupBy';
 
 import {infoOptionsOi, infoOptionsOiMeta} from './const';
+import {DataScraperOpts} from './type';
 import {Logger} from '../../const';
 import {OptionsOiExpirySec} from '../../env';
 import {optionsOiScrapingFunc} from '../scraper/optionsOi/const';
 
 
-type GetOptionsOiOpts = {
+type GetOptionsOiOpts = DataScraperOpts & {
   symbol: string,
-  date: DateOnly,
-  forceScrape?: boolean,
 };
 
 const getOptionsOiFromDb = async ({symbol, date}: GetOptionsOiOpts): Promise<OptionsOiData | null> => {
@@ -36,19 +34,27 @@ const getOptionsOiFromDb = async ({symbol, date}: GetOptionsOiOpts): Promise<Opt
 };
 
 export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiData | null> => {
-  const {symbol, date, forceScrape} = opts;
+  const {symbol, date, forceScrape, onLog} = opts;
   const dateString = dateOnlyToString(date);
 
+  const onLogInternal: GetOptionsOiOpts['onLog'] = (log) => {
+    if (onLog) {
+      onLog(log);
+    }
+  };
+
   Logger.info(opts, 'Getting Options OI of %s at %s (force scrape: %s)', symbol, dateString, forceScrape);
+  onLogInternal(`Getting Options OI of ${symbol} at ${dateString} (force scrape: ${forceScrape})`);
 
-  const scrapeFunc = optionsOiScrapingFunc[symbol];
+  const scraper = optionsOiScrapingFunc[symbol];
 
-  if (!scrapeFunc) {
+  if (!scraper) {
     Logger.info(
       {symbol, result: 'noScrapeFunc'},
       'No Options OI data for %s because there is no corresponding scraping function',
       symbol,
     );
+    onLogInternal(`No Options OI data for ${symbol} because there is no corresponding scraping function`);
     return [];
   }
 
@@ -64,13 +70,16 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
           'Returning cached Options OI of %s at %s (last updated at %s)',
           symbol, dateString, meta.lastUpdate,
         );
+        onLogInternal(
+          `Returning cached Options OI of ${symbol} at ${dateString} (last updated at ${meta.lastUpdate})`,
+        );
 
         return dataInDb;
       }
     }
   }
 
-  const scrapedOptionsOi = await scrapeFunc(date);
+  const scrapedOptionsOi = await scraper(date);
 
   if (!scrapedOptionsOi.length) {
     Logger.info(
@@ -78,6 +87,7 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
       'No Options OI data available for %s at %s',
       symbol, dateString,
     );
+    onLogInternal(`No Options OI data available for ${symbol} at ${dateString}`);
     return null;
   }
 
@@ -98,5 +108,6 @@ export const getOptionsOi = async (opts: GetOptionsOiOpts): Promise<OptionsOiDat
   ]);
 
   Logger.info({symbol, date, result: 'scraped'}, 'Returning scraped Options OI data of %s at %s', symbol, dateString);
+  onLogInternal(`Returning scraped Options OI data of ${symbol} at ${dateString}`);
   return scrapedOptionsOi;
 };

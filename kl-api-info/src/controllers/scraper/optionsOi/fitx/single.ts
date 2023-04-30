@@ -21,7 +21,7 @@ export const scrapeFitxOptionsOiSingle = async (date: DateOnly, type: ExpiryType
 
   if (!response.ok) {
     Logger.error({date}, 'FITX Options OI at %s unavailable', dateString);
-    throw new Error('Data unavailable');
+    throw new Error(`FITX Options OI at ${dateString} unavailable`);
   }
 
   const html = await response.text();

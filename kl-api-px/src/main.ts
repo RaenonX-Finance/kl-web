@@ -28,7 +28,7 @@ import {setupSocketIoServer} from './init/socket/setup';
 
   const {emitter} = await setupSocketIoServer();
 
-  bindGrpcCalls(emitter);
+  await bindGrpcCalls(emitter);
   bindRestEndpointHandlers();
   bindSocketEvents();
 

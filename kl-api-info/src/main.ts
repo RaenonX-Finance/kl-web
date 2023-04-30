@@ -13,6 +13,8 @@ import {runFastify} from 'kl-api-common/init/rest/run';
 import {Logger, RestApiServer} from './const';
 import {initMongoIndexes} from './controllers/mongo/init';
 import {ApiHost, ApiPort} from './env';
+import {bindGrpcCalls} from './init/grpc/calls';
+import {runGrpcServiceAsync} from './init/grpc/run';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
 
 // DRAFT: + Implement market session control (or disable for now)
@@ -20,8 +22,10 @@ import {bindRestEndpointHandlers} from './init/rest/endpoints';
 (async () => {
   await initMongoIndexes();
 
+  await bindGrpcCalls();
   bindRestEndpointHandlers();
 
+  runGrpcServiceAsync();
   await runFastify({server: RestApiServer, host: ApiHost, port: ApiPort});
 })().catch((error) => {
   Logger.error({error}, `Application start up error (%s)`, error.toString());

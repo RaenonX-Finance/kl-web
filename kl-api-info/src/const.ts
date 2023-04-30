@@ -1,3 +1,4 @@
+import {buildGrpcService} from 'kl-api-common/init/grpc/build';
 import {buildRestApi} from 'kl-api-common/init/rest/build/main';
 import {registerTokenCheck} from 'kl-api-common/init/rest/build/middleware';
 
@@ -13,3 +14,5 @@ export const RestApiServer = buildRestApi({
 });
 
 export const Logger = RestApiServer.log;
+
+export const GrpcService = buildGrpcService();
