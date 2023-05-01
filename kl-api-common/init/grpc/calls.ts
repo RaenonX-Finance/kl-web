@@ -33,11 +33,12 @@ export const buildGrpcService = async <S extends ServiceDefinition>({
     Object.fromEntries(await Promise.all(Object.entries(handlers).map(async ([endpoint, handler]) => {
       const wrappedHandler: UntypedHandleCall = async (call: any) => {
         const start = nowMs();
+        const grpcPath = serviceDefinition[endpoint].path;
 
         try {
           await handler(call, () => void 0);
         } catch (error) {
-          logger.error({error, endpoint}, 'Error occurred in gRPC handler of `%s`', endpoint);
+          logger.error({error, grpcPath}, 'Error occurred in gRPC handler of `%s`', grpcPath);
           throw error;
         }
 
@@ -46,7 +47,7 @@ export const buildGrpcService = async <S extends ServiceDefinition>({
         }
 
         const logObj: GrpcRequestLogObject = {
-          grpc: {endpoint, requestCount: grpcRequestCount++},
+          grpc: {endpoint: grpcPath, requestCount: ++grpcRequestCount},
           responseTime: nowMs() - start,
         };
         logger.info(logObj, 'gRPC request `%s` handled in %f ms', logObj.grpc.endpoint, logObj.responseTime);
