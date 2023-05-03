@@ -1,7 +1,7 @@
+import {FinancialEventData} from 'kl-web-common/models/api/info/financialEvents';
 import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {dateOnlyToString} from 'kl-web-common/utils/date';
 
-import {FinancialEvents} from './type';
 import {Logger} from '../../../const';
 
 
@@ -20,5 +20,5 @@ export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts) =
     throw new Error(`Financial events at ${dateString} unavailable`);
   }
 
-  return await response.json() as FinancialEvents;
+  return await response.json() as FinancialEventData;
 };

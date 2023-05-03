@@ -21,7 +21,11 @@ export const grpcGetFinancialEventsHandler: IPxInfoServer['getFinancialEvents'] 
   Logger.info({date}, 'Getting financial events at %s', dateStr);
   call.write(new PxInfoReply().setMessage(`Getting financial events at ${dateStr}`));
 
-  await getFinancialEvents({date, forceScrape: true});
+  await getFinancialEvents({
+    date,
+    forceScrape: true,
+    onLog: (log) => call.write(new PxInfoReply().setMessage(log)),
+  });
 
   Logger.info({date}, 'Completed getting financial events at %s', dateStr);
   call.write(new PxInfoReply().setMessage(`Completed getting financial events at ${dateStr}`));

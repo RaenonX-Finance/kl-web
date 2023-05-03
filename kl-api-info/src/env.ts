@@ -10,3 +10,5 @@ export const ApiPort = env.get('KL_INFO_API_PORT_REST').required().asPortNumber(
 export const GrpcPort = env.get('KL_INFO_API_PORT_GRPC').required().asPortNumber();
 
 export const OptionsOiExpirySec = env.get('KL_INFO_API_OPTION_OI_EXPIRY_SEC').required().asIntPositive();
+
+export const FinancialEventsExpirySec = env.get('KL_INFO_API_FIN_EVENTS_EXPIRY_SEC').required().asIntPositive();

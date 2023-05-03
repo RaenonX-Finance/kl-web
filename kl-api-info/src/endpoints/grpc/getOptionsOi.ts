@@ -22,7 +22,12 @@ export const grpcGetOptionsOiHandler: IPxInfoServer['getOptionsOi'] = async (cal
   Logger.info({symbol, date}, 'Getting options OI of [%s] at %s', symbol, dateStr);
   call.write(new PxInfoReply().setMessage(`Getting options OI of ${symbol} at ${dateStr}`));
 
-  await getOptionsOi({date, symbol, forceScrape: true});
+  await getOptionsOi({
+    date,
+    symbol,
+    forceScrape: true,
+    onLog: (log) => call.write(new PxInfoReply().setMessage(log)),
+  });
 
   Logger.info({symbol, date: dateInRequest}, 'Completed getting options OI of [%s] at %s', symbol, dateStr);
   call.write(new PxInfoReply().setMessage(`Completed getting options OI of ${symbol} at ${dateStr}`));
