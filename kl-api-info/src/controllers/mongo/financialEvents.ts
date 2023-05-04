@@ -41,62 +41,83 @@ export const getFinancialEvents = async (opts: GetFinancialEventsOpts): Promise<
     }
   };
 
+  const scrapeEvents = async (): Promise<boolean> => {
+    const financialEvents = await scrapeFinancialEvents(opts);
+
+    if (!financialEvents.length) {
+      Logger.info(
+        {date, result: 'noResult'},
+        'No financial events available at %s',
+        dateString,
+      );
+      onLogInternal(`No financial events data available at ${dateString}`);
+      return false;
+    }
+
+    Logger.info({date, result: 'scraped'}, 'Scraped financial events at %s', dateString);
+    onLogInternal(`Scraping financial events at ${dateString}`);
+
+    await infoFinancialEvents.deleteMany({id: {$in: financialEvents.map(({id}) => id)}});
+    await Promise.all([
+      infoFinancialEvents.insertMany(financialEvents.map(({date, lastUpdate, ...event}) => ({
+        ...event,
+        date: new Date(date),
+        lastUpdate: new Date(lastUpdate),
+      }))),
+      infoFinancialEventsMeta.updateOne(
+        {date},
+        {$set: {lastUpdate: new Date()}},
+        {upsert: true},
+      ),
+    ]);
+    return true;
+  };
+
   Logger.info(opts, 'Getting financial events at %s (force scrape: %s)', dateString, forceScrape);
   onLogInternal(`Getting financial events at ${dateString} (force scrape: ${forceScrape})`);
 
-  if (!forceScrape) {
+  let dataAvailable;
+
+  if (forceScrape) {
+    dataAvailable = await scrapeEvents();
+  } else {
     const meta = await infoFinancialEventsMeta.findOne({date});
 
-    if (meta && (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 < FinancialEventsExpirySec) {
-      const dataInDb = await getFinancialEventsFromDb(opts);
-
-      if (dataInDb) {
-        Logger.info(
-          {...opts, lastUpdate: meta.lastUpdate, result: 'cached'},
-          'Returning cached financial events at %s (last updated at %s)',
-          dateString, meta.lastUpdate,
-        );
-        onLogInternal(
-          `Returning cached financial events at ${dateString} (last updated at ${meta.lastUpdate})`,
-        );
-
-        return dataInDb.map(({date, lastUpdate, ...event}) => ({
-          ...event,
-          date: date.toISOString(),
-          lastUpdate: lastUpdate.toISOString(),
-        }));
-      }
+    if (!meta || (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 > FinancialEventsExpirySec) {
+      dataAvailable = await scrapeEvents();
+    } else {
+      dataAvailable = true;
+      Logger.info(
+        {...opts, lastUpdate: meta.lastUpdate, result: 'cached'},
+        'Found cached financial events at %s (last updated at %s)',
+        dateString, meta.lastUpdate,
+      );
+      onLogInternal(
+        `Found cached financial events at ${dateString} (last updated at ${meta.lastUpdate})`,
+      );
     }
   }
 
-  const financialEvents = await scrapeFinancialEvents(opts);
-
-  if (!financialEvents.length) {
-    Logger.info(
-      {date, result: 'noResult'},
-      'No financial events available at %s',
-      dateString,
-    );
-    onLogInternal(`No financial events data available at ${dateString}`);
+  if (!dataAvailable) {
     return null;
   }
 
-  await infoFinancialEvents.deleteMany({id: {$in: financialEvents.map(({id}) => id)}});
-  await Promise.all([
-    infoFinancialEvents.insertMany(financialEvents.map(({date, lastUpdate, ...event}) => ({
-      ...event,
-      date: new Date(date),
-      lastUpdate: new Date(lastUpdate),
-    }))),
-    infoFinancialEventsMeta.updateOne(
-      {date},
-      {$set: {lastUpdate: new Date()}},
-      {upsert: true},
-    ),
-  ]);
+  const dataInDb = await getFinancialEventsFromDb(opts);
 
-  Logger.info({date, result: 'scraped'}, 'Returning scraped financial events at %s', dateString);
-  onLogInternal(`Returning scraped financial events at ${dateString}`);
+  Logger.info(
+    {date, dataCount: dataInDb?.length},
+    'Returning financial events at %s (%s)',
+    dateString, dataInDb?.length,
+  );
+  onLogInternal(`Returning financial events at ${dateString} (${dataInDb?.length})`);
 
-  return financialEvents;
+  if (!dataInDb) {
+    return null;
+  }
+
+  return dataInDb.map(({date, lastUpdate, ...event}) => ({
+    ...event,
+    date: date.toISOString(),
+    lastUpdate: lastUpdate.toISOString(),
+  }));
 };
