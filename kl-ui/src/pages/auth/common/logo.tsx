@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
-export const AuthLogo = () => {
+export const AuthLogo = React.memo(() => {
   return (
     <Row className="text-center mb-3">
       <Col>
@@ -13,4 +13,6 @@ export const AuthLogo = () => {
       </Col>
     </Row>
   );
-};
+});
+
+AuthLogo.displayName = 'AuthLogo';

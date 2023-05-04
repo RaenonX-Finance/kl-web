@@ -7,7 +7,7 @@ import {AuthErrorParam} from './error';
 import {AuthLogo} from './logo';
 
 
-export const AuthPage = ({children}: React.PropsWithChildren) => {
+export const AuthPage = React.memo(({children}: React.PropsWithChildren) => {
   return (
     <Row className="h-100 align-items-center mx-3 mx-md-0">
       <Col md={{span: 6, offset: 3}} lg={{span: 4, offset: 4}}>
@@ -17,4 +17,6 @@ export const AuthPage = ({children}: React.PropsWithChildren) => {
       </Col>
     </Row>
   );
-};
+});
+
+AuthPage.displayName = 'AuthPage';

@@ -9,7 +9,7 @@ import {FloatingControlCommonProps} from './type';
 
 type Props = React.InputHTMLAttributes<HTMLSelectElement> & FloatingControlCommonProps<HTMLSelectElement>;
 
-export const FloatingSelect = ({label, children, ...props}: React.PropsWithChildren<Props>) => {
+export const FloatingSelect = React.memo(({label, children, ...props}: React.PropsWithChildren<Props>) => {
   return (
     <FloatingLabel label={label}>
       <Form.Select
@@ -20,4 +20,6 @@ export const FloatingSelect = ({label, children, ...props}: React.PropsWithChild
       </Form.Select>
     </FloatingLabel>
   );
-};
+});
+
+FloatingSelect.displayName = 'FloatingSelect';
