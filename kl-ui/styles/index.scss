@@ -85,3 +85,14 @@ input::-webkit-inner-spin-button:not(:disabled) {
     border-color: bootstrap.$input-disabled-border-color;
   }
 }
+
+@each $breakpoint in map-keys(bootstrap.$grid-breakpoints) {
+  @include bootstrap.media-breakpoint-up($breakpoint) {
+    .vstack-#{$breakpoint} {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      align-self: stretch;
+    }
+  }
+}

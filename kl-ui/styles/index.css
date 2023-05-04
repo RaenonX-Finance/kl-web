@@ -11909,4 +11909,52 @@ input::-webkit-inner-spin-button:not(:disabled) {
   border-color: #505050;
 }
 
+.vstack-xs {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+@media (min-width: 576px) {
+  .vstack-sm {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+  }
+}
+@media (min-width: 768px) {
+  .vstack-md {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+  }
+}
+@media (min-width: 992px) {
+  .vstack-lg {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+  }
+}
+@media (min-width: 1200px) {
+  .vstack-xl {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+  }
+}
+@media (min-width: 1400px) {
+  .vstack-xxl {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+  }
+}
+
 /*# sourceMappingURL=index.css.map */
