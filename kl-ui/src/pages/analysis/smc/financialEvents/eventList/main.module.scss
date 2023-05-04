@@ -1,0 +1,126 @@
+@use "../../../../../../styles/colors";
+@use "../../../../../../styles/fonts";
+
+button {
+  &.to-current {
+    position: fixed;
+    bottom: 1rem;
+    right: 2rem;
+    background-color: rgba(0 0 0 / 30%);
+    z-index: 1000;
+    border-radius: 50%;
+    padding: 0;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+}
+
+span {
+  &.country {
+    $size: 2.25rem;
+
+    align-self: center;
+    display: inline-block;
+    position: relative;
+    object-fit: contain;
+    width: $size;
+    height: $size;
+    margin-right: 0.5rem;
+  }
+
+  &.title {
+    display: flex;
+    align-self: center;
+    font-size: 1.15rem;
+  }
+
+  &.countdown-complete-text {
+    color: colors.$color-bw-140;
+  }
+
+  &.countdown-lt-3h-text {
+    @keyframes countdown-lt-3h-text-animation {
+      from {
+        color: #fcfcfc;
+      }
+
+      to {
+        color: #c093f3;
+      }
+    }
+
+    animation: 1.2s ease-in-out infinite alternate countdown-lt-3h-text-animation;
+  }
+
+  &.last-update {
+    color: colors.$color-bw-170;
+    font-size: 0.8rem;
+  }
+
+  &.actual-value {
+    font-size: 1.15rem;
+  }
+}
+
+div {
+  @mixin event-item {
+    --bs-accordion-active-color: #fcfcfc;
+    --bs-accordion-btn-focus-box-shadow: none;
+  }
+
+  &.event-item-low {
+    @include event-item;
+
+    --bs-accordion-active-bg: #0c3d23;
+    --bs-accordion-btn-color: #25c470;
+  }
+
+  &.event-item-medium {
+    @include event-item;
+
+    --bs-accordion-active-bg: #47340a;
+    --bs-accordion-btn-color: #edae26;
+  }
+
+  &.event-item-high {
+    @include event-item;
+
+    --bs-accordion-active-bg: #54151b;
+    --bs-accordion-btn-color: #fc5c6b;
+  }
+
+  &.date {
+    align-self: end;
+    font-size: 0.85rem;
+  }
+
+  &.countdown {
+    align-self: end;
+    font-size: 0.9rem;
+    font-family: fonts.$font-monospace;
+    border-radius: 0.5rem;
+    background-color: colors.$color-bw-0;
+    margin-top: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  &.values {
+    align-self: center;
+    margin-right: 1rem;
+    text-align: end;
+  }
+
+  &.sub-values {
+    & > small {
+      font-size: 0.85rem;
+      margin: 0.25rem 0.2rem;
+      white-space: nowrap;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

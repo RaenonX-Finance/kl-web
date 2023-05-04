@@ -5,6 +5,7 @@ export enum GeneralPath {
 
 export enum SmcAnalysisPath {
   OPTIONS_OI = '/smc/options-oi',
+  FINANCIAL_EVENTS = '/smc/financial-events',
 }
 
 export enum AdminPath {

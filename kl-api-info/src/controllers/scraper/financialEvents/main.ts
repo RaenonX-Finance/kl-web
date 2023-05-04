@@ -9,7 +9,7 @@ type ScrapeFinancialEventsOpts = {
   date: DateOnly,
 };
 
-export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts) => {
+export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts): Promise<FinancialEventData> => {
   const dateString = dateOnlyToString(date);
   const response = await fetch(
     `https://www.dailyfxasia.com/cn/calendar/events/${dateString}`,
@@ -20,5 +20,12 @@ export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts) =
     throw new Error(`Financial events at ${dateString} unavailable`);
   }
 
-  return await response.json() as FinancialEventData;
+  const json = await response.json() as FinancialEventData;
+
+  // Dates returned from the API won't have `Z` postfix, which causes timezone issue for the later processing
+  return json.map(({date, lastUpdate, ...data}) => ({
+    date: `${date}Z`,
+    lastUpdate: `${lastUpdate}Z`,
+    ...data,
+  }));
 };

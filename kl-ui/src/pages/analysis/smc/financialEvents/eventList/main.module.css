@@ -1,0 +1,96 @@
+button.to-current {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-radius: 50%;
+  padding: 0;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+}
+
+span.country {
+  align-self: center;
+  display: inline-block;
+  position: relative;
+  object-fit: contain;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-right: 0.5rem;
+}
+span.title {
+  display: flex;
+  align-self: center;
+  font-size: 1.15rem;
+}
+span.countdown-complete-text {
+  color: #8c8c8c;
+}
+span.countdown-lt-3h-text {
+  animation: 1.2s ease-in-out infinite alternate countdown-lt-3h-text-animation;
+}
+@keyframes countdown-lt-3h-text-animation {
+  from {
+    color: #fcfcfc;
+  }
+  to {
+    color: #c093f3;
+  }
+}
+span.last-update {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+span.actual-value {
+  font-size: 1.15rem;
+}
+
+div.event-item-low {
+  --bs-accordion-active-color: #fcfcfc;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-active-bg: #0c3d23;
+  --bs-accordion-btn-color: #25c470;
+}
+div.event-item-medium {
+  --bs-accordion-active-color: #fcfcfc;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-active-bg: #47340a;
+  --bs-accordion-btn-color: #edae26;
+}
+div.event-item-high {
+  --bs-accordion-active-color: #fcfcfc;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-active-bg: #54151b;
+  --bs-accordion-btn-color: #fc5c6b;
+}
+div.date {
+  align-self: end;
+  font-size: 0.85rem;
+}
+div.countdown {
+  align-self: end;
+  font-size: 0.9rem;
+  font-family: "Cascadia Mono", "Calibri", monospace;
+  border-radius: 0.5rem;
+  background-color: #000;
+  margin-top: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+div.values {
+  align-self: center;
+  margin-right: 1rem;
+  text-align: end;
+}
+div.sub-values > small {
+  font-size: 0.85rem;
+  margin: 0.25rem 0.2rem;
+  white-space: nowrap;
+}
+div.sub-values > small:last-child {
+  margin-right: 0;
+}
+
+/*# sourceMappingURL=main.module.css.map */

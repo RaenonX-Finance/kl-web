@@ -1,13 +1,13 @@
 /* eslint-disable new-cap */
 import {Static, Type} from '@sinclair/typebox';
 
-import {DateOnly, DateOnlySchemaBase} from '../../dateOnly';
+import {InfoRequestSchemaBase} from './common';
+import {DateOnly} from '../../dateOnly';
 
 
 export const OptionsOiRequestSchema = Type.Object({
-  ...DateOnlySchemaBase,
+  ...InfoRequestSchemaBase,
   symbol: Type.String(),
-  forceScrape: Type.Optional(Type.Boolean()),
 });
 
 export type OptionsOiRequest = Static<typeof OptionsOiRequestSchema>;

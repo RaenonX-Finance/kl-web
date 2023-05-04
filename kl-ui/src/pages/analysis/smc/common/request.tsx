@@ -1,6 +1,7 @@
 import React from 'react';
 
 import format from 'date-fns/format';
+import {InfoRequest} from 'kl-web-common/models/api/info/common';
 import {ISODateString} from 'kl-web-common/types/time';
 import {dateOnlyToString, stringToDateOnly, toDateOnly} from 'kl-web-common/utils/date';
 import {useSession} from 'next-auth/react';
@@ -9,20 +10,19 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 import styles from './main.module.scss';
-import {OptionsOiRequestParams} from './type';
 
 
-type Props = {
+type Props<T extends InfoRequest> = {
   loading: boolean,
-  fetchOptionsOi: (request: OptionsOiRequestParams) => void
+  fetchFunc: (request: T) => void
 };
 
-export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
+export const InfoRequestMaker = <T extends InfoRequest>({loading, fetchFunc}: Props<T>) => {
   const {data} = useSession();
-  const [request, setRequest] = React.useState<OptionsOiRequestParams>({
+  const [request, setRequest] = React.useState<T>({
     ...toDateOnly(new Date()),
     forceScrape: false,
-  });
+  } as T);
   const {forceScrape} = request;
   const dateString = dateOnlyToString(request);
 
@@ -55,7 +55,7 @@ export const OptionsOiRequestMaker = ({loading, fetchOptionsOi}: Props) => {
           強制更新
         </Button>
       }
-      <Button variant="outline-light" disabled={loading} onClick={() => fetchOptionsOi(request)}>
+      <Button variant="outline-light" disabled={loading} onClick={() => fetchFunc(request)}>
         <i className="bi bi-search"/>
       </Button>
     </InputGroup>

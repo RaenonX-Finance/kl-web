@@ -5,9 +5,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Table from 'react-bootstrap/Table';
 
 import styles from './main.module.scss';
-import {bearColor, bullColor} from '../../../../../../components/chart/pxData/plot/const';
-import {sum} from '../../../../../../utils/calc';
-import {formatSignedNumber} from '../../../../../../utils/string';
+import {bearColor, bullColor} from '../../../../../components/chart/pxData/plot/const';
+import {sum} from '../../../../../utils/calc';
+import {formatSignedNumber} from '../../../../../utils/string';
 
 
 type Props = {

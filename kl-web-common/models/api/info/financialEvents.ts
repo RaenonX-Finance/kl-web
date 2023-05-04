@@ -1,13 +1,11 @@
 /* eslint-disable new-cap */
 import {Static, TString, Type} from '@sinclair/typebox';
 
-import {DateOnly, DateOnlySchemaBase} from '../../dateOnly';
+import {InfoRequestSchema} from './common';
+import {DateOnly} from '../../dateOnly';
 
 
-export const FinancialEventsRequestSchema = Type.Object({
-  ...DateOnlySchemaBase,
-  forceScrape: Type.Optional(Type.Boolean()),
-});
+export const FinancialEventsRequestSchema = InfoRequestSchema;
 
 export type FinancialEventsRequest = Static<typeof FinancialEventsRequestSchema>;
 

@@ -6,7 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 import {OptionsOiChartSingle} from './single';
-import {updateOptionsOiTitle} from '../../../../../../utils/title';
+import {updateOptionsOiTitle} from '../../../../../utils/title';
 
 
 type Props = {

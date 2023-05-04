@@ -4,18 +4,17 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import {SmcTabOptionsOi} from './tabs/optionsOi/main';
-import {ProtectedLayout} from '../../../components/layout/protected';
+import {ProtectedLayout} from '../../../../components/layout/protected';
 
 
-export const SmcAnalysisPanel = () => {
+export const SmcLayout = ({children}: React.PropsWithChildren<{}>) => {
   return (
     <ProtectedLayout>
       <Container className="mt-3">
         <Row>
           <Col xs={1}/>
           <Col>
-            <SmcTabOptionsOi/>
+            {children}
           </Col>
           <Col xs={1}/>
         </Row>

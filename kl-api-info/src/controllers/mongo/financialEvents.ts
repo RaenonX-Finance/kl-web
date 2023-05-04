@@ -16,10 +16,11 @@ const getFinancialEventsFromDb = async ({
   const baseDate = dateOnlyToDate(date);
   const [meta, financialEvents] = await Promise.all([
     infoFinancialEventsMeta.findOne({date}),
-    // Needs to get the data from (date - 1D) to (date + 1D)
+    // Needs to get the data from (date - 1D) to (date + 2D)
     // so the data shown at the UI after applying timezone filter is guaranteed in a 24 hrs range
+    // Ending limit being +2 to include every event in the next day
     infoFinancialEvents.find(
-      {date: {$gte: addDays(baseDate, -1), $lte: addDays(baseDate, 1)}},
+      {date: {$gte: addDays(baseDate, -1), $lt: addDays(baseDate, 2)}},
       {sort: ['date', 1]},
     ).toArray(),
   ]);

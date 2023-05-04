@@ -8,7 +8,7 @@ import Countdown, {CountdownRendererFn} from 'react-countdown';
 
 import styles from './main.module.scss';
 import {OptionsOiChartSingleProps} from './single';
-import {bearColor, bullColor} from '../../../../../../components/chart/pxData/plot/const';
+import {bearColor, bullColor} from '../../../../../components/chart/pxData/plot/const';
 
 
 const countdownRender: CountdownRendererFn = ({days, hours, minutes, seconds}) => {
