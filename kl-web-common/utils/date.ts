@@ -26,5 +26,7 @@ export const stringToDateOnly = (dateString: ISODateString): DateOnly => {
 };
 
 export const addDays = (date: Date, days: number): Date => {
-  return new Date(date.setDate(date.getDate() + days));
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
 };
