@@ -1,4 +1,5 @@
 import {FinancialEventData, FinancialEventEntryModel} from 'kl-web-common/models/api/info/financialEvents';
+import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {ISOTimestampUtc} from 'kl-web-common/types/time';
 import {addDays, dateOnlyToDate, dateOnlyToString} from 'kl-web-common/utils/date';
 
@@ -33,6 +34,64 @@ const getFinancialEventsFromDb = async ({
   return financialEvents;
 };
 
+type UpdateFinancialEventsInDbOpts = {
+  financialEvents: FinancialEventData,
+  date: DateOnly,
+};
+
+export const updateFinancialEventsInDb = ({financialEvents, date}: UpdateFinancialEventsInDbOpts) => {
+  return Promise.all([
+    infoFinancialEvents.bulkWrite(financialEvents.map(({id, date, lastUpdate, ...event}) => ({
+      updateOne: {
+        filter: {id},
+        update: {
+          $set: {
+            ...event,
+            date: new Date(date),
+            lastUpdate: new Date(lastUpdate),
+          },
+        },
+        upsert: true,
+      },
+    }))),
+    infoFinancialEventsMeta.updateOne(
+      {date},
+      {$set: {lastUpdate: new Date()}},
+      {upsert: true},
+    ),
+  ]);
+};
+
+export const scrapeFinancialEventsToDb = async (opts: GetFinancialEventsOpts): Promise<boolean> => {
+  const {date, onLog} = opts;
+  const dateString = dateOnlyToString(date);
+
+  const onLogInternal: GetFinancialEventsOpts['onLog'] = (log) => {
+    if (onLog) {
+      onLog(log);
+    }
+  };
+
+  const financialEvents = await scrapeFinancialEvents(opts);
+
+  if (!financialEvents.length) {
+    Logger.info(
+      {date, result: 'noResult'},
+      'No financial events available at %s',
+      dateString,
+    );
+    onLogInternal(`No financial events data available at ${dateString}`);
+    return false;
+  }
+
+  Logger.info({date, result: 'scraped'}, 'Scraped financial events at %s', dateString);
+  onLogInternal(`Scraping financial events at ${dateString}`);
+
+  await updateFinancialEventsInDb({financialEvents, date});
+
+  return true;
+};
+
 export const getFinancialEvents = async (opts: GetFinancialEventsOpts): Promise<FinancialEventData | null> => {
   const {date, forceScrape, onLog} = opts;
   const dateString = dateOnlyToString(date);
@@ -43,50 +102,19 @@ export const getFinancialEvents = async (opts: GetFinancialEventsOpts): Promise<
     }
   };
 
-  const scrapeEvents = async (): Promise<boolean> => {
-    const financialEvents = await scrapeFinancialEvents(opts);
-
-    if (!financialEvents.length) {
-      Logger.info(
-        {date, result: 'noResult'},
-        'No financial events available at %s',
-        dateString,
-      );
-      onLogInternal(`No financial events data available at ${dateString}`);
-      return false;
-    }
-
-    Logger.info({date, result: 'scraped'}, 'Scraped financial events at %s', dateString);
-    onLogInternal(`Scraping financial events at ${dateString}`);
-
-    await infoFinancialEvents.deleteMany({id: {$in: financialEvents.map(({id}) => id)}});
-    await Promise.all([
-      infoFinancialEvents.insertMany(financialEvents.map(({date, lastUpdate, ...event}) => ({
-        ...event,
-        date: new Date(date),
-        lastUpdate: new Date(lastUpdate),
-      }))),
-      infoFinancialEventsMeta.updateOne(
-        {date},
-        {$set: {lastUpdate: new Date()}},
-        {upsert: true},
-      ),
-    ]);
-    return true;
-  };
-
   Logger.info(opts, 'Getting financial events at %s (force scrape: %s)', dateString, forceScrape);
   onLogInternal(`Getting financial events at ${dateString} (force scrape: ${forceScrape})`);
 
   let dataAvailable;
 
   if (forceScrape) {
-    dataAvailable = await scrapeEvents();
+    dataAvailable = await scrapeFinancialEventsToDb(opts);
   } else {
     const meta = await infoFinancialEventsMeta.findOne({date});
 
+    // TODO: Change `FinancialEventsExpirySec` to DB refetch threshold (naming)
     if (!meta || (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 > FinancialEventsExpirySec) {
-      dataAvailable = await scrapeEvents();
+      dataAvailable = await scrapeFinancialEventsToDb(opts);
     } else {
       dataAvailable = true;
       Logger.info(

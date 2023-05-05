@@ -19,13 +19,14 @@ import {bindGrpcCalls} from './init/grpc/calls';
 import {runGrpcServiceAsync} from './init/grpc/run';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
 import {bindSocketEvents} from './init/socket/events';
+import {scheduleWorker} from './init/worker/main';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
   await initMongoIndexes();
 
-  await setupSocketIoServer({
+  const {emitter} = await setupSocketIoServer({
     database: RedisDbId.SocketIoInfoApiCluster,
     server: SocketIoServer,
   });
@@ -33,6 +34,8 @@ import {bindSocketEvents} from './init/socket/events';
   await bindGrpcCalls();
   bindRestEndpointHandlers();
   bindSocketEvents();
+
+  scheduleWorker(emitter);
 
   runGrpcServiceAsync();
   await runFastify({server: RestApiServer, host: ApiHost, port: ApiPort});
