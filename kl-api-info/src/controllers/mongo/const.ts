@@ -1,14 +1,22 @@
 import {Mongo} from 'kl-api-common/const';
-import {FinancialEventEntryModel, FinancialEventsMetaModel} from 'kl-web-common/models/api/info/financialEvents';
+import {
+  FinancialEventEntryModel,
+  FinancialEventsMetaModel,
+  LatestEventsMetaModel,
+} from 'kl-web-common/models/api/info/financialEvents';
 import {OptionsOiMetaModel, OptionsOiModel} from 'kl-web-common/models/api/info/optionsOi';
 
 
-const info = Mongo.db('info');
+export const infoDb = Mongo.db('info');
 
-export const infoOptionsOi = info.collection<OptionsOiModel>('optionsOi');
+export const infoOptionsOi = infoDb.collection<OptionsOiModel>('optionsOi');
 
-export const infoOptionsOiMeta = info.collection<OptionsOiMetaModel>('optionsOiMeta');
+export const infoOptionsOiMeta = infoDb.collection<OptionsOiMetaModel>('optionsOiMeta');
 
-export const infoFinancialEvents = info.collection<FinancialEventEntryModel>('financialEvents');
+export const infoFinancialEvents = infoDb.collection<FinancialEventEntryModel>('financialEvents');
 
-export const infoFinancialEventsMeta = info.collection<FinancialEventsMetaModel>('financialEventsMeta');
+export const infoFinancialEventsMeta = infoDb.collection<FinancialEventsMetaModel>('financialEventsMeta');
+
+export const infoLatestEvents = infoDb.collection<FinancialEventEntryModel>('latestEvents');
+
+export const infoLatestEventsMeta = infoDb.collection<LatestEventsMetaModel>('latestEventsMeta');

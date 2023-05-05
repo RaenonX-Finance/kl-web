@@ -13,7 +13,7 @@ import {runFastify} from 'kl-api-common/init/rest/run';
 import {setupSocketIoServer} from 'kl-api-common/init/socket/setup';
 
 import {Logger, SocketIoServer, RestApiServer} from './const';
-import {initMongoIndexes} from './controllers/mongo/init';
+import {initMongoDb} from './controllers/mongo/init';
 import {ApiHost, ApiPort} from './env';
 import {bindGrpcCalls} from './init/grpc/calls';
 import {runGrpcServiceAsync} from './init/grpc/run';
@@ -24,7 +24,7 @@ import {scheduleWorker} from './init/worker/main';
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
-  await initMongoIndexes();
+  await initMongoDb();
 
   const {emitter} = await setupSocketIoServer({
     database: RedisDbId.SocketIoInfoApiCluster,

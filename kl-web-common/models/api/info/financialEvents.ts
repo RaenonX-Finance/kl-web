@@ -2,7 +2,6 @@
 import {Static, TString, Type} from '@sinclair/typebox';
 
 import {InfoRequestSchema} from './common';
-import {FinancialEventHistoryEntry} from './financialEventHistory';
 import {ISOTimestampTillMinuteNoZ, ISOTimestampUtc} from '../../../types/time';
 import {ChangeTypeOfKeysOnValueType} from '../../../utils/types';
 import {DateOnly} from '../../dateOnly';
@@ -49,21 +48,22 @@ export const FinancialEventEntrySchema = Type.Object({
 
 export type FinancialEventEntry = Static<typeof FinancialEventEntrySchema>;
 
-export type FinancialEventEntryFromApi = ChangeTypeOfKeysOnValueType<
+export type FinancialEventEntryFromApi = Omit<ChangeTypeOfKeysOnValueType<
   FinancialEventEntry,
   ISOTimestampUtc,
   ISOTimestampTillMinuteNoZ
->;
+>, 'id'> & {
+  id: string,
+};
 
 export const FinancialEventDataSchema = Type.Array(FinancialEventEntrySchema);
 
 export type FinancialEventData = Static<typeof FinancialEventDataSchema>;
 
-export type FinancialEventEntryModel = ChangeTypeOfKeysOnValueType<
-  FinancialEventHistoryEntry,
-  ISOTimestampUtc,
-  Date
->;
+export type FinancialEventEntryModel = Omit<FinancialEventEntry, 'date' | 'lastUpdate'> & {
+  date: Date,
+  lastUpdate: Date,
+};
 
 export type FinancialEventsMetaModel = {
   date: DateOnly,

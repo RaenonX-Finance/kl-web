@@ -2,6 +2,7 @@ import {FinancialEventData, FinancialEventEntryFromApi} from 'kl-web-common/mode
 import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {dateOnlyToString} from 'kl-web-common/utils/date';
 
+import {toFinancialEventData} from './utils';
 import {Logger} from '../../../const';
 
 
@@ -20,12 +21,5 @@ export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts): 
     throw new Error(`Financial events at ${dateString} unavailable`);
   }
 
-  const json = await response.json() as FinancialEventEntryFromApi[];
-
-  // Dates returned from the API won't have `Z` postfix, which causes timezone issue for the later processing
-  return json.map(({date, lastUpdate, ...data}) => ({
-    date: `${date}:00.000Z`,
-    lastUpdate: `${lastUpdate}:00.000Z`,
-    ...data,
-  }));
+  return toFinancialEventData(await response.json() as FinancialEventEntryFromApi[]);
 };
