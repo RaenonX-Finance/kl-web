@@ -50,7 +50,7 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
   return (
     <>
       <TimeAgo {...props} ref={ref} onClick={onOpen}/>
-      <Modal size="lg" show={show} onHide={onClose} centered>
+      <Modal show={show} onHide={onClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>延遲測試</Modal.Title>
         </Modal.Header>
