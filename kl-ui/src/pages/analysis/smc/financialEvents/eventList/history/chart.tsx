@@ -15,10 +15,11 @@ import {isNotFetched, useFetchState} from '../../../../../../utils/fetch';
 
 
 type Props = {
-  symbol: string
+  symbol: string,
+  isShown: boolean,
 };
 
-export const FinancialEventHistory = ({symbol}: Props) => {
+export const FinancialEventHistory = ({symbol, isShown}: Props) => {
   const dispatch = useDispatch();
   const {
     fetchStatus,
@@ -35,7 +36,9 @@ export const FinancialEventHistory = ({symbol}: Props) => {
     `無法獲取 ${symbol} 的歷史資料。`,
   );
 
-  fetchData({payload: symbol});
+  if (isShown) {
+    fetchData({payload: symbol});
+  }
 
   if (isNotFetched(fetchStatus)) {
     return <></>;

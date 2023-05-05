@@ -75,17 +75,12 @@ export const FinancialEventEntry = ({activeKey, entry, isLatest}: Props) => {
         </Row>
       </Accordion.Header>
       <Accordion.Body>
-        {
-          activeKey === id.toString() &&
-          <>
-            <p>{addSpaceBetweenAsciiAndNon(description)}</p>
-            <Row>
-              <Col>
-                <FinancialEventHistory symbol={symbol}/>
-              </Col>
-            </Row>
-          </>
-        }
+        <p>{addSpaceBetweenAsciiAndNon(description)}</p>
+        <Row>
+          <Col>
+            <FinancialEventHistory symbol={symbol} isShown={activeKey === id.toString()}/>
+          </Col>
+        </Row>
       </Accordion.Body>
     </Accordion.Item>
   );
