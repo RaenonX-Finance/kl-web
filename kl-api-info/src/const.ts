@@ -2,7 +2,7 @@ import {buildGrpcService} from 'kl-api-common/init/grpc/build';
 import {buildRestApi} from 'kl-api-common/init/rest/build/main';
 import {registerTokenCheck} from 'kl-api-common/init/rest/build/middleware';
 import {buildSocketIoServer} from 'kl-api-common/init/socket/build';
-import {InfoSocketS2CEvents} from 'kl-web-common/models/socket/events';
+import {InfoSocketC2SEvents, InfoSocketS2CEvents} from 'kl-web-common/models/socket/events';
 
 import {LogDir} from './env';
 
@@ -15,7 +15,7 @@ export const RestApiServer = buildRestApi({
   },
 });
 
-export const SocketIoServer = buildSocketIoServer<{}, InfoSocketS2CEvents>(RestApiServer.server);
+export const SocketIoServer = buildSocketIoServer<InfoSocketC2SEvents, InfoSocketS2CEvents>(RestApiServer.server);
 
 export const Logger = RestApiServer.log;
 

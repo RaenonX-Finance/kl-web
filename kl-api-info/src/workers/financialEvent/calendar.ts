@@ -26,5 +26,5 @@ export const pollCalendarEvents = async (emitter: InfoSocketEmitter) => {
     return;
   }
 
-  emitter.emit('eventUpdated', financialEvents);
+  emitter.to(dateOnlyToString(date)).emit('eventUpdated', financialEvents);
 };
