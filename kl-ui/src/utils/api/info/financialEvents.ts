@@ -1,5 +1,9 @@
 import {AxiosResponse} from 'axios';
 import {InfoApiPath} from 'kl-web-common/enums/endpoints';
+import {
+  FinancialEventHistoryData,
+  FinancialEventHistoryRequest,
+} from 'kl-web-common/models/api/info/financialEventHistory';
 import {FinancialEventData, FinancialEventsRequest} from 'kl-web-common/models/api/info/financialEvents';
 
 import {infoApiGet} from '../common/get';
@@ -20,5 +24,18 @@ export const apiGetFinancialEvents = ({
     onRetryAttempt,
     onRetrySuccess,
     params,
+  })
+);
+
+type ApiGetEventHistoryOpts = FinancialEventHistoryRequest & ApiRetryableRequestOpts;
+
+export const apiGetEventHistory = ({
+  symbol,
+}: ApiGetEventHistoryOpts): Promise<AxiosResponse<FinancialEventHistoryData>> => (
+  infoApiGet({
+    apiPath: InfoApiPath.FinancialEventHistory,
+    params: {
+      symbol,
+    },
   })
 );

@@ -1,11 +1,12 @@
 import {FinancialEventData, FinancialEventEntryModel} from 'kl-web-common/models/api/info/financialEvents';
+import {ISOTimestampUtc} from 'kl-web-common/types/time';
 import {addDays, dateOnlyToDate, dateOnlyToString} from 'kl-web-common/utils/date';
 
 import {infoFinancialEvents, infoFinancialEventsMeta} from './const';
 import {DataScraperOpts} from './type';
 import {Logger} from '../../const';
 import {FinancialEventsExpirySec} from '../../env';
-import {scrapeFinancialEvents} from '../scraper/financialEvents/main';
+import {scrapeFinancialEvents} from '../scraper/financialEvents/events';
 
 
 type GetFinancialEventsOpts = DataScraperOpts;
@@ -118,7 +119,7 @@ export const getFinancialEvents = async (opts: GetFinancialEventsOpts): Promise<
 
   return dataInDb.map(({date, lastUpdate, ...event}) => ({
     ...event,
-    date: date.toISOString(),
-    lastUpdate: lastUpdate.toISOString(),
+    date: date.toISOString() as ISOTimestampUtc,
+    lastUpdate: lastUpdate.toISOString() as ISOTimestampUtc,
   }));
 };

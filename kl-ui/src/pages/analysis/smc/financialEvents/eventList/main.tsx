@@ -2,6 +2,7 @@ import React, {createRef} from 'react';
 
 import {FinancialEventData} from 'kl-web-common/models/api/info/financialEvents';
 import Accordion from 'react-bootstrap/Accordion';
+import {AccordionEventKey} from 'react-bootstrap/AccordionContext';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
@@ -14,8 +15,14 @@ type FinancialEventListProps = {
 };
 
 export const FinancialEventList = ({data}: FinancialEventListProps) => {
-  const entryRefs = React.useRef<{[id in number]: React.RefObject<HTMLDivElement>}>({});
   const dataToShow = data.filter(({importance, allDayEvent}) => importance !== 'low' && !allDayEvent);
+  const entryRefs = React.useRef<{[id in number]: React.RefObject<HTMLDivElement>}>({});
+
+  React.useEffect(() => {
+    scrollToCurrent();
+  }, [!!entryRefs.current]);
+  // Recording `activeKey` so the according body can be lazily rendered
+  const [activeKey, setActiveKey] = React.useState<AccordionEventKey>(null);
 
   const scrollToCurrent = () => {
     const next = dataToShow.find(({date}) => new Date() < new Date(date));
@@ -24,16 +31,11 @@ export const FinancialEventList = ({data}: FinancialEventListProps) => {
       return;
     }
 
-    console.log(entryRefs.current);
     entryRefs.current[next.id]?.current?.scrollIntoView({
       block: 'center',
       behavior: 'smooth',
     });
   };
-
-  React.useEffect(() => {
-    scrollToCurrent();
-  }, [!!entryRefs.current]);
 
   if (!dataToShow.length) {
     return (
@@ -47,10 +49,10 @@ export const FinancialEventList = ({data}: FinancialEventListProps) => {
 
   return (
     <>
-      <Accordion flush>
+      <Accordion flush onSelect={(eventKey) => setActiveKey(eventKey)}>
         {dataToShow.map((entry) => (
           <div key={entry.id} ref={entryRefs.current[entry.id]}>
-            <FinancialEventEntry key={entry.id} entry={entry}/>
+            <FinancialEventEntry key={entry.id} entry={entry} activeKey={activeKey}/>
           </div>
         ))}
       </Accordion>

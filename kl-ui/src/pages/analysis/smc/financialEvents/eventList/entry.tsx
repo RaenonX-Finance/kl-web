@@ -2,11 +2,13 @@ import React from 'react';
 
 import format from 'date-fns/format';
 import Accordion from 'react-bootstrap/Accordion';
+import {AccordionEventKey} from 'react-bootstrap/AccordionContext';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {accordionStyles} from './const';
 import {FinancialEventCountdown} from './countdown';
+import {FinancialEventHistory} from './history/chart';
 import {FinancialEventLastUpdate} from './lastUpdate';
 import styles from './main.module.scss';
 import {FinancialEventEntryProps} from './type';
@@ -16,9 +18,14 @@ import {countryToEmoji} from '../../../../../static/countryFlag/const';
 import {addSpaceBetweenAsciiAndNon} from '../../../../../utils/string';
 
 
-export const FinancialEventEntry = ({entry}: FinancialEventEntryProps) => {
+type Props = FinancialEventEntryProps & {
+  activeKey: AccordionEventKey,
+};
+
+export const FinancialEventEntry = ({activeKey, entry}: Props) => {
   const {
     id,
+    symbol,
     date,
     country,
     title,
@@ -64,7 +71,17 @@ export const FinancialEventEntry = ({entry}: FinancialEventEntryProps) => {
         </Row>
       </Accordion.Header>
       <Accordion.Body>
-        <p className="m-0">{addSpaceBetweenAsciiAndNon(description)}</p>
+        {
+          activeKey === id.toString() &&
+          <>
+            <p>{addSpaceBetweenAsciiAndNon(description)}</p>
+            <Row>
+              <Col>
+                <FinancialEventHistory symbol={symbol}/>
+              </Col>
+            </Row>
+          </>
+        }
       </Accordion.Body>
     </Accordion.Item>
   );

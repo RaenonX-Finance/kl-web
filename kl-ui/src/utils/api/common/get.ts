@@ -29,6 +29,13 @@ export const accountApiGet = <R>(opts: ApiGetOpts): Promise<AxiosResponse<R, URL
   });
 };
 
+export const dailyFxApiGet = <R>(opts: ApiGetOpts): Promise<AxiosResponse<R, URLSearchParams>> => {
+  return apiGet({
+    apiUrl: 'https://www.dailyfxasia.com/cn/calendar',
+    ...opts,
+  });
+};
+
 type ApiGetCommonOpts = ApiGetOpts & {
   apiUrl?: string,
   isTimeoutRetry?: boolean,
