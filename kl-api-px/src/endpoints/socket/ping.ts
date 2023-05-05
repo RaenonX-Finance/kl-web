@@ -1,4 +1,4 @@
-import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/events';
 import {Socket} from 'socket.io';
 
 import {Logger} from '../../const';

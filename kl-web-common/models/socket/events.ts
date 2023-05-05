@@ -1,5 +1,6 @@
 import {MarketPxSubscriptionData} from './marketData';
 import {MinChangeData} from './minChange';
+import {FinancialEventData} from '../api/info/financialEvents';
 import {PxHistory} from '../api/px/pxHistory';
 import {PxMarketForTransmit} from '../api/px/pxMarket';
 
@@ -17,4 +18,9 @@ export type PxSocketC2SEvents = {
   subscribe: (data: MarketPxSubscriptionData) => void,
   unsubscribe: (data: MarketPxSubscriptionData) => void,
   ping: () => void,
+};
+
+export type InfoSocketS2CEvents = {
+  eventUpdated: (data: FinancialEventData) => void,
+  latestUpdated: (data: FinancialEventData) => void,
 };

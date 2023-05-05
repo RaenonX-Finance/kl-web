@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {PxSocketS2CEvents} from 'kl-web-common/models/socket/data';
+import {PxSocketS2CEvents} from 'kl-web-common/models/socket/events';
 import {useSession} from 'next-auth/react';
 
 import {usePxInitHandler} from './init';

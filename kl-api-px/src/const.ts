@@ -1,10 +1,11 @@
+import {RedisDbId} from 'kl-api-common/enums/redisDb';
 import {buildGrpcService} from 'kl-api-common/init/grpc/build';
 import {buildRestApi} from 'kl-api-common/init/rest/build/main';
+import {buildSocketIoServer} from 'kl-api-common/init/socket/build';
+import {PxSocketC2SEvents, PxSocketS2CEvents} from 'kl-web-common/models/socket/events';
 import {createClient} from 'redis';
 
-import {RedisDbId} from './enums/redisDb';
 import {LogDir} from './env';
-import {buildSocketIoServer} from './init/socket/build';
 
 
 export const RestApiServer = buildRestApi({
@@ -12,7 +13,9 @@ export const RestApiServer = buildRestApi({
   logDir: LogDir,
 });
 
-export const SocketIoServer = buildSocketIoServer(RestApiServer.server);
+export const SocketIoServer = buildSocketIoServer<PxSocketC2SEvents, PxSocketS2CEvents>(
+  RestApiServer.server,
+);
 
 export const GrpcService = buildGrpcService();
 

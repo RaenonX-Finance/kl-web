@@ -1,11 +1,18 @@
 import * as http from 'http';
 
-import {CorsAllowedOrigins} from 'kl-api-common/env';
 import {Server} from 'socket.io';
+import {EventsMap} from 'socket.io/dist/typed-events';
+
+import {CorsAllowedOrigins} from '../../env';
 
 
-export const buildSocketIoServer = (server: http.Server): Server => {
-  return new Server(server, {
+export const buildSocketIoServer = <
+  C2SEvents extends EventsMap,
+  S2CEvents extends EventsMap
+>(
+  server: http.Server,
+): Server<C2SEvents, S2CEvents> => {
+  return new Server<C2SEvents, S2CEvents>(server, {
     transports: ['websocket', 'polling'],
     cors: {
       origin: CorsAllowedOrigins,

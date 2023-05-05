@@ -8,9 +8,11 @@ dotenv.config();
 require('newrelic');
 
 
+import {RedisDbId} from 'kl-api-common/enums/redisDb';
 import {runFastify} from 'kl-api-common/init/rest/run';
+import {setupSocketIoServer} from 'kl-api-common/init/socket/setup';
 
-import {Logger, RestApiServer} from './const';
+import {Logger, RestApiServer, SocketIoServer} from './const';
 import {initMongoDataCache} from './controllers/mongo/cached/init';
 import {ApiHost, ApiPort} from './env';
 import {bindGrpcCalls} from './init/grpc/calls';
@@ -19,14 +21,16 @@ import {initRedis} from './init/redis/main';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
 import {addFastifyHooks} from './init/rest/hooks';
 import {bindSocketEvents} from './init/socket/events';
-import {setupSocketIoServer} from './init/socket/setup';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
   await Promise.all([initMongoDataCache(), initRedis()]);
 
-  const {emitter} = await setupSocketIoServer();
+  const {emitter} = await setupSocketIoServer({
+    database: RedisDbId.SocketIoPxApiCluster,
+    server: SocketIoServer,
+  });
 
   await bindGrpcCalls(emitter);
   bindRestEndpointHandlers();
