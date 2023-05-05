@@ -69,3 +69,7 @@ export type FinancialEventsMetaModel = {
   date: DateOnly,
   lastUpdate: Date,
 };
+
+export type LatestEventsMetaModel = {
+  lastUpdate: Date,
+};
