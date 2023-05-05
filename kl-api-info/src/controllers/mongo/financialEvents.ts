@@ -6,7 +6,7 @@ import {addDays, dateOnlyToDate, dateOnlyToString} from 'kl-web-common/utils/dat
 import {infoFinancialEvents, infoFinancialEventsMeta} from './const';
 import {DataScraperOpts} from './type';
 import {Logger} from '../../const';
-import {FinancialEventsExpirySec} from '../../env';
+import {FinancialEventsOnDemandExpirySec} from '../../env';
 import {scrapeFinancialEvents} from '../scraper/financialEvents/events';
 
 
@@ -112,8 +112,7 @@ export const getFinancialEvents = async (opts: GetFinancialEventsOpts): Promise<
   } else {
     const meta = await infoFinancialEventsMeta.findOne({date});
 
-    // TODO: Change `FinancialEventsExpirySec` to DB refetch threshold (naming)
-    if (!meta || (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 > FinancialEventsExpirySec) {
+    if (!meta || (new Date().getTime() - meta.lastUpdate.getTime()) / 1000 > FinancialEventsOnDemandExpirySec) {
       dataAvailable = await scrapeFinancialEventsToDb(opts);
     } else {
       dataAvailable = true;
