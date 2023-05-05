@@ -12,11 +12,11 @@ export const SmcLayout = ({children}: React.PropsWithChildren<{}>) => {
     <ProtectedLayout>
       <Container className="mt-3">
         <Row>
-          <Col xs={1}/>
+          <Col md={1}/>
           <Col>
             {children}
           </Col>
-          <Col xs={1}/>
+          <Col md={1}/>
         </Row>
       </Container>
     </ProtectedLayout>
