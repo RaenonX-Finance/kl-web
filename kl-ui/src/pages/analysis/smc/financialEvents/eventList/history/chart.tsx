@@ -68,7 +68,7 @@ export const FinancialEventHistory = ({symbol, isShown}: Props) => {
                 stroke="#81858A"
                 // Default min domain is 0 - which in some economic data is not a good min
                 domain={['auto', 'auto']}
-                width={25}
+                width={40}
               />
               <Tooltip
                 wrapperStyle={{outline: 'none'}}
