@@ -6,27 +6,29 @@ import {PxMarketForTransmit} from '../api/px/pxMarket';
 import {DateOnly} from '../dateOnly';
 
 
-export type PxSocketS2CEvents = {
+export type PingableSocketEventMap = {
+  ping: () => void,
+};
+
+export type PxSocketS2CEvents = PingableSocketEventMap & {
   market: (data: PxMarketForTransmit) => void,
   minChange: (data: MinChangeData) => void,
   calculated: (data: PxHistory) => void,
   marketDateCutoff: (symbols: string[]) => void,
   error: (message: string) => void,
-  ping: () => void,
 };
 
-export type PxSocketC2SEvents = {
+export type PxSocketC2SEvents = PingableSocketEventMap & {
   subscribe: (data: MarketPxSubscriptionData) => void,
   unsubscribe: (data: MarketPxSubscriptionData) => void,
-  ping: () => void,
 };
 
-export type InfoSocketC2SEvents = {
+export type InfoSocketC2SEvents = PingableSocketEventMap & {
   subscribe: (date: DateOnly) => void,
   unsubscribe: (date: DateOnly) => void,
 };
 
-export type InfoSocketS2CEvents = {
+export type InfoSocketS2CEvents = PingableSocketEventMap & {
   eventUpdated: (data: FinancialEventData) => void,
   latestUpdated: (data: FinancialEventData) => void,
 };

@@ -1,8 +1,8 @@
 import {sioDisconnectHandler} from 'kl-api-common/endpoints/socket/disconnect';
 import {sioErrorHandler} from 'kl-api-common/endpoints/socket/error';
+import {sioPingHandler} from 'kl-api-common/endpoints/socket/ping';
 
 import {Logger, SocketIoServer} from '../../const';
-import {sioPingHandler} from '../../endpoints/socket/ping';
 import {sioSubscribeHandler, sioUnsubscribeHandler} from '../../endpoints/socket/subscription';
 
 
@@ -17,7 +17,7 @@ export const bindSocketEvents = () => {
     // Custom event
     serverSocket.on('subscribe', sioSubscribeHandler(serverSocket));
     serverSocket.on('unsubscribe', sioUnsubscribeHandler(serverSocket));
-    serverSocket.on('ping', sioPingHandler(serverSocket));
+    serverSocket.on('ping', sioPingHandler(serverSocket, Logger));
 
     Logger.info(logObj, 'Socket `%s` connected', logObj.session);
   });

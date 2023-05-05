@@ -18,6 +18,8 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
   ref,
 ) => {
   const [show, setShow] = React.useState(false);
+  // Info socket not added here because this component is rendered only on chart page now,
+  // and info socket is not needed in the charting page
   const accountSocket = React.useContext(AccountSocketContext);
   const accountPing = usePingSocket({
     socket: accountSocket,
@@ -48,7 +50,7 @@ export const SocketPingableTimeAgo = React.forwardRef<HTMLSpanElement, TimeAgoPr
   return (
     <>
       <TimeAgo {...props} ref={ref} onClick={onOpen}/>
-      <Modal show={show} onHide={onClose} centered>
+      <Modal size="lg" show={show} onHide={onClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>延遲測試</Modal.Title>
         </Modal.Header>
