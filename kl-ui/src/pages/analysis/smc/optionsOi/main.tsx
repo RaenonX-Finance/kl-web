@@ -25,7 +25,7 @@ export const SmcOptionsOi = () => {
           token,
           ...date,
         })}
-        render={(data) => <OptionsOiChart data={data}/>}
+        render={({data}) => <OptionsOiChart data={data}/>}
       />
     </SmcLayout>
   );

@@ -13,8 +13,7 @@ div.label-overlap-fix[class*=form-floating]::before {
   height: 2rem;
 }
 div.label-overlap-fix[class*=form-floating] > [class*=form-control] {
-  padding-top: 2rem;
-  /* height of pseudo element */
+  padding-top: 2rem; /* height of pseudo element */
 }
 div.label-overlap-fix-disabled[class*=form-floating]::before {
   background-color: #323232;

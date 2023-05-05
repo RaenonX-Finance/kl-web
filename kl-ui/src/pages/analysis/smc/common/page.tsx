@@ -2,6 +2,7 @@ import React from 'react';
 
 import {AxiosResponse} from 'axios';
 import {InfoRequest} from 'kl-web-common/models/api/info/common';
+import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {toDateOnly} from 'kl-web-common/utils/date';
 import {useSession} from 'next-auth/react';
 import Alert from 'react-bootstrap/Alert';
@@ -9,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {InfoRequestMaker} from './request';
+import {SmcPageRenderProps} from './type';
 import {MainLoading} from '../../../../components/common/loading/main';
 import {errorDispatchers} from '../../../../state/error/dispatchers';
 import {ErrorDispatcherName} from '../../../../state/error/types';
@@ -22,7 +24,7 @@ type SmcPageProps<D, P> = {
   initialData: D,
   apiFuncGetData: (payload: P, opts: ApiRetryableRequestOpts) => Promise<AxiosResponse<D>>,
   getPayload: (token: string, request: InfoRequest) => P,
-  render: (data: D) => React.ReactNode,
+  render: (props: SmcPageRenderProps<D>) => React.ReactNode,
 };
 
 export const SmcPage = <D, P>({
@@ -34,9 +36,11 @@ export const SmcPage = <D, P>({
 }: SmcPageProps<D, P>) => {
   const {data: session} = useSession();
   const dispatch = useDispatch();
+  const [date, setDate] = React.useState<DateOnly>(toDateOnly(new Date()));
   const {
     fetchStatus,
     fetchFunction: fetchData,
+    setFetchStatus: setData,
   } = useFetchState<D, P>(
     initialData,
     (payload) => apiFuncGetData(
@@ -50,6 +54,7 @@ export const SmcPage = <D, P>({
     ),
     `無法獲取${dataName}。`,
   );
+
   const {fetching, fetchError, data} = fetchStatus;
   const token = session?.user.token;
 
@@ -75,6 +80,8 @@ export const SmcPage = <D, P>({
           <Col>
             <InfoRequestMaker
               loading={fetching}
+              date={date}
+              setDate={setDate}
               fetchFunc={(request) => fetchData({
                 force: true,
                 payload: getPayload(token, request),
@@ -92,7 +99,7 @@ export const SmcPage = <D, P>({
             </Alert> :
             <Row>
               <Col>
-                {render(data)}
+                {render({data, date, setData})}
               </Col>
             </Row>
       }

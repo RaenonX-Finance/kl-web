@@ -49,21 +49,54 @@ span.actual-value {
 
 div.event-item-low {
   --bs-accordion-active-color: #fcfcfc;
-  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-active-bg: #0c3d23;
+  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-btn-color: #25c470;
+}
+div.event-item-low.latest-item > h2 > button {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-low;
+}
+@keyframes latest-item-animation-low {
+  from {
+    background-color: inherit;
+  }
+  to {
+    background-color: #0c3d23;
+  }
 }
 div.event-item-medium {
   --bs-accordion-active-color: #fcfcfc;
-  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-active-bg: #47340a;
+  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-btn-color: #edae26;
+}
+div.event-item-medium.latest-item > h2 > button {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-medium;
+}
+@keyframes latest-item-animation-medium {
+  from {
+    background-color: inherit;
+  }
+  to {
+    background-color: #47340a;
+  }
 }
 div.event-item-high {
   --bs-accordion-active-color: #fcfcfc;
-  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-active-bg: #54151b;
+  --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-btn-color: #fc5c6b;
+}
+div.event-item-high.latest-item > h2 > button {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-high;
+}
+@keyframes latest-item-animation-high {
+  from {
+    background-color: inherit;
+  }
+  to {
+    background-color: #54151b;
+  }
 }
 div.date {
   align-self: end;

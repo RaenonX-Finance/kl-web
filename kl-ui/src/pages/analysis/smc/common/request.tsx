@@ -2,8 +2,9 @@ import React from 'react';
 
 import format from 'date-fns/format';
 import {InfoRequest} from 'kl-web-common/models/api/info/common';
+import {DateOnly} from 'kl-web-common/models/dateOnly';
 import {ISODateString} from 'kl-web-common/types/time';
-import {dateOnlyToString, stringToDateOnly, toDateOnly} from 'kl-web-common/utils/date';
+import {dateOnlyToString, stringToDateOnly} from 'kl-web-common/utils/date';
 import {useSession} from 'next-auth/react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -12,19 +13,17 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './main.module.scss';
 
 
-type Props<T extends InfoRequest> = {
+type Props = {
   loading: boolean,
-  fetchFunc: (request: T) => void
+  date: DateOnly,
+  setDate: (date: DateOnly) => void,
+  fetchFunc: (request: InfoRequest) => void,
 };
 
-export const InfoRequestMaker = <T extends InfoRequest>({loading, fetchFunc}: Props<T>) => {
+export const InfoRequestMaker = ({loading, date, setDate, fetchFunc}: Props) => {
   const {data} = useSession();
-  const [request, setRequest] = React.useState<T>({
-    ...toDateOnly(new Date()),
-    forceScrape: false,
-  } as T);
-  const {forceScrape} = request;
-  const dateString = dateOnlyToString(request);
+  const [forceScrape, setForceScrape] = React.useState(false);
+  const dateString = dateOnlyToString(date);
 
   return (
     <InputGroup>
@@ -39,7 +38,7 @@ export const InfoRequestMaker = <T extends InfoRequest>({loading, fetchFunc}: Pr
             // > because of the timezone difference
             format(new Date(target.value), 'yyyy-MM-dd');
 
-            setRequest({...request, ...stringToDateOnly(target.value as ISODateString)});
+            setDate(stringToDateOnly(target.value as ISODateString));
           } catch (e) {
             // Date string is invalid
             return;
@@ -50,12 +49,12 @@ export const InfoRequestMaker = <T extends InfoRequest>({loading, fetchFunc}: Pr
         data?.user.isAdmin &&
         <Button
           variant="outline-danger" active={forceScrape} disabled={loading} className={styles['force-scrape']}
-          onClick={() => setRequest({...request, forceScrape: !forceScrape})}
+          onClick={() => setForceScrape((original) => !original)}
         >
           強制更新
         </Button>
       }
-      <Button variant="outline-light" disabled={loading} onClick={() => fetchFunc(request)}>
+      <Button variant="outline-light" disabled={loading} onClick={() => fetchFunc({...date, forceScrape})}>
         <i className="bi bi-search"/>
       </Button>
     </InputGroup>

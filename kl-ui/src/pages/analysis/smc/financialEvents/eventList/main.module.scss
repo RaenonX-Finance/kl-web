@@ -64,31 +64,35 @@ span {
 }
 
 div {
-  @mixin event-item {
-    --bs-accordion-active-color: #fcfcfc;
-    --bs-accordion-btn-focus-box-shadow: none;
+  @mixin event-item($importance, $bg-color, $text-color) {
+    &.event-item-#{$importance} {
+      --bs-accordion-active-color: #fcfcfc;
+      --bs-accordion-active-bg: #{$bg-color};
+      --bs-accordion-btn-focus-box-shadow: none;
+      --bs-accordion-btn-color: #{$text-color};
+
+      &.latest-item {
+        // `& > h2 > button` links to bootstrap accordion button for styling background color
+        & > h2 > button {
+          @keyframes latest-item-animation-#{$importance} {
+            from {
+              background-color: inherit;
+            }
+
+            to {
+              background-color: #{$bg-color};
+            }
+          }
+
+          animation: 1.2s ease-in-out infinite alternate latest-item-animation-#{$importance};
+        }
+      }
+    }
   }
 
-  &.event-item-low {
-    @include event-item;
-
-    --bs-accordion-active-bg: #0c3d23;
-    --bs-accordion-btn-color: #25c470;
-  }
-
-  &.event-item-medium {
-    @include event-item;
-
-    --bs-accordion-active-bg: #47340a;
-    --bs-accordion-btn-color: #edae26;
-  }
-
-  &.event-item-high {
-    @include event-item;
-
-    --bs-accordion-active-bg: #54151b;
-    --bs-accordion-btn-color: #fc5c6b;
-  }
+  @include event-item(low, #0c3d23, #25c470);
+  @include event-item(medium, #47340a, #edae26);
+  @include event-item(high, #54151b, #fc5c6b);
 
   &.date {
     align-self: end;

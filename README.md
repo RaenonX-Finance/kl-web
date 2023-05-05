@@ -33,6 +33,8 @@ Needs to be the same as `FASTAPI_AUTH_SECRET` of Account API.
 
 `NEXT_PUBLIC_PX_API_URL`: Account REST API URL. Should NOT end with slash `/`.
 
+`NEXT_PUBLIC_INFO_SOCKET_URL`: Info socket URL. Can be either `wss://` or `https://`.
+
 `NEXT_PUBLIC_INFO_API_URL`: Info REST API URL. Should NOT end with slash `/`.
 
 `NEW_RELIC_LICENSE_KEY`: New Relic license key.

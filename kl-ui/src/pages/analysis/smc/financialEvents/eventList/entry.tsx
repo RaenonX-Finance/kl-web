@@ -20,9 +20,10 @@ import {addSpaceBetweenAsciiAndNon} from '../../../../../utils/string';
 
 type Props = FinancialEventEntryProps & {
   activeKey: AccordionEventKey,
+  isLatest: boolean,
 };
 
-export const FinancialEventEntry = ({activeKey, entry}: Props) => {
+export const FinancialEventEntry = ({activeKey, entry, isLatest}: Props) => {
   const {
     id,
     symbol,
@@ -39,7 +40,10 @@ export const FinancialEventEntry = ({activeKey, entry}: Props) => {
   const lastUpdateObj = new Date(lastUpdate);
 
   return (
-    <Accordion.Item className={accordionStyles[importance]} eventKey={id.toString()}>
+    <Accordion.Item
+      className={`${accordionStyles[importance]} ${isLatest ? styles['latest-item'] : ''}`}
+      eventKey={id.toString()}
+    >
       <Accordion.Header>
         <Row className="g-2 g-md-3 w-100">
           <Col md="auto">
