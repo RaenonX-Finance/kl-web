@@ -10,11 +10,25 @@ type ScrapeFinancialEventsOpts = {
   date: DateOnly,
 };
 
-export const scrapeFinancialEvents = async ({date}: ScrapeFinancialEventsOpts): Promise<FinancialEventData> => {
+export const scrapeFinancialEvents = async (opts: ScrapeFinancialEventsOpts): Promise<FinancialEventData> => {
+  const {date} = opts;
   const dateString = dateOnlyToString(date);
-  const response = await fetch(
-    `https://www.dailyfxasia.com/cn/calendar/events/${dateString}`,
-  );
+  let response;
+
+  try {
+    response = await fetch(
+      `https://www.dailyfxasia.com/cn/calendar/events/${dateString}`,
+    );
+  } catch (error) {
+    Logger.error(
+      {date, error},
+      'Caught error when trying to fetch financial events at %s (%s) - retry in 5s',
+      dateString, error,
+    );
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    return scrapeFinancialEvents(opts);
+  }
 
   if (!response.ok) {
     Logger.error({date}, 'Financial events at %s unavailable', dateString);
