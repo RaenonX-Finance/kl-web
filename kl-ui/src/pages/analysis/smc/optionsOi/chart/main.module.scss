@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "../../../../../../styles/colors";
+@use "../../../../../../styles/table";
 
 @mixin text-glow-animation($side, $color) {
   @keyframes text-glow-animation-#{$side} {
@@ -161,8 +162,7 @@ div {
   }
 
   &.chart-container {
-    background-color: colors.$color-bw-20;
-    padding: 0.5rem;
+    @include table.striped-table-container;
 
     & > table.oi-chart {
       & > tbody {
@@ -247,10 +247,6 @@ div {
             }
           }
         }
-
-        & > tr:nth-of-type(odd) > td {
-          background-color: #202020;
-        }
       }
 
       & > thead > tr > th {
@@ -278,10 +274,6 @@ div {
         }
       }
     }
-  }
-
-  &.chart-tab {
-    cursor: pointer;
   }
 
   @include oi-max-div(call, colors.$color-up);

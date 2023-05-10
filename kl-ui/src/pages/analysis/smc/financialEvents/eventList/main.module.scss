@@ -30,8 +30,6 @@ span {
   }
 
   &.title {
-    display: flex;
-    align-self: center;
     font-size: 1.15rem;
   }
 
@@ -57,35 +55,30 @@ span {
     color: colors.$color-bw-170;
     font-size: 0.8rem;
   }
-
-  &.actual-value {
-    font-size: 1.15rem;
-  }
 }
 
 div {
-  @mixin event-item($importance, $bg-color, $text-color) {
+  @mixin event-item($importance, $active-bg-color, $text-color) {
     &.event-item-#{$importance} {
-      --bs-accordion-active-color: #fcfcfc;
-      --bs-accordion-active-bg: #{$bg-color};
-      --bs-accordion-btn-focus-box-shadow: none;
-      --bs-accordion-btn-color: #{$text-color};
+      $bg-default: colors.$color-bw-20;
+
+      background-color: #{$bg-default};
+      color: #{$text-color};
 
       &.latest-item {
-        // `& > h2 > button` links to bootstrap accordion button for styling background color
-        & > h2 > button {
-          @keyframes latest-item-animation-#{$importance} {
-            from {
-              background-color: inherit;
-            }
-
-            to {
-              background-color: #{$bg-color};
-            }
+        @keyframes latest-item-animation-#{$importance} {
+          from {
+            background-color: #{$bg-default};
+            color: #{$text-color};
           }
 
-          animation: 1.2s ease-in-out infinite alternate latest-item-animation-#{$importance};
+          to {
+            background-color: #{$active-bg-color};
+            color: #fcfcfc;
+          }
         }
+
+        animation: 1.2s ease-in-out infinite alternate latest-item-animation-#{$importance};
       }
     }
   }
@@ -96,7 +89,6 @@ div {
 
   &.date {
     align-self: end;
-    font-size: 0.85rem;
   }
 
   &.countdown {
@@ -112,19 +104,47 @@ div {
 
   &.values {
     align-self: center;
-    margin-right: 1rem;
     text-align: end;
+
+    // This is needed for correct display in portrait
+    width: 100%;
+  }
+
+  @mixin event-values {
+    text-align: center;
+
+    & > span {
+      &.value-title {
+        white-space: nowrap;
+        font-size: 0.9rem;
+      }
+
+      &.value-number {
+        white-space: nowrap;
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &.actual-value {
+    @include event-values;
+
+    & > span.value-number {
+      @keyframes value-number-glow {
+        from {
+          text-shadow: 0 0 0.15rem, 0 0 0.15rem;
+        }
+
+        to {
+          text-shadow: none;
+        }
+      }
+
+      animation: value-number-glow 1.2s ease-in-out infinite alternate;
+    }
   }
 
   &.sub-values {
-    & > small {
-      font-size: 0.85rem;
-      margin: 0.25rem 0.2rem;
-      white-space: nowrap;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
+    @include event-values;
   }
 }

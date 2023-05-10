@@ -8,28 +8,22 @@ import {FinancialEventEntryProps} from './type';
 
 
 export const FinancialEventValues = ({entry}: FinancialEventEntryProps) => {
-  const {previous, forecast, actual, revised} = entry;
+  const {previous, forecast, actual} = entry;
 
   return (
-    <>
-      {
-        actual &&
-        <Row>
-          <Col>
-            實際:&nbsp;<span className={styles['actual-value']}>{actual}</span>
-          </Col>
-        </Row>
-      }
-      {
-        (previous || forecast || revised) &&
-        <Row>
-          <Col className={styles['sub-values']}>
-            {previous && <small>前值:&nbsp;{previous}</small>}
-            {forecast && <small>預測:&nbsp;{forecast}</small>}
-            {revised && <small>修正:&nbsp;{revised}</small>}
-          </Col>
-        </Row>
-      }
-    </>
+    <Row>
+      <Col xs className={styles['actual-value']}>
+        <span className={styles['value-title']}>實際</span>&nbsp;
+        <span className={styles['value-number']}>{actual || '-'}</span>
+      </Col>
+      <Col xs className={styles['sub-values']}>
+        <span className={styles['value-title']}>預測</span>&nbsp;
+        <span className={styles['value-number']}>{forecast || '-'}</span>
+      </Col>
+      <Col xs className={styles['sub-values']}>
+        <span className={styles['value-title']}>前值</span>&nbsp;
+        <span className={styles['value-number']}>{previous || '-'}</span>
+      </Col>
+    </Row>
   );
 };

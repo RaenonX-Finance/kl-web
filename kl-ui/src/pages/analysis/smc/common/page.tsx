@@ -47,12 +47,12 @@ export const SmcPage = <D, P>({
       payload,
       {
         onRetryAttempt: () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
-          message: `${dataName}要求逾時，重試中...`,
+          message: `${dataName} 要求逾時，重試中...`,
         })),
         onRetrySuccess: () => dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]()),
       },
     ),
-    `無法獲取${dataName}。`,
+    `無法獲取 ${dataName}。`,
   );
 
   const {fetching, fetchError, data} = fetchStatus;
@@ -69,7 +69,7 @@ export const SmcPage = <D, P>({
   fetchData({payload: getPayload(token, toDateOnly(new Date()))});
 
   if (isNotFetched(fetchStatus)) {
-    return <MainLoading text={`獲取初始${dataName}中...`}/>;
+    return <MainLoading text={`獲取初始 ${dataName} 中...`}/>;
   }
 
   return (
@@ -95,7 +95,7 @@ export const SmcPage = <D, P>({
           <MainLoading/> :
           fetchError ?
             <Alert variant="danger">
-              獲取{dataName}時發生錯誤。
+              獲取 {dataName} 時發生錯誤。
             </Alert> :
             <Row>
               <Col>

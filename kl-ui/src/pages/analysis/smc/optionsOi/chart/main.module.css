@@ -66,6 +66,9 @@ div.chart-container {
   background-color: #141414;
   padding: 0.5rem;
 }
+div.chart-container > table > tbody > tr:nth-of-type(odd) > td {
+  background-color: #202020 !important;
+}
 div.chart-container > table.oi-chart > tbody > tr > td.oi {
   border: none;
   background-color: #141414;
@@ -268,9 +271,6 @@ div.chart-container > table.oi-chart > tbody > tr.current-strike > td.current-st
     background-color: rgba(80, 80, 80, 0.5);
   }
 }
-div.chart-container > table.oi-chart > tbody > tr:nth-of-type(odd) > td {
-  background-color: #202020;
-}
 div.chart-container > table.oi-chart > thead > tr > th.oi-header {
   border: none;
   padding: 0.25rem 0;
@@ -290,9 +290,6 @@ div.chart-container > table.oi-chart > thead > tr > th.strike-header {
   text-align: center;
   vertical-align: middle;
   width: 8%;
-}
-div.chart-tab {
-  cursor: pointer;
 }
 div.oi-max-call {
   align-self: center;

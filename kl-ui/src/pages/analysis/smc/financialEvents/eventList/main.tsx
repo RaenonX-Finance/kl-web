@@ -2,10 +2,9 @@ import React, {createRef} from 'react';
 
 import {FinancialEventData} from 'kl-web-common/models/api/info/financialEvents';
 import {InfoSocketS2CEvents} from 'kl-web-common/models/socket/events';
-import Accordion from 'react-bootstrap/Accordion';
-import {AccordionEventKey} from 'react-bootstrap/AccordionContext';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import {FinancialEventEntry} from './entry';
 import styles from './main.module.scss';
@@ -20,9 +19,7 @@ export const FinancialEventList = ({data, date, setData}: FinancialEventListProp
 
   const [latestIds, setLatestIds] = React.useState<number[]>([]);
 
-  const entryRefs = React.useRef<{[id in number]: React.RefObject<HTMLDivElement>}>({});
-  // Recording `activeKey` so the according body can be lazily rendered
-  const [activeKey, setActiveKey] = React.useState<AccordionEventKey>(null);
+  const entryRefs = React.useRef<{[id in number]: React.RefObject<HTMLAnchorElement>}>({});
 
   const onLatestUpdated: InfoSocketS2CEvents['latestUpdated'] = React.useCallback((data) => {
     const latestRecord = Object.fromEntries(data.map((data) => [data.id, data]));
@@ -93,18 +90,16 @@ export const FinancialEventList = ({data, date, setData}: FinancialEventListProp
 
   return (
     <>
-      <Accordion flush onSelect={(eventKey) => setActiveKey(eventKey)}>
+      <ListGroup variant="flush">
         {dataToShow.map((entry) => (
-          <div key={entry.id} ref={entryRefs.current[entry.id]}>
-            <FinancialEventEntry
-              key={entry.id}
-              entry={entry}
-              activeKey={activeKey}
-              isLatest={latestIds.includes(entry.id)}
-            />
-          </div>
+          <FinancialEventEntry
+            key={entry.id}
+            entry={entry}
+            isLatest={latestIds.includes(entry.id)}
+            ref={entryRefs.current[entry.id]}
+          />
         ))}
-      </Accordion>
+      </ListGroup>
       <Button className={styles['to-current']} onClick={scrollToCurrent}>
         <i className="bi bi-clock"/>
       </Button>
