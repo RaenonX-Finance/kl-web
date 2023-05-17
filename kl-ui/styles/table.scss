@@ -1,0 +1,12 @@
+@use "colors";
+
+@mixin striped-table-container {
+  background-color: colors.$color-bw-20;
+  padding: 0.5rem;
+
+  & > table > tbody > tr:nth-of-type(odd) > td {
+    // `!important` because table might have class name,
+    // meaning the properties inside have higher priority, overwriting the background color
+    background-color: colors.$color-bw-32 !important;
+  }
+}

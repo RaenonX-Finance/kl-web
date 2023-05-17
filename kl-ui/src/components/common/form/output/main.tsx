@@ -7,7 +7,7 @@ type Props = {
   className?: string,
 };
 
-export const FormLikeOutput = ({label, value, className}: Props) => {
+export const FormLikeOutput = React.memo(({label, value, className}: Props) => {
   return (
     <div className="form-floating">
       <span className={`form-control readonly ${className || ''}`}>
@@ -16,4 +16,6 @@ export const FormLikeOutput = ({label, value, className}: Props) => {
       <label>{label}</label>
     </div>
   );
-};
+});
+
+FormLikeOutput.displayName = 'FormLikeOutput';

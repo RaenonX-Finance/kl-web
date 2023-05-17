@@ -30,6 +30,7 @@ export type ChartObjectRef<T> = {
 };
 
 export type InitChartPayload<T, L, A> = {
+  // Needs to be `ref` because crosshair move event subscription refers chart data
   chartDataRef: React.MutableRefObject<T>,
   setObject: ChartSetStateObjects<L>,
   chartContainer: HTMLDivElement,

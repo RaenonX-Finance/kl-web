@@ -1,12 +1,12 @@
-import {ChartOptions, ColorType, CrosshairMode, DeepPartial} from 'lightweight-charts';
+import {ChartOptions, ColorType, CrosshairMode, DeepPartial, LineStyle} from 'lightweight-charts';
 
 
 export const chartOptions: DeepPartial<ChartOptions> = {
   layout: {
     background: {
       type: ColorType.VerticalGradient,
-      topColor: '#1e1e21',
-      bottomColor: '#000000',
+      topColor: '#18181a',
+      bottomColor: '#010102',
     },
     fontSize: 12,
     textColor: '#d5d5d5',
@@ -21,8 +21,14 @@ export const chartOptions: DeepPartial<ChartOptions> = {
     },
   },
   grid: {
-    vertLines: {color: 'rgba(77, 77, 77, 0.5)'},
-    horzLines: {color: 'rgba(77, 77, 77, 0.5)'},
+    vertLines: {
+      color: 'rgba(77, 77, 77, 0.38)',
+      style: LineStyle.LargeDashed,
+    },
+    horzLines: {
+      color: 'rgba(77, 77, 77, 0.38)',
+      style: LineStyle.LargeDashed,
+    },
   },
   localization: {
     dateFormat: 'yyyy-MM-dd',

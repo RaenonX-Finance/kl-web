@@ -7,7 +7,7 @@ import {AccountUserIcon} from './userIcon';
 import {AccountInfoProps} from '../type';
 
 
-export const AccountId = ({user}: AccountInfoProps) => {
+export const AccountId = React.memo(({user}: AccountInfoProps) => {
   return (
     <Row>
       <Col>
@@ -22,4 +22,6 @@ export const AccountId = ({user}: AccountInfoProps) => {
       </Col>
     </Row>
   );
-};
+});
+
+AccountId.displayName = 'AccountId';

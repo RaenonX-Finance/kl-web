@@ -33,6 +33,7 @@ export type PxChartExtremaSeries = {
 
 export type PxChartLines = {
   srLevelLines: Record<number, Record<number, IPriceLine>>,
+  prevDayClose: IPriceLine | null,
   extrema: PxChartExtremaSeries,
 };
 

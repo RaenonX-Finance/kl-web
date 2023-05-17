@@ -10,7 +10,6 @@ import {ErrorPopup} from '../src/components/popup/error/main';
 import {ReduxProvider} from '../src/state/provider';
 import {store} from '../src/state/store';
 
-import '../styles/bootstrap.scss';
 import '../styles/index.scss';
 import '../styles/scrollbar.scss';
 

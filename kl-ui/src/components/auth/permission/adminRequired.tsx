@@ -3,7 +3,7 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 
-export const AdminRequired = () => {
+export const AdminRequired = React.memo(() => {
   return (
     <div className="h-100 d-flex flex-column align-items-center justify-content-center">
       <Alert variant="danger">
@@ -13,4 +13,6 @@ export const AdminRequired = () => {
       </Alert>
     </div>
   );
-};
+});
+
+AdminRequired.displayName = 'AdminRequired';

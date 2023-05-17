@@ -29,7 +29,8 @@
     "next": "^13.0.7",
     "next-auth": "^4.20.1",
     "pako": "^2.0.4",
-    "pm2": "^5.2.0",
+    "pm2": "^5.3.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-countdown": "^2.3.5",
@@ -38,6 +39,7 @@
     "sass": "^1.49.9",
     "sharp": "^0.30.7",
     "socket.io-client": "^4.6.1",
+    "twemoji": "^14.0.2",
     "use-resize-observer": "^9.0.2"
   },
   "devDependencies": {

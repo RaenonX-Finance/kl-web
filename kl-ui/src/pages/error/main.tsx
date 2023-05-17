@@ -4,7 +4,7 @@ import {ErrorProps} from 'next/error';
 import Alert from 'react-bootstrap/Alert';
 
 
-export const CustomErrorPage = ({statusCode, title}: ErrorProps) => {
+export const CustomErrorPage = React.memo(({statusCode, title}: ErrorProps) => {
   return (
     <Alert variant="danger">
       <Alert.Heading>錯誤</Alert.Heading>
@@ -22,4 +22,6 @@ export const CustomErrorPage = ({statusCode, title}: ErrorProps) => {
       }
     </Alert>
   );
-};
+});
+
+CustomErrorPage.displayName = 'CustomErrorPage';

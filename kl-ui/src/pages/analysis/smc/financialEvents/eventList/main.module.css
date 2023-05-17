@@ -1,0 +1,148 @@
+button.to-current {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border-radius: 50%;
+  padding: 0;
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+}
+
+span.country {
+  align-self: center;
+  display: inline-block;
+  position: relative;
+  object-fit: contain;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-right: 0.5rem;
+}
+span.title {
+  font-size: 1.15rem;
+}
+span.countdown-complete-text {
+  color: #8c8c8c;
+}
+span.countdown-lt-3h-text {
+  animation: 1.2s ease-in-out infinite alternate countdown-lt-3h-text-animation;
+}
+@keyframes countdown-lt-3h-text-animation {
+  from {
+    color: #fcfcfc;
+  }
+  to {
+    color: #c093f3;
+  }
+}
+span.last-update {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+div.event-item-low {
+  background-color: #141414;
+  color: #25c470;
+}
+div.event-item-low.latest-item {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-low;
+}
+@keyframes latest-item-animation-low {
+  from {
+    background-color: #141414;
+    color: #25c470;
+  }
+  to {
+    background-color: #0c3d23;
+    color: #fcfcfc;
+  }
+}
+div.event-item-medium {
+  background-color: #141414;
+  color: #edae26;
+}
+div.event-item-medium.latest-item {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-medium;
+}
+@keyframes latest-item-animation-medium {
+  from {
+    background-color: #141414;
+    color: #edae26;
+  }
+  to {
+    background-color: #47340a;
+    color: #fcfcfc;
+  }
+}
+div.event-item-high {
+  background-color: #141414;
+  color: #fc5c6b;
+}
+div.event-item-high.latest-item {
+  animation: 1.2s ease-in-out infinite alternate latest-item-animation-high;
+}
+@keyframes latest-item-animation-high {
+  from {
+    background-color: #141414;
+    color: #fc5c6b;
+  }
+  to {
+    background-color: #54151b;
+    color: #fcfcfc;
+  }
+}
+div.date {
+  align-self: end;
+}
+div.countdown {
+  align-self: end;
+  font-size: 0.9rem;
+  font-family: "Cascadia Mono", "Calibri", monospace;
+  border-radius: 0.5rem;
+  background-color: #000;
+  margin-top: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+div.values {
+  align-self: center;
+  text-align: end;
+  width: 100%;
+}
+div.actual-value {
+  text-align: center;
+}
+div.actual-value > span.value-title {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+div.actual-value > span.value-number {
+  white-space: nowrap;
+  font-size: 1.25rem;
+}
+div.actual-value > span.value-number {
+  animation: value-number-glow 1.2s ease-in-out infinite alternate;
+}
+@keyframes value-number-glow {
+  from {
+    text-shadow: 0 0 0.15rem, 0 0 0.15rem;
+  }
+  to {
+    text-shadow: none;
+  }
+}
+div.sub-values {
+  text-align: center;
+}
+div.sub-values > span.value-title {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+div.sub-values > span.value-number {
+  white-space: nowrap;
+  font-size: 1.25rem;
+}
+
+/*# sourceMappingURL=main.module.css.map */

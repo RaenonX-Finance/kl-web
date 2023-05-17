@@ -11,11 +11,13 @@ export type AuthLoginPageProps = {
   providers: UnwrapPromise<ReturnType<typeof getProviders>>,
 };
 
-export const AuthLoginPage = ({providers}: AuthLoginPageProps) => {
+export const AuthLoginPage = React.memo(({providers}: AuthLoginPageProps) => {
   return (
     <AuthPage>
       <AuthCustomLoginForm/>
       <AuthLoginProviders providers={providers}/>
     </AuthPage>
   );
-};
+});
+
+AuthLoginPage.displayName = 'AuthLoginPage';

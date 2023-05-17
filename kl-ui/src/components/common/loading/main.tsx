@@ -7,11 +7,13 @@ type Props = {
   text?: string,
 };
 
-export const MainLoading = ({text}: Props) => {
+export const MainLoading = React.memo(({text}: Props) => {
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <Spinner animation="grow"/>&nbsp;
       <span className="h3 m-0">{text || 'Loading...'}</span>
     </div>
   );
-};
+});
+
+MainLoading.displayName = 'MainLoading';

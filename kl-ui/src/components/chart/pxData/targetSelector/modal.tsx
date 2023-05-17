@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {PxUniqueIdentifier} from 'kl-web-common/models/api/px/pxMeta';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -55,9 +56,15 @@ export const TargetSelectorModal = ({slot, show, setShow, token, target, setTarg
       setShow(false);
       setUpdating(false);
 
+      const identifier: PxUniqueIdentifier = `${symbol}@${periodMin}`;
+
       apiInitPxData({
         token,
-        requests: [{identifier: `${symbol}@${periodMin}`}],
+        requests: [{identifier}],
+        onRetryAttempt: () => dispatch(errorDispatchers[ErrorDispatcherName.UPDATE]({
+          message: `${identifier} 的初始報價資料要求逾時，重試中...`,
+        })),
+        onRetrySuccess: () => dispatch(errorDispatchers[ErrorDispatcherName.HIDE_ERROR]()),
       })
         .then(({data}) => dispatch(pxDataDispatchers[PxDataDispatcherName.INIT](data)))
         .catch(onError);

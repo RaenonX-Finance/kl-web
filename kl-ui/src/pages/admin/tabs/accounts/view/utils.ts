@@ -53,7 +53,7 @@ export const filterAccounts = (
   if (status === 'online') {
     accounts = accounts.filter((account) => account.online);
   } else if (status === 'offline') {
-    accounts = accounts.filter((account) => !account.online);
+    accounts = accounts.filter((account) => !account.online && !account.blocked && !isExpired(account.expiry));
   } else if (status === 'expired') {
     accounts = accounts.filter((account) => isExpired(account.expiry));
   } else if (status === 'blocked') {

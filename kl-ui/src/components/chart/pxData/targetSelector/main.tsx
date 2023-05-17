@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 
 import styles from './main.module.scss';
 import {TargetSelectorModal} from './modal';
+import {TargetSelectorSubInfo} from './subInfo';
 import {TargetSelectorCommonProps, TargetState} from './type';
 import {usePeriodDataSelector, useProductDataSelector} from '../../../../state/data/selector';
 
@@ -85,7 +86,7 @@ export const TargetSelector = (props: Props) => {
             {buttonText}
           </Col>
           <Col xs className="text-end">
-            {pxData && products[pxData.contract.symbol]?.sourceInfo.exchangeName}
+            <TargetSelectorSubInfo pxData={pxData}/>
           </Col>
         </Row>
       </Button>

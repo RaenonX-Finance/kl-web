@@ -29,7 +29,7 @@ export const isTokenValid = async (
     });
 
     if (!res.data.ok) {
-      return {ok: false, error: 'Server did not truthy OK'};
+      return {ok: false, error: 'Server did not return truthy OK'};
     }
 
     return res.data;

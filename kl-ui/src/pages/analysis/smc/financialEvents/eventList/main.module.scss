@@ -1,0 +1,150 @@
+@use "../../../../../../styles/colors";
+@use "../../../../../../styles/fonts";
+
+button {
+  &.to-current {
+    position: fixed;
+    bottom: 1rem;
+    right: 2rem;
+    background-color: rgba(0 0 0 / 30%);
+    z-index: 1000;
+    border-radius: 50%;
+    padding: 0;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.5rem;
+  }
+}
+
+span {
+  &.country {
+    $size: 2.25rem;
+
+    align-self: center;
+    display: inline-block;
+    position: relative;
+    object-fit: contain;
+    width: $size;
+    height: $size;
+    margin-right: 0.5rem;
+  }
+
+  &.title {
+    font-size: 1.15rem;
+  }
+
+  &.countdown-complete-text {
+    color: colors.$color-bw-140;
+  }
+
+  &.countdown-lt-3h-text {
+    @keyframes countdown-lt-3h-text-animation {
+      from {
+        color: #fcfcfc;
+      }
+
+      to {
+        color: #c093f3;
+      }
+    }
+
+    animation: 1.2s ease-in-out infinite alternate countdown-lt-3h-text-animation;
+  }
+
+  &.last-update {
+    color: colors.$color-bw-170;
+    font-size: 0.8rem;
+  }
+}
+
+div {
+  @mixin event-item($importance, $active-bg-color, $text-color) {
+    &.event-item-#{$importance} {
+      $bg-default: colors.$color-bw-20;
+
+      background-color: #{$bg-default};
+      color: #{$text-color};
+
+      &.latest-item {
+        @keyframes latest-item-animation-#{$importance} {
+          from {
+            background-color: #{$bg-default};
+            color: #{$text-color};
+          }
+
+          to {
+            background-color: #{$active-bg-color};
+            color: #fcfcfc;
+          }
+        }
+
+        animation: 1.2s ease-in-out infinite alternate latest-item-animation-#{$importance};
+      }
+    }
+  }
+
+  @include event-item(low, #0c3d23, #25c470);
+  @include event-item(medium, #47340a, #edae26);
+  @include event-item(high, #54151b, #fc5c6b);
+
+  &.date {
+    align-self: end;
+  }
+
+  &.countdown {
+    align-self: end;
+    font-size: 0.9rem;
+    font-family: fonts.$font-monospace;
+    border-radius: 0.5rem;
+    background-color: colors.$color-bw-0;
+    margin-top: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  &.values {
+    align-self: center;
+    text-align: end;
+
+    // This is needed for correct display in portrait
+    width: 100%;
+  }
+
+  @mixin event-values {
+    text-align: center;
+
+    & > span {
+      &.value-title {
+        white-space: nowrap;
+        font-size: 0.9rem;
+      }
+
+      &.value-number {
+        white-space: nowrap;
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &.actual-value {
+    @include event-values;
+
+    & > span.value-number {
+      @keyframes value-number-glow {
+        from {
+          text-shadow: 0 0 0.15rem, 0 0 0.15rem;
+        }
+
+        to {
+          text-shadow: none;
+        }
+      }
+
+      animation: value-number-glow 1.2s ease-in-out infinite alternate;
+    }
+  }
+
+  &.sub-values {
+    @include event-values;
+  }
+}

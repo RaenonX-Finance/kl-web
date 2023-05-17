@@ -1,52 +1,36 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {PxHistory} from 'kl-web-common/models/api/px/pxHistory';
 import {PxInitApi} from 'kl-web-common/models/api/px/pxInit';
-import {PxMarket} from 'kl-web-common/models/api/px/pxMarket';
+import {PxMarketForTransmit} from 'kl-web-common/models/api/px/pxMarket';
 
-import {PxCompleteUpdateMeta, PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
+import {generateCompleteUpdateAsyncThunk} from './reducer/utils';
+import {PxDataDispatcherName, PxMarketUpdateMeta, PxSlotMapUpdatePayload} from './types';
 import {generateInitialSlotMap} from './utils';
 import {PxDataMap, PxSlotName} from '../../types/pxData';
 import {overrideObject} from '../../utils/override';
 import {updatePxDataBar} from '../../utils/px';
-import {updateCurrentPxDataTitle} from '../../utils/title';
+import {updateChartPageTitle} from '../../utils/title';
 import {createConfigAsyncThunk, getValidSlotNames} from '../config/utils';
 import {ReduxState} from '../types';
 import {onAsyncThunkError} from '../utils';
 
 
 export const pxDataDispatchers = {
-  [PxDataDispatcherName.INIT]: createAction<PxInitApi>(PxDataDispatcherName.INIT),
-  [PxDataDispatcherName.UPDATE_COMPLETE]: createAsyncThunk<
-    PxHistory,
-    PxHistory,
-    {state: ReduxState, rejectValue: string, fulfilledMeta: PxCompleteUpdateMeta}
-  >(
+  [PxDataDispatcherName.INIT]: generateCompleteUpdateAsyncThunk<PxInitApi>(
+    PxDataDispatcherName.INIT,
+  ),
+  [PxDataDispatcherName.UPDATE_COMPLETE]: generateCompleteUpdateAsyncThunk<PxHistory>(
     PxDataDispatcherName.UPDATE_COMPLETE,
-    async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
-      const {config} = getState();
-      const validSlotNames = getValidSlotNames(config.layoutType);
-
-      if (!validSlotNames) {
-        return onAsyncThunkError({
-          message: `No valid slot names of layout type [${config.layoutType}]`,
-          data: null,
-          rejectWithValue,
-          dispatch,
-        });
-      }
-
-      return fulfillWithValue(payload, {validSlotNames});
-    },
   ),
   [PxDataDispatcherName.UPDATE_MARKET]: createAsyncThunk<
     PxDataMap,
-    PxMarket,
+    PxMarketForTransmit,
     {state: ReduxState, rejectValue: string, fulfilledMeta: PxMarketUpdateMeta}
   >(
     PxDataDispatcherName.UPDATE_MARKET,
     async (payload, {getState, dispatch, rejectWithValue, fulfillWithValue}) => {
       const {config, pxData} = getState();
-      const {sharedConfig} = config;
+      const {layoutType, sharedConfig} = config;
 
       if (!sharedConfig) {
         return onAsyncThunkError({
@@ -83,7 +67,7 @@ export const pxDataDispatchers = {
           // Check if the `pxData` in slot is has the matching security symbol
           !payload.hasOwnProperty(pxDataInSlot.contract.symbol)
         ) {
-          pxDataMap[slot] = {...pxDataInSlot};
+          pxDataMap[slot] = pxDataInSlot;
           continue;
         }
         if (!lastBar) {
@@ -101,15 +85,19 @@ export const pxDataDispatchers = {
         pxDataMap[slot] = {
           ...pxDataInSlot,
           data: pxDataInSlot.data.slice(0, -1).concat([updatePxDataBar(lastBar, latestMarket.c)]),
+          momentum: latestMarket.momentum,
           latestMarket,
         };
       }
 
       if (!updatedAny) {
-        return rejectWithValue('Nothing new from market updated');
+        return rejectWithValue('Nothing new to update for market');
       }
 
-      updateCurrentPxDataTitle(pxData.data);
+      updateChartPageTitle({
+        validSlotNames: getValidSlotNames(layoutType),
+        pxDataMap: pxData.data,
+      });
 
       return fulfillWithValue(pxDataMap, {securities: Object.keys(payload)});
     },

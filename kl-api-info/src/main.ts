@@ -8,20 +8,36 @@ dotenv.config();
 require('newrelic');
 
 
+import {RedisDbId} from 'kl-api-common/enums/redisDb';
 import {runFastify} from 'kl-api-common/init/rest/run';
+import {setupSocketIoServer} from 'kl-api-common/init/socket/setup';
 
-import {Logger, RestApiServer} from './const';
-import {initMongoIndexes} from './controllers/mongo/init';
+import {Logger, SocketIoServer, RestApiServer} from './const';
+import {initMongoDb} from './controllers/mongo/init';
 import {ApiHost, ApiPort} from './env';
+import {bindGrpcCalls} from './init/grpc/calls';
+import {runGrpcServiceAsync} from './init/grpc/run';
 import {bindRestEndpointHandlers} from './init/rest/endpoints';
+import {bindSocketEvents} from './init/socket/events';
+import {scheduleWorker} from './init/worker/main';
 
 // DRAFT: + Implement market session control (or disable for now)
 
 (async () => {
-  await initMongoIndexes();
+  await initMongoDb();
 
+  const {emitter} = await setupSocketIoServer({
+    database: RedisDbId.SocketIoInfoApiCluster,
+    server: SocketIoServer,
+  });
+
+  await bindGrpcCalls();
   bindRestEndpointHandlers();
+  bindSocketEvents();
 
+  scheduleWorker(emitter);
+
+  runGrpcServiceAsync();
   await runFastify({server: RestApiServer, host: ApiHost, port: ApiPort});
 })().catch((error) => {
   Logger.error({error}, `Application start up error (%s)`, error.toString());

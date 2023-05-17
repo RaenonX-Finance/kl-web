@@ -53,15 +53,7 @@ export const getInitPxSingle = async (request: PxRequestModel): Promise<PxInitAp
           strongSr: config.emaStrongSr,
         },
       },
-      latestMarket: {
-        o: last.open,
-        h: last.high,
-        l: last.low,
-        c: last.close,
-        diffVal: last.diff,
-        diffPct: (last.close / last.open - 1) * 100,
-        momentum,
-      },
+      momentum,
     },
   };
 };

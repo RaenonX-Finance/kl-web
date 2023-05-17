@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "../../../../../../styles/colors";
+@use "../../../../../../styles/fonts";
 
 span {
   @mixin badge-common {
@@ -33,7 +34,7 @@ span {
 
 td {
   &.username {
-    font-family: monospace;
+    font-family: fonts.$font-monospace;
   }
 
   &.status-icon {

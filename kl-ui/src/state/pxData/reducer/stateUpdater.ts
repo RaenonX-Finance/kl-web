@@ -3,7 +3,7 @@ import {PxHistorySingle} from 'kl-web-common/models/api/px/pxHistory';
 import {applyTimezoneOffsetOnBars} from './timezoneOffset';
 import {PxStateUpdatePayload} from './type';
 import {PxSlotName} from '../../../types/pxData';
-import {updateCurrentPxDataTitle} from '../../../utils/title';
+import {updateChartPageTitle} from '../../../utils/title';
 import {PxDataState} from '../types';
 
 
@@ -15,7 +15,7 @@ export type StateUpdateFuncOpts<T extends PxHistorySingle> = {
 
 type PxDataStateUpdaterOpts<T extends PxHistorySingle> = {
   state: PxDataState,
-  validSlotNames?: PxSlotName[],
+  validSlotNames: PxSlotName[],
   payload: StateUpdateFuncOpts<T>['payload'][],
   fnUpdateState: (opts: StateUpdateFuncOpts<T>) => void,
 };
@@ -58,5 +58,5 @@ export const pxDataStateUpdater = <T extends PxHistorySingle>({
     });
   });
 
-  updateCurrentPxDataTitle(state.data);
+  updateChartPageTitle({validSlotNames, pxDataMap: state.data});
 };

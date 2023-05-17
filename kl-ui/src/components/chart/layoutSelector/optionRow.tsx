@@ -11,7 +11,7 @@ type Props = {
   icons: (() => React.ReactNode)[],
 };
 
-export const ChartLayoutOptions = ({count, icons}: Props) => {
+export const ChartLayoutOptions = React.memo(({count, icons}: Props) => {
   return (
     <Row className="g-2">
       <Col xs="auto" className="align-self-center">
@@ -24,4 +24,6 @@ export const ChartLayoutOptions = ({count, icons}: Props) => {
       </Col>
     </Row>
   );
-};
+});
+
+ChartLayoutOptions.displayName = 'ChartLayoutOptions';

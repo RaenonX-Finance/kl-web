@@ -7,7 +7,7 @@ import {PermissionLayout} from '../../components/layout/permission';
 import {Panel} from '../../components/panel/main';
 
 
-export const AdminPanel = () => {
+export const AdminPanel = React.memo(() => {
   return (
     <PermissionLayout allowedWithPermissions={managementPermissions}>
       <Panel
@@ -17,4 +17,6 @@ export const AdminPanel = () => {
       />
     </PermissionLayout>
   );
-};
+});
+
+AdminPanel.displayName = 'AdminPanel';

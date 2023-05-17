@@ -1,4 +1,4 @@
-import {SmcAnalysisPanel} from '../../src/pages/analysis/smc/main';
+import {SmcOptionsOi} from '../../src/pages/analysis/smc/optionsOi/main';
 
 
-export default SmcAnalysisPanel;
+export default SmcOptionsOi;

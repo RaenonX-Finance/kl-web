@@ -9,10 +9,10 @@ export const pxDataStateUpdaterOnHistory = <T extends PxHistorySingle>({
   slotName,
   payload,
 }: StateUpdateFuncOpts<T>) => {
-  const originalData = state.data[slotName];
+  const dataInState = state.data[slotName];
   const {data, identifier} = payload;
 
-  if (!originalData) {
+  if (!dataInState) {
     console.warn(`Received px response to update the data of [${identifier}], but it's uninitialized`);
     return;
   }
@@ -22,13 +22,19 @@ export const pxDataStateUpdaterOnHistory = <T extends PxHistorySingle>({
     return;
   }
 
+  const lastInState = dataInState.data.at(-1);
+
+  if (!lastInState) {
+    return;
+  }
+
   state.data[slotName] = {
-    ...originalData,
+    ...dataInState,
     ...data,
     data: mergePxDataBars({
       newBars: data.data,
       original: state.data[slotName]?.data,
-      noLastOverwrite: false,
+      lastInState,
     }),
   };
 };

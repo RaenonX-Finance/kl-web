@@ -9,12 +9,17 @@ import {AccountListView} from './view/main';
 import {UpdateSingleAccount} from './view/type';
 import {MainLoading} from '../../../../components/common/loading/main';
 import {PermissionLayout} from '../../../../components/layout/permission';
+import {PanelTabComponentProps} from '../../../../components/panel/type';
 import {AccountDataMap} from '../../../../types/admin';
 import {apiGetAccountList} from '../../../../utils/api/account/admin';
 import {isNotFetched, useFetchStateProcessed} from '../../../../utils/fetch';
+import {updateAccountViewTitle} from '../../../../utils/title';
 
 
-export const AdminTabAccountView = () => {
+type Props = PanelTabComponentProps;
+
+
+export const AdminTabAccountView = ({isActive}: Props) => {
   const {data} = useSession();
   const [autoUpdate, setAutoUpdate] = React.useState(true);
   const {
@@ -25,14 +30,20 @@ export const AdminTabAccountView = () => {
     {},
     (token: string) => apiGetAccountList({token}),
     '無法獲取帳號清單，請重新登入。',
-    ({data}) => (
-      Object.fromEntries(data.map((account) => [account.id, account])) as AccountDataMap
-    ),
+    ({data}) => {
+      updateAccountViewTitle(data);
+
+      return Object.fromEntries(data.map((account) => [account.id, account])) as AccountDataMap;
+    },
   );
 
   React.useEffect(() => {
-    fetchAccountList({payload: data?.user.token || ''});
-  }, []);
+    if (!isActive) {
+      return;
+    }
+
+    fetchAccountList({force: true, payload: data?.user.token || ''});
+  }, [isActive]);
 
   React.useEffect(() => {
     if (!autoUpdate) {
