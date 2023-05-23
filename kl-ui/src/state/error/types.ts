@@ -11,6 +11,7 @@ export enum ErrorDispatcherName {
 
 export type ErrorState = StateBase & ErrorMessage & {
   show: boolean,
+  timestamp: Date | null,
 };
 
 export type ErrorSelectorReturn = ErrorState;

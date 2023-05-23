@@ -6,7 +6,7 @@ import {SessionProvider} from 'next-auth/react';
 import Container from 'react-bootstrap/Container';
 
 import {Navigation} from '../src/components/nav/main';
-import {ErrorPopup} from '../src/components/popup/error/main';
+import {ErrorToast} from '../src/components/popup/error/main';
 import {ReduxProvider} from '../src/state/provider';
 import {store} from '../src/state/store';
 
@@ -26,7 +26,7 @@ const NextApp = ({
     <React.StrictMode>
       <ReduxProvider reduxStore={store}>
         <SessionProvider session={session}>
-          <ErrorPopup/>
+          <ErrorToast/>
           <Navigation/>
           <div id="body">
             <Container fluid className="h-100 p-0 position-relative">
