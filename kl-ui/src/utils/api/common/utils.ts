@@ -27,7 +27,7 @@ export const getCommonAxiosConfig = <D>({
       ...(token ? {Authorization: `Bearer ${token}`} : {}),
       'Content-Type': contentType || 'application/json',
     },
-    timeout: 7000,
+    timeout: 10000,
     timeoutErrorMessage: `${method} request to \`${apiPath}\` timed out after 10 secs`,
   };
 };
