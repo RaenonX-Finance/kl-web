@@ -47,7 +47,7 @@ const commonOptions: FastifyLoggerOptions & PinoLoggerOptions = {
     res: (reply) => {
       return {
         statusCode: reply.statusCode,
-        url: reply.request.url,
+        url: reply.request?.url ?? '(Unknown URL)',
       };
     },
   },
