@@ -21,11 +21,6 @@ export const navItemsAtLeft: NavItemCollection = [
   },
   {
     type: 'path',
-    path: SmcAnalysisPath.FINANCIAL_EVENTS,
-    text: '財經事件',
-  },
-  {
-    type: 'path',
     path: GeneralPath.ACCOUNT_INFO,
     text: '會員資訊',
   },
