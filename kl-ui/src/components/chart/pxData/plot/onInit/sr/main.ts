@@ -11,13 +11,19 @@ export const handleSR = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlestick'>
   const srLevelLines: PxChartLines['srLevelLines'] = {};
 
   chartDataRef.current.supportResistance.forEach((levels, idx) => {
+    const color = getSrLevelColor(idx);
+
+    if (!color) {
+      return;
+    }
+
     srLevelLines[idx] = handleSrCommon({
       e,
       price,
       keyOfConfig: 'srLevel',
       keyOfConfigLabel: 'srLevelLabel',
       levels,
-      color: getSrLevelColor(idx),
+      color,
       commonOptions: srLevelCommonOptions,
     });
   });

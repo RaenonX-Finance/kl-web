@@ -16,13 +16,18 @@ export const handleSR = (e: OnPxChartUpdatedEvent) => {
       chartObjectRef.current.initData.lines.srLevelLines[idx] = {};
     }
 
+    const color = getSrLevelColor(idx);
+    if (!color) {
+      continue;
+    }
+
     handleSrCommon({
       e,
       keyOfConfig: 'srLevel',
       keyOfConfigLabel: 'srLevelLabel',
       levels,
       lineRecord: chartObjectRef.current.initData.lines.srLevelLines[idx],
-      color: getSrLevelColor(idx),
+      color,
       commonOptions: srLevelCommonOptions,
     });
   }

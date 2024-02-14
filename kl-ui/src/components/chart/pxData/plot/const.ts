@@ -42,8 +42,13 @@ export const srLevelColors = [
   '#1ca8b6',
 ];
 
-export const getSrLevelColor = (idx: number): string => {
-  return srLevelColors[idx % srLevelColors.length];
+export const getSrLevelColor = (idx: number): string | null => {
+  // `idx` beyond available colors meaning invalid data
+  if (idx > srLevelColors.length) {
+    return null;
+  }
+
+  return srLevelColors[idx];
 };
 
 export const srLevelCommonOptions: SrLevelCommonOptions = {
