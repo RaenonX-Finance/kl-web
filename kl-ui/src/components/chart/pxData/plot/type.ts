@@ -4,9 +4,15 @@ import {IChartApi, ISeriesApi, PriceLineOptions} from 'lightweight-charts';
 
 export type ColorOverridder = (bar: PxDataBar) => string;
 
-export type SrLevelCommonOptions = Omit<PriceLineOptions, 'price' | 'color' | 'axisLabelVisible'>;
+export type SrLevelCommonOptions = Omit<
+  PriceLineOptions,
+  'price' | 'color' | 'axisLabelVisible' | 'axisLabelColor' | 'axisLabelTextColor'
+>;
 
-export type ExtremaCommonOptions = Omit<PriceLineOptions, 'price' | 'title' | 'axisLabelVisible' | 'lineVisible'>;
+export type ExtremaCommonOptions = Omit<
+  PriceLineOptions,
+  'price' | 'title' | 'axisLabelVisible' | 'lineVisible' | 'axisLabelColor' | 'axisLabelTextColor'
+>;
 
 export type ExtremaPx = {
   minPx: number,

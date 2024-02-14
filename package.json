@@ -6,7 +6,7 @@
   "license": "ISC",
   "description": "Web-related projects for KL site.",
   "engines": {
-    "node": "18.x",
+    "node": "^18 || ^20",
     "npm": "^9.5.1"
   },
   "workspaces":[

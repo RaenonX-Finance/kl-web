@@ -1,8 +1,13 @@
+@use "sass:color";
 @use "../../../../styles/colors";
 
 div {
-  &.error-modal {
-    background-color: colors.$color-dark-red;
+  &.error {
     overflow-wrap: break-word;
+
+    --bs-toast-bg: #{color.change(colors.$color-dark-danger, $alpha: 0.65)};
+    --bs-toast-color: #{colors.$color-bw-240};
+    --bs-toast-header-bg: #{color.change(colors.$color-dark-danger, $alpha: 0.8)};
+    --bs-toast-header-color: #{colors.$color-bw-240};
   }
 }
